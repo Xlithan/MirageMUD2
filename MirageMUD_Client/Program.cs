@@ -11,7 +11,7 @@ namespace MirageMUD_Client
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new frmEditor_Shop());
+            Application.Run(new frmGame());
         }
     }
 }

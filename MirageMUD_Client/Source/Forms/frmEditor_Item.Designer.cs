@@ -57,7 +57,7 @@
             label10 = new Label();
             label14 = new Label();
             label15 = new Label();
-            btnNewAccConnect = new Button();
+            button2 = new Button();
             button1 = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             pnlSpellData.SuspendLayout();
@@ -67,6 +67,7 @@
             // 
             // lstItems
             // 
+            lstItems.BorderStyle = BorderStyle.FixedSingle;
             lstItems.Dock = DockStyle.Left;
             lstItems.FormattingEnabled = true;
             lstItems.ItemHeight = 15;
@@ -399,37 +400,25 @@
             label15.Text = "Equipment Data";
             label15.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // btnNewAccConnect
+            // button2
             // 
-            btnNewAccConnect.BackColor = Color.FromArgb(45, 45, 45);
-            btnNewAccConnect.BackgroundImageLayout = ImageLayout.None;
-            btnNewAccConnect.FlatAppearance.BorderSize = 0;
-            btnNewAccConnect.FlatStyle = FlatStyle.Flat;
-            btnNewAccConnect.Font = new Font("Nirmala UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnNewAccConnect.ForeColor = Color.Silver;
-            btnNewAccConnect.ImageAlign = ContentAlignment.MiddleLeft;
-            btnNewAccConnect.Location = new Point(162, 264);
-            btnNewAccConnect.Name = "btnNewAccConnect";
-            btnNewAccConnect.Size = new Size(138, 27);
-            btnNewAccConnect.TabIndex = 19;
-            btnNewAccConnect.Text = "Save";
-            btnNewAccConnect.UseVisualStyleBackColor = false;
+            button2.FlatStyle = FlatStyle.Flat;
+            button2.Location = new Point(162, 264);
+            button2.Name = "button2";
+            button2.Size = new Size(138, 27);
+            button2.TabIndex = 21;
+            button2.Text = "Save";
+            button2.UseVisualStyleBackColor = true;
             // 
             // button1
             // 
-            button1.BackColor = Color.FromArgb(45, 45, 45);
-            button1.BackgroundImageLayout = ImageLayout.None;
-            button1.FlatAppearance.BorderSize = 0;
             button1.FlatStyle = FlatStyle.Flat;
-            button1.Font = new Font("Nirmala UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button1.ForeColor = Color.Silver;
-            button1.ImageAlign = ContentAlignment.MiddleLeft;
             button1.Location = new Point(335, 264);
             button1.Name = "button1";
             button1.Size = new Size(138, 27);
-            button1.TabIndex = 20;
+            button1.TabIndex = 22;
             button1.Text = "Cancel";
-            button1.UseVisualStyleBackColor = false;
+            button1.UseVisualStyleBackColor = true;
             // 
             // frmEditor_Item
             // 
@@ -438,7 +427,7 @@
             ClientSize = new Size(483, 300);
             ControlBox = false;
             Controls.Add(button1);
-            Controls.Add(btnNewAccConnect);
+            Controls.Add(button2);
             Controls.Add(label2);
             Controls.Add(cmbType);
             Controls.Add(lblPicture);
@@ -492,9 +481,9 @@
         private Label label10;
         private Label label14;
         private Label label15;
-        private Button btnNewAccConnect;
-        private Button button1;
         private HScrollBar scrlDurability;
         private HScrollBar scrlStrength;
+        private Button button2;
+        private Button button1;
     }
 }

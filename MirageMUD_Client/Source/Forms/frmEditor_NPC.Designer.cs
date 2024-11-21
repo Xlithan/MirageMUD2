@@ -75,14 +75,15 @@
             label25 = new Label();
             label26 = new Label();
             label27 = new Label();
-            btnNewAccConnect = new Button();
             button1 = new Button();
+            button2 = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             pnlEquipData.SuspendLayout();
             SuspendLayout();
             // 
             // lstItems
             // 
+            lstItems.BorderStyle = BorderStyle.FixedSingle;
             lstItems.Dock = DockStyle.Left;
             lstItems.FormattingEnabled = true;
             lstItems.ItemHeight = 15;
@@ -598,37 +599,25 @@
             label27.Text = "Exp Given:";
             label27.TextAlign = ContentAlignment.MiddleRight;
             // 
-            // btnNewAccConnect
-            // 
-            btnNewAccConnect.BackColor = Color.FromArgb(45, 45, 45);
-            btnNewAccConnect.BackgroundImageLayout = ImageLayout.None;
-            btnNewAccConnect.FlatAppearance.BorderSize = 0;
-            btnNewAccConnect.FlatStyle = FlatStyle.Flat;
-            btnNewAccConnect.Font = new Font("Nirmala UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnNewAccConnect.ForeColor = Color.Silver;
-            btnNewAccConnect.ImageAlign = ContentAlignment.MiddleLeft;
-            btnNewAccConnect.Location = new Point(162, 471);
-            btnNewAccConnect.Name = "btnNewAccConnect";
-            btnNewAccConnect.Size = new Size(138, 27);
-            btnNewAccConnect.TabIndex = 41;
-            btnNewAccConnect.Text = "Save";
-            btnNewAccConnect.UseVisualStyleBackColor = false;
-            // 
             // button1
             // 
-            button1.BackColor = Color.FromArgb(45, 45, 45);
-            button1.BackgroundImageLayout = ImageLayout.None;
-            button1.FlatAppearance.BorderSize = 0;
             button1.FlatStyle = FlatStyle.Flat;
-            button1.Font = new Font("Nirmala UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button1.ForeColor = Color.Silver;
-            button1.ImageAlign = ContentAlignment.MiddleLeft;
             button1.Location = new Point(357, 471);
             button1.Name = "button1";
             button1.Size = new Size(138, 27);
             button1.TabIndex = 42;
             button1.Text = "Cancel";
-            button1.UseVisualStyleBackColor = false;
+            button1.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            button2.FlatStyle = FlatStyle.Flat;
+            button2.Location = new Point(162, 471);
+            button2.Name = "button2";
+            button2.Size = new Size(138, 27);
+            button2.TabIndex = 41;
+            button2.Text = "Save";
+            button2.UseVisualStyleBackColor = true;
             // 
             // frmEditor_NPC
             // 
@@ -637,7 +626,7 @@
             ClientSize = new Size(506, 505);
             ControlBox = false;
             Controls.Add(button1);
-            Controls.Add(btnNewAccConnect);
+            Controls.Add(button2);
             Controls.Add(label26);
             Controls.Add(label27);
             Controls.Add(label25);
@@ -728,7 +717,7 @@
         private Label label25;
         private Label label26;
         private Label label27;
-        private Button btnNewAccConnect;
         private Button button1;
+        private Button button2;
     }
 }

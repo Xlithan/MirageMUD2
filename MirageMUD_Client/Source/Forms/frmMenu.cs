@@ -1,3 +1,5 @@
+using DarkModeForms;
+
 namespace MirageMUD_Client
 {
     public partial class frmMenu : Form

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DarkModeForms;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -16,6 +17,7 @@ namespace MirageMUD_Client
         public frmGame()
         {
             InitializeComponent();
+            _ = new DarkModeCS(this);
         }
     }
 }

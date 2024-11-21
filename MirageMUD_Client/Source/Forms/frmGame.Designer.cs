@@ -28,17 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmGame));
             SuspendLayout();
             // 
             // frmGame
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.Fuchsia;
-            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
+            BackColor = SystemColors.Window;
             BackgroundImageLayout = ImageLayout.None;
-            ClientSize = new Size(820, 600);
+            ClientSize = new Size(664, 491);
             FormBorderStyle = FormBorderStyle.FixedToolWindow;
             Name = "frmGame";
             StartPosition = FormStartPosition.CenterScreen;

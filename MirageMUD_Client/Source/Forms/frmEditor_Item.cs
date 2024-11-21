@@ -1,10 +1,13 @@
-﻿namespace MirageMUD_Client
+﻿using DarkModeForms;
+
+namespace MirageMUD_Client
 {
     public partial class frmEditor_Item : Form
     {
         public frmEditor_Item()
         {
             InitializeComponent();
+            _ = new DarkModeCS(this);
         }
 
         private void scrlPic_Scroll(object sender, ScrollEventArgs e)
@@ -52,6 +55,11 @@
         {
             // Set the selected item by index
             cmbType.SelectedIndex = 0; // This selects the first item
+        }
+
+        private void btnNewAccConnect_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
