@@ -1,4 +1,4 @@
-﻿using DarkModeForms;
+﻿using MirageMUD_Client.Source.Utilities;
 
 namespace MirageMUD_Client
 {
