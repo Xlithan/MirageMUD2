@@ -35,7 +35,7 @@ namespace MirageMUD_Client
                 string inputText = txtInput.Text;
 
                 // Build the formatted message to display
-                string formattedMessage = "[color=#EE4B2B]Xlithan: [/color][color=#FFFFFF]" + inputText + "[/color]";
+                string formattedMessage = "[color=#EE4B2B]Xlithan: [/color]" + inputText;
 
                 // Process the input text and apply colors
                 ProcessTextAndColors(formattedMessage);
@@ -51,58 +51,64 @@ namespace MirageMUD_Client
             // Regex to match font, bold, and color tags
             string fontPattern = @"\[font=([^\]]+)\]";
             string boldPattern = @"\[b\]";
+            string boldClosePattern = @"\[/b\]";
+            string fontClosePattern = @"\[/font\]";
             string colorPattern = @"\[color=#([A-Fa-f0-9]{6})\](.*?)\[/color\]";
 
             string resultText = inputText;
 
-            // Process font tags first
+            // Process font tags
             if (Regex.IsMatch(resultText, fontPattern))
             {
-                // Find the font tag and extract the font name
                 Match fontMatch = Regex.Match(resultText, fontPattern);
-                string fontName = fontMatch.Groups[1].Value; // Get font name
+                string fontName = fontMatch.Groups[1].Value;
                 rtbOutput.SelectionFont = new System.Drawing.Font(fontName, rtbOutput.Font.Size);
-                resultText = resultText.Replace(fontMatch.Value, ""); // Remove the font tag
+                resultText = resultText.Replace(fontMatch.Value, "").Replace("[/font]", ""); // Remove both opening and closing font tags
             }
 
             // Process bold tags
             if (Regex.IsMatch(resultText, boldPattern))
             {
-                // If a [b] tag is present, apply bold style
                 rtbOutput.SelectionFont = new System.Drawing.Font(rtbOutput.SelectionFont, FontStyle.Bold);
-                resultText = resultText.Replace("[b]", "").Replace("[/b]", "");
+                resultText = resultText.Replace("[b]", "").Replace("[/b]", ""); // Remove bold tags
             }
 
-            // Regex to match color tags and text within them
+            // Process color tags
             MatchCollection matches = Regex.Matches(resultText, colorPattern);
-            int offset = 0;
+            int currentIndex = 0; // Keeps track of the position in the input text
 
-            // Iterate over the matches and process them
             foreach (Match match in matches)
             {
-                string colorHex = match.Groups[1].Value;  // The color hex code
-                string text = match.Groups[2].Value;      // The text inside the color tag
+                // Append untagged text before the current match
+                if (match.Index > currentIndex)
+                {
+                    string untaggedText = resultText.Substring(currentIndex, match.Index - currentIndex);
+                    rtbOutput.SelectionColor = Color.White; // Default color
+                    rtbOutput.AppendText(untaggedText);
+                }
+
+                // Extract and process the color and text inside the tag
+                string colorHex = match.Groups[1].Value;
+                string coloredText = match.Groups[2].Value;
 
                 // Convert hex color to RGB values
                 var (r, g, b) = ParseHexColor(colorHex);
 
-                // Apply the color to the RTB
+                // Apply the color and append the text
                 rtbOutput.SelectionColor = Color.FromArgb(r, g, b);
+                rtbOutput.AppendText(coloredText);
 
-                // Insert the text into the RTB
-                rtbOutput.AppendText(text);
-
-                // Update the resultText to handle any subsequent matches properly
-                resultText = resultText.Substring(0, match.Index + offset) + text + resultText.Substring(match.Index + match.Length + offset);
-                offset += text.Length - match.Length;
+                // Update the current index to after the current match
+                currentIndex = match.Index + match.Length;
             }
 
-            // If no color tags are found, treat the entire text as the default color (white)
-            if (matches.Count == 0)
+            // Append any remaining untagged text at the end
+            if (currentIndex < resultText.Length)
             {
-                // Treat any untagged text as white by default
-                rtbOutput.SelectionColor = Color.White;  // Default color
-                rtbOutput.AppendText(resultText);
+                string remainingText = resultText.Substring(currentIndex);
+                rtbOutput.SelectionColor = Color.White; // Default color
+                rtbOutput.SelectionFont = new System.Drawing.Font(rtbOutput.SelectionFont, FontStyle.Regular); // Revert to regular font style
+                rtbOutput.AppendText(remainingText);
             }
 
             // Add a newline at the end of each message
@@ -142,7 +148,7 @@ namespace MirageMUD_Client
                 "[font=Courier New][b][color=#66ff00]-~--~                   ~---__ ,--~'                  ~~----_____[/color][/b][/font]",
                 "[b][color=#2ec8f2]Welcome to the test client for MirageMUD.[/color][/b]",
 
-                "[color=#d62424]There are no other players online.[/color]",
+                "[color=#d62424][b]There are no other[/b] players online.[/color]",
                 "[color=#FFFF00]<< [/color][color=#FFFFFF]Ebersmile Tavern [/color][color=#FFFF00]>>[/color]",
                 "[color=#8888FF]You are in the Ebersmile Tavern, your average drinking house.[/color]",
                 "[color=#8888FF]The tavern exits to the [/color][color=#66FF00]East[/color][color=#8888FF].[/color]"

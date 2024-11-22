@@ -187,7 +187,7 @@
             // 
             rtbOutput.BackColor = Color.FromArgb(30, 29, 34);
             rtbOutput.BorderStyle = BorderStyle.None;
-            rtbOutput.Font = new Font("Verdana", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            rtbOutput.Font = new Font("Verdana", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             rtbOutput.ForeColor = SystemColors.Info;
             rtbOutput.Location = new Point(158, 53);
             rtbOutput.Name = "rtbOutput";
