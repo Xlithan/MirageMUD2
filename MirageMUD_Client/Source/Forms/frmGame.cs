@@ -48,70 +48,71 @@ namespace MirageMUD_Client
         // Method to process input text and apply colors
         private void ProcessTextAndColors(string inputText)
         {
-            // Regex to match font, bold, and color tags
-            string fontPattern = @"\[font=([^\]]+)\]";
-            string boldPattern = @"\[b\]";
-            string boldClosePattern = @"\[/b\]";
-            string fontClosePattern = @"\[/font\]";
-            string colorPattern = @"\[color=#([A-Fa-f0-9]{6})\](.*?)\[/color\]";
+            // Regex to match all tags
+            string combinedPattern = @"(\[b\]|\[/b\]|\[color=#([A-Fa-f0-9]{6})\]|\[/color\]|\[font=([^\]]+)\]|\[/font\])";
+            MatchCollection matches = Regex.Matches(inputText, combinedPattern);
 
-            string resultText = inputText;
-
-            // Process font tags
-            if (Regex.IsMatch(resultText, fontPattern))
-            {
-                Match fontMatch = Regex.Match(resultText, fontPattern);
-                string fontName = fontMatch.Groups[1].Value;
-                rtbOutput.SelectionFont = new System.Drawing.Font(fontName, rtbOutput.Font.Size);
-                resultText = resultText.Replace(fontMatch.Value, "").Replace("[/font]", ""); // Remove both opening and closing font tags
-            }
-
-            // Process bold tags
-            if (Regex.IsMatch(resultText, boldPattern))
-            {
-                rtbOutput.SelectionFont = new System.Drawing.Font(rtbOutput.SelectionFont, FontStyle.Bold);
-                resultText = resultText.Replace("[b]", "").Replace("[/b]", ""); // Remove bold tags
-            }
-
-            // Process color tags
-            MatchCollection matches = Regex.Matches(resultText, colorPattern);
-            int currentIndex = 0; // Keeps track of the position in the input text
+            int currentIndex = 0; // Tracks the current position in the input text
+            bool isBold = false;
+            Color currentColor = Color.White; // Default text color
+            string currentFont = rtbOutput.Font.FontFamily.Name; // Default font family
 
             foreach (Match match in matches)
             {
-                // Append untagged text before the current match
+                // Append text before the current tag
                 if (match.Index > currentIndex)
                 {
-                    string untaggedText = resultText.Substring(currentIndex, match.Index - currentIndex);
-                    rtbOutput.SelectionColor = Color.White; // Default color
+                    string untaggedText = inputText.Substring(currentIndex, match.Index - currentIndex);
+
+                    // Apply the current formatting to the untagged text
+                    rtbOutput.SelectionFont = new System.Drawing.Font(currentFont, rtbOutput.Font.Size, isBold ? FontStyle.Bold : FontStyle.Regular);
+                    rtbOutput.SelectionColor = currentColor;
                     rtbOutput.AppendText(untaggedText);
                 }
 
-                // Extract and process the color and text inside the tag
-                string colorHex = match.Groups[1].Value;
-                string coloredText = match.Groups[2].Value;
-
-                // Convert hex color to RGB values
-                var (r, g, b) = ParseHexColor(colorHex);
-
-                // Apply the color and append the text
-                rtbOutput.SelectionColor = Color.FromArgb(r, g, b);
-                rtbOutput.AppendText(coloredText);
+                // Process the current tag
+                string tag = match.Value;
+                if (tag == "[b]")
+                {
+                    isBold = true; // Enable bold
+                }
+                else if (tag == "[/b]")
+                {
+                    isBold = false; // Disable bold
+                }
+                else if (tag.StartsWith("[color=#"))
+                {
+                    string colorHex = match.Groups[2].Value; // Extract color hex
+                    var (r, g, b) = ParseHexColor(colorHex);
+                    currentColor = Color.FromArgb(r, g, b);
+                }
+                else if (tag == "[/color]")
+                {
+                    currentColor = Color.White; // Revert to default color
+                }
+                else if (tag.StartsWith("[font="))
+                {
+                    currentFont = match.Groups[3].Value; // Extract font name
+                }
+                else if (tag == "[/font]")
+                {
+                    currentFont = rtbOutput.Font.FontFamily.Name; // Revert to default font
+                }
 
                 // Update the current index to after the current match
                 currentIndex = match.Index + match.Length;
             }
 
-            // Append any remaining untagged text at the end
-            if (currentIndex < resultText.Length)
+            // Append any remaining text after the last tag
+            if (currentIndex < inputText.Length)
             {
-                string remainingText = resultText.Substring(currentIndex);
-                rtbOutput.SelectionColor = Color.White; // Default color
-                rtbOutput.SelectionFont = new System.Drawing.Font(rtbOutput.SelectionFont, FontStyle.Regular); // Revert to regular font style
+                string remainingText = inputText.Substring(currentIndex);
+                rtbOutput.SelectionFont = new System.Drawing.Font(currentFont, rtbOutput.Font.Size, isBold ? FontStyle.Bold : FontStyle.Regular);
+                rtbOutput.SelectionColor = currentColor;
                 rtbOutput.AppendText(remainingText);
             }
 
-            // Add a newline at the end of each message
+            // Add a newline at the end of the message
             rtbOutput.AppendText(Environment.NewLine);
         }
 
