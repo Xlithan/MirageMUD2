@@ -1,98 +1,86 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 namespace MirageMUD_Client.Source.Utilities
 {
     public class BBCodeToRTF
     {
-        private const string RTFHeader = @"{\rtf1\ansi";
-        private List<string> colorTable = new List<string>();
-
-        // Renamed Convert method to ConvertToRTF
-        public string ConvertToRTF(string bbCode)
+        // Method to process input text and apply colors
+        public void ProcessTextAndColors(string inputText, RichTextBox rtbOutput)
         {
-            string rtfContent = bbCode;
+            // Regex to match all tags
+            string combinedPattern = @"(\[b\]|\[/b\]|\[color=#([A-Fa-f0-9]{6})\]|\[/color\]|\[font=([^\]]+)\]|\[/font\])";
+            MatchCollection matches = Regex.Matches(inputText, combinedPattern);
 
-            // Convert BBCode tags to RTF
-            // Bold
-            rtfContent = Regex.Replace(rtfContent, @"\[b\](.*?)\[/b\]", @"\b $1\b0");
+            int currentIndex = 0; // Tracks the current position in the input text
+            bool isBold = false;
+            Color currentColor = Color.White; // Default text color
+            string currentFont = rtbOutput.Font.FontFamily.Name; // Default font family
 
-            // Italic
-            rtfContent = Regex.Replace(rtfContent, @"\[i\](.*?)\[/i\]", @"\i $1\i0");
-
-            // Underline
-            rtfContent = Regex.Replace(rtfContent, @"\[u\](.*?)\[/u\]", @"\ul $1\ul0");
-
-            // Hex Color
-            rtfContent = Regex.Replace(rtfContent, @"\[color=#([A-Fa-f0-9]{6})\](.*?)\[/color\]", match =>
+            foreach (Match match in matches)
             {
-                string hexColor = match.Groups[1].Value;
-                string text = match.Groups[2].Value;
-
-                try
+                // Append text before the current tag
+                if (match.Index > currentIndex)
                 {
-                    // Parse the hex color to RGB
-                    var (r, g, b) = ParseHexColor(hexColor);
+                    string untaggedText = inputText.Substring(currentIndex, match.Index - currentIndex);
 
-                    // Add to color table
-                    string colorDefinition = $@"\red{r}\green{g}\blue{b};";
-                    if (!colorTable.Contains(colorDefinition))
-                    {
-                        colorTable.Add(colorDefinition);
-                    }
-
-                    // Get the color index
-                    int colorIndex = colorTable.IndexOf(colorDefinition) + 1;
-
-                    return $@"\cf{colorIndex} {text}\cf0";
+                    // Apply the current formatting to the untagged text
+                    rtbOutput.SelectionFont = new System.Drawing.Font(currentFont, rtbOutput.Font.Size, isBold ? FontStyle.Bold : FontStyle.Regular);
+                    rtbOutput.SelectionColor = currentColor;
+                    rtbOutput.AppendText(untaggedText);
                 }
-                catch (ArgumentException ex)
+
+                // Process the current tag
+                string tag = match.Value;
+                if (tag == "[b]")
                 {
-                    // Handle invalid hex color gracefully
-                    Console.WriteLine(ex.Message);
-                    return text; // Fallback: return plain text without color
+                    isBold = true; // Enable bold
                 }
-            });
+                else if (tag == "[/b]")
+                {
+                    isBold = false; // Disable bold
+                }
+                else if (tag.StartsWith("[color=#"))
+                {
+                    string colorHex = match.Groups[2].Value; // Extract color hex
+                    var (r, g, b) = ReParseHexColor(colorHex);
+                    currentColor = Color.FromArgb(r, g, b);
+                }
+                else if (tag == "[/color]")
+                {
+                    currentColor = Color.White; // Revert to default color
+                }
+                else if (tag.StartsWith("[font="))
+                {
+                    currentFont = match.Groups[3].Value; // Extract font name
+                }
+                else if (tag == "[/font]")
+                {
+                    currentFont = rtbOutput.Font.FontFamily.Name; // Revert to default font
+                }
 
-            // Build the RTF color table
-            string rtfColorTable = BuildColorTable();
+                // Update the current index to after the current match
+                currentIndex = match.Index + match.Length;
+            }
 
-            return $"{RTFHeader}{rtfColorTable} {rtfContent} }}";
+            // Append any remaining text after the last tag
+            if (currentIndex < inputText.Length)
+            {
+                string remainingText = inputText.Substring(currentIndex);
+                rtbOutput.SelectionFont = new System.Drawing.Font(currentFont, rtbOutput.Font.Size, isBold ? FontStyle.Bold : FontStyle.Regular);
+                rtbOutput.SelectionColor = currentColor;
+                rtbOutput.AppendText(remainingText);
+            }
+
+            // Add a newline at the end of the message
+            rtbOutput.AppendText(Environment.NewLine);
         }
 
-        private string BuildColorTable()
+        // Helper function to parse hex color code into RGB values
+        private (int r, int g, int b) ReParseHexColor(string hex)
         {
-            if (colorTable.Count == 0)
-                return string.Empty;
-
-            return "{\\colortbl ;" + string.Join("", colorTable) + "}";
-        }
-
-        public (int r, int g, int b) ParseHexColor(string hexColor)
-        {
-            // Remove the '#' if present
-            if (hexColor.StartsWith("#"))
-            {
-                hexColor = hexColor.Substring(1);
-            }
-
-            // Validate input
-            if (string.IsNullOrEmpty(hexColor))
-            {
-                throw new ArgumentException("Hex color cannot be null or empty.");
-            }
-
-            if (hexColor.Length != 6 || !Regex.IsMatch(hexColor, "^[0-9A-Fa-f]{6}$"))
-            {
-                throw new ArgumentException($"Invalid hex color format: {hexColor}. Must be in RRGGBB format.");
-            }
-
-            // Convert hex to RGB using System.Convert
-            int r = Convert.ToInt32(hexColor.Substring(0, 2), 16);
-            int g = Convert.ToInt32(hexColor.Substring(2, 2), 16);
-            int b = Convert.ToInt32(hexColor.Substring(4, 2), 16);
-
+            int r = Convert.ToInt32(hex.Substring(0, 2), 16);
+            int g = Convert.ToInt32(hex.Substring(2, 2), 16);
+            int b = Convert.ToInt32(hex.Substring(4, 2), 16);
             return (r, g, b);
         }
     }

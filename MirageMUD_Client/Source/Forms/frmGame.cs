@@ -35,96 +35,16 @@ namespace MirageMUD_Client
                 string inputText = txtInput.Text;
 
                 // Build the formatted message to display
-                string formattedMessage = "[color=#EE4B2B]Xlithan: [/color]" + inputText;
+                string formattedMessage = "[color=#EE4B2B][b]Xlithan: [/color]" + inputText;
 
                 // Process the input text and apply colors
-                ProcessTextAndColors(formattedMessage);
+                BBCodeToRTF bbCodeProcessor = new BBCodeToRTF();
+                bbCodeProcessor.ProcessTextAndColors(formattedMessage, rtbOutput);
 
                 // Clear the TextBox after processing
                 txtInput.Clear();
             }
         }
-
-        // Method to process input text and apply colors
-        private void ProcessTextAndColors(string inputText)
-        {
-            // Regex to match all tags
-            string combinedPattern = @"(\[b\]|\[/b\]|\[color=#([A-Fa-f0-9]{6})\]|\[/color\]|\[font=([^\]]+)\]|\[/font\])";
-            MatchCollection matches = Regex.Matches(inputText, combinedPattern);
-
-            int currentIndex = 0; // Tracks the current position in the input text
-            bool isBold = false;
-            Color currentColor = Color.White; // Default text color
-            string currentFont = rtbOutput.Font.FontFamily.Name; // Default font family
-
-            foreach (Match match in matches)
-            {
-                // Append text before the current tag
-                if (match.Index > currentIndex)
-                {
-                    string untaggedText = inputText.Substring(currentIndex, match.Index - currentIndex);
-
-                    // Apply the current formatting to the untagged text
-                    rtbOutput.SelectionFont = new System.Drawing.Font(currentFont, rtbOutput.Font.Size, isBold ? FontStyle.Bold : FontStyle.Regular);
-                    rtbOutput.SelectionColor = currentColor;
-                    rtbOutput.AppendText(untaggedText);
-                }
-
-                // Process the current tag
-                string tag = match.Value;
-                if (tag == "[b]")
-                {
-                    isBold = true; // Enable bold
-                }
-                else if (tag == "[/b]")
-                {
-                    isBold = false; // Disable bold
-                }
-                else if (tag.StartsWith("[color=#"))
-                {
-                    string colorHex = match.Groups[2].Value; // Extract color hex
-                    var (r, g, b) = ParseHexColor(colorHex);
-                    currentColor = Color.FromArgb(r, g, b);
-                }
-                else if (tag == "[/color]")
-                {
-                    currentColor = Color.White; // Revert to default color
-                }
-                else if (tag.StartsWith("[font="))
-                {
-                    currentFont = match.Groups[3].Value; // Extract font name
-                }
-                else if (tag == "[/font]")
-                {
-                    currentFont = rtbOutput.Font.FontFamily.Name; // Revert to default font
-                }
-
-                // Update the current index to after the current match
-                currentIndex = match.Index + match.Length;
-            }
-
-            // Append any remaining text after the last tag
-            if (currentIndex < inputText.Length)
-            {
-                string remainingText = inputText.Substring(currentIndex);
-                rtbOutput.SelectionFont = new System.Drawing.Font(currentFont, rtbOutput.Font.Size, isBold ? FontStyle.Bold : FontStyle.Regular);
-                rtbOutput.SelectionColor = currentColor;
-                rtbOutput.AppendText(remainingText);
-            }
-
-            // Add a newline at the end of the message
-            rtbOutput.AppendText(Environment.NewLine);
-        }
-
-        // Helper function to parse hex color code into RGB values
-        private (int r, int g, int b) ParseHexColor(string hex)
-        {
-            int r = Convert.ToInt32(hex.Substring(0, 2), 16);
-            int g = Convert.ToInt32(hex.Substring(2, 2), 16);
-            int b = Convert.ToInt32(hex.Substring(4, 2), 16);
-            return (r, g, b);
-        }
-
 
         private void frmGame_Load(object sender, EventArgs e)
         {
@@ -149,17 +69,18 @@ namespace MirageMUD_Client
                 "[font=Courier New][b][color=#66ff00]-~--~                   ~---__ ,--~'                  ~~----_____[/color][/b][/font]",
                 "[b][color=#2ec8f2]Welcome to the test client for MirageMUD.[/color][/b]",
 
-                "[color=#d62424][b]There are no other[/b] players online.[/color]",
-                "[color=#FFFF00]<< [/color][color=#FFFFFF]Ebersmile Tavern [/color][color=#FFFF00]>>[/color]",
-                "[color=#8888FF]You are in the Ebersmile Tavern, your average drinking house.[/color]",
-                "[color=#8888FF]The tavern exits to the [/color][color=#66FF00]East[/color][color=#8888FF].[/color]"
+                "[color=#d62424][b]There are no other players online.[/color]",
+                "[color=#FFFF00][b]<< [/color][color=#FFFFFF]Ebersmile Tavern [/color][color=#FFFF00]>>[/color]",
+                "[color=#8888FF][b]You are in the Ebersmile Tavern, your average drinking house.[/color]",
+                "[color=#8888FF][b]The tavern exits to the [/color][color=#66FF00]East[/color][color=#8888FF].[/color]"
             };
 
             // Iterate over each message and process it through ProcessTextAndColors
             foreach (string message in messages)
             {
-                // Process each message and append to the RichTextBox
-                ProcessTextAndColors(message);
+                // Process the input text and apply colors
+                BBCodeToRTF bbCodeProcessor = new BBCodeToRTF();
+                bbCodeProcessor.ProcessTextAndColors(message, rtbOutput);
             }
         }
     }

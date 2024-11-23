@@ -590,7 +590,6 @@
         private ListBox listBox4;
         private ListBox listBox5;
         private PictureBox pictureBox5;
-        private RichTextBox rtbOutput;
         private TextBox txtInput;
         private PictureBox pictureBox6;
         private Label label1;
@@ -617,5 +616,6 @@
         private Label label19;
         private Label label20;
         private Label label21;
+        public RichTextBox rtbOutput;
     }
 }
