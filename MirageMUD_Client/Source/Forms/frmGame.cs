@@ -1,4 +1,5 @@
 ﻿using MirageMUD_Client.Source.Utilities;
+using System.Text.RegularExpressions;
 
 namespace MirageMUD_Client
 {
@@ -20,8 +21,11 @@ namespace MirageMUD_Client
                 // Get the text from the TextBox
                 string inputText = txtInput.Text;
 
+                // Remove any BBCode-style tags from the input
+                string sanitizedInputText = Regex.Replace(inputText, @"\[[^\]]*\]", "");
+
                 // Build the formatted message to display
-                string formattedMessage = "[color=#EE4B2B][b]Xlithan: [/color]" + inputText;
+                string formattedMessage = "[color=#EE4B2B][b]Xlithan: [/color]" + sanitizedInputText;
 
                 // Process the input text and apply colors
                 BBCodeToRTF bbCodeProcessor = new BBCodeToRTF();

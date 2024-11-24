@@ -191,6 +191,8 @@
             rtbOutput.ForeColor = SystemColors.Info;
             rtbOutput.Location = new Point(158, 53);
             rtbOutput.Name = "rtbOutput";
+            rtbOutput.ReadOnly = true;
+            rtbOutput.ScrollBars = RichTextBoxScrollBars.Vertical;
             rtbOutput.Size = new Size(492, 370);
             rtbOutput.TabIndex = 10;
             rtbOutput.Text = "";

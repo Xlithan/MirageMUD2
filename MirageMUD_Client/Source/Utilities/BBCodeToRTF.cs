@@ -73,6 +73,7 @@ namespace MirageMUD_Client.Source.Utilities
 
             // Add a newline at the end of the message
             rtbOutput.AppendText(Environment.NewLine);
+            rtbOutput.ScrollToCaret();
         }
 
         // Helper function to parse hex color code into RGB values
