@@ -5,6 +5,8 @@ VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MirageMUD_Client", "MirageMUD_Client\MirageMUD_Client.csproj", "{7EB053A5-C55F-4C83-8279-2676E3B9B3A1}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Bindings", "Bindings\Bindings.shproj", "{1A4FF3ED-7E17-457E-AD54-AA1BA4B0111C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,5 +23,9 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C56D769E-BBBC-4196-BE80-4516D43D1CD6}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Bindings\Bindings.projitems*{1a4ff3ed-7e17-457e-ad54-aa1ba4b0111c}*SharedItemsImports = 13
+		Bindings\Bindings.projitems*{7eb053a5-c55f-4c83-8279-2676e3b9b3a1}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal

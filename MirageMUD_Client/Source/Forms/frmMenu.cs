@@ -1,10 +1,27 @@
+using MirageMUD_Client.Source.Network;
+
 namespace MirageMUD_Client
 {
     public partial class frmMenu : Form
     {
+        ClientTCP clientTCP;
+        public enum MenuState : byte
+        {
+            NewAccount = 0,
+            DelAccount = 1,
+            Login = 2,
+            GetChars = 3,
+            NewChar = 4,
+            AddChar = 5,
+            DelChar = 6,
+            UseChar = 7,
+            Init = 8
+        }
+
         public frmMenu()
         {
             InitializeComponent();
+            clientTCP = new ClientTCP();
         }
 
         private void frmMenu_Load(object sender, EventArgs e)
@@ -203,16 +220,129 @@ namespace MirageMUD_Client
 
         private void btnLoginConnect_Click(object sender, EventArgs e)
         {
-            pnlLogin.Visible = false;
+            /*pnlLogin.Visible = false;
             pnlCharacters.Visible = true;
 
-            lblAccountName.Text = txtLoginName.Text;
+            lblAccountName.Text = txtLoginName.Text;*/
+            if (!string.IsNullOrWhiteSpace(txtLoginName.Text) && !string.IsNullOrWhiteSpace(txtLoginPass.Text))
+            {
+                // Run login procedure
+                MenuStateHandler(MenuState.Login);
+            }
+            else if (string.IsNullOrWhiteSpace(txtLoginName.Text) && string.IsNullOrWhiteSpace(txtLoginPass.Text))
+            {
+                MessageBox.Show("Please enter your login name and password!", "Error", MessageBoxButtons.OK);
+            }
+            else if (string.IsNullOrWhiteSpace(txtLoginName.Text))
+            {
+                MessageBox.Show("Please enter your login name!", "Error", MessageBoxButtons.OK);
+            }
+            else if (string.IsNullOrWhiteSpace(txtLoginPass.Text))
+            {
+                MessageBox.Show("Please enter your password!", "Error", MessageBoxButtons.OK);
+            }
         }
 
         private void btnCharsCancel_Click(object sender, EventArgs e)
         {
             pnlCharacters.Visible = false;
             pnlLogin.Visible = true;
+        }
+
+        public void MenuStateHandler(MenuState state)
+        {
+            switch (state)
+            {
+                /*case MenuState.NewAccount:
+
+                    if (ConnectToServer())
+                    {
+                        SetStatus("Connected, sending new account information...");
+                        SendNewAccount(txtNewAcctName.Text, txtNewAcctPassword.Text);
+                    }
+                    break;
+                
+                case MenuState.DelAccount:
+                    // Add logic here if needed for Delete Account
+                    break;
+                */
+                case MenuState.Login:
+
+                    clientTCP.ConnectToServer();
+                    if (clientTCP.PlayerSocket.Connected)
+                    {
+                        btnLoginConnect.Text = "Connecting...";
+                        clientTCP.SendLogin();
+                    }
+                    break;
+
+                /*case MenuState.GetChars:
+                    SetStatus("Connected, retrieving character list...");
+                    SendGetClasses();
+                    break;
+
+                case MenuState.NewChar:
+                    SetStatus("Connected, getting available classes...");
+                    SendGetClasses();
+                    break;
+
+                case MenuState.AddChar:
+
+                    if (ConnectToServer())
+                    {
+                        SetStatus("Connected, sending character addition data...");
+                        int gender = optMale.Checked ? 0 : 1;
+
+                        SendAddChar(
+                            txtNewCharName.Text,
+                            gender,
+                            cmbClass.SelectedIndex,
+                            lstChars.SelectedIndex + 1,
+                            NewCharAvatar
+                        );
+                    }
+                    break;
+
+                case MenuState.DelChar:
+                    if (ConnectToServer())
+                    {
+                        SetStatus("Connected, sending character deletion request...");
+                        SendDelChar(lstChars.SelectedIndex + 1);
+                        mnuChars.Visible = false;
+                    }
+                    break;
+
+                case MenuState.UseChar:
+                    this.Visible = false;
+
+                    if (ConnectToServer())
+                    {
+                        SetStatus("Connected, sending character data...");
+                        SendUseChar(lstChars.SelectedIndex + 1);
+                        this.Dispose(); // Equivalent to Unload in VB6
+                    }
+                    break;
+                */
+                case MenuState.Init:
+                    // Add logic here for initialization, if required
+                    break;
+
+                default:
+                    MessageBox.Show("Unknown menu state!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+            }
+
+            // Handle the case when the server is not connected
+            /*if (!IsConnected())
+            {
+                this.Visible = true;
+                frmSendGetData.Visible = false;
+                MessageBox.Show(
+                    $"Sorry, the server seems to be down. Please try to reconnect in a few minutes or visit {GAME_WEBSITE}",
+                    GAME_NAME,
+                    MessageBoxButtons.OK
+                );
+            }*/
         }
     }
 }

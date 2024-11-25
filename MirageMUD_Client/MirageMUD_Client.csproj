@@ -12,4 +12,6 @@
 		<Folder Include="Resources\" />
 	</ItemGroup>
 
+	<Import Project="..\Bindings\Bindings.projitems" Label="Shared" />
+
 </Project>
