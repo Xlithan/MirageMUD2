@@ -7,9 +7,10 @@ namespace MirageMUD_Client.Source.Network
     internal class ClientTCP
     {
         public TcpClient PlayerSocket;
-        public NetworkStream myStream;
-        private HandleData handleData;
+        public static NetworkStream myStream;
+        private CHandleData handleData;
         private byte[] asyncBuff;
+
         private bool connecting;
         private bool connected;
 
@@ -23,13 +24,13 @@ namespace MirageMUD_Client.Source.Network
                 PlayerSocket = null;
             }
             PlayerSocket = new TcpClient();
-            handleData = new HandleData();
+            handleData = new CHandleData();
             PlayerSocket.ReceiveBufferSize = 4096;
             PlayerSocket.SendBufferSize = 4096;
             PlayerSocket.NoDelay = false;
             Array.Resize(ref asyncBuff, 8192);
 
-            PlayerSocket.BeginConnect("127.0.0.1", 7777, ConnectCallback, PlayerSocket);
+            PlayerSocket.BeginConnect("127.0.0.1", 7777, new AsyncCallback(ConnectCallback), PlayerSocket);
             connecting = true;
         }
 

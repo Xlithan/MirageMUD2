@@ -33,5 +33,6 @@ Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Bindings\Bindings.projitems*{1a4ff3ed-7e17-457e-ad54-aa1ba4b0111c}*SharedItemsImports = 13
 		Bindings\Bindings.projitems*{7eb053a5-c55f-4c83-8279-2676e3b9b3a1}*SharedItemsImports = 5
+		Bindings\Bindings.projitems*{a2b98bc6-0ae9-4b09-a09d-631aa34152d4}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal

@@ -9,15 +9,9 @@ namespace MirageMUD_Client.Source.General
 {
     internal class General
     {
-        ClientTCP clientTCP;
-        HandleData handleData;
         public void Main()
         {
             Application.Run(new frmMenu());
-            clientTCP = new ClientTCP();
-            handleData = new HandleData();
-
-            handleData.InitialiseMessages();
         }
     }
 }

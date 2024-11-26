@@ -11,11 +11,14 @@ namespace MirageMUD_Server
         public int Port;
         public TcpClient Socket;
         public NetworkStream myStream;
+        private SHandleData sHandleData;
         public bool Closing;
         public byte[] readBuff;
 
         public void Start()
         {
+            sHandleData = new SHandleData();
+
             Socket.SendBufferSize = 4096;
             Socket.ReceiveBufferSize = 4096;
             myStream = Socket.GetStream();
@@ -38,6 +41,7 @@ namespace MirageMUD_Server
                 Array.Resize(ref newBytes, readBytes);
                 Buffer.BlockCopy(readBuff, 0, newBytes, 0, readBytes);
                 //HandleData
+                sHandleData.HandleMessages(Index, newBytes);
 
                 myStream.BeginRead(readBuff,0,Socket.ReceiveBufferSize, OnReceiveData, null);
             }

@@ -5,6 +5,7 @@ namespace MirageMUD_Client
     public partial class frmMenu : Form
     {
         ClientTCP clientTCP;
+        CHandleData cHandleData;
         public enum MenuState : byte
         {
             NewAccount = 0,
@@ -21,7 +22,8 @@ namespace MirageMUD_Client
         public frmMenu()
         {
             InitializeComponent();
-            clientTCP = new ClientTCP();
+            cHandleData = new CHandleData();
+            cHandleData.InitialiseMessages();
         }
 
         private void frmMenu_Load(object sender, EventArgs e)
@@ -267,7 +269,7 @@ namespace MirageMUD_Client
                     break;
                 */
                 case MenuState.Login:
-
+                    clientTCP = new ClientTCP();                    
                     clientTCP.ConnectToServer();
                     if (clientTCP.PlayerSocket.Connected)
                     {
