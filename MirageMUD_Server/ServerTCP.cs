@@ -1,12 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Net.Sockets;
+using System.Net;
 
 namespace MirageMUD_Server
 {
     internal class ServerTCP
     {
+        public static Client[] Clients;
+        public TcpListener ServerSocket;
     }
 }

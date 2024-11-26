@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Net.Sockets;
 using System.Net;
-using System.IO;
-using System.Numerics;
 
 namespace MirageMUD_Server
 {
-    internal class Clients
+    internal class Client
     {
         public int Index;
         public string IP;
