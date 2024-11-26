@@ -80,7 +80,7 @@ namespace MirageMUD_Client.Source.Network
         public void SendLogin()
         {
             PacketBuffer buffer = new PacketBuffer();
-            buffer.AddShort((short)ClientPackets.CLogin);
+            buffer.AddInteger((int)ClientPackets.CLogin);
             buffer.AddString("Xlithan");
             buffer.AddString("testing123");
             buffer.AddByte(1);

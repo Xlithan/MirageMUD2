@@ -9,11 +9,10 @@ namespace MirageMUD_Client.Source.Network
     {
         public PacketBuffer buffer = new PacketBuffer();
         private delegate void Packet_(byte[] data);
-        private Dictionary<int, Packet_>? Packets;
+        private Dictionary<int, Packet_>? Packets = new Dictionary<int, Packet_>();
 
         public void InitialiseMessages()
         {
-            Packets = new Dictionary<int, Packet_>();
             Packets.Add((int)ServerPackets.SAlertMsg, HandleAlertMsg);
             Packets.Add((int)ServerPackets.SAllChars, HandleAllChars);
             Packets.Add((int)ServerPackets.SLoginOk, HandleLoginOk);
@@ -71,16 +70,29 @@ namespace MirageMUD_Client.Source.Network
 
         public void HandleMessages(byte[] data)
         {
-            int packetNum; PacketBuffer buffer;
-            buffer = new PacketBuffer();
+            if (data == null || data.Length == 0)
+                throw new ArgumentException("Data cannot be null or empty.", nameof(data));
 
-            buffer.AddBytes(data);
-            packetNum = buffer.GetShort();
-            buffer.Dispose();
+            int packetNum;
+            using (PacketBuffer buffer = new PacketBuffer())
+            {
+                buffer.AddBytes(data);
+                packetNum = buffer.GetInteger();
+            }
+
+            if (Packets == null)
+                throw new InvalidOperationException("Packets dictionary is not initialized.");
 
             if (Packets.TryGetValue(packetNum, out Packet_ packet))
+            {
                 packet.Invoke(data);
+            }
+            else
+            {
+                Console.WriteLine($"No packet handler found for packet number: {packetNum}");
+            }
         }
+
 
         public void HandleAlertMsg(byte[] data)
         {

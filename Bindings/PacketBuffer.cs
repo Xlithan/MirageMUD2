@@ -187,9 +187,6 @@ namespace Bindings
             return ret;
         }
 
-        // Only used for connecting to legacy VB6 server.
-        // VB6 Int = C# Short
-        // VB6 Long = C# Int
         public short GetShort(bool peek = true)
         {
             if (Buff.Count > readpos)
