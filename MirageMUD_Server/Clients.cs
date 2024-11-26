@@ -2,6 +2,7 @@
 using System.Net.Sockets;
 using System.Net;
 using System.IO;
+using System.Numerics;
 
 namespace MirageMUD_Server
 {
@@ -28,12 +29,31 @@ namespace MirageMUD_Server
         {
             try
             {
+                int readBytes = myStream.EndRead(ar);
+                if(readBytes <= 0)
+                {
+                    CloseSocket(Index); // Disconnect client
+                    return;
+                }
 
+                byte[] newBytes = null;
+                Array.Resize(ref newBytes, readBytes);
+                Buffer.BlockCopy(readBuff, 0, newBytes, 0, readBytes);
+                //HandleData
+
+                myStream.BeginRead(readBuff,0,Socket.ReceiveBufferSize, OnReceiveData, null);
             }
             catch
             {
-
+                CloseSocket(Index); // Disconnect client
             }
+        }
+
+        private void CloseSocket(int index)
+        {
+            Console.WriteLine("Connection from " + IP + " has been terminated.");
+            Socket.Close();
+            Socket = null;
         }
     }
 }
