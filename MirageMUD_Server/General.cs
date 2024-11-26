@@ -8,17 +8,34 @@ namespace MirageMUD_Server
     internal class General
     {
         private ServerTCP stcp;
-        private SHandleData sHandleData;
+
+        /// <summary>
+        /// The object that will handle all data.
+        /// Readonly because we dont want this to change, we want a single instance.
+        /// </summary>
+        private readonly SHandleData _sHandleData;
+
+        /// <summary>
+        /// Constructor for the General class.
+        /// Creates a new SHandleData internally and calls InitialiseMessages on it.
+        /// </summary>
+        public General()
+        {
+            _sHandleData = new SHandleData();
+            _sHandleData.InitialiseMessages();
+        }
+
         public void InitialiseServer()
         {
             stcp = new ServerTCP();
-            sHandleData = new SHandleData();
 
-            sHandleData.InitialiseMessages();
-
-            for(int i = 1; i < Constants.MAX_PLAYERS; i++)
+            for (int i = 1; i < Constants.MAX_PLAYERS; i++)
             {
-                ServerTCP.Clients[i] = new Client();
+                // Create a new Client object, and pass in the data handler object for it to use
+                var newClient = new Client(_sHandleData);
+
+                // Put the newly created client into the Clients array
+                ServerTCP.Clients[i] = newClient;
             }
             stcp.InitialiseNetwork();
             Console.WriteLine("Server has started.");

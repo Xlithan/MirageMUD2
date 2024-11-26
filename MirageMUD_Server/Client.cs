@@ -6,19 +6,32 @@ namespace MirageMUD_Server
 {
     internal class Client
     {
+        /// <summary>
+        /// A reference to the SHandleData that should be used to handle data for this client.
+        /// </summary>
+        private readonly SHandleData _sHandleData;
+
         public int Index;
         public string IP;
         public int Port;
         public TcpClient Socket;
         public NetworkStream myStream;
-        private SHandleData sHandleData;
         public bool Closing;
         public byte[] readBuff;
 
+        /// <summary>
+        /// Constructore for a Client object.
+        /// Accepts a SHandleData object that will be used to handle data.
+        /// </summary>
+        /// <param name="sHandleData">The data handler to use.</param>
+        public Client(SHandleData sHandleData)
+        {
+            // Assign the provided sHandleData to the internal _sHandleData field
+            _sHandleData = sHandleData;
+        }
+
         public void Start()
         {
-            sHandleData = new SHandleData();
-
             Socket.SendBufferSize = 4096;
             Socket.ReceiveBufferSize = 4096;
             myStream = Socket.GetStream();
@@ -31,7 +44,7 @@ namespace MirageMUD_Server
             try
             {
                 int readBytes = myStream.EndRead(ar);
-                if(readBytes <= 0)
+                if (readBytes <= 0)
                 {
                     CloseSocket(Index); // Disconnect client
                     return;
@@ -40,10 +53,11 @@ namespace MirageMUD_Server
                 byte[] newBytes = null;
                 Array.Resize(ref newBytes, readBytes);
                 Buffer.BlockCopy(readBuff, 0, newBytes, 0, readBytes);
-                //HandleData
-                sHandleData.HandleMessages(Index, newBytes);
 
-                myStream.BeginRead(readBuff,0,Socket.ReceiveBufferSize, OnReceiveData, null);
+                // Handle Data
+                _sHandleData.HandleMessages(Index, newBytes);
+
+                myStream.BeginRead(readBuff, 0, Socket.ReceiveBufferSize, OnReceiveData, null);
             }
             catch
             {
