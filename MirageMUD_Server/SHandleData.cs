@@ -93,7 +93,6 @@ namespace MirageMUD_Server
             if (data == null || data.Length == 0)
             {
                 Console.WriteLine("Data cannot be null or empty.");
-                return;
             }
                 
             int packetNum;
@@ -107,7 +106,6 @@ namespace MirageMUD_Server
             if (Packets == null)
             {
                 Console.WriteLine("Packets dictionary is not initialized.");
-                return;
             }
 
             if (Packets.TryGetValue(packetNum, out Packet_ packet))
@@ -117,7 +115,6 @@ namespace MirageMUD_Server
             else
             {
                 Console.WriteLine($"No packet handler found for packet number: {packetNum}");
-                return;
             }
         }
 
