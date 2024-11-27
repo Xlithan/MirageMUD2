@@ -36,6 +36,7 @@ namespace MirageMUD_Server
 
                 // Put the newly created client into the Clients array
                 ServerTCP.Clients[i] = newClient;
+                Types.Player[i] = new Types.AccountStruct();
             }
             stcp.InitialiseNetwork();
             Console.WriteLine("Server has started.");

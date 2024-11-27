@@ -12,5 +12,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Constants.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)NetworkPackets.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PacketBuffer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Types.cs" />
   </ItemGroup>
 </Project>
