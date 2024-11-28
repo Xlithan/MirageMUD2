@@ -1,0 +1,25 @@
+{
+  "connection": {
+    "terminated": "Setsuzoku ga shūryō shimashita."
+  },
+  "errors": {
+    "null_or_empty_data": "Dēta wa null matawa kara de wa ikemasen.",
+    "uninitialized_packets": "Paketto no jisho ga shokika sareteimasen.",
+    "no_handler": "Paketto bangō {0} ni taiō suru handora ga mitsukarimasen.",
+    "account_not_found": "{0} no akāunto wa sonzai shimasen.",
+    "password_mismatch": "{0} no pasuwādo ga icchi shimasen."
+  },
+  "user": {
+    "account_created": "Akāunto ga seijō ni sakusei saremashita.",
+    "logged_in": "{0} wa {1} kara roguin shimashita."
+  },
+  "server": {
+    "initialising_network_packets": "Nettowāku paketto o shokika shiteimasu...",
+    "connection_received": "{0} kara setsuzoku ga jushin saremashita.",
+    "initialising_server_network": "Sāvā nettowāku o shokika shiteimasu...",
+    "server_started": "Sāvā ga kaishi saremashita."
+  },
+  "errors": {
+    "file_not_found": "Akāunto fairu ga mitsukarimasen."
+  }
+}

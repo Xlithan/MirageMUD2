@@ -39,7 +39,21 @@ public class TranslationManager
             if (!string.IsNullOrEmpty(value))
             {
                 _languageCode = value;
-                Console.WriteLine($"Language code set to: {_languageCode}");
+                string Lang = null;
+                switch (value)
+                {
+                    case "cy": Lang = "Welsh (Cymraeg)"; break;
+                    case "de": Lang = "German (Deutsch)"; break;
+                    case "en-gb": Lang = "British English (English)"; break;
+                    case "en-us": Lang = "American English (English)"; break;
+                    case "es": Lang = "Spanish (Español)"; break;
+                    case "fr": Lang = "French (Français)"; break;
+                    case "it": Lang = "Italian (Italiano)"; break;
+                    case "ja": Lang = "Japanese (日本語)"; break;
+                    case "ja-ro": Lang = "Romanized Japanese (Romaji)"; break;
+                    case "pl": Lang = "Polish (Polski)"; break;
+                }
+                Console.WriteLine($"Language code set to: {Lang}");
             }
         }
     }
