@@ -1,0 +1,25 @@
+{
+  "connection": {
+    "terminated": "Verbindung beendet."
+  },
+  "errors": {
+    "null_or_empty_data": "Daten können nicht null oder leer sein.",
+    "uninitialized_packets": "Paket-Dictionary ist nicht initialisiert.",
+    "no_handler": "Kein Paket-Handler für Paketnummer gefunden: {0}",
+    "account_not_found": "Das Konto von {0} existiert nicht.",
+    "password_mismatch": "Passwort stimmt nicht überein für {0}."
+  },
+  "user": {
+    "account_created": "Konto erfolgreich erstellt.",
+    "logged_in": "{0} hat sich von {1} eingeloggt."
+  },
+  "server": {
+    "initialising_network_packets": "Netzwerkpakete werden initialisiert...",
+    "connection_received": "Verbindung empfangen von {0}",
+    "initialising_server_network": "Servernetzwerk wird initialisiert...",
+    "server_started": "Der Server wurde gestartet."
+  },
+  "errors": {
+    "file_not_found": "Kontodatei nicht gefunden."
+  }
+}

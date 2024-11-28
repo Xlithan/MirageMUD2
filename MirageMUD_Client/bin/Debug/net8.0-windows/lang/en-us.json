@@ -1,0 +1,14 @@
+{
+  "errors": {
+    "account_not_found": "Account for {0} does not exist.",
+    "password_mismatch": "Password does not match for {0}."
+  },
+  "user": {
+    "logged_in": "{0} has logged in from {1}.",
+    "logout": "{0} has logged out."
+  },
+  "server": {
+    "started": "Server started successfully on {0}.",
+    "shutting_down": "Server is shutting down..."
+  }
+}

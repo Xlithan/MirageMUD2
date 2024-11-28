@@ -1,0 +1,14 @@
+{
+  "errors": {
+    "account_not_found": "La cuenta para {0} no existe.",
+    "password_mismatch": "La contraseña no coincide para {0}."
+  },
+  "user": {
+    "logged_in": "{0} ha iniciado sesión desde {1}.",
+    "logout": "{0} ha cerrado sesión."
+  },
+  "server": {
+    "started": "El servidor se inició con éxito en {0}.",
+    "shutting_down": "El servidor se está apagando..."
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "connection": {
+    "terminated": "Połączenie zakończone."
+  },
+  "errors": {
+    "null_or_empty_data": "Dane nie mogą być puste ani null.",
+    "uninitialized_packets": "Słownik pakietów nie jest zainicjowany.",
+    "no_handler": "Nie znaleziono obsługi pakietu dla numeru pakietu: {0}",
+    "account_not_found": "Konto {0} nie istnieje.",
+    "password_mismatch": "Hasło nie pasuje do {0}."
+  },
+  "user": {
+    "account_created": "Konto zostało pomyślnie utworzone.",
+    "logged_in": "{0} zalogował się z {1}."
+  },
+  "server": {
+    "initialising_network_packets": "Inicjowanie pakietów sieciowych...",
+    "connection_received": "Otrzymano połączenie z {0}",
+    "initialising_server_network": "Inicjowanie sieci serwera...",
+    "server_started": "Serwer został uruchomiony."
+  },
+  "errors": {
+    "file_not_found": "Nie znaleziono pliku konta."
+  }
+}

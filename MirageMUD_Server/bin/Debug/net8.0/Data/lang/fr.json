@@ -1,0 +1,25 @@
+{
+  "connection": {
+    "terminated": "Connexion terminée."
+  },
+  "errors": {
+    "null_or_empty_data": "Les données ne peuvent pas être nulles ou vides.",
+    "uninitialized_packets": "Le dictionnaire des paquets n'est pas initialisé.",
+    "no_handler": "Aucun gestionnaire de paquets trouvé pour le numéro de paquet : {0}",
+    "account_not_found": "Le compte de {0} n'existe pas.",
+    "password_mismatch": "Le mot de passe ne correspond pas pour {0}."
+  },
+  "user": {
+    "account_created": "Compte créé avec succès.",
+    "logged_in": "{0} s'est connecté depuis {1}."
+  },
+  "server": {
+    "initialising_network_packets": "Initialisation des paquets réseau...",
+    "connection_received": "Connexion reçue depuis {0}",
+    "initialising_server_network": "Initialisation du réseau serveur...",
+    "server_started": "Le serveur a démarré."
+  },
+  "errors": {
+    "file_not_found": "Fichier de compte introuvable."
+  }
+}

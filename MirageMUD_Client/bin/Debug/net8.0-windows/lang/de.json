@@ -1,0 +1,14 @@
+{
+  "errors": {
+    "account_not_found": "Das Konto für {0} existiert nicht.",
+    "password_mismatch": "Das Passwort stimmt nicht überein für {0}."
+  },
+  "user": {
+    "logged_in": "{0} hat sich eingeloggt von {1}.",
+    "logout": "{0} hat sich abgemeldet."
+  },
+  "server": {
+    "started": "Der Server wurde erfolgreich gestartet auf {0}.",
+    "shutting_down": "Der Server wird heruntergefahren..."
+  }
+}

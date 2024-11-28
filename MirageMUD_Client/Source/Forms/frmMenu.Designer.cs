@@ -1056,9 +1056,9 @@
             Controls.Add(pnlIPConfig);
             Controls.Add(pnlCredits);
             Controls.Add(pnlGameOptions);
-            Controls.Add(picBackground);
-            Controls.Add(label3);
             Controls.Add(label1);
+            Controls.Add(label3);
+            Controls.Add(picBackground);
             DoubleBuffered = true;
             FormBorderStyle = FormBorderStyle.None;
             MaximizeBox = false;

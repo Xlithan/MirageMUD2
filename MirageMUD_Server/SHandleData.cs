@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Net.Sockets;
-using System.Security.Cryptography.X509Certificates;
 
 namespace MirageMUD_Server
 {
@@ -14,7 +13,7 @@ namespace MirageMUD_Server
 
         public void InitialiseMessages()
         {
-            Console.WriteLine("Initialising network packets...");
+            Console.WriteLine(TranslationManager.Instance.GetTranslation("server.initialising_network_packets"));
             Packets = new Dictionary<int, Packet_>();
 
             Packets.Add((int)ClientPackets.CGetClasses, HandleGetClasses);
@@ -95,20 +94,21 @@ namespace MirageMUD_Server
         {
             if (data == null || data.Length == 0)
             {
-                Console.WriteLine("Data cannot be null or empty.");
+                Console.WriteLine(TranslationManager.Instance.GetTranslation("errors.null_or_empty_data"));
+                return;
             }
-                
+
+            if (Packets == null)
+            {
+                Console.WriteLine(TranslationManager.Instance.GetTranslation("errors.uninitialized_packets"));
+                return;
+            }
+
             int packetNum;
             using (PacketBuffer buffer = new PacketBuffer())
             {
                 buffer.AddBytes(data);
                 packetNum = buffer.GetInteger();
-                buffer.Dispose();
-            }
-
-            if (Packets == null)
-            {
-                Console.WriteLine("Packets dictionary is not initialized.");
             }
 
             if (Packets.TryGetValue(packetNum, out Packet_ packet))
@@ -117,46 +117,51 @@ namespace MirageMUD_Server
             }
             else
             {
-                Console.WriteLine($"No packet handler found for packet number: {packetNum}");
+                Console.WriteLine(string.Format(
+                    TranslationManager.Instance.GetTranslation("errors.no_handler"), packetNum));
             }
         }
 
         private void HandleGetClasses(int Index, byte[] data) { }
         private void HandleNewAccount(int Index, byte[] data)
         {
-            Console.WriteLine("Account created successfully.");
+            Console.WriteLine(TranslationManager.Instance.GetTranslation("user.account_created"));
         }
         private void HandleDelAccount(int Index, byte[] data) { }
         private void HandleLogin(int Index, byte[] data)
         {
-            PacketBuffer buffer = new PacketBuffer();
-            buffer.AddBytes(data);
-            buffer.GetInteger();
-            string username = buffer.GetString();
-            string password = buffer.GetString();
-            byte major = buffer.GetByte();
-            byte minor = buffer.GetByte();
-            byte rev = buffer.GetByte();
-
-            if (!db.AccountExist(username))
+            using (PacketBuffer buffer = new PacketBuffer())
             {
-                // AlertMsg(index, "Account does not exist.");
-                Console.WriteLine("Account does not exist.");
-                return;
-            }
+                buffer.AddBytes(data);
+                buffer.GetInteger(); // Skip packet ID
+                string username = buffer.GetString();
+                string password = buffer.GetString();
+                byte major = buffer.GetByte();
+                byte minor = buffer.GetByte();
+                byte rev = buffer.GetByte();
 
-            if (!db.PasswordOK(Index, username, password))
-            {
-                // AlertMsg(index, "Password does not match.");
-                Console.WriteLine("Password does not match.");
-                return;
-            }
+                if (!db.AccountExist(username))
+                {
+                    Console.WriteLine(string.Format(
+                        TranslationManager.Instance.GetTranslation("errors.file_not_found"), username));
+                    return;
+                }
 
-            Console.WriteLine(username + " has logged in from " + ServerTCP.Clients[Index].IP + ".");
-            db.LoadPlayer(Index, username);
-            // SendChars
-            // SendMaxes
-            // SendRoomRevs
+                if (!db.PasswordOK(Index, username, password))
+                {
+                    Console.WriteLine(string.Format(
+                        TranslationManager.Instance.GetTranslation("errors.password_mismatch"), username));
+                    return;
+                }
+
+                Console.WriteLine(string.Format(
+                    TranslationManager.Instance.GetTranslation("user.logged_in"),
+                    username,
+                    ServerTCP.Clients[Index].IP));
+
+                db.LoadPlayer(Index, username);
+                // Additional logic (e.g., SendChars, SendMaxes, SendRoomRevs)
+            }
         }
         private void HandleAddChar(int Index, byte[] data) { }
         private void HandleDelChar(int Index, byte[] data) { }

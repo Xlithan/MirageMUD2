@@ -12,7 +12,7 @@ namespace MirageMUD_Server
 
         public void InitialiseNetwork()
         {
-            Console.WriteLine("Initialising server network...");
+            Console.WriteLine(TranslationManager.Instance.GetTranslation("server.initialising_server_network"));
             ServerSocket = new TcpListener(IPAddress.Any, 7777);
             ServerSocket.Start();
             ServerSocket.BeginAcceptTcpClient(OnClientConnect, null);
@@ -26,7 +26,7 @@ namespace MirageMUD_Server
             // Determine the IP of the incoming connection
             var sourceIp = connectingTcpClient.Client.RemoteEndPoint?.ToString();
 
-            Console.WriteLine($"Connection received from {sourceIp}");
+            Console.WriteLine(string.Format(TranslationManager.Instance.GetTranslation("server.connection_received"), sourceIp));
 
             // Disable Nagle's algorithm
             connectingTcpClient.NoDelay = false;

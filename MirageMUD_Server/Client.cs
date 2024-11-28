@@ -67,7 +67,9 @@ namespace MirageMUD_Server
 
         private void CloseSocket(int index)
         {
-            Console.WriteLine("Connection from " + IP + " has been terminated.");
+            Console.WriteLine(string.Format(
+                TranslationManager.Instance.GetTranslation("connection.terminated"),
+                IP));
             Socket.Close();
             Socket = null;
         }

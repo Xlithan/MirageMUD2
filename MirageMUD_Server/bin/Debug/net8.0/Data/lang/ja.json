@@ -1,0 +1,25 @@
+{
+  "connection": {
+    "terminated": "接続が終了しました。"
+  },
+  "errors": {
+    "null_or_empty_data": "データはnullまたは空ではいけません。",
+    "uninitialized_packets": "パケットの辞書が初期化されていません。",
+    "no_handler": "パケット番号{0}に対応するハンドラが見つかりません。",
+    "account_not_found": "{0}のアカウントは存在しません。",
+    "password_mismatch": "{0}のパスワードが一致しません。"
+  },
+  "user": {
+    "account_created": "アカウントが正常に作成されました。",
+    "logged_in": "{0}は{1}からログインしました。"
+  },
+  "server": {
+    "initialising_network_packets": "ネットワークパケットを初期化しています...",
+    "connection_received": "{0}から接続が受信されました。",
+    "initialising_server_network": "サーバーネットワークを初期化しています...",
+    "server_started": "サーバーが開始されました。"
+  },
+  "errors": {
+    "file_not_found": "アカウントファイルが見つかりません。"
+  }
+}

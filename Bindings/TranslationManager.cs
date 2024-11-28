@@ -1,72 +1,126 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text.Json;
+﻿using System.Text.Json;
 
-namespace Bindings
+public class TranslationManager
 {
-    internal class TranslationManager
+    // The singleton instance
+    private static TranslationManager _instance;
+
+    // Static field to store the current language code
+    private static string _languageCode = "en-gb"; // Default language
+
+    // Dictionary to hold translations by language code
+    private readonly Dictionary<string, Dictionary<string, string>> _translations;
+
+    // Private constructor to prevent instantiation from outside
+    private TranslationManager()
     {
-        private readonly Dictionary<string, Dictionary<string, string>> _translations;
+        _translations = new Dictionary<string, Dictionary<string, string>>();
+    }
 
-        public TranslationManager()
+    // Public static property to access the singleton instance
+    public static TranslationManager Instance
+    {
+        get
         {
-            _translations = new Dictionary<string, Dictionary<string, string>>();
+            if (_instance == null)
+            {
+                _instance = new TranslationManager();
+            }
+            return _instance;
+        }
+    }
+
+    // Public static property to get/set the language code globally
+    public static string LanguageCode
+    {
+        get => _languageCode;
+        set
+        {
+            if (!string.IsNullOrEmpty(value))
+            {
+                _languageCode = value;
+                Console.WriteLine($"Language code set to: {_languageCode}");
+            }
+        }
+    }
+
+    // Load translations from a JSON file
+    public void LoadTranslations(string languageCode)
+    {
+        // Build the file path based on the language code
+        string filePath = $"Data/lang/{languageCode}.json";
+
+        if (!File.Exists(filePath))
+        {
+            throw new FileNotFoundException($"Translation file not found: {filePath}");
         }
 
-        // Load translations from a JSON file
-        public void LoadTranslations(string filePath, string languageCode)
+        // Read the file contents
+        string jsonContent = File.ReadAllText(filePath);
+
+        // Deserialize the JSON content into a dictionary of key-value pairs
+        var translations = JsonSerializer.Deserialize<Dictionary<string, object>>(jsonContent);
+
+        // Ensure that we have a dictionary to hold the translations for the specified language
+        if (!_translations.ContainsKey(languageCode))
         {
-            if (!File.Exists(filePath))
-            {
-                throw new FileNotFoundException($"Translation file not found: {filePath}");
-            }
-
-            string jsonContent = File.ReadAllText(filePath);
-            var translations = JsonSerializer.Deserialize<Dictionary<string, object>>(jsonContent);
-
-            if (!_translations.ContainsKey(languageCode))
-            {
-                _translations[languageCode] = new Dictionary<string, string>();
-            }
-
-            FlattenDictionary(translations, "", _translations[languageCode]);
+            _translations[languageCode] = new Dictionary<string, string>();
         }
 
-        // Get translation for a key
-        public string GetTranslation(string key, string languageCode, string defaultLanguage = "en")
+        // Flatten the nested dictionary structure and add it to the translations
+        FlattenDictionary(translations, "", _translations[languageCode]);
+    }
+
+    // Get translation for a key in the current language
+    public string GetTranslation(string key, string defaultLanguage = "en-gb")
+    {
+        // Debugging output to trace the translation lookup process
+        //Console.WriteLine($"Looking up key: {key} in language: {_languageCode}");
+
+        // Check if translations exist for the current language code
+        if (_translations.ContainsKey(_languageCode))
         {
-            if (_translations.TryGetValue(languageCode, out var langTranslations) &&
-                langTranslations.TryGetValue(key, out var translation))
+            var langTranslations = _translations[_languageCode];
+            if (langTranslations.ContainsKey(key))
             {
+                var translation = langTranslations[key];
+                //Console.WriteLine($"Translation found: {translation}");
                 return translation;
             }
-
-            if (_translations.TryGetValue(defaultLanguage, out var defaultTranslations) &&
-                defaultTranslations.TryGetValue(key, out var defaultTranslation))
-            {
-                return defaultTranslation;
-            }
-
-            return key; // Return key if no translation found
         }
 
-        // Recursively flatten nested dictionaries
-        private void FlattenDictionary(Dictionary<string, object> source, string prefix, Dictionary<string, string> result)
+        // If no translation is found for the specified language, try the default language
+        if (_translations.ContainsKey(defaultLanguage))
         {
-            foreach (var kvp in source)
+            var defaultTranslations = _translations[defaultLanguage];
+            if (defaultTranslations.ContainsKey(key))
             {
-                string fullKey = string.IsNullOrEmpty(prefix) ? kvp.Key : $"{prefix}.{kvp.Key}";
+                var defaultTranslation = defaultTranslations[key];
+                //Console.WriteLine($"Translation found in default language: {defaultTranslation}");
+                return defaultTranslation;
+            }
+        }
 
-                if (kvp.Value is JsonElement jsonElement && jsonElement.ValueKind == JsonValueKind.Object)
-                {
-                    var nestedDict = JsonSerializer.Deserialize<Dictionary<string, object>>(jsonElement.GetRawText());
-                    FlattenDictionary(nestedDict, fullKey, result);
-                }
-                else
-                {
-                    result[fullKey] = kvp.Value?.ToString() ?? string.Empty;
-                }
+        // If no translation is found in either language, return the key itself
+        Console.WriteLine($"No translation found for key: {key}");
+        return key;  // Fallback to the key itself if no translation is found
+    }
+
+    // Recursively flatten a nested dictionary to a single-level dictionary
+    private void FlattenDictionary(Dictionary<string, object> source, string prefix, Dictionary<string, string> result)
+    {
+        foreach (var kvp in source)
+        {
+            string fullKey = string.IsNullOrEmpty(prefix) ? kvp.Key : $"{prefix}.{kvp.Key}";
+
+            if (kvp.Value is JsonElement jsonElement && jsonElement.ValueKind == JsonValueKind.Object)
+            {
+                var nestedDict = JsonSerializer.Deserialize<Dictionary<string, object>>(jsonElement.GetRawText());
+                FlattenDictionary(nestedDict, fullKey, result);
+            }
+            else
+            {
+                result[fullKey] = kvp.Value?.ToString() ?? string.Empty;
             }
         }
     }

@@ -1,0 +1,25 @@
+{
+  "connection": {
+    "terminated": "Cysylltiad wedi'i derfynu."
+  },
+  "errors": {
+    "null_or_empty_data": "Ni all data fod yn wag neu'n null.",
+    "uninitialized_packets": "Dictionary y pecynnau heb ei gychwyn.",
+    "no_handler": "Dim handledwr pecyn wedi'i ddod o hyd i gyfer nifer y pecyn: {0}",
+    "account_not_found": "Does dim cyfrif {0}.",
+    "password_mismatch": "Ni chydymffurfir â'r cyfrinair ar gyfer {0}."
+  },
+  "user": {
+    "account_created": "Cyfrif wedi'i greu'n llwyddiannus.",
+    "logged_in": "{0} wedi mewngofnodi o {1}."
+  },
+  "server": {
+    "initialising_network_packets": "Yn cychwyn pecynnau rhwydwaith...",
+    "connection_received": "Cysylltiad wedi'i dderbyn o {0}",
+    "initialising_server_network": "Yn cychwyn rhwydwaith y gweinydd...",
+    "server_started": "Mae'r gweinydd wedi dechrau."
+  },
+  "errors": {
+    "file_not_found": "Ffeil cyfrif heb ei chanfod."
+  }
+}

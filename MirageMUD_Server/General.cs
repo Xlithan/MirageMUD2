@@ -39,7 +39,7 @@ namespace MirageMUD_Server
                 Types.Player[i] = new Types.AccountStruct();
             }
             stcp.InitialiseNetwork();
-            Console.WriteLine("Server has started.");
+            Console.WriteLine(TranslationManager.Instance.GetTranslation("server.server_started"));
         }
     }
 }
