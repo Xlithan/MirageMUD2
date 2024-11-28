@@ -575,6 +575,7 @@
             btnNewAccConnect.TabIndex = 12;
             btnNewAccConnect.Text = "Connect";
             btnNewAccConnect.UseVisualStyleBackColor = false;
+            btnNewAccConnect.Click += btnNewAccConnect_Click;
             // 
             // txtNewAccPass
             // 
@@ -1048,16 +1049,16 @@
             ClientSize = new Size(590, 384);
             ControlBox = false;
             Controls.Add(panel1);
+            Controls.Add(pnlNewAccount);
             Controls.Add(pnlLogin);
             Controls.Add(pnlCharacters);
             Controls.Add(pnlExit);
             Controls.Add(pnlIPConfig);
             Controls.Add(pnlCredits);
             Controls.Add(pnlGameOptions);
+            Controls.Add(picBackground);
             Controls.Add(label3);
             Controls.Add(label1);
-            Controls.Add(picBackground);
-            Controls.Add(pnlNewAccount);
             DoubleBuffered = true;
             FormBorderStyle = FormBorderStyle.None;
             MaximizeBox = false;

@@ -1,6 +1,8 @@
 ﻿using Bindings;
 using System;
 using System.Collections.Generic;
+using System.Net.Sockets;
+using System.Security.Cryptography.X509Certificates;
 
 namespace MirageMUD_Server
 {
@@ -8,6 +10,7 @@ namespace MirageMUD_Server
     {
         private delegate void Packet_(int  Index, byte[] data);
         private Dictionary<int, Packet_> Packets;
+        private Database db = new Database();
 
         public void InitialiseMessages()
         {
@@ -119,11 +122,41 @@ namespace MirageMUD_Server
         }
 
         private void HandleGetClasses(int Index, byte[] data) { }
-        private void HandleNewAccount(int Index, byte[] data) { }
+        private void HandleNewAccount(int Index, byte[] data)
+        {
+            Console.WriteLine("Account created successfully.");
+        }
         private void HandleDelAccount(int Index, byte[] data) { }
         private void HandleLogin(int Index, byte[] data)
         {
-            Console.WriteLine("Logged in successfully.");
+            PacketBuffer buffer = new PacketBuffer();
+            buffer.AddBytes(data);
+            buffer.GetInteger();
+            string username = buffer.GetString();
+            string password = buffer.GetString();
+            byte major = buffer.GetByte();
+            byte minor = buffer.GetByte();
+            byte rev = buffer.GetByte();
+
+            if (!db.AccountExist(username))
+            {
+                // AlertMsg(index, "Account does not exist.");
+                Console.WriteLine("Account does not exist.");
+                return;
+            }
+
+            if (!db.PasswordOK(Index, username, password))
+            {
+                // AlertMsg(index, "Password does not match.");
+                Console.WriteLine("Password does not match.");
+                return;
+            }
+
+            Console.WriteLine(username + " has logged in from " + ServerTCP.Clients[Index].IP + ".");
+            db.LoadPlayer(Index, username);
+            // SendChars
+            // SendMaxes
+            // SendRoomRevs
         }
         private void HandleAddChar(int Index, byte[] data) { }
         private void HandleDelChar(int Index, byte[] data) { }

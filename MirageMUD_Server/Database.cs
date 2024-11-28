@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Text.Json;
+using System.Xml.Linq;
 using Bindings;
 
 namespace MirageMUD_Server
@@ -16,6 +17,29 @@ namespace MirageMUD_Server
         {
             string filename = $"Accounts/{username}.json";
             return File.Exists(filename);
+        }
+
+        public bool PasswordOK(int index, string username, string password)
+        {
+            string filename = $"Accounts/{username}.json";
+            if (File.Exists(filename))
+            {
+                string json = File.ReadAllText(filename);
+                Types.Player[index] = JsonSerializer.Deserialize<Types.AccountStruct>(json);
+            }
+            else
+            {
+                throw new FileNotFoundException("Account file not found.");
+            }
+
+            if (Types.Player[index].Password == password)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public void AddAccount(int index, string name, string password)

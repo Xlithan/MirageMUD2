@@ -226,22 +226,28 @@ namespace MirageMUD_Client
             pnlCharacters.Visible = true;
 
             lblAccountName.Text = txtLoginName.Text;*/
-            if (!string.IsNullOrWhiteSpace(txtLoginName.Text) && !string.IsNullOrWhiteSpace(txtLoginPass.Text))
+            string loginName = txtLoginName.Text;
+            string loginPass = txtLoginPass.Text;
+
+            if (!string.IsNullOrWhiteSpace(loginName) && !string.IsNullOrWhiteSpace(loginPass))
             {
                 // Run login procedure
                 MenuStateHandler(MenuState.Login);
             }
-            else if (string.IsNullOrWhiteSpace(txtLoginName.Text) && string.IsNullOrWhiteSpace(txtLoginPass.Text))
+            else
             {
-                MessageBox.Show("Please enter your login name and password!", "Error", MessageBoxButtons.OK);
-            }
-            else if (string.IsNullOrWhiteSpace(txtLoginName.Text))
-            {
-                MessageBox.Show("Please enter your login name!", "Error", MessageBoxButtons.OK);
-            }
-            else if (string.IsNullOrWhiteSpace(txtLoginPass.Text))
-            {
-                MessageBox.Show("Please enter your password!", "Error", MessageBoxButtons.OK);
+                if (string.IsNullOrWhiteSpace(loginName) && string.IsNullOrWhiteSpace(loginPass))
+                {
+                    MessageBox.Show("Please enter your login name and password!", "Error", MessageBoxButtons.OK);
+                }
+                else if (string.IsNullOrWhiteSpace(loginName))
+                {
+                    MessageBox.Show("Please enter your login name!", "Error", MessageBoxButtons.OK);
+                }
+                else if (string.IsNullOrWhiteSpace(loginPass))
+                {
+                    MessageBox.Show("Please enter your password!", "Error", MessageBoxButtons.OK);
+                }
             }
         }
 
@@ -251,30 +257,71 @@ namespace MirageMUD_Client
             pnlLogin.Visible = true;
         }
 
+        private void btnNewAccConnect_Click(object sender, EventArgs e)
+        {
+            string name = txtNewAccName.Text;
+            string pass = txtNewAccPass.Text;
+            string confirmPass = txtConfirmPass.Text;
+
+            if (!string.IsNullOrWhiteSpace(name) && !string.IsNullOrWhiteSpace(pass) && !string.IsNullOrWhiteSpace(confirmPass))
+            {
+                if(string.Equals(pass, confirmPass))
+                {
+                    // Run new account procedure
+                    MenuStateHandler(MenuState.NewAccount);
+                }
+                else
+                {
+                    MessageBox.Show("Passwords do not match!", "Error", MessageBoxButtons.OK);
+                }
+            }
+            else
+            {
+                if (string.IsNullOrWhiteSpace(name))
+                {
+                    MessageBox.Show("Please enter a login name!", "Error", MessageBoxButtons.OK);
+                }
+                else if (string.IsNullOrWhiteSpace(pass))
+                {
+                    MessageBox.Show("Please enter a password!", "Error", MessageBoxButtons.OK);
+                }
+                else if (string.IsNullOrWhiteSpace(confirmPass))
+                {
+                    MessageBox.Show("Please confirm your password!", "Error", MessageBoxButtons.OK);
+                }
+                else
+                {
+                    MessageBox.Show("Please enter a login name and password!", "Error", MessageBoxButtons.OK);
+                }
+            }
+
+        }
+
         public void MenuStateHandler(MenuState state)
         {
             switch (state)
             {
-                /*case MenuState.NewAccount:
-
-                    if (ConnectToServer())
+                case MenuState.NewAccount:
+                    clientTCP = new ClientTCP();
+                    clientTCP.ConnectToServer();
+                    if (clientTCP.PlayerSocket.Connected)
                     {
-                        SetStatus("Connected, sending new account information...");
-                        SendNewAccount(txtNewAcctName.Text, txtNewAcctPassword.Text);
+                        btnNewAccConnect.Text = "Connecting...";
+                        clientTCP.SendNewAccount(txtNewAccName.Text, txtNewAccPass.Text);
                     }
                     break;
                 
                 case MenuState.DelAccount:
                     // Add logic here if needed for Delete Account
                     break;
-                */
+                
                 case MenuState.Login:
-                    clientTCP = new ClientTCP();                    
+                    clientTCP = new ClientTCP();
                     clientTCP.ConnectToServer();
                     if (clientTCP.PlayerSocket.Connected)
                     {
                         btnLoginConnect.Text = "Connecting...";
-                        clientTCP.SendLogin();
+                        clientTCP.SendLogin(txtLoginName.Text, txtLoginPass.Text);
                     }
                     break;
 

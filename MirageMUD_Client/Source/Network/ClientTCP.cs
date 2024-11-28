@@ -78,15 +78,25 @@ namespace MirageMUD_Client.Source.Network
             buffer.Dispose();
         }
 
-        public void SendLogin()
+        public void SendLogin(string name, string pass)
         {
             PacketBuffer buffer = new PacketBuffer();
             buffer.AddInteger((int)ClientPackets.CLogin);
-            buffer.AddString("Xlithan");
-            buffer.AddString("testing123");
+            buffer.AddString(name);
+            buffer.AddString(pass);
             buffer.AddByte(1);
             buffer.AddByte(0);
             buffer.AddByte(0);
+            SendData(buffer.ToArray());
+            buffer.Dispose();
+        }
+
+        public void SendNewAccount(string name, string pass)
+        {
+            PacketBuffer buffer = new PacketBuffer();
+            buffer.AddInteger((int)ClientPackets.CNewAccount);
+            buffer.AddString(name);
+            buffer.AddString(pass);
             SendData(buffer.ToArray());
             buffer.Dispose();
         }
