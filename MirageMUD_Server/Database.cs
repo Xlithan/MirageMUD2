@@ -1,8 +1,7 @@
 ﻿using System;
 using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
+using System.Text.Json;
 using Bindings;
-
 
 namespace MirageMUD_Server
 {
@@ -15,15 +14,8 @@ namespace MirageMUD_Server
 
         public bool AccountExist(string username)
         {
-            string filename = "Accounts/" + username + ".bin";
-            if(File.Exists(filename))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            string filename = $"Accounts/{username}.json";
+            return File.Exists(filename);
         }
 
         public void AddAccount(int index, string name, string password)
@@ -32,7 +24,7 @@ namespace MirageMUD_Server
             Types.Player[index].Login = name;
             Types.Player[index].Password = password;
 
-            for(int i = 1; i < Constants.MAX_CHARS; i++)
+            for (int i = 1; i <= Constants.MAX_CHARS; i++)
             {
                 ClearChar(index, i);
             }
@@ -54,20 +46,23 @@ namespace MirageMUD_Server
 
         public void SavePlayer(int index)
         {
-            string filename = "Accounts/" + Types.Player[index].Login + ".bin";
-            BinaryFormatter bf = new BinaryFormatter();
-            FileStream fs = new FileStream(filename, FileMode.OpenOrCreate);
-            bf.Serialize(fs, Types.Player[index]);
-            fs.Close();
+            string filename = $"Accounts/{Types.Player[index].Login}.json";
+            string json = JsonSerializer.Serialize(Types.Player[index], new JsonSerializerOptions { WriteIndented = true });
+            File.WriteAllText(filename, json);
         }
 
         public void LoadPlayer(int index, string name)
         {
-            string filename = "Accounts/" + name + ".bin";
-            BinaryFormatter bf = new BinaryFormatter();
-            FileStream fs = new FileStream(filename, FileMode.Open);
-            Types.Player[index] = (Types.AccountStruct)bf.Deserialize(fs);
-            fs.Close();
+            string filename = $"Accounts/{name}.json";
+            if (File.Exists(filename))
+            {
+                string json = File.ReadAllText(filename);
+                Types.Player[index] = JsonSerializer.Deserialize<Types.AccountStruct>(json);
+            }
+            else
+            {
+                throw new FileNotFoundException("Account file not found.");
+            }
         }
     }
 }
