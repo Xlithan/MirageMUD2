@@ -1,0 +1,25 @@
+{
+  "connection": {
+    "terminated": "Anslutning avbruten."
+  },
+  "errors": {
+    "null_or_empty_data": "Data kan inte vara null eller tomt.",
+    "uninitialized_packets": "Paketdictionaries är inte initialiserade.",
+    "no_handler": "Ingen paketbehandlare hittades för paketnummer: {0}",
+    "account_not_found": "{0}:s konto finns inte.",
+    "password_mismatch": "Lösenordet stämmer inte för {0}."
+  },
+  "user": {
+    "account_created": "Konto skapades framgångsrikt.",
+    "logged_in": "{0} har loggat in från {1}."
+  },
+  "server": {
+    "initialising_network_packets": "Initierar nätverkspaket...",
+    "connection_received": "Anslutning mottagen från {0}",
+    "initialising_server_network": "Initierar servernätverket...",
+    "server_started": "Servern har startat."
+  },
+  "errors": {
+    "file_not_found": "Kontofilen hittades inte."
+  }
+}

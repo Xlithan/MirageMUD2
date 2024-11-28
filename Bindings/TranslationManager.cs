@@ -49,9 +49,10 @@ public class TranslationManager
                     case "es": Lang = "Spanish (Español)"; break;
                     case "fr": Lang = "French (Français)"; break;
                     case "it": Lang = "Italian (Italiano)"; break;
-                    case "ja": Lang = "Japanese (日本語)"; break;
+                    case "pt": Lang = "Portuguese (Português)"; break;
                     case "ja-ro": Lang = "Romanized Japanese (Romaji)"; break;
                     case "pl": Lang = "Polish (Polski)"; break;
+                    case "sv": Lang = "Swedish (Svenska)"; break;
                 }
                 Console.WriteLine($"Language code set to: {Lang}");
             }
