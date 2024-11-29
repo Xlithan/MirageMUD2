@@ -2,7 +2,9 @@
   "messages": {
     "login_prompt": "Vänligen ange ditt användarnamn och lösenord!",
     "login_name_prompt": "Vänligen ange ditt användarnamn!",
-    "password_prompt": "Vänligen ange ditt lösenord!"
+    "password_prompt": "Vänligen ange ditt lösenord!",
+	"language_updated": "Språket uppdaterades framgångsrikt!",
+	"invalid_language": "Ogiltigt språk valt."
   },
   "controls": {
     "btnExit": {

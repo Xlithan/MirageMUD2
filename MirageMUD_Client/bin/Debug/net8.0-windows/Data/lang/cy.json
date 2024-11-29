@@ -2,7 +2,9 @@
   "messages": {
     "login_prompt": "Rhowch enw eich mewngofnodi a chyfrinair!",
     "login_name_prompt": "Rhowch enw eich mewngofnodi!",
-    "password_prompt": "Rhowch eich cyfrinair!"
+    "password_prompt": "Rhowch eich cyfrinair!",
+	"language_updated": "Wedi diweddaru'r iaith yn llwyddiannus!",
+	"invalid_language": "Iaith annilys wedi'i dewis."
   },
   "controls": {
     "btnExit": {

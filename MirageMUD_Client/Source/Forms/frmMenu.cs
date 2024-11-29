@@ -1,5 +1,6 @@
 using MirageMUD_Client.Source.General;
 using MirageMUD_Client.Source.Network;
+using MirageMUD_Client.Source.Utilities;
 
 namespace MirageMUD_Client
 {
@@ -23,6 +24,43 @@ namespace MirageMUD_Client
         public frmMenu()
         {
             InitializeComponent();
+
+            // Define the language options with their corresponding codes
+            var languageOptions = new Dictionary<string, string>
+            {
+                { "cy", "Welsh (Cymraeg)" },
+                { "de", "German (Deutsch)" },
+                { "en-gb", "British English (English)" },
+                { "en-us", "American English (English)" },
+                { "es", "Spanish (Español)" },
+                { "fr", "French (Français)" },
+                { "it", "Italian (Italiano)" },
+                { "pt", "Portuguese (Português)" },
+                { "ja-ro", "Romanized Japanese (Romaji)" },
+                { "pl", "Polish (Polski)" },
+                { "sv", "Swedish (Svenska)" }
+            };
+
+            // Populate the combo box with language names
+            cmbOptLang.Items.Clear();
+            foreach (var option in languageOptions.Values)
+            {
+                cmbOptLang.Items.Add(option);
+            }
+
+            // Read the current language code from config.json
+            string currentLanguageCode = ConfigReader.GetLanguageCode("Data/config.json");
+
+            // Match the current language code to the combo box item and select it
+            if (languageOptions.TryGetValue(currentLanguageCode, out string selectedLanguage))
+            {
+                cmbOptLang.SelectedItem = selectedLanguage;
+            }
+            else
+            {
+                // If no match is found, set a default (optional)
+                cmbOptLang.SelectedIndex = 0; // Default to the first item
+            }
 
             // Update the control text to the specified language.
             General.UpdateControlText(this);
@@ -273,7 +311,7 @@ namespace MirageMUD_Client
 
             if (!string.IsNullOrWhiteSpace(name) && !string.IsNullOrWhiteSpace(pass) && !string.IsNullOrWhiteSpace(confirmPass))
             {
-                if(string.Equals(pass, confirmPass))
+                if (string.Equals(pass, confirmPass))
                 {
                     // Run new account procedure
                     MenuStateHandler(MenuState.NewAccount);
@@ -318,11 +356,11 @@ namespace MirageMUD_Client
                         clientTCP.SendNewAccount(txtNewAccName.Text, txtNewAccPass.Text);
                     }
                     break;
-                
+
                 case MenuState.DelAccount:
                     // Add logic here if needed for Delete Account
                     break;
-                
+
                 case MenuState.Login:
                     clientTCP = new ClientTCP();
                     clientTCP.ConnectToServer();
@@ -400,6 +438,57 @@ namespace MirageMUD_Client
                     MessageBoxButtons.OK
                 );
             }*/
+        }
+
+        private void btnOptionsSave_Click(object sender, EventArgs e)
+        {
+            // Combo box items and their respective language codes
+            var languageMap = new Dictionary<string, string>
+            {
+                { "Welsh (Cymraeg)", "cy" },
+                { "German (Deutsch)", "de" },
+                { "British English (English)", "en-gb" },
+                { "American English (English)", "en-us" },
+                { "Spanish (Español)", "es" },
+                { "French (Français)", "fr" },
+                { "Italian (Italiano)", "it" },
+                { "Portuguese (Português)", "pt" },
+                { "Romanized Japanese (Romaji)", "ja-ro" },
+                { "Polish (Polski)", "pl" },
+                { "Swedish (Svenska)", "sv" }
+            };
+
+            string selectedItem = cmbOptLang.SelectedItem.ToString();
+            if (languageMap.TryGetValue(selectedItem, out string newLanguageCode))
+            {
+                string configFilePath = "Data/config.json"; // Update with actual path
+                ConfigReader.UpdateLanguageCode(configFilePath, newLanguageCode);
+
+                // Access the singleton instance of TranslationManager
+                TranslationManager translator = TranslationManager.Instance;
+
+                // Set the language code in the TranslationManager
+                TranslationManager.LanguageCode = newLanguageCode;
+
+                // Dynamically load the corresponding language file
+                translator.LoadTranslations(newLanguageCode); // Load translations for the new language
+
+                General.UpdateControlText(this);
+
+                string messageKey = "messages.language_updated";
+                string translatedMessage = TranslationManager.Instance.GetTranslation(messageKey);
+
+                // Show the message box with the translated text
+                MessageBox.Show(translatedMessage);
+            }
+            else
+            {
+                string messageKey = "messages.invalid_language";
+                string translatedMessage = TranslationManager.Instance.GetTranslation(messageKey);
+
+                // Show the message box with the translated text
+                MessageBox.Show(translatedMessage);
+            }
         }
     }
 }

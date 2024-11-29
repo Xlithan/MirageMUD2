@@ -27,5 +27,26 @@ namespace MirageMUD_Client.Source.Utilities
 
             throw new KeyNotFoundException("The 'languageCode' key was not found in the configuration file.");
         }
+
+        // Updates the language code in the config file
+        public static void UpdateLanguageCode(string configFilePath, string newLanguageCode)
+        {
+            Dictionary<string, string> config;
+
+            if (File.Exists(configFilePath))
+            {
+                string jsonContent = File.ReadAllText(configFilePath);
+                config = JsonSerializer.Deserialize<Dictionary<string, string>>(jsonContent) ?? new Dictionary<string, string>();
+            }
+            else
+            {
+                config = new Dictionary<string, string>();
+            }
+
+            config["languageCode"] = newLanguageCode;
+
+            string updatedJson = JsonSerializer.Serialize(config, new JsonSerializerOptions { WriteIndented = true });
+            File.WriteAllText(configFilePath, updatedJson);
+        }
     }
 }

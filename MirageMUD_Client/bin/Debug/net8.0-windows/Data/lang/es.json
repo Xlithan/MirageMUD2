@@ -2,7 +2,9 @@
   "messages": {
     "login_prompt": "¡Por favor, ingrese su nombre de usuario y contraseña!",
     "login_name_prompt": "¡Por favor, ingrese su nombre de usuario!",
-    "password_prompt": "¡Por favor, ingrese su contraseña!"
+    "password_prompt": "¡Por favor, ingrese su contraseña!",
+	"language_updated": "¡Idioma actualizado con éxito!",
+	"invalid_language": "Idioma seleccionado no válido."
   },
   "controls": {
     "btnExit": {

@@ -2,7 +2,9 @@
   "messages": {
     "login_prompt": "Bitte geben Sie Ihren Login-Namen und Passwort ein!",
     "login_name_prompt": "Bitte geben Sie Ihren Login-Namen ein!",
-    "password_prompt": "Bitte geben Sie Ihr Passwort ein!"
+    "password_prompt": "Bitte geben Sie Ihr Passwort ein!",
+	"language_updated": "Sprache erfolgreich aktualisiert!",
+  "invalid_language": "Ungültige Sprache ausgewählt."
   },
   "controls": {
     "btnExit": {

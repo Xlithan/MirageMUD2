@@ -47,7 +47,7 @@
             lstCharacters = new ListBox();
             label19 = new Label();
             pnlGameOptions = new Panel();
-            comboBox1 = new ComboBox();
+            cmbOptLang = new ComboBox();
             lblOptLang = new Label();
             btnOptionsSave = new Button();
             cmbFonts = new ComboBox();
@@ -345,7 +345,7 @@
             // 
             pnlGameOptions.BackColor = Color.FromArgb(65, 65, 65);
             pnlGameOptions.BackgroundImageLayout = ImageLayout.None;
-            pnlGameOptions.Controls.Add(comboBox1);
+            pnlGameOptions.Controls.Add(cmbOptLang);
             pnlGameOptions.Controls.Add(lblOptLang);
             pnlGameOptions.Controls.Add(btnOptionsSave);
             pnlGameOptions.Controls.Add(cmbFonts);
@@ -361,14 +361,15 @@
             pnlGameOptions.Size = new Size(406, 384);
             pnlGameOptions.TabIndex = 14;
             // 
-            // comboBox1
+            // cmbOptLang
             // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Items.AddRange(new object[] { "Welsh (Cymraeg)", "German (Deutsch)", "British English (English)", "American English (English)", "Spanish (Español)", "French (Français)", "Italian (Italiano)", "Portuguese (Português)", "Romanized Japanese (Romaji)", "Polish (Polski)", "Swedish (Svenska)" });
-            comboBox1.Location = new Point(36, 236);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(311, 23);
-            comboBox1.TabIndex = 18;
+            cmbOptLang.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbOptLang.FormattingEnabled = true;
+            cmbOptLang.Items.AddRange(new object[] { "Welsh (Cymraeg)", "German (Deutsch)", "British English (English)", "American English (English)", "Spanish (Español)", "French (Français)", "Italian (Italiano)", "Portuguese (Português)", "Romanized Japanese (Romaji)", "Polish (Polski)", "Swedish (Svenska)" });
+            cmbOptLang.Location = new Point(36, 236);
+            cmbOptLang.Name = "cmbOptLang";
+            cmbOptLang.Size = new Size(311, 23);
+            cmbOptLang.TabIndex = 18;
             // 
             // lblOptLang
             // 
@@ -397,6 +398,7 @@
             btnOptionsSave.TabIndex = 16;
             btnOptionsSave.Text = "Save";
             btnOptionsSave.UseVisualStyleBackColor = false;
+            btnOptionsSave.Click += btnOptionsSave_Click;
             // 
             // cmbFonts
             // 
@@ -506,7 +508,7 @@
             label32.Name = "label32";
             label32.Size = new Size(274, 92);
             label32.TabIndex = 9;
-            label32.Text = "Consty - Mirage Online source\r\nWilliam - Code contributions\r\nVerrigan - Code contributions\r\nXlithan - MirageMUD creator\r\n\r\nAny many others...";
+            label32.Text = "Consty - Mirage Online source\r\nWilliam - Code contributions\r\nVerrigan - Code contributions\r\nXlithan - MirageMUD creator\r\n\r\nAnd many others...";
             label32.TextAlign = ContentAlignment.TopCenter;
             // 
             // lblCreditsThanks
@@ -1180,7 +1182,7 @@
         private TextBox txtConfirmPass;
         private Label lblNewAccConfirm;
         private PictureBox picBackground;
-        private ComboBox comboBox1;
+        private ComboBox cmbOptLang;
         private Label lblOptLang;
     }
 }

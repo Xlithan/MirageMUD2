@@ -2,7 +2,9 @@
   "messages": {
     "login_prompt": "Rōguin'umei to pasuwādo o nyūryoku shite kudasai!",
     "login_name_prompt": "Rōguin'umei o nyūryoku shite kudasai!",
-    "password_prompt": "Pasuwādo o nyūryoku shite kudasai!"
+    "password_prompt": "Pasuwādo o nyūryoku shite kudasai!",
+	"language_updated": "Gengo ga seikou ni kōshin sa remashita!",
+	"invalid_language": "Mujun shita gengo ga sentaku sa remashita."
   },
   "controls": {
     "btnExit": {

@@ -2,7 +2,9 @@
   "messages": {
     "login_prompt": "Proszę wprowadzić nazwę użytkownika i hasło!",
     "login_name_prompt": "Proszę wprowadzić nazwę użytkownika!",
-    "password_prompt": "Proszę wprowadzić hasło!"
+    "password_prompt": "Proszę wprowadzić hasło!",
+	"language_updated": "Język został pomyślnie zaktualizowany!",
+	"invalid_language": "Wybrano nieprawidłowy język."
   },
   "controls": {
     "btnExit": {
