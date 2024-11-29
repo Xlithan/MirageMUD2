@@ -1,3 +1,4 @@
+using MirageMUD_Client.Source.General;
 using MirageMUD_Client.Source.Network;
 
 namespace MirageMUD_Client
@@ -22,6 +23,10 @@ namespace MirageMUD_Client
         public frmMenu()
         {
             InitializeComponent();
+
+            // Update the control text to the specified language.
+            General.UpdateControlText(this);
+
             cHandleData = new CHandleData();
             cHandleData.InitialiseMessages();
         }
@@ -238,15 +243,18 @@ namespace MirageMUD_Client
             {
                 if (string.IsNullOrWhiteSpace(loginName) && string.IsNullOrWhiteSpace(loginPass))
                 {
-                    MessageBox.Show("Please enter your login name and password!", "Error", MessageBoxButtons.OK);
+                    string translatedMessage = TranslationManager.Instance.GetTranslation("messages.login_prompt");
+                    MessageBox.Show(translatedMessage, "Error", MessageBoxButtons.OK);
                 }
                 else if (string.IsNullOrWhiteSpace(loginName))
                 {
-                    MessageBox.Show("Please enter your login name!", "Error", MessageBoxButtons.OK);
+                    string translatedMessage = TranslationManager.Instance.GetTranslation("messages.login_name_prompt");
+                    MessageBox.Show(translatedMessage, "Error", MessageBoxButtons.OK);
                 }
                 else if (string.IsNullOrWhiteSpace(loginPass))
                 {
-                    MessageBox.Show("Please enter your password!", "Error", MessageBoxButtons.OK);
+                    string translatedMessage = TranslationManager.Instance.GetTranslation("messages.password_prompt");
+                    MessageBox.Show(translatedMessage, "Error", MessageBoxButtons.OK);
                 }
             }
         }

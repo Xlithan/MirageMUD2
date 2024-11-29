@@ -34,10 +34,10 @@
             txtLoginPass = new TextBox();
             txtLoginName = new TextBox();
             chkRemember = new CheckBox();
-            label11 = new Label();
-            label12 = new Label();
-            label13 = new Label();
-            label14 = new Label();
+            lblLoginPassword = new Label();
+            lblLoginName = new Label();
+            lblLoginDesc = new Label();
+            lblTLogin = new Label();
             pnlCharacters = new Panel();
             button3 = new Button();
             button2 = new Button();
@@ -47,30 +47,32 @@
             lstCharacters = new ListBox();
             label19 = new Label();
             pnlGameOptions = new Panel();
+            comboBox1 = new ComboBox();
+            lblOptLang = new Label();
             btnOptionsSave = new Button();
             cmbFonts = new ComboBox();
             chkSound = new CheckBox();
-            label28 = new Label();
-            label27 = new Label();
+            lblOptMusic = new Label();
+            lblOptSound = new Label();
             txtFont = new TextBox();
             chkMusic = new CheckBox();
-            label26 = new Label();
-            label29 = new Label();
+            lblOptFont = new Label();
+            lblTGameOptions = new Label();
             pnlCredits = new Panel();
             label32 = new Label();
-            label31 = new Label();
-            label30 = new Label();
-            label35 = new Label();
+            lblCreditsThanks = new Label();
+            lblCreditsDesc = new Label();
+            lblTCredits = new Label();
             pnlNewAccount = new Panel();
             txtConfirmPass = new TextBox();
-            label6 = new Label();
+            lblNewAccConfirm = new Label();
             btnNewAccConnect = new Button();
             txtNewAccPass = new TextBox();
             txtNewAccName = new TextBox();
-            label37 = new Label();
-            label38 = new Label();
-            label39 = new Label();
-            label40 = new Label();
+            lblNewAccPass = new Label();
+            lblNewAccName = new Label();
+            lblNewAccDesc = new Label();
+            lblTNewAcc = new Label();
             panel1 = new Panel();
             pnlNav = new Panel();
             btnExit = new Button();
@@ -85,18 +87,18 @@
             label2 = new Label();
             pictureBox1 = new PictureBox();
             pnlExit = new Panel();
-            label5 = new Label();
+            lblExitDesc = new Label();
             btnExitConfirm = new Button();
-            label4 = new Label();
+            lblTExitGame = new Label();
             pnlIPConfig = new Panel();
             btnIPConfSave = new Button();
             txtPort = new TextBox();
             txtHost = new TextBox();
-            label18 = new Label();
-            label20 = new Label();
-            label22 = new Label();
-            label1 = new Label();
-            label3 = new Label();
+            lblIPPort = new Label();
+            lblIPHost = new Label();
+            lblTIPConfig = new Label();
+            lblTWelcome = new Label();
+            lblWelcomeDesc = new Label();
             picBackground = new PictureBox();
             pnlLogin.SuspendLayout();
             pnlCharacters.SuspendLayout();
@@ -120,10 +122,10 @@
             pnlLogin.Controls.Add(txtLoginPass);
             pnlLogin.Controls.Add(txtLoginName);
             pnlLogin.Controls.Add(chkRemember);
-            pnlLogin.Controls.Add(label11);
-            pnlLogin.Controls.Add(label12);
-            pnlLogin.Controls.Add(label13);
-            pnlLogin.Controls.Add(label14);
+            pnlLogin.Controls.Add(lblLoginPassword);
+            pnlLogin.Controls.Add(lblLoginName);
+            pnlLogin.Controls.Add(lblLoginDesc);
+            pnlLogin.Controls.Add(lblTLogin);
             pnlLogin.Location = new Point(184, 0);
             pnlLogin.Name = "pnlLogin";
             pnlLogin.Size = new Size(406, 384);
@@ -175,53 +177,53 @@
             chkRemember.Text = "Remember me";
             chkRemember.UseVisualStyleBackColor = false;
             // 
-            // label11
+            // lblLoginPassword
             // 
-            label11.BackColor = Color.Transparent;
-            label11.Font = new Font("Verdana", 9F, FontStyle.Bold);
-            label11.ForeColor = Color.White;
-            label11.Location = new Point(36, 156);
-            label11.Name = "label11";
-            label11.Size = new Size(81, 18);
-            label11.TabIndex = 3;
-            label11.Text = "Password:";
-            label11.TextAlign = ContentAlignment.MiddleLeft;
+            lblLoginPassword.BackColor = Color.Transparent;
+            lblLoginPassword.Font = new Font("Verdana", 9F, FontStyle.Bold);
+            lblLoginPassword.ForeColor = Color.White;
+            lblLoginPassword.Location = new Point(36, 156);
+            lblLoginPassword.Name = "lblLoginPassword";
+            lblLoginPassword.Size = new Size(81, 18);
+            lblLoginPassword.TabIndex = 3;
+            lblLoginPassword.Text = "Password:";
+            lblLoginPassword.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // label12
+            // lblLoginName
             // 
-            label12.BackColor = Color.Transparent;
-            label12.Font = new Font("Verdana", 9F, FontStyle.Bold);
-            label12.ForeColor = Color.White;
-            label12.Location = new Point(36, 97);
-            label12.Name = "label12";
-            label12.Size = new Size(75, 18);
-            label12.TabIndex = 2;
-            label12.Text = "Name:";
-            label12.TextAlign = ContentAlignment.MiddleLeft;
+            lblLoginName.BackColor = Color.Transparent;
+            lblLoginName.Font = new Font("Verdana", 9F, FontStyle.Bold);
+            lblLoginName.ForeColor = Color.White;
+            lblLoginName.Location = new Point(36, 97);
+            lblLoginName.Name = "lblLoginName";
+            lblLoginName.Size = new Size(75, 18);
+            lblLoginName.TabIndex = 2;
+            lblLoginName.Text = "Name:";
+            lblLoginName.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // label13
+            // lblLoginDesc
             // 
-            label13.BackColor = Color.Transparent;
-            label13.Font = new Font("Verdana", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label13.ForeColor = Color.White;
-            label13.Location = new Point(84, 49);
-            label13.Name = "label13";
-            label13.Size = new Size(263, 28);
-            label13.TabIndex = 1;
-            label13.Text = "Enter an account name and password.";
+            lblLoginDesc.BackColor = Color.Transparent;
+            lblLoginDesc.Font = new Font("Verdana", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblLoginDesc.ForeColor = Color.White;
+            lblLoginDesc.Location = new Point(84, 49);
+            lblLoginDesc.Name = "lblLoginDesc";
+            lblLoginDesc.Size = new Size(263, 28);
+            lblLoginDesc.TabIndex = 1;
+            lblLoginDesc.Text = "Enter an account name and password.";
             // 
-            // label14
+            // lblTLogin
             // 
-            label14.BackColor = Color.Transparent;
-            label14.Dock = DockStyle.Top;
-            label14.Font = new Font("Verdana", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label14.ForeColor = Color.White;
-            label14.Location = new Point(0, 0);
-            label14.Name = "label14";
-            label14.Size = new Size(406, 34);
-            label14.TabIndex = 0;
-            label14.Text = "Login";
-            label14.TextAlign = ContentAlignment.MiddleCenter;
+            lblTLogin.BackColor = Color.Transparent;
+            lblTLogin.Dock = DockStyle.Top;
+            lblTLogin.Font = new Font("Verdana", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTLogin.ForeColor = Color.White;
+            lblTLogin.Location = new Point(0, 0);
+            lblTLogin.Name = "lblTLogin";
+            lblTLogin.Size = new Size(406, 34);
+            lblTLogin.TabIndex = 0;
+            lblTLogin.Text = "Login";
+            lblTLogin.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // pnlCharacters
             // 
@@ -343,19 +345,42 @@
             // 
             pnlGameOptions.BackColor = Color.FromArgb(65, 65, 65);
             pnlGameOptions.BackgroundImageLayout = ImageLayout.None;
+            pnlGameOptions.Controls.Add(comboBox1);
+            pnlGameOptions.Controls.Add(lblOptLang);
             pnlGameOptions.Controls.Add(btnOptionsSave);
             pnlGameOptions.Controls.Add(cmbFonts);
             pnlGameOptions.Controls.Add(chkSound);
-            pnlGameOptions.Controls.Add(label28);
-            pnlGameOptions.Controls.Add(label27);
+            pnlGameOptions.Controls.Add(lblOptMusic);
+            pnlGameOptions.Controls.Add(lblOptSound);
             pnlGameOptions.Controls.Add(txtFont);
             pnlGameOptions.Controls.Add(chkMusic);
-            pnlGameOptions.Controls.Add(label26);
-            pnlGameOptions.Controls.Add(label29);
+            pnlGameOptions.Controls.Add(lblOptFont);
+            pnlGameOptions.Controls.Add(lblTGameOptions);
             pnlGameOptions.Location = new Point(184, 0);
             pnlGameOptions.Name = "pnlGameOptions";
             pnlGameOptions.Size = new Size(406, 384);
             pnlGameOptions.TabIndex = 14;
+            // 
+            // comboBox1
+            // 
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Items.AddRange(new object[] { "Welsh (Cymraeg)", "German (Deutsch)", "British English (English)", "American English (English)", "Spanish (Español)", "French (Français)", "Italian (Italiano)", "Portuguese (Português)", "Romanized Japanese (Romaji)", "Polish (Polski)", "Swedish (Svenska)" });
+            comboBox1.Location = new Point(36, 236);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(311, 23);
+            comboBox1.TabIndex = 18;
+            // 
+            // lblOptLang
+            // 
+            lblOptLang.BackColor = Color.Transparent;
+            lblOptLang.Font = new Font("Verdana", 9F, FontStyle.Bold);
+            lblOptLang.ForeColor = Color.White;
+            lblOptLang.Location = new Point(36, 215);
+            lblOptLang.Name = "lblOptLang";
+            lblOptLang.Size = new Size(103, 18);
+            lblOptLang.TabIndex = 17;
+            lblOptLang.Text = "Language:";
+            lblOptLang.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // btnOptionsSave
             // 
@@ -392,29 +417,29 @@
             chkSound.TabIndex = 14;
             chkSound.UseVisualStyleBackColor = false;
             // 
-            // label28
+            // lblOptMusic
             // 
-            label28.BackColor = Color.Transparent;
-            label28.Font = new Font("Verdana", 9F, FontStyle.Bold);
-            label28.ForeColor = Color.White;
-            label28.Location = new Point(4, 55);
-            label28.Name = "label28";
-            label28.Size = new Size(75, 28);
-            label28.TabIndex = 13;
-            label28.Text = "Music:";
-            label28.TextAlign = ContentAlignment.MiddleRight;
+            lblOptMusic.BackColor = Color.Transparent;
+            lblOptMusic.Font = new Font("Verdana", 9F, FontStyle.Bold);
+            lblOptMusic.ForeColor = Color.White;
+            lblOptMusic.Location = new Point(4, 55);
+            lblOptMusic.Name = "lblOptMusic";
+            lblOptMusic.Size = new Size(75, 28);
+            lblOptMusic.TabIndex = 13;
+            lblOptMusic.Text = "Music:";
+            lblOptMusic.TextAlign = ContentAlignment.MiddleRight;
             // 
-            // label27
+            // lblOptSound
             // 
-            label27.BackColor = Color.Transparent;
-            label27.Font = new Font("Verdana", 9F, FontStyle.Bold);
-            label27.ForeColor = Color.White;
-            label27.Location = new Point(4, 83);
-            label27.Name = "label27";
-            label27.Size = new Size(75, 28);
-            label27.TabIndex = 12;
-            label27.Text = "Sound:";
-            label27.TextAlign = ContentAlignment.MiddleRight;
+            lblOptSound.BackColor = Color.Transparent;
+            lblOptSound.Font = new Font("Verdana", 9F, FontStyle.Bold);
+            lblOptSound.ForeColor = Color.White;
+            lblOptSound.Location = new Point(4, 83);
+            lblOptSound.Name = "lblOptSound";
+            lblOptSound.Size = new Size(75, 28);
+            lblOptSound.TabIndex = 12;
+            lblOptSound.Text = "Sound:";
+            lblOptSound.TextAlign = ContentAlignment.MiddleRight;
             // 
             // txtFont
             // 
@@ -434,39 +459,39 @@
             chkMusic.TabIndex = 7;
             chkMusic.UseVisualStyleBackColor = false;
             // 
-            // label26
+            // lblOptFont
             // 
-            label26.BackColor = Color.Transparent;
-            label26.Font = new Font("Verdana", 9F, FontStyle.Bold);
-            label26.ForeColor = Color.White;
-            label26.Location = new Point(36, 127);
-            label26.Name = "label26";
-            label26.Size = new Size(75, 18);
-            label26.TabIndex = 3;
-            label26.Text = "Font:";
-            label26.TextAlign = ContentAlignment.MiddleLeft;
+            lblOptFont.BackColor = Color.Transparent;
+            lblOptFont.Font = new Font("Verdana", 9F, FontStyle.Bold);
+            lblOptFont.ForeColor = Color.White;
+            lblOptFont.Location = new Point(36, 127);
+            lblOptFont.Name = "lblOptFont";
+            lblOptFont.Size = new Size(75, 18);
+            lblOptFont.TabIndex = 3;
+            lblOptFont.Text = "Font:";
+            lblOptFont.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // label29
+            // lblTGameOptions
             // 
-            label29.BackColor = Color.Transparent;
-            label29.Dock = DockStyle.Top;
-            label29.Font = new Font("Verdana", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label29.ForeColor = Color.White;
-            label29.Location = new Point(0, 0);
-            label29.Name = "label29";
-            label29.Size = new Size(406, 34);
-            label29.TabIndex = 0;
-            label29.Text = "Game Options";
-            label29.TextAlign = ContentAlignment.MiddleCenter;
+            lblTGameOptions.BackColor = Color.Transparent;
+            lblTGameOptions.Dock = DockStyle.Top;
+            lblTGameOptions.Font = new Font("Verdana", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTGameOptions.ForeColor = Color.White;
+            lblTGameOptions.Location = new Point(0, 0);
+            lblTGameOptions.Name = "lblTGameOptions";
+            lblTGameOptions.Size = new Size(406, 34);
+            lblTGameOptions.TabIndex = 0;
+            lblTGameOptions.Text = "Game Options";
+            lblTGameOptions.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // pnlCredits
             // 
             pnlCredits.BackColor = Color.FromArgb(65, 65, 65);
             pnlCredits.BackgroundImageLayout = ImageLayout.None;
             pnlCredits.Controls.Add(label32);
-            pnlCredits.Controls.Add(label31);
-            pnlCredits.Controls.Add(label30);
-            pnlCredits.Controls.Add(label35);
+            pnlCredits.Controls.Add(lblCreditsThanks);
+            pnlCredits.Controls.Add(lblCreditsDesc);
+            pnlCredits.Controls.Add(lblTCredits);
             pnlCredits.Location = new Point(184, 0);
             pnlCredits.Name = "pnlCredits";
             pnlCredits.Size = new Size(406, 384);
@@ -484,56 +509,56 @@
             label32.Text = "Consty - Mirage Online source\r\nWilliam - Code contributions\r\nVerrigan - Code contributions\r\nXlithan - MirageMUD creator\r\n\r\nAny many others...";
             label32.TextAlign = ContentAlignment.TopCenter;
             // 
-            // label31
+            // lblCreditsThanks
             // 
-            label31.BackColor = Color.Transparent;
-            label31.Font = new Font("Verdana", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label31.ForeColor = Color.White;
-            label31.Location = new Point(66, 137);
-            label31.Name = "label31";
-            label31.Size = new Size(274, 19);
-            label31.TabIndex = 8;
-            label31.Text = "Special Thanks:";
-            label31.TextAlign = ContentAlignment.TopCenter;
+            lblCreditsThanks.BackColor = Color.Transparent;
+            lblCreditsThanks.Font = new Font("Verdana", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblCreditsThanks.ForeColor = Color.White;
+            lblCreditsThanks.Location = new Point(66, 137);
+            lblCreditsThanks.Name = "lblCreditsThanks";
+            lblCreditsThanks.Size = new Size(274, 19);
+            lblCreditsThanks.TabIndex = 8;
+            lblCreditsThanks.Text = "Special Thanks:";
+            lblCreditsThanks.TextAlign = ContentAlignment.TopCenter;
             // 
-            // label30
+            // lblCreditsDesc
             // 
-            label30.BackColor = Color.Transparent;
-            label30.Font = new Font("Verdana", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label30.ForeColor = Color.White;
-            label30.Location = new Point(66, 64);
-            label30.Name = "label30";
-            label30.Size = new Size(274, 55);
-            label30.TabIndex = 7;
-            label30.Text = "MirageSource has and always will be a collective effort by the MirageSource community since it's conception.";
-            label30.TextAlign = ContentAlignment.MiddleCenter;
+            lblCreditsDesc.BackColor = Color.Transparent;
+            lblCreditsDesc.Font = new Font("Verdana", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblCreditsDesc.ForeColor = Color.White;
+            lblCreditsDesc.Location = new Point(66, 64);
+            lblCreditsDesc.Name = "lblCreditsDesc";
+            lblCreditsDesc.Size = new Size(274, 55);
+            lblCreditsDesc.TabIndex = 7;
+            lblCreditsDesc.Text = "MirageSource has and always will be a collective effort by the MirageSource community since it's conception.";
+            lblCreditsDesc.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // label35
+            // lblTCredits
             // 
-            label35.BackColor = Color.Transparent;
-            label35.Dock = DockStyle.Top;
-            label35.Font = new Font("Verdana", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label35.ForeColor = Color.White;
-            label35.Location = new Point(0, 0);
-            label35.Name = "label35";
-            label35.Size = new Size(406, 34);
-            label35.TabIndex = 0;
-            label35.Text = "Credits";
-            label35.TextAlign = ContentAlignment.MiddleCenter;
+            lblTCredits.BackColor = Color.Transparent;
+            lblTCredits.Dock = DockStyle.Top;
+            lblTCredits.Font = new Font("Verdana", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTCredits.ForeColor = Color.White;
+            lblTCredits.Location = new Point(0, 0);
+            lblTCredits.Name = "lblTCredits";
+            lblTCredits.Size = new Size(406, 34);
+            lblTCredits.TabIndex = 0;
+            lblTCredits.Text = "Credits";
+            lblTCredits.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // pnlNewAccount
             // 
             pnlNewAccount.BackColor = Color.FromArgb(65, 65, 65);
             pnlNewAccount.BackgroundImageLayout = ImageLayout.None;
             pnlNewAccount.Controls.Add(txtConfirmPass);
-            pnlNewAccount.Controls.Add(label6);
+            pnlNewAccount.Controls.Add(lblNewAccConfirm);
             pnlNewAccount.Controls.Add(btnNewAccConnect);
             pnlNewAccount.Controls.Add(txtNewAccPass);
             pnlNewAccount.Controls.Add(txtNewAccName);
-            pnlNewAccount.Controls.Add(label37);
-            pnlNewAccount.Controls.Add(label38);
-            pnlNewAccount.Controls.Add(label39);
-            pnlNewAccount.Controls.Add(label40);
+            pnlNewAccount.Controls.Add(lblNewAccPass);
+            pnlNewAccount.Controls.Add(lblNewAccName);
+            pnlNewAccount.Controls.Add(lblNewAccDesc);
+            pnlNewAccount.Controls.Add(lblTNewAcc);
             pnlNewAccount.Location = new Point(184, 0);
             pnlNewAccount.Name = "pnlNewAccount";
             pnlNewAccount.Size = new Size(406, 384);
@@ -548,17 +573,17 @@
             txtConfirmPass.Size = new Size(311, 23);
             txtConfirmPass.TabIndex = 14;
             // 
-            // label6
+            // lblNewAccConfirm
             // 
-            label6.BackColor = Color.Transparent;
-            label6.Font = new Font("Verdana", 9F, FontStyle.Bold);
-            label6.ForeColor = Color.White;
-            label6.Location = new Point(36, 233);
-            label6.Name = "label6";
-            label6.Size = new Size(139, 18);
-            label6.TabIndex = 13;
-            label6.Text = "Confirm Password:";
-            label6.TextAlign = ContentAlignment.MiddleLeft;
+            lblNewAccConfirm.BackColor = Color.Transparent;
+            lblNewAccConfirm.Font = new Font("Verdana", 9F, FontStyle.Bold);
+            lblNewAccConfirm.ForeColor = Color.White;
+            lblNewAccConfirm.Location = new Point(36, 233);
+            lblNewAccConfirm.Name = "lblNewAccConfirm";
+            lblNewAccConfirm.Size = new Size(139, 18);
+            lblNewAccConfirm.TabIndex = 13;
+            lblNewAccConfirm.Text = "Confirm Password:";
+            lblNewAccConfirm.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // btnNewAccConnect
             // 
@@ -594,53 +619,53 @@
             txtNewAccName.Size = new Size(311, 23);
             txtNewAccName.TabIndex = 8;
             // 
-            // label37
+            // lblNewAccPass
             // 
-            label37.BackColor = Color.Transparent;
-            label37.Font = new Font("Verdana", 9F, FontStyle.Bold);
-            label37.ForeColor = Color.White;
-            label37.Location = new Point(36, 182);
-            label37.Name = "label37";
-            label37.Size = new Size(81, 18);
-            label37.TabIndex = 3;
-            label37.Text = "Password:";
-            label37.TextAlign = ContentAlignment.MiddleLeft;
+            lblNewAccPass.BackColor = Color.Transparent;
+            lblNewAccPass.Font = new Font("Verdana", 9F, FontStyle.Bold);
+            lblNewAccPass.ForeColor = Color.White;
+            lblNewAccPass.Location = new Point(36, 182);
+            lblNewAccPass.Name = "lblNewAccPass";
+            lblNewAccPass.Size = new Size(81, 18);
+            lblNewAccPass.TabIndex = 3;
+            lblNewAccPass.Text = "Password:";
+            lblNewAccPass.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // label38
+            // lblNewAccName
             // 
-            label38.BackColor = Color.Transparent;
-            label38.Font = new Font("Verdana", 9F, FontStyle.Bold);
-            label38.ForeColor = Color.White;
-            label38.Location = new Point(36, 131);
-            label38.Name = "label38";
-            label38.Size = new Size(75, 18);
-            label38.TabIndex = 2;
-            label38.Text = "Name:";
-            label38.TextAlign = ContentAlignment.MiddleLeft;
+            lblNewAccName.BackColor = Color.Transparent;
+            lblNewAccName.Font = new Font("Verdana", 9F, FontStyle.Bold);
+            lblNewAccName.ForeColor = Color.White;
+            lblNewAccName.Location = new Point(36, 131);
+            lblNewAccName.Name = "lblNewAccName";
+            lblNewAccName.Size = new Size(75, 18);
+            lblNewAccName.TabIndex = 2;
+            lblNewAccName.Text = "Name:";
+            lblNewAccName.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // label39
+            // lblNewAccDesc
             // 
-            label39.BackColor = Color.Transparent;
-            label39.Font = new Font("Verdana", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label39.ForeColor = Color.White;
-            label39.Location = new Point(84, 54);
-            label39.Name = "label39";
-            label39.Size = new Size(263, 50);
-            label39.TabIndex = 1;
-            label39.Text = "Enter a account name and password.  You can name yourself whatever you want, we have no restrictions on names.";
+            lblNewAccDesc.BackColor = Color.Transparent;
+            lblNewAccDesc.Font = new Font("Verdana", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblNewAccDesc.ForeColor = Color.White;
+            lblNewAccDesc.Location = new Point(84, 54);
+            lblNewAccDesc.Name = "lblNewAccDesc";
+            lblNewAccDesc.Size = new Size(263, 50);
+            lblNewAccDesc.TabIndex = 1;
+            lblNewAccDesc.Text = "Enter a account name and password.  You can name yourself whatever you want, we have no restrictions on names.";
             // 
-            // label40
+            // lblTNewAcc
             // 
-            label40.BackColor = Color.Transparent;
-            label40.Dock = DockStyle.Top;
-            label40.Font = new Font("Verdana", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label40.ForeColor = Color.White;
-            label40.Location = new Point(0, 0);
-            label40.Name = "label40";
-            label40.Size = new Size(406, 34);
-            label40.TabIndex = 0;
-            label40.Text = "New Account";
-            label40.TextAlign = ContentAlignment.MiddleCenter;
+            lblTNewAcc.BackColor = Color.Transparent;
+            lblTNewAcc.Dock = DockStyle.Top;
+            lblTNewAcc.Font = new Font("Verdana", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTNewAcc.ForeColor = Color.White;
+            lblTNewAcc.Location = new Point(0, 0);
+            lblTNewAcc.Name = "lblTNewAcc";
+            lblTNewAcc.Size = new Size(406, 34);
+            lblTNewAcc.TabIndex = 0;
+            lblTNewAcc.Text = "New Account";
+            lblTNewAcc.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // panel1
             // 
@@ -874,24 +899,24 @@
             // 
             pnlExit.BackColor = Color.FromArgb(65, 65, 65);
             pnlExit.BackgroundImageLayout = ImageLayout.None;
-            pnlExit.Controls.Add(label5);
+            pnlExit.Controls.Add(lblExitDesc);
             pnlExit.Controls.Add(btnExitConfirm);
-            pnlExit.Controls.Add(label4);
+            pnlExit.Controls.Add(lblTExitGame);
             pnlExit.Location = new Point(184, 0);
             pnlExit.Name = "pnlExit";
             pnlExit.Size = new Size(406, 384);
             pnlExit.TabIndex = 21;
             // 
-            // label5
+            // lblExitDesc
             // 
-            label5.BackColor = Color.Transparent;
-            label5.Font = new Font("Verdana", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label5.ForeColor = Color.White;
-            label5.Location = new Point(46, 64);
-            label5.Name = "label5";
-            label5.Size = new Size(307, 33);
-            label5.TabIndex = 8;
-            label5.Text = "Please confirm that you wish to exit the game.";
+            lblExitDesc.BackColor = Color.Transparent;
+            lblExitDesc.Font = new Font("Verdana", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblExitDesc.ForeColor = Color.White;
+            lblExitDesc.Location = new Point(46, 64);
+            lblExitDesc.Name = "lblExitDesc";
+            lblExitDesc.Size = new Size(307, 33);
+            lblExitDesc.TabIndex = 8;
+            lblExitDesc.Text = "Please confirm that you wish to exit the game.";
             // 
             // btnExitConfirm
             // 
@@ -911,18 +936,18 @@
             btnExitConfirm.UseVisualStyleBackColor = false;
             btnExitConfirm.Click += btnExitConfirm_Click;
             // 
-            // label4
+            // lblTExitGame
             // 
-            label4.BackColor = Color.Transparent;
-            label4.Dock = DockStyle.Top;
-            label4.Font = new Font("Verdana", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label4.ForeColor = Color.White;
-            label4.Location = new Point(0, 0);
-            label4.Name = "label4";
-            label4.Size = new Size(406, 34);
-            label4.TabIndex = 0;
-            label4.Text = "Exit Game";
-            label4.TextAlign = ContentAlignment.MiddleCenter;
+            lblTExitGame.BackColor = Color.Transparent;
+            lblTExitGame.Dock = DockStyle.Top;
+            lblTExitGame.Font = new Font("Verdana", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTExitGame.ForeColor = Color.White;
+            lblTExitGame.Location = new Point(0, 0);
+            lblTExitGame.Name = "lblTExitGame";
+            lblTExitGame.Size = new Size(406, 34);
+            lblTExitGame.TabIndex = 0;
+            lblTExitGame.Text = "Exit Game";
+            lblTExitGame.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // pnlIPConfig
             // 
@@ -931,9 +956,9 @@
             pnlIPConfig.Controls.Add(btnIPConfSave);
             pnlIPConfig.Controls.Add(txtPort);
             pnlIPConfig.Controls.Add(txtHost);
-            pnlIPConfig.Controls.Add(label18);
-            pnlIPConfig.Controls.Add(label20);
-            pnlIPConfig.Controls.Add(label22);
+            pnlIPConfig.Controls.Add(lblIPPort);
+            pnlIPConfig.Controls.Add(lblIPHost);
+            pnlIPConfig.Controls.Add(lblTIPConfig);
             pnlIPConfig.Location = new Point(184, 0);
             pnlIPConfig.Name = "pnlIPConfig";
             pnlIPConfig.Size = new Size(406, 384);
@@ -969,66 +994,66 @@
             txtHost.Size = new Size(311, 23);
             txtHost.TabIndex = 8;
             // 
-            // label18
+            // lblIPPort
             // 
-            label18.BackColor = Color.Transparent;
-            label18.Font = new Font("Verdana", 9F, FontStyle.Bold);
-            label18.ForeColor = Color.White;
-            label18.Location = new Point(36, 126);
-            label18.Name = "label18";
-            label18.Size = new Size(75, 18);
-            label18.TabIndex = 3;
-            label18.Text = "Port:";
-            label18.TextAlign = ContentAlignment.MiddleLeft;
+            lblIPPort.BackColor = Color.Transparent;
+            lblIPPort.Font = new Font("Verdana", 9F, FontStyle.Bold);
+            lblIPPort.ForeColor = Color.White;
+            lblIPPort.Location = new Point(36, 126);
+            lblIPPort.Name = "lblIPPort";
+            lblIPPort.Size = new Size(75, 18);
+            lblIPPort.TabIndex = 3;
+            lblIPPort.Text = "Port:";
+            lblIPPort.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // label20
+            // lblIPHost
             // 
-            label20.BackColor = Color.Transparent;
-            label20.Font = new Font("Verdana", 9F, FontStyle.Bold);
-            label20.ForeColor = Color.White;
-            label20.Location = new Point(36, 69);
-            label20.Name = "label20";
-            label20.Size = new Size(75, 18);
-            label20.TabIndex = 2;
-            label20.Text = "Host:";
-            label20.TextAlign = ContentAlignment.MiddleLeft;
+            lblIPHost.BackColor = Color.Transparent;
+            lblIPHost.Font = new Font("Verdana", 9F, FontStyle.Bold);
+            lblIPHost.ForeColor = Color.White;
+            lblIPHost.Location = new Point(36, 69);
+            lblIPHost.Name = "lblIPHost";
+            lblIPHost.Size = new Size(75, 18);
+            lblIPHost.TabIndex = 2;
+            lblIPHost.Text = "Host:";
+            lblIPHost.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // label22
+            // lblTIPConfig
             // 
-            label22.BackColor = Color.Transparent;
-            label22.Dock = DockStyle.Top;
-            label22.Font = new Font("Verdana", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label22.ForeColor = Color.White;
-            label22.Location = new Point(0, 0);
-            label22.Name = "label22";
-            label22.Size = new Size(406, 34);
-            label22.TabIndex = 0;
-            label22.Text = "IP Config";
-            label22.TextAlign = ContentAlignment.MiddleCenter;
+            lblTIPConfig.BackColor = Color.Transparent;
+            lblTIPConfig.Dock = DockStyle.Top;
+            lblTIPConfig.Font = new Font("Verdana", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTIPConfig.ForeColor = Color.White;
+            lblTIPConfig.Location = new Point(0, 0);
+            lblTIPConfig.Name = "lblTIPConfig";
+            lblTIPConfig.Size = new Size(406, 34);
+            lblTIPConfig.TabIndex = 0;
+            lblTIPConfig.Text = "IP Config";
+            lblTIPConfig.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // label1
+            // lblTWelcome
             // 
-            label1.BackColor = Color.Transparent;
-            label1.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.ForeColor = Color.FromArgb(224, 224, 224);
-            label1.Location = new Point(232, 120);
-            label1.Name = "label1";
-            label1.Size = new Size(309, 20);
-            label1.TabIndex = 24;
-            label1.Text = "Welcome";
-            label1.TextAlign = ContentAlignment.TopCenter;
+            lblTWelcome.BackColor = Color.Transparent;
+            lblTWelcome.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTWelcome.ForeColor = Color.FromArgb(224, 224, 224);
+            lblTWelcome.Location = new Point(232, 120);
+            lblTWelcome.Name = "lblTWelcome";
+            lblTWelcome.Size = new Size(309, 20);
+            lblTWelcome.TabIndex = 24;
+            lblTWelcome.Text = "Welcome";
+            lblTWelcome.TextAlign = ContentAlignment.TopCenter;
             // 
-            // label3
+            // lblWelcomeDesc
             // 
-            label3.BackColor = Color.Transparent;
-            label3.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label3.ForeColor = Color.FromArgb(224, 224, 224);
-            label3.Location = new Point(257, 143);
-            label3.Name = "label3";
-            label3.Size = new Size(259, 96);
-            label3.TabIndex = 25;
-            label3.Text = "Welcome to MirageMUD 2, the most advanced stand-alone graphical MUD engine on the planet.\r\n\r\nUse the left navigation to create a new account or log into the server.";
-            label3.TextAlign = ContentAlignment.MiddleLeft;
+            lblWelcomeDesc.BackColor = Color.Transparent;
+            lblWelcomeDesc.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblWelcomeDesc.ForeColor = Color.FromArgb(224, 224, 224);
+            lblWelcomeDesc.Location = new Point(257, 143);
+            lblWelcomeDesc.Name = "lblWelcomeDesc";
+            lblWelcomeDesc.Size = new Size(259, 96);
+            lblWelcomeDesc.TabIndex = 25;
+            lblWelcomeDesc.Text = "Welcome to MirageMUD 2, the most advanced stand-alone graphical MUD engine on the planet.\r\n\r\nUse the left navigation to create a new account or log into the server.";
+            lblWelcomeDesc.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // picBackground
             // 
@@ -1056,8 +1081,8 @@
             Controls.Add(pnlIPConfig);
             Controls.Add(pnlCredits);
             Controls.Add(pnlGameOptions);
-            Controls.Add(label1);
-            Controls.Add(label3);
+            Controls.Add(lblTWelcome);
+            Controls.Add(lblWelcomeDesc);
             Controls.Add(picBackground);
             DoubleBuffered = true;
             FormBorderStyle = FormBorderStyle.None;
@@ -1090,10 +1115,10 @@
         private TextBox txtLoginPass;
         private TextBox txtLoginName;
         private CheckBox chkRemember;
-        private Label label11;
-        private Label label12;
-        private Label label13;
-        private Label label14;
+        private Label lblLoginPassword;
+        private Label lblLoginName;
+        private Label lblLoginDesc;
+        private Label lblTLogin;
         private Panel pnlCharacters;
         private Label label19;
         private PictureBox picCharsAvatar;
@@ -1101,24 +1126,24 @@
         private Panel pnlGameOptions;
         private TextBox txtFont;
         private CheckBox chkMusic;
-        private Label label26;
-        private Label label29;
+        private Label lblOptFont;
+        private Label lblTGameOptions;
         private ComboBox cmbFonts;
         private CheckBox chkSound;
-        private Label label28;
-        private Label label27;
+        private Label lblOptMusic;
+        private Label lblOptSound;
         private Panel pnlCredits;
-        private Label label30;
-        private Label label35;
+        private Label lblCreditsDesc;
+        private Label lblTCredits;
         private Label label32;
-        private Label label31;
+        private Label lblCreditsThanks;
         private Panel pnlNewAccount;
         private TextBox txtNewAccPass;
         private TextBox txtNewAccName;
-        private Label label37;
-        private Label label38;
-        private Label label39;
-        private Label label40;
+        private Label lblNewAccPass;
+        private Label lblNewAccName;
+        private Label lblNewAccDesc;
+        private Label lblTNewAcc;
         private Panel panel1;
         private Panel panel2;
         private Button btnHome;
@@ -1130,20 +1155,20 @@
         private Button btnNewAcc;
         private Panel pnlNav;
         private Panel pnlExit;
-        private Label label4;
+        private Label lblTExitGame;
         private Button btnExitConfirm;
-        private Label label5;
+        private Label lblExitDesc;
         private PictureBox pictureBox1;
         private Label lblAccountName;
         private Label label2;
         private Panel pnlIPConfig;
         private TextBox txtPort;
         private TextBox txtHost;
-        private Label label18;
-        private Label label20;
-        private Label label22;
-        private Label label1;
-        private Label label3;
+        private Label lblIPPort;
+        private Label lblIPHost;
+        private Label lblTIPConfig;
+        private Label lblTWelcome;
+        private Label lblWelcomeDesc;
         private Button btnIPConfSave;
         private Button btnLoginConnect;
         private Button btnOptionsSave;
@@ -1153,7 +1178,9 @@
         private Button button2;
         private Button button1;
         private TextBox txtConfirmPass;
-        private Label label6;
+        private Label lblNewAccConfirm;
         private PictureBox picBackground;
+        private ComboBox comboBox1;
+        private Label lblOptLang;
     }
 }
