@@ -508,7 +508,7 @@
             label32.Name = "label32";
             label32.Size = new Size(274, 92);
             label32.TabIndex = 9;
-            label32.Text = "Consty - Mirage Online source\r\nWilliam - Code contributions\r\nVerrigan - Code contributions\r\nXlithan - MirageMUD creator\r\n\r\nAnd many others...";
+            label32.Text = "Kevin Kaymak - Networking code\r\ndisc330 - Bug fixes";
             label32.TextAlign = ContentAlignment.TopCenter;
             // 
             // lblCreditsThanks
