@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using Bindings;
@@ -91,7 +92,7 @@ namespace MirageMUD_Client.Source.Network
             }
             else
             {
-                Console.WriteLine($"No packet handler found for packet number: {packetNum}");
+                Debug.WriteLine($"No packet handler found for packet number: {packetNum}");
             }
         }
 

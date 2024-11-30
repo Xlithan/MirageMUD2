@@ -30,7 +30,7 @@ namespace MirageMUD_Client
 
             // Create an instance of the General class and call its Main method
             var general = new Source.General.General();
-            general.Main();
+            general.MainAsync();
         }
     }
 }

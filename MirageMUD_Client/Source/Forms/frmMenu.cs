@@ -1,7 +1,6 @@
 using MirageMUD_Client.Source.General;
 using MirageMUD_Client.Source.Network;
 using MirageMUD_Client.Source.Utilities;
-using System.Net.WebSockets;
 using System.Text;
 
 namespace MirageMUD_Client
@@ -9,8 +8,6 @@ namespace MirageMUD_Client
     public partial class frmMenu : Form
     {
         ClientTCP clientTCP;
-        ClientWebSock clientWebSocket;
-        ClientWebSocket webSocket;
         CHandleData cHandleData;
         public enum MenuState : byte
         {
@@ -28,10 +25,6 @@ namespace MirageMUD_Client
         public frmMenu()
         {
             InitializeComponent();
-
-            // Initialize the WebSocket client
-            clientWebSocket = new ClientWebSock();
-            webSocket = new ClientWebSocket();
 
             // Define the language options with their corresponding codes
             var languageOptions = new Dictionary<string, string>
@@ -356,36 +349,12 @@ namespace MirageMUD_Client
             switch (state)
             {
                 case MenuState.NewAccount:
-                    /*clientTCP = new ClientTCP();
+                    clientTCP = new ClientTCP();
                     clientTCP.ConnectToServer();
                     if (clientTCP.PlayerSocket.Connected)
                     {
                         btnNewAccConnect.Text = "Connecting...";
                         clientTCP.SendNewAccount(txtNewAccName.Text, txtNewAccPass.Text);
-                    }*/
-                    clientWebSocket = new ClientWebSock();
-
-                    try
-                    {
-                        // Set your WebSocket server URI here
-                        Uri serverUri = new Uri("ws://127.0.0.1:7777"); // Example URI, change as needed
-                        await webSocket.ConnectAsync(serverUri, CancellationToken.None); // Asynchronous connection
-
-                        if (webSocket.State == WebSocketState.Open)
-                        {
-                            btnNewAccConnect.Text = "Connecting..."; // Button text change to indicate connecting
-                                                                     // Call the SendNewAccountAsync method directly from ClientWebSocket class
-                            await clientWebSocket.SendNewAccountAsync(txtNewAccName.Text, txtNewAccPass.Text); // Send the new account data asynchronously
-                        }
-                        else
-                        {
-                            btnNewAccConnect.Text = "Failed to Connect"; // If connection failed
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        btnNewAccConnect.Text = "Connection Error"; // Show error message
-                        MessageBox.Show($"Error connecting to server: {ex.Message}", "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     break;
 
@@ -394,24 +363,12 @@ namespace MirageMUD_Client
                     break;
 
                 case MenuState.Login:
-                /*clientTCP = new ClientTCP();
+                clientTCP = new ClientTCP();
                 clientTCP.ConnectToServer();
                 if (clientTCP.PlayerSocket.Connected)
                 {
                     btnLoginConnect.Text = "Connecting...";
                     clientTCP.SendLogin(txtLoginName.Text, txtLoginPass.Text);
-                }*/
-                string loginName = txtLoginName.Text;
-                string loginPass = txtLoginPass.Text;
-
-                if (!string.IsNullOrWhiteSpace(loginName) && !string.IsNullOrWhiteSpace(loginPass))
-                {
-                    // Call the method to handle login
-                    await clientWebSocket.SendLoginAsync(loginName, loginPass);
-                }
-                else
-                {
-                    MessageBox.Show("Please enter a valid name and password", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 break;
 

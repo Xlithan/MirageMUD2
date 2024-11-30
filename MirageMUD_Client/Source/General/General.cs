@@ -1,12 +1,15 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows.Forms;
+using MirageMUD_Client.Source.Network;
 
 namespace MirageMUD_Client.Source.General
 {
     internal class General
     {
-        public void Main()
+        public async Task MainAsync()
         {
+            // Start the application
             Application.Run(new frmMenu());
         }
 

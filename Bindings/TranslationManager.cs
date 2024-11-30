@@ -90,7 +90,7 @@ public class TranslationManager
     public string GetTranslation(string key, string defaultLanguage = "en-gb")
     {
         // Debugging output to trace the translation lookup process
-        //Console.WriteLine($"Looking up key: {key} in language: {_languageCode}");
+        //Debug.WriteLine($"Looking up key: {key} in language: {_languageCode}");
 
         // Check if translations exist for the current language code
         if (_translations.ContainsKey(_languageCode))
@@ -99,7 +99,7 @@ public class TranslationManager
             if (langTranslations.ContainsKey(key))
             {
                 var translation = langTranslations[key];
-                //Console.WriteLine($"Translation found: {translation}");
+                //Debug.WriteLine($"Translation found: {translation}");
                 return translation;
             }
         }
@@ -111,7 +111,7 @@ public class TranslationManager
             if (defaultTranslations.ContainsKey(key))
             {
                 var defaultTranslation = defaultTranslations[key];
-                //Console.WriteLine($"Translation found in default language: {defaultTranslation}");
+                //Debug.WriteLine($"Translation found in default language: {defaultTranslation}");
                 return defaultTranslation;
             }
         }
