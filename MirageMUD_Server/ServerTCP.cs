@@ -32,7 +32,7 @@ namespace MirageMUD_Server
             connectingTcpClient.NoDelay = false;
             
             // For every client slot
-            for (int i = 1; i <= Constants.MAX_PLAYERS; i++)
+            for (int i = 0; i < Constants.MAX_PLAYERS; i++)
             {
                 // If the client slot has a null socket
                 if (Clients[i].Socket == null)

@@ -33,14 +33,17 @@ namespace MirageMUD_Server
 
             stcp = new ServerTCP();
 
-            for (int i = 1; i < Constants.MAX_PLAYERS; i++)
+            for (int i = 0; i < Constants.MAX_PLAYERS; i++)
             {
                 // Create a new Client object, and pass in the data handler object for it to use
                 var newClient = new Client(_sHandleData);
 
                 // Put the newly created client into the Clients array
                 ServerTCP.Clients[i] = newClient;
+
+                // Initialize the Player account and its characters
                 Types.Player[i] = new Types.AccountStruct();
+                Types.Player[i].Initialise(Constants.MAX_CHARS); // Initialize characters with the correct size
             }
             stcp.InitialiseNetwork();
             Console.WriteLine(TranslationManager.Instance.GetTranslation("server.server_started"));

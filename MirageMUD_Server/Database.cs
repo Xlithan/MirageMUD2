@@ -51,20 +51,8 @@ namespace MirageMUD_Server
             Types.Player[index].Password = hashedPassword; // Store the hashed password
             Types.Player[index].Salt = salt; // Store the salt
 
-            // Ensure the Character array is initialized and add characters if necessary
-            if (Types.Player[index].Character == null)
-            {
-                Types.Player[index].Character = new Types.CharacterStruct[Constants.MAX_CHARS]; // Initialize the Character array
-            }
-
-            // Initialize characters if they are not already initialized
             for (int i = 0; i < Constants.MAX_CHARS; i++)
             {
-                if (Types.Player[index].Character[i] == null)
-                {
-                    Types.Player[index].Character[i] = new Types.CharacterStruct(); // Initialize each character slot if it's null
-                }
-
                 ClearChar(index, i);
             }
 
@@ -79,7 +67,7 @@ namespace MirageMUD_Server
 
         public void ClearChar(int index, int charnum)
         {
-            Types.Player[index].Character[charnum].Name = "";
+            Types.Player[index].Character[charnum].Name = string.Empty;
             Types.Player[index].Character[charnum].Class = 1;
         }
 
