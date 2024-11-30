@@ -2,6 +2,8 @@
 using System.Net.Sockets;
 using System.Net;
 using Bindings;
+using System.Security.Claims;
+using System.Reflection.Emit;
 
 namespace MirageMUD_Server
 {
@@ -27,6 +29,8 @@ namespace MirageMUD_Server
 
         public void InitialiseServer()
         {
+            Console.Title = "MirageMUD 2";
+
             stcp = new ServerTCP();
 
             for (int i = 1; i < Constants.MAX_PLAYERS; i++)

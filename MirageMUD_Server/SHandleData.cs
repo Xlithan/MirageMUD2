@@ -1,5 +1,7 @@
 ﻿using Bindings;
 using System;
+using System.Security.Cryptography;
+using System.Text;
 using System.Collections.Generic;
 using System.Net.Sockets;
 
@@ -125,7 +127,43 @@ namespace MirageMUD_Server
         private void HandleGetClasses(int Index, byte[] data) { }
         private void HandleNewAccount(int Index, byte[] data)
         {
-            Console.WriteLine(TranslationManager.Instance.GetTranslation("user.account_created"));
+            using (PacketBuffer buffer = new PacketBuffer())
+            {
+                buffer.AddBytes(data);
+                buffer.GetInteger(); // Skip packet ID
+                string username = buffer.GetString();
+                string password = buffer.GetString();
+
+                // Generate a random salt (16 bytes)
+                byte[] salt = new byte[16];
+                using (var rng = new RNGCryptoServiceProvider())
+                {
+                    rng.GetBytes(salt);
+                }
+
+                // Combine password and salt
+                string passwordWithSalt = password + Convert.ToBase64String(salt);
+
+                // Hash the password + salt using SHA256
+                using (SHA256 sha256 = SHA256.Create())
+                {
+                    byte[] hashedPassword = sha256.ComputeHash(Encoding.UTF8.GetBytes(passwordWithSalt));
+
+                    // Check if the account already exists
+                    if (!db.AccountExist(username))
+                    {
+                        // Store the hashed password and salt
+                        db.AddAccount(Index, username, Convert.ToBase64String(hashedPassword), Convert.ToBase64String(salt));
+                        Console.WriteLine(TranslationManager.Instance.GetTranslation("user.account_created"));
+                    }
+                    else
+                    {
+                        Console.WriteLine(TranslationManager.Instance.GetTranslation("user.username_exists"));
+                        // Optionally send an alert back to the client
+                        // AlertMsg("Username already exists.");
+                    }
+                }
+            }
         }
         private void HandleDelAccount(int Index, byte[] data) { }
         private void HandleLogin(int Index, byte[] data)
@@ -147,11 +185,38 @@ namespace MirageMUD_Server
                     return;
                 }
 
-                if (!db.PasswordOK(Index, username, password))
+                // Retrieve the stored hashed password and salt for the user
+                string storedHashedPassword = db.GetHashedPassword(username); // Base64 string
+                string storedSalt = db.GetSalt(username); // Base64 string
+
+                if (storedHashedPassword == null || storedSalt == null)
                 {
                     Console.WriteLine(string.Format(
-                        TranslationManager.Instance.GetTranslation("errors.password_mismatch"), username));
+                        TranslationManager.Instance.GetTranslation("errors.account_corrupted"), username));
                     return;
+                }
+
+                // Convert the stored salt from Base64 to byte array
+                byte[] salt = Convert.FromBase64String(storedSalt);
+
+                // Combine the entered password with the stored salt
+                string passwordWithSalt = password + Convert.ToBase64String(salt);
+
+                // Hash the combined entered password and salt using SHA256
+                using (SHA256 sha256 = SHA256.Create())
+                {
+                    byte[] hashedEnteredPassword = sha256.ComputeHash(Encoding.UTF8.GetBytes(passwordWithSalt));
+
+                    // Convert the hashed entered password to Base64
+                    string hashedEnteredPasswordBase64 = Convert.ToBase64String(hashedEnteredPassword);
+
+                    // Compare the hashed entered password with the stored hashed password
+                    if (hashedEnteredPasswordBase64 != storedHashedPassword)
+                    {
+                        Console.WriteLine(string.Format(
+                            TranslationManager.Instance.GetTranslation("errors.password_mismatch"), username));
+                        return;
+                    }
                 }
 
                 Console.WriteLine(string.Format(
