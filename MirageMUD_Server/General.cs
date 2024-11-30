@@ -7,7 +7,8 @@ namespace MirageMUD_Server
 {
     internal class General
     {
-        private ServerWebSocket serverWS;
+        private ServerTCP stcp;
+        private ServerWebSocket ServerWebSocket;
 
         /// <summary>
         /// The object that will handle all data.
@@ -25,9 +26,26 @@ namespace MirageMUD_Server
             _sHandleData.InitialiseMessages();
         }
 
+        /*public void InitialiseServer()
+        {
+            stcp = new ServerTCP();
+
+            for (int i = 1; i < Constants.MAX_PLAYERS; i++)
+            {
+                // Create a new Client object, and pass in the data handler object for it to use
+                var newClient = new Client(_sHandleData);
+
+                // Put the newly created client into the Clients array
+                ServerTCP.Clients[i] = newClient;
+                Types.Player[i] = new Types.AccountStruct();
+            }
+            stcp.InitialiseNetwork();
+            Console.WriteLine(TranslationManager.Instance.GetTranslation("server.server_started"));
+        }*/
+
         public void InitialiseServer()
         {
-            serverWS = new ServerWebSocket(); // Assuming ServerWebSocket is now handling WebSocket connections
+            ServerWebSocket = new ServerWebSocket(); // Assuming ServerWebSocket is now handling WebSocket connections
 
             // Initialize the WSClient array and other necessary data structures
             for (int i = 1; i < Constants.MAX_PLAYERS; i++)
@@ -41,7 +59,7 @@ namespace MirageMUD_Server
             }
 
             // Initialize WebSocket server (the server will now accept WebSocket connections)
-            serverWS.InitialiseNetwork();  // Assuming this method starts the WebSocket listener and awaits connections
+            ServerWebSocket.InitialiseNetwork();  // Assuming this method starts the WebSocket listener and awaits connections
 
             Console.WriteLine(TranslationManager.Instance.GetTranslation("server.server_started"));
         }
