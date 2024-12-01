@@ -6,18 +6,20 @@ namespace MirageMUD_Client
     {
         public frmEditor_Item()
         {
-            InitializeComponent();
-            _ = new DarkModeCS(this);
+            InitializeComponent(); // Initializes form components.
+            _ = new DarkModeCS(this); // Applies dark mode to the form.
         }
 
+        // Updates the label to display the current scrollbar value.
         private void scrlPic_Scroll(object sender, ScrollEventArgs e)
         {
             lblPicture.Text = scrlPic.Value + ":";
         }
 
+        // Adjusts the visibility of panels based on the selected item type.
         private void cmbType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cmbType.SelectedIndex >= 1 && cmbType.SelectedIndex <= 4)
+            if (cmbType.SelectedIndex >= 1 && cmbType.SelectedIndex <= 4) // Equipment types.
             {
                 pnlEquipData.Visible = true;
                 pnlSpellData.Visible = false;
@@ -28,10 +30,8 @@ namespace MirageMUD_Client
                 pnlEquipData.Visible = false;
             }
 
-            if (cmbType.SelectedIndex >= 5 && cmbType.SelectedIndex <= 10)
+            if (cmbType.SelectedIndex >= 5 && cmbType.SelectedIndex <= 10) // Vitals types.
             {
-                pnlEquipData.Visible = false;
-                pnlSpellData.Visible = false;
                 pnlVitalsData.Visible = true;
             }
             else
@@ -39,11 +39,9 @@ namespace MirageMUD_Client
                 pnlVitalsData.Visible = false;
             }
 
-            if (cmbType.SelectedIndex == 12)
+            if (cmbType.SelectedIndex == 12) // Spell types.
             {
-                pnlEquipData.Visible = false;
                 pnlSpellData.Visible = true;
-                pnlVitalsData.Visible = false;
             }
             else
             {
@@ -51,15 +49,16 @@ namespace MirageMUD_Client
             }
         }
 
+        // Sets up default values when the form loads.
         private void frmEditor_Item_Load(object sender, EventArgs e)
         {
-            // Set the selected item by index
-            cmbType.SelectedIndex = 0; // This selects the first item
+            cmbType.SelectedIndex = 0; // Default to the first item in the combo box.
         }
 
+        // Placeholder for button functionality.
         private void btnNewAccConnect_Click(object sender, EventArgs e)
         {
-
+            // TODO: Implement button logic here.
         }
     }
 }

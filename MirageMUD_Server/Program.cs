@@ -9,6 +9,9 @@ namespace MirageMud_Server
     {
         private static Thread consoleThread;
         private static General gnrl;
+
+        // Main entry point of the server application
+        // Initializes language settings, loads translations, and starts the server
         static void Main(string[] args)
         {
             // Load language code from the config file using the ConfigReader
@@ -29,6 +32,7 @@ namespace MirageMud_Server
             gnrl.InitialiseServer();
         }
 
+        // Reads input to keep the console thread active
         static void ConsoleThread()
         {
             Console.ReadLine();

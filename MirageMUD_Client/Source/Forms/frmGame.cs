@@ -7,38 +7,37 @@ namespace MirageMUD_Client
     {
         public frmGame()
         {
-            InitializeComponent();
-            txtInput.KeyDown += TxtInput_KeyDown;
+            InitializeComponent(); // Initialize the form's components.
+            txtInput.KeyDown += TxtInput_KeyDown; // Attach an event handler for the TextBox key press event.
         }
 
-        // Event handler for TxtInput_KeyDown
+        // Handles the Enter key press in the input TextBox.
         private void TxtInput_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-                e.SuppressKeyPress = true; // Prevent the ding sound and default behavior
+                e.SuppressKeyPress = true; // Prevent the default Enter behavior (e.g., ding sound).
 
-                // Get the text from the TextBox
-                string inputText = txtInput.Text;
+                string inputText = txtInput.Text; // Retrieve the input text.
 
-                // Remove any BBCode-style tags from the input
+                // Strip BBCode-style tags (e.g., [b], [color]) from the text for sanitization.
                 string sanitizedInputText = Regex.Replace(inputText, @"\[[^\]]*\]", "");
 
-                // Build the formatted message to display
+                // Create a formatted message with BBCode styling.
                 string formattedMessage = "[color=#EE4B2B][b]Xlithan: [/color]" + sanitizedInputText;
 
-                // Process the input text and apply colors
+                // Process the message and display it in the rich text box.
                 BBCodeToRTF bbCodeProcessor = new BBCodeToRTF();
                 bbCodeProcessor.ProcessTextAndColors(formattedMessage, rtbOutput);
 
-                // Clear the TextBox after processing
-                txtInput.Clear();
+                txtInput.Clear(); // Clear the input box after processing.
             }
         }
 
+        // Event that fires when the form loads.
         private void frmGame_Load(object sender, EventArgs e)
         {
-            // Example messages
+            // A welcome message showing how ASCII art can be used effectively.
             string[] messages =
             {
                 "[font=Courier New][b][color=#964B00]                                                |[/color][color=#FFFF00]>>>[/color][/b][/font]",
@@ -65,10 +64,9 @@ namespace MirageMUD_Client
                 "[color=#8888FF][b]The tavern exits to the [/color][color=#66FF00]East[/color][color=#8888FF].[/color]"
             };
 
-            // Iterate over each message and process it through ProcessTextAndColors
+            // Process and display each example message in the rich text box.
             foreach (string message in messages)
             {
-                // Process the input text and apply colors
                 BBCodeToRTF bbCodeProcessor = new BBCodeToRTF();
                 bbCodeProcessor.ProcessTextAndColors(message, rtbOutput);
             }

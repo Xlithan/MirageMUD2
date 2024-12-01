@@ -10,17 +10,20 @@ namespace MirageMUD_Server
 {
     internal class Database
     {
+        // Checks if a file exists at the given path
         public bool FileExist(string file_path)
         {
             return File.Exists(file_path);
         }
 
+        // Checks if an account exists for the given username
         public bool AccountExist(string username)
         {
             string filename = $"Accounts/{username}.json";
             return File.Exists(filename);
         }
 
+        // Verifies if the provided password is correct for the specified account
         public bool PasswordOK(int index, string username, string password)
         {
             string filename = $"Accounts/{username}.json";
@@ -34,6 +37,7 @@ namespace MirageMUD_Server
                 throw new FileNotFoundException("Account file not found.");
             }
 
+            // Return true if passwords match, otherwise false
             if (Types.Player[index].Password == password)
             {
                 return true;
@@ -44,6 +48,7 @@ namespace MirageMUD_Server
             }
         }
 
+        // Adds a new account with the provided username, hashed password, and salt
         public void AddAccount(int index, string name, string hashedPassword, string salt)
         {
             ClearPlayer(index);
@@ -51,6 +56,7 @@ namespace MirageMUD_Server
             Types.Player[index].Password = hashedPassword; // Store the hashed password
             Types.Player[index].Salt = salt; // Store the salt
 
+            // Clear character data for all characters
             for (int i = 0; i < Constants.MAX_CHARS; i++)
             {
                 ClearChar(index, i);
@@ -59,18 +65,21 @@ namespace MirageMUD_Server
             SavePlayer(index);
         }
 
+        // Clears the player login and password
         public void ClearPlayer(int index)
         {
             Types.Player[index].Login = "";
             Types.Player[index].Password = "";
         }
 
+        // Clears the character data for a specified character
         public void ClearChar(int index, int charnum)
         {
             Types.Player[index].Character[charnum].Name = string.Empty;
             Types.Player[index].Character[charnum].Class = 1;
         }
 
+        // Saves the player data to a JSON file
         public void SavePlayer(int index)
         {
             // Ensure the directory exists
@@ -86,6 +95,7 @@ namespace MirageMUD_Server
             File.WriteAllText(filename, json);
         }
 
+        // Loads the player data from a JSON file
         public void LoadPlayer(int index, string name)
         {
             string filename = $"Accounts/{name}.json";
@@ -100,6 +110,7 @@ namespace MirageMUD_Server
             }
         }
 
+        // Retrieves the hashed password for the specified user
         public string GetHashedPassword(string username)
         {
             string jsonFilePath = Path.Combine("Accounts", $"{username}.json"); // Assumes Accounts folder contains the user JSON files
@@ -129,6 +140,7 @@ namespace MirageMUD_Server
             return null;
         }
 
+        // Retrieves the salt for the specified user
         public string GetSalt(string username)
         {
             string jsonFilePath = Path.Combine("Accounts", $"{username}.json"); // Assumes Accounts folder contains the user JSON files

@@ -9,15 +9,16 @@ namespace MirageMUD_Server
 {
     internal class SHandleData
     {
-        private delegate void Packet_(int  Index, byte[] data);
-        private Dictionary<int, Packet_> Packets;
-        private Database db = new Database();
+        private delegate void Packet_(int Index, byte[] data); // Delegate to handle packet processing
+        private Dictionary<int, Packet_> Packets; // Dictionary to store packet handlers
+        private Database db = new Database(); // Database instance to interact with stored data
 
         public void InitialiseMessages()
         {
-            Console.WriteLine(TranslationManager.Instance.GetTranslation("server.initialising_network_packets"));
-            Packets = new Dictionary<int, Packet_>();
+            Console.WriteLine(TranslationManager.Instance.GetTranslation("server.initialising_network_packets")); // Log message for initializing network packets
+            Packets = new Dictionary<int, Packet_>(); // Initialize the dictionary for packet handlers
 
+            // Map each packet ID to its respective handler method
             Packets.Add((int)ClientPackets.CGetClasses, HandleGetClasses);
             Packets.Add((int)ClientPackets.CNewAccount, HandleNewAccount);
             Packets.Add((int)ClientPackets.CDelAccount, HandleDelAccount);
@@ -89,17 +90,18 @@ namespace MirageMUD_Server
             Packets.Add((int)ClientPackets.CKickGuild, HandleKickGuild);
             Packets.Add((int)ClientPackets.CGuildPromote, HandleGuildPromote);
             Packets.Add((int)ClientPackets.CLeaveGuild, HandleLeaveGuild);
-
         }
 
         public void HandleMessages(int Index, byte[] data)
         {
+            // Check if the incoming data is null or empty
             if (data == null || data.Length == 0)
             {
                 Console.WriteLine(TranslationManager.Instance.GetTranslation("errors.null_or_empty_data"));
                 return;
             }
 
+            // Check if packets dictionary is uninitialized
             if (Packets == null)
             {
                 Console.WriteLine(TranslationManager.Instance.GetTranslation("errors.uninitialized_packets"));
@@ -109,36 +111,39 @@ namespace MirageMUD_Server
             int packetNum;
             using (PacketBuffer buffer = new PacketBuffer())
             {
-                buffer.AddBytes(data);
-                packetNum = buffer.GetInteger();
+                buffer.AddBytes(data); // Add data to buffer
+                packetNum = buffer.GetInteger(); // Extract the packet ID from the buffer
             }
 
+            // Check if the packet number has a handler and invoke it if found
             if (Packets.TryGetValue(packetNum, out Packet_ packet))
             {
-                packet.Invoke(Index, data);
+                packet.Invoke(Index, data); // Invoke the handler with the given index and data
             }
             else
             {
-                Console.WriteLine(string.Format(
-                    TranslationManager.Instance.GetTranslation("errors.no_handler"), packetNum));
+                // Log error if no handler is found for the packet
+                Console.WriteLine(string.Format(TranslationManager.Instance.GetTranslation("errors.no_handler"), packetNum));
             }
         }
 
+        // Method to handle account creation
         private void HandleGetClasses(int Index, byte[] data) { }
+
         private void HandleNewAccount(int Index, byte[] data)
         {
             using (PacketBuffer buffer = new PacketBuffer())
             {
-                buffer.AddBytes(data);
+                buffer.AddBytes(data); // Add data to buffer
                 buffer.GetInteger(); // Skip packet ID
-                string username = buffer.GetString();
-                string password = buffer.GetString();
+                string username = buffer.GetString(); // Extract username from buffer
+                string password = buffer.GetString(); // Extract password from buffer
 
                 // Generate a random salt (16 bytes)
                 byte[] salt = new byte[16];
                 using (var rng = new RNGCryptoServiceProvider())
                 {
-                    rng.GetBytes(salt);
+                    rng.GetBytes(salt); // Generate random salt
                 }
 
                 // Combine password and salt
@@ -158,74 +163,57 @@ namespace MirageMUD_Server
                     }
                     else
                     {
+                        // Account already exists, log the error
                         Console.WriteLine(TranslationManager.Instance.GetTranslation("user.username_exists"));
-                        // Optionally send an alert back to the client
-                        // AlertMsg("Username already exists.");
                     }
                 }
             }
         }
+
         private void HandleDelAccount(int Index, byte[] data) { }
+
+        // Method to handle login
         private void HandleLogin(int Index, byte[] data)
         {
             using (PacketBuffer buffer = new PacketBuffer())
             {
-                buffer.AddBytes(data);
+                buffer.AddBytes(data); // Add data to buffer
                 buffer.GetInteger(); // Skip packet ID
-                string username = buffer.GetString();
-                string password = buffer.GetString();
-                byte major = buffer.GetByte();
-                byte minor = buffer.GetByte();
-                byte rev = buffer.GetByte();
+                string username = buffer.GetString(); // Extract username
+                string password = buffer.GetString(); // Extract password
 
-                if (!db.AccountExist(username))
+                // Check if the username exists in the database
+                if (db.AccountExist(username))
                 {
-                    Console.WriteLine(string.Format(
-                        TranslationManager.Instance.GetTranslation("errors.file_not_found"), username));
-                    return;
-                }
+                    // Retrieve the hashed password and salt from the database
+                    string storedHashedPassword = db.GetHashedPassword(username);
+                    string storedSalt = db.GetSalt(username);
 
-                // Retrieve the stored hashed password and salt for the user
-                string storedHashedPassword = db.GetHashedPassword(username); // Base64 string
-                string storedSalt = db.GetSalt(username); // Base64 string
+                    // Combine the input password with the stored salt
+                    string passwordWithSalt = password + storedSalt;
 
-                if (storedHashedPassword == null || storedSalt == null)
-                {
-                    Console.WriteLine(string.Format(
-                        TranslationManager.Instance.GetTranslation("errors.account_corrupted"), username));
-                    return;
-                }
-
-                // Convert the stored salt from Base64 to byte array
-                byte[] salt = Convert.FromBase64String(storedSalt);
-
-                // Combine the entered password with the stored salt
-                string passwordWithSalt = password + Convert.ToBase64String(salt);
-
-                // Hash the combined entered password and salt using SHA256
-                using (SHA256 sha256 = SHA256.Create())
-                {
-                    byte[] hashedEnteredPassword = sha256.ComputeHash(Encoding.UTF8.GetBytes(passwordWithSalt));
-
-                    // Convert the hashed entered password to Base64
-                    string hashedEnteredPasswordBase64 = Convert.ToBase64String(hashedEnteredPassword);
-
-                    // Compare the hashed entered password with the stored hashed password
-                    if (hashedEnteredPasswordBase64 != storedHashedPassword)
+                    // Hash the input password with salt
+                    using (SHA256 sha256 = SHA256.Create())
                     {
-                        Console.WriteLine(string.Format(
-                            TranslationManager.Instance.GetTranslation("errors.password_mismatch"), username));
-                        return;
+                        byte[] inputHashedPassword = sha256.ComputeHash(Encoding.UTF8.GetBytes(passwordWithSalt));
+
+                        // Compare the hashed password with the stored hashed password
+                        if (Convert.ToBase64String(inputHashedPassword) == storedHashedPassword)
+                        {
+                            Console.WriteLine(TranslationManager.Instance.GetTranslation("user.login_success"));
+                        }
+                        else
+                        {
+                            // Incorrect password, log the error
+                            Console.WriteLine(TranslationManager.Instance.GetTranslation("user.invalid_password"));
+                        }
                     }
                 }
-
-                Console.WriteLine(string.Format(
-                    TranslationManager.Instance.GetTranslation("user.logged_in"),
-                    username,
-                    ServerTCP.Clients[Index].IP));
-
-                db.LoadPlayer(Index, username);
-                // Additional logic (e.g., SendChars, SendMaxes, SendRoomRevs)
+                else
+                {
+                    // Username does not exist, log the error
+                    Console.WriteLine(TranslationManager.Instance.GetTranslation("user.username_not_found"));
+                }
             }
         }
         private void HandleAddChar(int Index, byte[] data) { }
@@ -295,6 +283,5 @@ namespace MirageMUD_Server
         private void HandleKickGuild(int Index, byte[] data) { }
         private void HandleGuildPromote(int Index, byte[] data) { }
         private void HandleLeaveGuild(int Index, byte[] data) { }
-
     }
 }

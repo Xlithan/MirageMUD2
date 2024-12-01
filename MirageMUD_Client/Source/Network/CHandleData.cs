@@ -1,21 +1,27 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using Bindings;
 
 namespace MirageMUD_Client.Source.Network
 {
     internal class CHandleData
     {
+        // Buffer to store the incoming data packet.
         public PacketBuffer buffer = new PacketBuffer();
+
+        // Delegate for packet handlers that take byte arrays as input.
         private delegate void Packet_(byte[] data);
+
+        // Dictionary to map packet numbers to their respective handlers.
         private Dictionary<int, Packet_> Packets;
 
+        // Initializes the packet handlers by mapping packet numbers to handler methods.
         public void InitialiseMessages()
         {
             Packets = new Dictionary<int, Packet_>();
 
+            // Add each packet number and its corresponding handler method to the dictionary
             Packets.Add((int)ServerPackets.SAlertMsg, HandleAlertMsg);
             Packets.Add((int)ServerPackets.SAllChars, HandleAllChars);
             Packets.Add((int)ServerPackets.SLoginOk, HandleLoginOk);
@@ -71,24 +77,30 @@ namespace MirageMUD_Client.Source.Network
             Packets.Add((int)ServerPackets.SRoomRevs, HandleRoomRevs);
         }
 
+        // Handles incoming messages by identifying the appropriate packet handler
         public void HandleMessages(byte[] data)
         {
+            // Ensure that the data is not null or empty
             if (data == null || data.Length == 0)
                 throw new ArgumentException("Data cannot be null or empty.", nameof(data));
 
             int packetNum;
+
+            // Extract the packet number from the data buffer
             using (PacketBuffer buffer = new PacketBuffer())
             {
                 buffer.AddBytes(data);
                 packetNum = buffer.GetInteger();
             }
 
+            // Check if the packets dictionary is initialized
             if (Packets == null)
                 throw new InvalidOperationException("Packets dictionary is not initialized.");
 
+            // Attempt to find the packet handler for the given packet number
             if (Packets.TryGetValue(packetNum, out Packet_ packet))
             {
-                packet.Invoke(data);
+                packet.Invoke(data);  // Invoke the corresponding packet handler
             }
             else
             {
@@ -96,218 +108,61 @@ namespace MirageMUD_Client.Source.Network
             }
         }
 
+        // Below methods are the packet handlers for various server messages.
+        // Each handler method is a placeholder for now and can be implemented later.
 
-        public void HandleAlertMsg(byte[] data)
-        {
-        }
-
-        public void HandleAllChars(byte[] data)
-        {
-        }
-
-        public void HandleLoginOk(byte[] data)
-        {
-        }
-
-        public void HandleNewCharClasses(byte[] data)
-        {
-        }
-
-        public void HandleClassesData(byte[] data)
-        {
-        }
-
-        public void HandleInGame(byte[] data)
-        {
-        }
-
-        public void HandlePlayerInv(byte[] data)
-        {
-        }
-
-        public void HandlePlayerInvUpdate(byte[] data)
-        {
-        }
-
-        public void HandlePlayerWornEq(byte[] data)
-        {
-        }
-
-        public void HandlePlayerHp(byte[] data)
-        {
-        }
-
-        public void HandlePlayerMp(byte[] data)
-        {
-        }
-
-        public void HandlePlayerSp(byte[] data)
-        {
-        }
-
-        public void HandlePlayerStamina(byte[] data)
-        {
-        }
-
-        public void HandlePlayerStats(byte[] data)
-        {
-        }
-
-        public void HandlePlayerData(byte[] data)
-        {
-        }
-
-        public void HandlePlayerExp(byte[] data)
-        {
-        }
-
-        public void HandleAttack(byte[] data)
-        {
-        }
-
-        public void HandleNpcAttack(byte[] data)
-        {
-        }
-
-        public void HandleCheckForRoom(byte[] data)
-        {
-        }
-
-        public void HandleRoomData(byte[] data)
-        {
-        }
-
-        public void HandleRoomItemData(byte[] data)
-        {
-        }
-
-        public void HandleRoomNpcData(byte[] data)
-        {
-        }
-
-        public void HandleRoomDone(byte[] data)
-        {
-        }
-
-        public void HandleSayMsg(byte[] data)
-        {
-        }
-
-        public void HandleGlobalMsg(byte[] data)
-        {
-        }
-
-        public void HandleAdminMsg(byte[] data)
-        {
-        }
-
-        public void HandlePlayerMsg(byte[] data)
-        {
-        }
-
-        public void HandleRoomMsg(byte[] data)
-        {
-        }
-
-        public void HandleSpawnItem(byte[] data)
-        {
-        }
-
-        public void HandleItemEditor(byte[] data)
-        {
-        }
-
-        public void HandleUpdateItem(byte[] data)
-        {
-        }
-
-        public void HandleEditItem(byte[] data)
-        {
-        }
-
-        public void HandleSpawnNpc(byte[] data)
-        {
-        }
-
-        public void HandleNpcDead(byte[] data)
-        {
-        }
-
-        public void HandleNpcEditor(byte[] data)
-        {
-        }
-
-        public void HandleUpdateNpc(byte[] data)
-        {
-        }
-
-        public void HandleEditNpc(byte[] data)
-        {
-        }
-
-        public void HandleEditRoom(byte[] data)
-        {
-        }
-
-        public void HandleShopEditor(byte[] data)
-        {
-        }
-
-        public void HandleUpdateShop(byte[] data)
-        {
-        }
-
-        public void HandleEditShop(byte[] data)
-        {
-        }
-
-        public void HandleRefresh(byte[] data)
-        {
-        }
-
-        public void HandleSpellEditor(byte[] data)
-        {
-        }
-
-        public void HandleUpdateSpell(byte[] data)
-        {
-        }
-
-        public void HandleEditSpell(byte[] data)
-        {
-        }
-
-        public void HandleTrade(byte[] data)
-        {
-        }
-
-        public void HandleSpells(byte[] data)
-        {
-        }
-
-        public void HandleLeft(byte[] data)
-        {
-        }
-
-        public void HandleHighIndex(byte[] data)
-        {
-        }
-
-        public void HandleSpellCast(byte[] data)
-        {
-        }
-
-        public void HandleMaxes(byte[] data)
-        {
-        }
-
-        public void HandleSync(byte[] data)
-        {
-        }
-
-        public void HandleRoomRevs(byte[] data)
-        {
-        }
-
+        public void HandleAlertMsg(byte[] data) { }
+        public void HandleAllChars(byte[] data) { }
+        public void HandleLoginOk(byte[] data) { }
+        public void HandleNewCharClasses(byte[] data) { }
+        public void HandleClassesData(byte[] data) { }
+        public void HandleInGame(byte[] data) { }
+        public void HandlePlayerInv(byte[] data) { }
+        public void HandlePlayerInvUpdate(byte[] data) { }
+        public void HandlePlayerWornEq(byte[] data) { }
+        public void HandlePlayerHp(byte[] data) { }
+        public void HandlePlayerMp(byte[] data) { }
+        public void HandlePlayerSp(byte[] data) { }
+        public void HandlePlayerStamina(byte[] data) { }
+        public void HandlePlayerStats(byte[] data) { }
+        public void HandlePlayerData(byte[] data) { }
+        public void HandlePlayerExp(byte[] data) { }
+        public void HandleAttack(byte[] data) { }
+        public void HandleNpcAttack(byte[] data) { }
+        public void HandleCheckForRoom(byte[] data) { }
+        public void HandleRoomData(byte[] data) { }
+        public void HandleRoomItemData(byte[] data) { }
+        public void HandleRoomNpcData(byte[] data) { }
+        public void HandleRoomDone(byte[] data) { }
+        public void HandleSayMsg(byte[] data) { }
+        public void HandleGlobalMsg(byte[] data) { }
+        public void HandleAdminMsg(byte[] data) { }
+        public void HandlePlayerMsg(byte[] data) { }
+        public void HandleRoomMsg(byte[] data) { }
+        public void HandleSpawnItem(byte[] data) { }
+        public void HandleItemEditor(byte[] data) { }
+        public void HandleUpdateItem(byte[] data) { }
+        public void HandleEditItem(byte[] data) { }
+        public void HandleSpawnNpc(byte[] data) { }
+        public void HandleNpcDead(byte[] data) { }
+        public void HandleNpcEditor(byte[] data) { }
+        public void HandleUpdateNpc(byte[] data) { }
+        public void HandleEditNpc(byte[] data) { }
+        public void HandleEditRoom(byte[] data) { }
+        public void HandleShopEditor(byte[] data) { }
+        public void HandleUpdateShop(byte[] data) { }
+        public void HandleEditShop(byte[] data) { }
+        public void HandleRefresh(byte[] data) { }
+        public void HandleSpellEditor(byte[] data) { }
+        public void HandleUpdateSpell(byte[] data) { }
+        public void HandleEditSpell(byte[] data) { }
+        public void HandleTrade(byte[] data) { }
+        public void HandleSpells(byte[] data) { }
+        public void HandleLeft(byte[] data) { }
+        public void HandleHighIndex(byte[] data) { }
+        public void HandleSpellCast(byte[] data) { }
+        public void HandleMaxes(byte[] data) { }
+        public void HandleSync(byte[] data) { }
+        public void HandleRoomRevs(byte[] data) { }
     }
 }

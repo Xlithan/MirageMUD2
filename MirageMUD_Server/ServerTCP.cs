@@ -7,9 +7,13 @@ namespace MirageMUD_Server
 {
     internal class ServerTCP
     {
+        // Array to hold client connections
         public static Client[] Clients = new Client[Constants.MAX_PLAYERS];
+
+        // TcpListener to listen for incoming TCP client connections
         public TcpListener ServerSocket;
 
+        // Initializes the network listener and begins accepting client connections
         public void InitialiseNetwork()
         {
             Console.WriteLine(TranslationManager.Instance.GetTranslation("server.initialising_server_network"));
@@ -18,6 +22,7 @@ namespace MirageMUD_Server
             ServerSocket.BeginAcceptTcpClient(OnClientConnect, null);
         }
 
+        // Callback function to handle incoming client connections
         private void OnClientConnect(IAsyncResult ar)
         {
             // Get the connecting client
@@ -28,9 +33,9 @@ namespace MirageMUD_Server
 
             Console.WriteLine(string.Format(TranslationManager.Instance.GetTranslation("server.connection_received"), sourceIp));
 
-            // Disable Nagle's algorithm
+            // Disable Nagle's algorithm to improve performance for small messages
             connectingTcpClient.NoDelay = false;
-            
+
             // For every client slot
             for (int i = 0; i < Constants.MAX_PLAYERS; i++)
             {

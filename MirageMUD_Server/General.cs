@@ -11,28 +11,25 @@ namespace MirageMUD_Server
     {
         private ServerTCP stcp;
 
-        /// <summary>
-        /// The object that will handle all data.
-        /// Readonly because we dont want this to change, we want a single instance.
-        /// </summary>
+        // The object that will handle all data. Readonly because we dont want this to change, we want a single instance.
         private readonly SHandleData _sHandleData;
 
-        /// <summary>
-        /// Constructor for the General class.
-        /// Creates a new SHandleData internally and calls InitialiseMessages on it.
-        /// </summary>
+        // Constructor for the General class.
+        // Creates a new SHandleData internally and calls InitialiseMessages on it.
         public General()
         {
             _sHandleData = new SHandleData();
             _sHandleData.InitialiseMessages();
         }
 
+        // Initializes the server and sets up the client and player structures
         public void InitialiseServer()
         {
             Console.Title = "MirageMUD 2";
 
             stcp = new ServerTCP();
 
+            // Initialize all clients and their corresponding player data
             for (int i = 0; i < Constants.MAX_PLAYERS; i++)
             {
                 // Create a new Client object, and pass in the data handler object for it to use
