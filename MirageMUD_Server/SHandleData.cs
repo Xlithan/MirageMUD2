@@ -12,6 +12,7 @@ namespace MirageMUD_Server
         private delegate void Packet_(int Index, byte[] data); // Delegate to handle packet processing
         private Dictionary<int, Packet_> Packets; // Dictionary to store packet handlers
         private Database db = new Database(); // Database instance to interact with stored data
+        private ServerTCP serverTCP = new ServerTCP();
 
         public void InitialiseMessages()
         {
@@ -200,11 +201,13 @@ namespace MirageMUD_Server
                         // Compare the hashed password with the stored hashed password
                         if (Convert.ToBase64String(inputHashedPassword) == storedHashedPassword)
                         {
+                            // Can log in
                             Console.WriteLine(TranslationManager.Instance.GetTranslation("user.login_success"));
                         }
                         else
                         {
                             // Incorrect password, log the error
+                            serverTCP.AlertMsg(Index, "Incorrect password!");
                             Console.WriteLine(TranslationManager.Instance.GetTranslation("user.invalid_password"));
                         }
                     }

@@ -1,14 +1,16 @@
 using MirageMUD_Client.Source.General;
-using MirageMUD_Client.Source.Network;
 using MirageMUD_Client.Source.Utilities;
 
 namespace MirageMUD_Client
 {
     internal static class Program
     {
+        private static General gnrl;
+
         [STAThread]
         static void Main()
         {
+
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
@@ -26,8 +28,8 @@ namespace MirageMUD_Client
             translator.LoadTranslations(languageCode); // Pass language code to load the file
 
             // Create an instance of the General class and call its Main method
-            var general = new Source.General.General();
-            general.MainAsync();
+            gnrl = new General();
+            gnrl.Main();
         }
     }
 }

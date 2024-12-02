@@ -9,7 +9,6 @@ namespace MirageMUD_Client
     public partial class frmMenu : Form
     {
         ClientTCP clientTCP;  // Instance of ClientTCP for network communication
-        CHandleData cHandleData;  // Handles incoming data from the server
 
         // Enum for different menu states
         public enum MenuState : byte
@@ -69,10 +68,6 @@ namespace MirageMUD_Client
 
             // Update the control text to the specified language.
             General.UpdateControlText(this);
-
-            // Initialize data handling object
-            cHandleData = new CHandleData();
-            cHandleData.InitialiseMessages();  // Initialize any messages for the data handler
         }
 
         // Event handler for when the form is loaded

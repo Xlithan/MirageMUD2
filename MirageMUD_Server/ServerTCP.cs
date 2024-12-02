@@ -2,11 +2,15 @@
 using System.Net.Sockets;
 using System.Net;
 using Bindings;
+using System.Xml.Linq;
+using System.IO;
 
 namespace MirageMUD_Server
 {
     internal class ServerTCP
     {
+        public static ServerTCP instance = new ServerTCP();
+
         // Array to hold client connections
         public static Client[] Clients = new Client[Constants.MAX_PLAYERS];
 
@@ -57,6 +61,34 @@ namespace MirageMUD_Server
 
             // Start waiting for the next connection to come in
             ServerSocket.BeginAcceptTcpClient(OnClientConnect, null);
+        }
+
+        public void SendDataTo(int Index, byte[] data)
+        {
+            // Create a new packet buffer and add the data
+            PacketBuffer buffer = new PacketBuffer();
+            buffer.AddBytes(data);
+
+            // Write the data to the network stream
+            Clients[Index].myStream.BeginWrite(buffer.ToArray(), 0, buffer.ToArray().Length, null, null);
+
+            buffer = null;
+        }
+
+        public void AlertMsg(int Index, string msg)
+        {
+            // Create a new packet buffer for the account creation data
+            PacketBuffer buffer = new PacketBuffer();
+
+            // Add the new account request packet identifier and the account details
+            buffer.AddInteger((int)ServerPackets.SAlertMsg);
+            buffer.AddString(msg);
+
+            // Send the new account data to the server
+            SendDataTo(Index, buffer.ToArray());
+
+            // Dispose of the buffer after sending
+            buffer = null;
         }
     }
 }

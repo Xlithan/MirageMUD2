@@ -1,4 +1,5 @@
 ﻿using System.Text.Json;
+using System.Diagnostics;
 
 public class TranslationManager
 {
@@ -54,7 +55,7 @@ public class TranslationManager
                     case "pl": Lang = "Polish (Polski)"; break;
                     case "sv": Lang = "Swedish (Svenska)"; break;
                 }
-                Console.WriteLine($"Language code set to: {Lang}");
+                Debug.WriteLine($"Language code set to: {Lang}");
             }
         }
     }
@@ -117,7 +118,7 @@ public class TranslationManager
         }
 
         // If no translation is found in either language, return the key itself
-        Console.WriteLine($"No translation found for key: {key}");
+        Debug.WriteLine($"No translation found for key: {key}");
         return key;  // Fallback to the key itself if no translation is found
     }
 

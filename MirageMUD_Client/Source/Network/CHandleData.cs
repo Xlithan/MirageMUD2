@@ -2,6 +2,8 @@
 using System.Diagnostics;
 using System.Collections.Generic;
 using Bindings;
+using System.Text;
+using Microsoft.VisualBasic;
 
 namespace MirageMUD_Client.Source.Network
 {
@@ -19,6 +21,7 @@ namespace MirageMUD_Client.Source.Network
         // Initializes the packet handlers by mapping packet numbers to handler methods.
         public void InitialiseMessages()
         {
+            Debug.WriteLine("Initializing messages...");
             Packets = new Dictionary<int, Packet_>();
 
             // Add each packet number and its corresponding handler method to the dictionary
@@ -80,38 +83,55 @@ namespace MirageMUD_Client.Source.Network
         // Handles incoming messages by identifying the appropriate packet handler
         public void HandleMessages(byte[] data)
         {
-            // Ensure that the data is not null or empty
+            Debug.WriteLine("Handling messages...");
+
+            // Check if the incoming data is null or empty
             if (data == null || data.Length == 0)
-                throw new ArgumentException("Data cannot be null or empty.", nameof(data));
-
-            int packetNum;
-
-            // Extract the packet number from the data buffer
-            using (PacketBuffer buffer = new PacketBuffer())
             {
-                buffer.AddBytes(data);
-                packetNum = buffer.GetInteger();
+                Debug.WriteLine(TranslationManager.Instance.GetTranslation("errors.null_or_empty_data"));
+                return;
             }
 
-            // Check if the packets dictionary is initialized
+            // Check if packets dictionary is uninitialized
             if (Packets == null)
-                throw new InvalidOperationException("Packets dictionary is not initialized.");
+            {
+                Debug.WriteLine("Packets are uninitialised.");
+                return;
+            }
 
-            // Attempt to find the packet handler for the given packet number
+            int packetNum;
+            using (PacketBuffer buffer = new PacketBuffer())
+            {
+                buffer.AddBytes(data); // Add data to buffer
+                packetNum = buffer.GetInteger(); // Extract the packet ID from the buffer
+            }
+
+            // Check if the packet number has a handler and invoke it if found
             if (Packets.TryGetValue(packetNum, out Packet_ packet))
             {
-                packet.Invoke(data);  // Invoke the corresponding packet handler
+                packet.Invoke(data); // Invoke the handler with the given index and data
             }
             else
             {
-                Debug.WriteLine($"No packet handler found for packet number: {packetNum}");
+                // Log error if no handler is found for the packet
+                Debug.WriteLine(string.Format(TranslationManager.Instance.GetTranslation("errors.no_handler"), packetNum));
             }
         }
 
         // Below methods are the packet handlers for various server messages.
         // Each handler method is a placeholder for now and can be implemented later.
 
-        public void HandleAlertMsg(byte[] data) { }
+        public void HandleAlertMsg(byte[] data)
+        {
+            using (PacketBuffer buffer = new PacketBuffer())
+            {
+                buffer.AddBytes(data); // Add data to buffer
+                buffer.GetInteger(); // Skip packet ID
+                string msg = buffer.GetString(); // Extract msg
+
+                MessageBox.Show(msg, "Alert", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
         public void HandleAllChars(byte[] data) { }
         public void HandleLoginOk(byte[] data) { }
         public void HandleNewCharClasses(byte[] data) { }

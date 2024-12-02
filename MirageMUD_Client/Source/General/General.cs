@@ -7,7 +7,18 @@ namespace MirageMUD_Client.Source.General
 {
     internal class General
     {
-        public async Task MainAsync()
+        // The object that will handle all data. Readonly because we dont want this to change, we want a single instance.
+        private readonly CHandleData _cHandleData;
+
+        // Constructor for the General class.
+        // Creates a new SHandleData internally and calls InitialiseMessages on it.
+        public General()
+        {
+            _cHandleData = new CHandleData();
+            _cHandleData.InitialiseMessages();
+        }
+
+        public void Main()
         {
             // Start the application
             Application.Run(new frmMenu());
