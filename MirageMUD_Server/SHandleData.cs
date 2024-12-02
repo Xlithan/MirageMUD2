@@ -160,12 +160,12 @@ namespace MirageMUD_Server
                     {
                         // Store the hashed password and salt
                         db.AddAccount(Index, username, Convert.ToBase64String(hashedPassword), Convert.ToBase64String(salt));
-                        Console.WriteLine(TranslationManager.Instance.GetTranslation("user.account_created"));
+                        Console.WriteLine(TranslationManager.Instance.GetTranslation("user.account_created"), username);
                     }
                     else
                     {
-                        // Account already exists, log the error
-                        Console.WriteLine(TranslationManager.Instance.GetTranslation("user.username_exists"));
+                        // Account already exists, send error
+                        serverTCP.AlertMsg(Index, "Username already exists.");
                     }
                 }
             }
@@ -202,20 +202,19 @@ namespace MirageMUD_Server
                         if (Convert.ToBase64String(inputHashedPassword) == storedHashedPassword)
                         {
                             // Can log in
-                            Console.WriteLine(TranslationManager.Instance.GetTranslation("user.login_success"));
+                            Console.WriteLine(TranslationManager.Instance.GetTranslation("user.logged_in"), username, ServerTCP.Clients[Index].IP);
                         }
                         else
                         {
-                            // Incorrect password, log the error
-                            serverTCP.AlertMsg(Index, "Incorrect password!");
-                            Console.WriteLine(TranslationManager.Instance.GetTranslation("user.invalid_password"));
+                            // Incorrect password, send the error
+                            serverTCP.AlertMsg(Index, "Incorrect password for this account.");
                         }
                     }
                 }
                 else
                 {
-                    // Username does not exist, log the error
-                    Console.WriteLine(TranslationManager.Instance.GetTranslation("user.username_not_found"));
+                    // Username does not exist, send the error
+                    serverTCP.AlertMsg(Index, "Username does not exist.");
                 }
             }
         }

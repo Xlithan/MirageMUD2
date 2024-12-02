@@ -129,7 +129,7 @@ namespace MirageMUD_Client.Source.Network
                 buffer.GetInteger(); // Skip packet ID
                 string msg = buffer.GetString(); // Extract msg
 
-                MessageBox.Show(msg, "Alert", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(msg, "Alert", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
         public void HandleAllChars(byte[] data) { }

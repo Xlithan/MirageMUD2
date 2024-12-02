@@ -1,6 +1,7 @@
 using MirageMUD_Client.Source.General;  // Imports general utilities
 using MirageMUD_Client.Source.Network;  // Imports networking utilities
 using MirageMUD_Client.Source.Utilities;  // Imports additional utilities
+using System.Diagnostics;
 using System.Text;  // Imports text-related functionality
 
 namespace MirageMUD_Client
@@ -68,6 +69,10 @@ namespace MirageMUD_Client
 
             // Update the control text to the specified language.
             General.UpdateControlText(this);
+
+            // Create a new instance of ClientTCP for new account procedure
+            clientTCP = new ClientTCP();
+            clientTCP.ConnectToServer();  // Connect to the server
         }
 
         // Event handler for when the form is loaded
@@ -256,8 +261,22 @@ namespace MirageMUD_Client
             btnExit.BackColor = Color.FromArgb(45, 45, 45);  // Revert exit button color
         }
 
+        // Reset menu back to home screen
+        public void ResetMenu()
+        {
+            HidePanels();  // Hide all panels
+            // Set the background image from the resources
+            this.BackgroundImage = Properties.Resources.menuback;  // Set default background image
+
+            // Update navigation panel height and position to match home button
+            pnlNav.Height = btnHome.Height;
+            pnlNav.Top = btnHome.Top;
+            pnlNav.Left = btnHome.Left;
+            btnHome.BackColor = Color.FromArgb(95, 95, 95);  // Highlight home button
+        }
+
         // Method to hide all panels and reset the background image
-        private void HidePanels()
+        public void HidePanels()
         {
             this.BackgroundImage = null;  // Remove background image
             pnlCharacters.Visible = false;  // Hide characters panel
@@ -375,10 +394,6 @@ namespace MirageMUD_Client
             switch (state)
             {
                 case MenuState.NewAccount:
-                    // Create a new instance of ClientTCP for new account procedure
-                    clientTCP = new ClientTCP();
-                    clientTCP.ConnectToServer();  // Connect to the server
-
                     if (clientTCP.PlayerSocket.Connected)
                     {
                         btnNewAccConnect.Text = "Connecting...";  // Update button text to indicate connection
@@ -391,10 +406,6 @@ namespace MirageMUD_Client
                     break;
 
                 case MenuState.Login:
-                    // Create a new instance of ClientTCP for login procedure
-                    clientTCP = new ClientTCP();
-                    clientTCP.ConnectToServer();  // Connect to the server
-
                     if (clientTCP.PlayerSocket.Connected)
                     {
                         btnLoginConnect.Text = "Connecting...";  // Update button text to indicate connection

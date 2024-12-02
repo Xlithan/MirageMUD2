@@ -6,12 +6,12 @@
     "null_or_empty_data": "Data cannot be null or empty.",
     "uninitialized_packets": "Packets dictionary is not initialized.",
     "no_handler": "No packet handler found for packet number: {0}",
-    "account_not_found": "{0}'s account does not exist.",
-    "password_mismatch": "Password does not match for {0}."
+    "account_not_found": "{0}'s account does not exist."
   },
   "user": {
-    "account_created": "Account created successfully.",
-    "logged_in": "{0} has logged in from {1}."
+    "account_created": "Account {0} created successfully.",
+    "logged_in": "{0} has logged in from {1}.",
+	"password_mismatch": "Incorrect password."
   },
   "server": {
     "initialising_network_packets": "Initialising network packets...",
