@@ -88,7 +88,7 @@ namespace MirageMUD_Client.Source.Network
             // Check if the incoming data is null or empty
             if (data == null || data.Length == 0)
             {
-                Debug.WriteLine(TranslationManager.Instance.GetTranslation("errors.null_or_empty_data"));
+                Debug.WriteLine("Null or empty data.");
                 return;
             }
 
