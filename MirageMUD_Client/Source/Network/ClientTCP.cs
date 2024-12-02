@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Net.Sockets;
 using Bindings;
 
@@ -72,6 +73,9 @@ namespace MirageMUD_Client.Source.Network
                 // Get the network stream for sending/receiving data
                 myStream = PlayerSocket.GetStream();
 
+                // Initialize messages for the CHandleData instance
+                handleData.InitialiseMessages();
+
                 // Start reading data asynchronously from the server
                 myStream.BeginRead(asyncBuff, 0, 8192, OnReceive, null);
                 connected = true;  // Set the connected flag
@@ -82,28 +86,68 @@ namespace MirageMUD_Client.Source.Network
         // Callback method for receiving data asynchronously from the server
         private void OnReceive(IAsyncResult ar)
         {
-            // Get the number of bytes read from the stream
-            int byteAMT = myStream.EndRead(ar);
-
-            // Create a new byte array to hold the received data
-            byte[] myBytes = null;
-            Array.Resize(ref myBytes, byteAMT);
-
-            // Copy the received data into the byte array
-            Buffer.BlockCopy(asyncBuff, 0, myBytes, 0, byteAMT);
-
-            // If no bytes were received, it indicates the connection was lost
-            if (byteAMT == 0)
+            try
             {
-                // Handle game disconnection or termination
-                return;
+                // Get the number of bytes read from the stream
+                int byteAMT = myStream.EndRead(ar);
+
+                // Create a new byte array to hold the received data
+                byte[] myBytes = null;
+                Array.Resize(ref myBytes, byteAMT);
+
+                // Copy the received data into the byte array
+                Buffer.BlockCopy(asyncBuff, 0, myBytes, 0, byteAMT);
+
+                // If no bytes were received, it indicates the connection was lost
+                if (byteAMT == 0)
+                {
+                    // Handle game disconnection or termination
+                    Disconnect();
+                    return;
+                }
+
+                // Pass the received data to the CHandleData class to process the messages
+                handleData.HandleMessages(myBytes);
+
+                // Continue reading data asynchronously
+                myStream.BeginRead(asyncBuff, 0, 8192, OnReceive, null);
+            }
+            catch (IOException ex)
+            {
+                // Log the exception
+                Debug.WriteLine("IOException: " + ex.Message);
+
+                // Handle disconnection (e.g., close the client socket and notify the user)
+                Disconnect();
+            }
+            catch (Exception ex)
+            {
+                // Log any other exceptions
+                Debug.WriteLine("Exception: " + ex.Message);
+            }
+        }
+
+        private void Disconnect()
+        {
+            // Close the network stream and the socket
+            if (myStream != null)
+            {
+                myStream.Close();
+                myStream = null;
             }
 
-            // Pass the received data to the CHandleData class to process the messages
-            handleData.HandleMessages(myBytes);
+            if (PlayerSocket != null && PlayerSocket.Connected)
+            {
+                PlayerSocket.Close();
+                PlayerSocket = null;
+            }
 
-            // Continue reading data asynchronously
-            myStream.BeginRead(asyncBuff, 0, 8192, OnReceive, null);
+            // Set the connection flags
+            connected = false;
+            connecting = false;
+
+            // Optionally, notify the user about the disconnection (e.g., message box or logging)
+            MessageBox.Show("Connection lost to the server.", "Disconnected", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         // Sends the specified byte array of data to the server

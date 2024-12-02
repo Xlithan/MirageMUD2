@@ -70,7 +70,7 @@ namespace MirageMUD_Server
             buffer.AddBytes(data);
 
             // Write the data to the network stream
-            Clients[Index].myStream.BeginWrite(buffer.ToArray(), 0, buffer.ToArray().Length, null, null);
+            Clients[Index].myStream.Write(buffer.ToArray(), 0, buffer.ToArray().Length);
 
             buffer.Dispose();
         }
