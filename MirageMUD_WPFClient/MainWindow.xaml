@@ -19,7 +19,7 @@
         </Grid.RowDefinitions>
 
         <!-- Logo -->
-        <Image Name="imgLogo" Height="77" Width="184" Source="/logo_63x63.png" Grid.Row="0" />
+        <Image Name="imgLogo" Height="77" Width="184" Source="/images/logo_63x63.png" Grid.Row="0" />
 
         <!-- Title Label -->
         <Label Name="lblTitle" Content="MirageMUD 2" Height="31" Foreground="#FFE0E0E0" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center" Grid.Row="1"/>

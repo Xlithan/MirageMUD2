@@ -14,8 +14,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="logo_63x63.png" />
-    <Resource Include="user-new.png" />
+    <Resource Include="images\logo_63x63.png" />
+    <Resource Include="images\user-new.png" />
   </ItemGroup>
 
 </Project>
