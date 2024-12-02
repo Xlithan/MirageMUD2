@@ -72,7 +72,7 @@ namespace MirageMUD_Server
             // Write the data to the network stream
             Clients[Index].myStream.BeginWrite(buffer.ToArray(), 0, buffer.ToArray().Length, null, null);
 
-            buffer = null;
+            buffer.Dispose();
         }
 
         public void AlertMsg(int Index, string msg)
@@ -88,7 +88,7 @@ namespace MirageMUD_Server
             SendDataTo(Index, buffer.ToArray());
 
             // Dispose of the buffer after sending
-            buffer = null;
+            buffer.Dispose();
         }
     }
 }
