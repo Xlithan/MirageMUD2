@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MirageMUD_Client", "MirageMUD_Client\MirageMUD_Client.csproj", "{7EB053A5-C55F-4C83-8279-2676E3B9B3A1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MirageMUD_WFClient", "MirageMUD_Client\MirageMUD_WFClient.csproj", "{7EB053A5-C55F-4C83-8279-2676E3B9B3A1}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Bindings", "Bindings\Bindings.shproj", "{1A4FF3ED-7E17-457E-AD54-AA1BA4B0111C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MirageMUD_Server", "MirageMUD_Server\MirageMUD_Server.csproj", "{A2B98BC6-0AE9-4B09-A09D-631AA34152D4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MirageMUD_WPFClient", "MirageMUD_WPFClient\MirageMUD_WPFClient.csproj", "{C52E0D15-6D67-48C3-8053-1F4A3E8D65E0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,6 +25,10 @@ Global
 		{A2B98BC6-0AE9-4B09-A09D-631AA34152D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A2B98BC6-0AE9-4B09-A09D-631AA34152D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A2B98BC6-0AE9-4B09-A09D-631AA34152D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C52E0D15-6D67-48C3-8053-1F4A3E8D65E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C52E0D15-6D67-48C3-8053-1F4A3E8D65E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C52E0D15-6D67-48C3-8053-1F4A3E8D65E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C52E0D15-6D67-48C3-8053-1F4A3E8D65E0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

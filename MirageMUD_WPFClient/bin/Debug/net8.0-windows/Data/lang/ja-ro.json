@@ -1,0 +1,119 @@
+{
+  "messages": {
+    "login_prompt": "Rōguin'umei to pasuwādo o nyūryoku shite kudasai!",
+    "login_name_prompt": "Rōguin'umei o nyūryoku shite kudasai!",
+    "password_prompt": "Pasuwādo o nyūryoku shite kudasai!",
+	"language_updated": "Gengo ga seikou ni kōshin sa remashita!",
+	"invalid_language": "Mujun shita gengo ga sentaku sa remashita."
+  },
+  "controls": {
+    "btnExit": {
+      "text": "Gēmu o shōkō suru"
+    },
+    "btnHome": {
+      "text": "Hōmu"
+    },
+    "btnNewAcc": {
+      "text": "Atarashī akaundo"
+    },
+    "btnLogin": {
+      "text": "Roguin"
+    },
+    "btnIPConfig": {
+      "text": "IP kīgō"
+    },
+    "btnGameOptions": {
+      "text": "Gēmu no opushon"
+    },
+    "btnCredits": {
+      "text": "Kurejittsu"
+    },
+    "lblAccountName": {
+      "text": "Roguin shiteimasen"
+    },
+    "lblTNewAcc": {
+      "text": "Atarashī akaundo"
+    },
+    "lblLoginDesc": {
+      "text": "Akaundo meimei to pasuwādo o nyūryoku shite kudasai."
+    },
+    "lblNewAccDesc": {
+      "text": "Akaundo meimei to pasuwādo o nyūryoku shite kudasai. Namae wa jiyū ni erabu koto ga dekimasu."
+    },
+    "lblNewAccName": {
+      "text": "Namae:"
+    },
+    "lblNewAccPass": {
+      "text": "Pasuwādo:"
+    },
+    "lblNewAccConfirm": {
+      "text": "Pasuwādo no kakunin:"
+    },
+    "lblTLogin": {
+      "text": "Roguin"
+    },
+    "lblLoginName": {
+      "text": "Namae:"
+    },
+    "lblLoginPassword": {
+      "text": "Pasuwādo:"
+    },
+    "chkRemember": {
+      "text": "Watashi o oboemasu"
+    },
+    "lblTExitGame": {
+      "text": "Gēmu o shōkō suru"
+    },
+    "lblExitDesc": {
+      "text": "Gēmu o shōkō suru koto o kakunin shite kudasai."
+    },
+    "btnExitConfirm": {
+      "text": "Kakunin"
+    },
+    "lblTIPConfig": {
+      "text": "IP kīgō"
+    },
+    "lblIPHost": {
+      "text": "Hosto:"
+    },
+    "lblIPPort": {
+      "text": "Pōto:"
+    },
+    "btnIPConfSave": {
+      "text": "Hozon"
+    },
+    "lblTCredits": {
+      "text": "Kurejittsu"
+    },
+    "lblCreditsDesc": {
+      "text": "MirageSource wa, MirageSource community no dōryoku ni yotte tsukuriageta mono desu."
+    },
+    "lblCreditsThanks": {
+      "text": "Arigatō gozaimasu:"
+    },
+    "lblTGameOptions": {
+      "text": "Gēmu no opushon"
+    },
+    "lblOptMusic": {
+      "text": "Ongaku:"
+    },
+    "lblOptSound": {
+      "text": "Oto:"
+    },
+    "lblOptFont": {
+      "text": "Fonto:"
+    },
+    "lblOptLang": {
+      "text": "Gengo:"
+    },
+    "btnOptionsSave": {
+      "text": "Hozon"
+    },
+    "lblTWelcome": {
+      "text": "Yōkoso"
+    },
+    "lblWelcomeDesc": {
+      "text": "MirageMUD 2 ni yōkoso, sekai de mottomo kōdo na gurafikaru MUD enjini desu.\n\nHidarite no kantan na navi gēshon o shiyō shite, atarashī akaundo o tsukurimashita."
+    }
+  }
+}
