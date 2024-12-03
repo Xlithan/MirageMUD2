@@ -1,4 +1,4 @@
-﻿namespace MirageMUD_Client
+﻿namespace MirageMUD_WFClient
 {
     partial class frmGame
     {

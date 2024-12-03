@@ -5,7 +5,7 @@ using Bindings;
 using System.Text;
 using Microsoft.VisualBasic;
 
-namespace MirageMUD_Client.Source.Network
+namespace MirageMUD_WFClient.Source.Network
 {
     internal class CHandleData
     {
@@ -129,6 +129,7 @@ namespace MirageMUD_Client.Source.Network
                 buffer.GetInteger(); // Skip packet ID
                 string msg = buffer.GetString(); // Extract msg
 
+                frmMenu.Default.RunOnUIThread(() => frmMenu.Default.ResetMenu());
                 MessageBox.Show(msg, "Alert", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }

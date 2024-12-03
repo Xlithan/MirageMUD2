@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Windows.Forms;
-using MirageMUD_Client.Source.Network;
+using MirageMUD_WFClient.Source.Network;
 
-namespace MirageMUD_Client.Source.General
+namespace MirageMUD_WFClient.Source.General
 {
     internal class General
     {

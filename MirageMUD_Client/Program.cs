@@ -1,7 +1,7 @@
-using MirageMUD_Client.Source.General;
-using MirageMUD_Client.Source.Utilities;
+using MirageMUD_WFClient.Source.General;
+using MirageMUD_WFClient.Source.Utilities;
 
-namespace MirageMUD_Client
+namespace MirageMUD_WFClient
 {
     internal static class Program
     {

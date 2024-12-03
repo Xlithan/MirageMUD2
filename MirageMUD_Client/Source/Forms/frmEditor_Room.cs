@@ -1,8 +1,8 @@
-﻿using MirageMUD_Client.Source.Utilities;
+﻿using MirageMUD_WFClient.Source.Utilities;
 using System;
 using System.Windows.Forms;
 
-namespace MirageMUD_Client
+namespace MirageMUD_WFClient
 {
     public partial class frmEditor_Room : Form
     {

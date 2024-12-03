@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Net.Sockets;
 using Bindings;
 
-namespace MirageMUD_Client.Source.Network
+namespace MirageMUD_WFClient.Source.Network
 {
     internal class ClientTCP
     {
@@ -56,7 +56,14 @@ namespace MirageMUD_Client.Source.Network
         private void ConnectCallback(IAsyncResult ar)
         {
             // End the connection attempt
-            PlayerSocket.EndConnect(ar);
+            try
+            {
+                PlayerSocket.EndConnect(ar);
+            }
+            catch
+            {
+                MessageBox.Show("No connection to server");
+            }
 
             // Check if the connection was unsuccessful
             if (PlayerSocket.Connected == false)

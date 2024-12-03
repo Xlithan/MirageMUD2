@@ -1,4 +1,4 @@
-﻿namespace MirageMUD_Client
+﻿namespace MirageMUD_WFClient
 {
     partial class frmMenu
     {
@@ -1071,7 +1071,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(65, 65, 65);
-            //BackgroundImage = Properties.Resources.menuback;
+            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.None;
             ClientSize = new Size(590, 384);
             ControlBox = false;

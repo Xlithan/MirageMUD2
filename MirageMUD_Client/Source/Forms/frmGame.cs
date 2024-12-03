@@ -1,7 +1,7 @@
-﻿using MirageMUD_Client.Source.Utilities;
+﻿using MirageMUD_WFClient.Source.Utilities;
 using System.Text.RegularExpressions;
 
-namespace MirageMUD_Client
+namespace MirageMUD_WFClient
 {
     public partial class frmGame : Form
     {

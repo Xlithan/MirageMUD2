@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace MirageMUD_Client.Source.Utilities
+namespace MirageMUD_WFClient.Source.Utilities
 {
     public class BBCodeToRTF
     {

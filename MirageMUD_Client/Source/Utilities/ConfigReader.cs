@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;  // Needed for file handling
 using System.Text.Json;  // Needed for JSON serialization/deserialization
 
-namespace MirageMUD_Client.Source.Utilities
+namespace MirageMUD_WFClient.Source.Utilities
 {
     internal class ConfigReader
     {

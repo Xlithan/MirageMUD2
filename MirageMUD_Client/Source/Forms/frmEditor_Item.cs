@@ -1,6 +1,6 @@
-﻿using MirageMUD_Client.Source.Utilities;
+﻿using MirageMUD_WFClient.Source.Utilities;
 
-namespace MirageMUD_Client
+namespace MirageMUD_WFClient
 {
     public partial class frmEditor_Item : Form
     {

@@ -1,10 +1,10 @@
-using MirageMUD_Client.Source.General;  // Imports general utilities
-using MirageMUD_Client.Source.Network;  // Imports networking utilities
-using MirageMUD_Client.Source.Utilities;  // Imports additional utilities
+using MirageMUD_WFClient.Source.General;  // Imports general utilities
+using MirageMUD_WFClient.Source.Network;  // Imports networking utilities
+using MirageMUD_WFClient.Source.Utilities;  // Imports additional utilities
 using System.Diagnostics;
 using System.Text;  // Imports text-related functionality
 
-namespace MirageMUD_Client
+namespace MirageMUD_WFClient
 {
     // Main form class for the menu screen
     public partial class frmMenu : Form
@@ -25,10 +25,44 @@ namespace MirageMUD_Client
             Init = 8  // Initial state of the menu
         }
 
+        public void RunOnUIThread(Action action)
+        {
+            if (InvokeRequired)
+                Invoke(action);
+            else
+                action();
+        }
+
+        private static frmMenu defaultInstance;
+        public static frmMenu Default
+        {
+            get
+            {
+                if (defaultInstance == null)
+                {
+                    defaultInstance = new frmMenu();
+                    defaultInstance.FormClosed += new System.Windows.Forms.FormClosedEventHandler(defaultInstance_FormClosed);
+                }
+                return defaultInstance;
+            }
+            set
+            {
+                defaultInstance = value;
+            }
+        }
+
+        static void defaultInstance_FormClosed(object sender, System.Windows.Forms.FormClosedEventArgs e)
+        {
+            defaultInstance = null;
+        }
+
         // Constructor to initialize the form and its components
         public frmMenu()
         {
             InitializeComponent();  // Initialize form components
+
+            if (defaultInstance == null)
+                defaultInstance = this;
 
             // Define the language options with their corresponding codes
             var languageOptions = new Dictionary<string, string>
@@ -135,7 +169,7 @@ namespace MirageMUD_Client
         {
             HidePanels();  // Hide all panels
             // Set the background image from the resources
-            //this.BackgroundImage = Properties.Resources.menuback;  // Set default background image
+            this.BackgroundImage = Properties.Resources.menuback;  // Set default background image
 
             // Update navigation panel height and position to match home button
             pnlNav.Height = btnHome.Height;
