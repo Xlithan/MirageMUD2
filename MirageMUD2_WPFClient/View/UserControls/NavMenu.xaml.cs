@@ -1,28 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace MirageMUD2_WPFClient.View.UserControls
 {
-    /// <summary>
-    /// Interaction logic for NavMenu.xaml
-    /// </summary>
     public partial class NavMenu : UserControl
     {
         public NavMenu()
         {
             InitializeComponent();
+        }
+
+        // This event is used to notify the parent window when the button is clicked.
+        public event RoutedEventHandler HomePageRequested;
+        public event RoutedEventHandler NewAccPageRequested;
+
+        private void HomePage(object sender, RoutedEventArgs e)
+        {
+            // Fire the event to notify the parent window that navigation is needed
+            HomePageRequested?.Invoke(this, e);
+        }
+
+        private void NewAccountPage(object sender, RoutedEventArgs e)
+        {
+            // Fire the event to notify the parent window that navigation is needed
+            NewAccPageRequested?.Invoke(this, e);
         }
     }
 }

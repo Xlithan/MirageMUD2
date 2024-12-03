@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MirageMUD2_WPFClient.View.UserControls
+namespace MirageMUD2_WPFClient.View.Pages
 {
     /// <summary>
-    /// Interaction logic for MainPanel.xaml
+    /// Interaction logic for Page_Options.xaml
     /// </summary>
-    public partial class MainPanel : UserControl
+    public partial class Page_Options : Page
     {
-        public MainPanel()
+        public Page_Options()
         {
             InitializeComponent();
         }

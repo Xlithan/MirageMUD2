@@ -5,14 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MirageMUD2_WPFClient"
         xmlns:userControls="clr-namespace:MirageMUD2_WPFClient.View.UserControls"
+        xmlns:userPages="clr-namespace:MirageMUD2_WPFClient.View.Pages"
         mc:Ignorable="d"
         Title="MirageMUD 2" Height="450" Width="800" ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen" Background="#333333">
     <Grid>
         <!-- Left Navigation Pane -->
-        <userControls:NavMenu />
+        <userControls:NavMenu x:Name="navMenu" HorizontalAlignment="Left" VerticalAlignment="Top" />
 
-        <!-- Main Content -->
-        <userControls:MainPanel />
+        <!-- Main Content (using Frame for Page display) -->
+        <Frame Name="MainFrame" HorizontalAlignment="Left" VerticalAlignment="Center" Width="595" Height="434" Margin="205,0,0,0" />
     </Grid>
 </Window>
