@@ -9,7 +9,7 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Bindings", "Bindings\Bindin
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MirageMUD_Server", "MirageMUD_Server\MirageMUD_Server.csproj", "{A2B98BC6-0AE9-4B09-A09D-631AA34152D4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MirageMUD_WPFClient", "MirageMUD_WPFClient\MirageMUD_WPFClient.csproj", "{C52E0D15-6D67-48C3-8053-1F4A3E8D65E0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MirageMUD2_WPFClient", "MirageMUD2_WPFClient\MirageMUD2_WPFClient.csproj", "{8A97AD65-19DE-4E70-9B45-ECC6BB9D651A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,10 +25,10 @@ Global
 		{A2B98BC6-0AE9-4B09-A09D-631AA34152D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A2B98BC6-0AE9-4B09-A09D-631AA34152D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A2B98BC6-0AE9-4B09-A09D-631AA34152D4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C52E0D15-6D67-48C3-8053-1F4A3E8D65E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C52E0D15-6D67-48C3-8053-1F4A3E8D65E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C52E0D15-6D67-48C3-8053-1F4A3E8D65E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C52E0D15-6D67-48C3-8053-1F4A3E8D65E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A97AD65-19DE-4E70-9B45-ECC6BB9D651A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A97AD65-19DE-4E70-9B45-ECC6BB9D651A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A97AD65-19DE-4E70-9B45-ECC6BB9D651A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A97AD65-19DE-4E70-9B45-ECC6BB9D651A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

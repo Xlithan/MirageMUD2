@@ -1,0 +1,119 @@
+{
+  "messages": {
+    "login_prompt": "Vänligen ange ditt användarnamn och lösenord!",
+    "login_name_prompt": "Vänligen ange ditt användarnamn!",
+    "password_prompt": "Vänligen ange ditt lösenord!",
+	"language_updated": "Språket uppdaterades framgångsrikt!",
+	"invalid_language": "Ogiltigt språk valt."
+  },
+  "controls": {
+    "btnExit": {
+      "text": "Avsluta Spelet"
+    },
+    "btnHome": {
+      "text": "Hem"
+    },
+    "btnNewAcc": {
+      "text": "Nytt Konto"
+    },
+    "btnLogin": {
+      "text": "Logga in"
+    },
+    "btnIPConfig": {
+      "text": "IP-Konfiguration"
+    },
+    "btnGameOptions": {
+      "text": "Spelinställningar"
+    },
+    "btnCredits": {
+      "text": "Krediter"
+    },
+    "lblAccountName": {
+      "text": "Ej inloggad"
+    },
+    "lblTNewAcc": {
+      "text": "Nytt Konto"
+    },
+    "lblLoginDesc": {
+      "text": "Ange kontonamn och lösenord."
+    },
+    "lblNewAccDesc": {
+      "text": "Ange kontonamn och lösenord. Du kan välja valfritt namn, vi har inga begränsningar."
+    },
+    "lblNewAccName": {
+      "text": "Namn:"
+    },
+    "lblNewAccPass": {
+      "text": "Lösenord:"
+    },
+    "lblNewAccConfirm": {
+      "text": "Bekräfta Lösenord:"
+    },
+    "lblTLogin": {
+      "text": "Logga in"
+    },
+    "lblLoginName": {
+      "text": "Namn:"
+    },
+    "lblLoginPassword": {
+      "text": "Lösenord:"
+    },
+    "chkRemember": {
+      "text": "Kom ihåg mig"
+    },
+    "lblTExitGame": {
+      "text": "Avsluta Spelet"
+    },
+    "lblExitDesc": {
+      "text": "Bekräfta att du vill avsluta spelet."
+    },
+    "btnExitConfirm": {
+      "text": "Bekräfta"
+    },
+    "lblTIPConfig": {
+      "text": "IP-Konfiguration"
+    },
+    "lblIPHost": {
+      "text": "Värd:"
+    },
+    "lblIPPort": {
+      "text": "Port:"
+    },
+    "btnIPConfSave": {
+      "text": "Spara"
+    },
+    "lblTCredits": {
+      "text": "Krediter"
+    },
+    "lblCreditsDesc": {
+      "text": "MirageSource har och kommer alltid att vara ett kollektivt arbete av MirageSource-communityt sedan dess skapelse."
+    },
+    "lblCreditsThanks": {
+      "text": "Speciella Tack:"
+    },
+    "lblTGameOptions": {
+      "text": "Spelinställningar"
+    },
+    "lblOptMusic": {
+      "text": "Musik:"
+    },
+    "lblOptSound": {
+      "text": "Ljud:"
+    },
+    "lblOptFont": {
+      "text": "Teckensnitt:"
+    },
+    "lblOptLang": {
+      "text": "Språk:"
+    },
+    "btnOptionsSave": {
+      "text": "Spara"
+    },
+    "lblTWelcome": {
+      "text": "Välkommen"
+    },
+    "lblWelcomeDesc": {
+      "text": "Välkommen till MirageMUD 2, den mest avancerade grafiska MUD-motorn på planeten.\n\nAnvänd vänstermenyn för att skapa ett nytt konto eller logga in på servern."
+    }
+  }
+}

@@ -135,7 +135,7 @@ namespace MirageMUD_Client
         {
             HidePanels();  // Hide all panels
             // Set the background image from the resources
-            this.BackgroundImage = Properties.Resources.menuback;  // Set default background image
+            //this.BackgroundImage = Properties.Resources.menuback;  // Set default background image
 
             // Update navigation panel height and position to match home button
             pnlNav.Height = btnHome.Height;
