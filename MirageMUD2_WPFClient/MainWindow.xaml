@@ -4,16 +4,75 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MirageMUD2_WPFClient"
-        xmlns:userControls="clr-namespace:MirageMUD2_WPFClient.View.UserControls"
-        xmlns:userPages="clr-namespace:MirageMUD2_WPFClient.View.Pages"
         mc:Ignorable="d"
         Title="MirageMUD 2" Height="450" Width="800" ResizeMode="NoResize"
-        WindowStartupLocation="CenterScreen" Background="#333333">
-    <Grid>
-        <!-- Left Navigation Pane -->
-        <userControls:NavMenu x:Name="navMenu" HorizontalAlignment="Left" VerticalAlignment="Top" />
+        WindowStyle="None" Background="Transparent" AllowsTransparency="True"
+        WindowStartupLocation="CenterScreen">
+    <Border Background="#272537"
+            CornerRadius="20">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
 
-        <!-- Main Content (using Frame for Page display) -->
-        <Frame Name="MainFrame" HorizontalAlignment="Left" VerticalAlignment="Center" Width="595" Height="434" Margin="205,0,0,0" />
-    </Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="75"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Border Grid.Row="0"
+                    Grid.ColumnSpan="2"
+                    x:Name="FirstRowBorder"
+                    Background="#22202F"
+                    CornerRadius="20,20,0,0"/>
+
+
+            <TextBlock Grid.Row="1"
+               Text="MirageMUD 2"
+               VerticalAlignment="Center"
+               HorizontalAlignment="Left"
+               Foreground="White"
+               FontFamily="Fonts/#friz-regular"
+               FontSize="22"
+               Margin="20,0,0,0"/>
+            <StackPanel Grid.Row="2">
+                <RadioButton Content="Home"
+                    Height="50"
+                    Foreground="White"
+                    FontSize="14"
+                    Style="{StaticResource MenuButtonTheme}"/>
+                <RadioButton Content="New Account"
+                    Height="50"
+                    Foreground="White"
+                    FontSize="14"
+                    Style="{StaticResource MenuButtonTheme}"/>
+                <RadioButton Content="Login"
+                    Height="50"
+                    Foreground="White"
+                    FontSize="14"
+                    Style="{StaticResource MenuButtonTheme}"/>
+                <RadioButton Content="IP Config"
+                    Height="50"
+                    Foreground="White"
+                    FontSize="14"
+                    Style="{StaticResource MenuButtonTheme}"/>
+                <RadioButton Content="Game Options"
+                    Height="50"
+                    Foreground="White"
+                    FontSize="14"
+                    Style="{StaticResource MenuButtonTheme}"/>
+                <RadioButton Content="Exit Game"
+                    Height="50"
+                    Foreground="White"
+                    FontSize="14"
+                    Style="{StaticResource MenuButtonTheme}"
+                             Margin="0,30,0,0"/>
+
+            </StackPanel>
+        </Grid>
+
+        
+    </Border>
 </Window>

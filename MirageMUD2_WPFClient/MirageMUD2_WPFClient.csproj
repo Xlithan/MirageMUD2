@@ -9,13 +9,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Resources\logo_63x63.png" />
+    <Resource Include="Images\logo_63x63.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Resources\logo_63x63.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
+    <Folder Include="MVVM\Model\" />
+    <Folder Include="MVVM\ViewModel\" />
+    <Folder Include="MVVM\View\" />
   </ItemGroup>
 
 </Project>
