@@ -2,12 +2,22 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:MirageMUD2_WPFClient"
+             xmlns:viewModel="clr-namespace:MirageMUD2_WPFClient.MVVM.ViewModel"
+             xmlns:view="clr-namespace:MirageMUD2_WPFClient.MVVM.View"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Theme/MenuButtonTheme.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+
+            <DataTemplate DataType="{x:Type viewModel:HomeViewModel}">
+                <view:HomeView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModel:NewAccViewModel}">
+                <view:NewAccView/>
+            </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -9,6 +9,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Fonts\Aster.otf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Fonts\Aster.otf" />
     <Resource Include="Images\logo_63x63.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
@@ -16,8 +21,6 @@
 
   <ItemGroup>
     <Folder Include="MVVM\Model\" />
-    <Folder Include="MVVM\ViewModel\" />
-    <Folder Include="MVVM\View\" />
   </ItemGroup>
 
 </Project>

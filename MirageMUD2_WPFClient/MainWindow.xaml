@@ -4,10 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MirageMUD2_WPFClient"
+        xmlns:viewModel="clr-namespace:MirageMUD2_WPFClient.MVVM.ViewModel"
         mc:Ignorable="d"
         Title="MirageMUD 2" Height="450" Width="800" ResizeMode="NoResize"
         WindowStyle="None" Background="Transparent" AllowsTransparency="True"
         WindowStartupLocation="CenterScreen">
+    <Window.DataContext>
+        <viewModel:MainViewModel/>
+    </Window.DataContext>
     <Border Background="#272537"
             CornerRadius="20">
         <Grid>
@@ -17,37 +21,67 @@
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
-                <RowDefinition Height="25"/>
-                <RowDefinition Height="75"/>
+                <RowDefinition Height="60"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <Border Grid.Row="0"
-                    Grid.ColumnSpan="2"
-                    x:Name="FirstRowBorder"
-                    Background="#22202F"
-                    CornerRadius="20,20,0,0"/>
+            <StackPanel Grid.Row="0" Grid.Column="0"
+                        Orientation="Horizontal"
+                        MouseLeftButtonDown="OnDragWindow">
+                <Image Source="Images/logo_63x63.png"
+                       HorizontalAlignment="left"
+                       Margin="10"
+                       RenderOptions.BitmapScalingMode="NearestNeighbor"/>
+                <TextBlock Grid.Row="0"
+                           Text="MirageMUD 2"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           Foreground="White"
+                           FontSize="20"
+                           Margin="0,0,0,0"/>
+            </StackPanel>
 
+            <!-- Right column StackPanel for dragging -->
+            <StackPanel Grid.Row="0" Grid.Column="1"
+                        Orientation="Horizontal"
+                        MouseLeftButtonDown="OnDragWindow"
+                        HorizontalAlignment="Stretch">
+                <Rectangle Fill="Transparent"
+                           HorizontalAlignment="Stretch"
+                           VerticalAlignment="Stretch"
+                           Width="540"/>
+                <TextBlock HorizontalAlignment="Right"
+                           VerticalAlignment="Center"
+                           Text="__"
+                           Foreground="White"
+                           FontSize="18"
+                           FontWeight="Black"
+                           Margin="5,0,0,30"
+                           MouseLeftButtonDown="OnMinimizeWindow"/>
+                <TextBlock HorizontalAlignment="Right"
+                           VerticalAlignment="Center"
+                           Text="X"
+                           Foreground="White"
+                           FontSize="18"
+                           FontWeight="Bold"
+                           Margin="15,0,0,15"
+                           MouseLeftButtonDown="OnCloseWindow"/>
+            </StackPanel>
 
-            <TextBlock Grid.Row="1"
-               Text="MirageMUD 2"
-               VerticalAlignment="Center"
-               HorizontalAlignment="Left"
-               Foreground="White"
-               FontFamily="Fonts/#friz-regular"
-               FontSize="22"
-               Margin="20,0,0,0"/>
-            <StackPanel Grid.Row="2">
+            <StackPanel Grid.Row="1">
                 <RadioButton Content="Home"
                     Height="50"
                     Foreground="White"
                     FontSize="14"
-                    Style="{StaticResource MenuButtonTheme}"/>
+                    Style="{StaticResource MenuButtonTheme}"
+                    IsChecked="True"
+                    Command="{Binding HomeViewCommand}"/>
                 <RadioButton Content="New Account"
                     Height="50"
                     Foreground="White"
                     FontSize="14"
-                    Style="{StaticResource MenuButtonTheme}"/>
+                    Style="{StaticResource MenuButtonTheme}"
+                    Command="{Binding NewAccViewCommand}"/>
                 <RadioButton Content="Login"
                     Height="50"
                     Foreground="White"
@@ -68,9 +102,14 @@
                     Foreground="White"
                     FontSize="14"
                     Style="{StaticResource MenuButtonTheme}"
-                             Margin="0,30,0,0"/>
+                             Margin="0,70,0,0"/>
 
             </StackPanel>
+
+            <ContentControl Grid.Row="1"
+                            Grid.Column="1"
+                            Margin="10"
+                            Content="{Binding CurrentView}"/>
         </Grid>
 
         
