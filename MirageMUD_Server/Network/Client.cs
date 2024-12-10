@@ -1,49 +1,85 @@
 ﻿using System;
-using System.Net.WebSockets;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
+using System.Net.Sockets;
+using System.Net;
+using System.Reflection;
 
 namespace MirageMUD_Server.Network
 {
     internal class Client
     {
-        public int Index { get; private set; }
-        public WebSocket WebSocket { get; set; }
+        private readonly SHandleData _sHandleData;
 
-        public Client(int index, WebSocket webSocket)
+        public int Index;
+        public string IP;
+        public int Port;
+        public TcpClient Socket;
+        public NetworkStream myStream;
+        public bool Closing;
+        public byte[] readBuff;
+
+        public Client(SHandleData sHandleData)
         {
-            Index = index;
-            WebSocket = webSocket;
+            // Assign the provided sHandleData to the internal _sHandleData field
+            _sHandleData = sHandleData;
         }
 
-        public async Task HandleCommunication()
+        public void Start()
         {
-            var buffer = new byte[4096];
+            // Set the send and receive buffer sizes
+            Socket.SendBufferSize = 4096;
+            Socket.ReceiveBufferSize = 4096;
 
+            // Get the network stream associated with the socket
+            myStream = Socket.GetStream();
+
+            // Resize the buffer for reading incoming data
+            Array.Resize(ref readBuff, Socket.ReceiveBufferSize);
+
+            // Begin asynchronous read operation
+            myStream.BeginRead(readBuff, 0, Socket.ReceiveBufferSize, OnReceiveData, null);
+        }
+        private void OnReceiveData(IAsyncResult ar)
+        {
             try
             {
-                while (WebSocket.State == WebSocketState.Open)
+                // End the read operation and get the number of bytes read
+                int readBytes = myStream.EndRead(ar);
+
+                // If no bytes were read, close the socket (client disconnected)
+                if (readBytes <= 0)
                 {
-                    var result = await WebSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
-                    if (result.MessageType == WebSocketMessageType.Close)
-                    {
-                        await WebSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, "Client closing", CancellationToken.None);
-                        return;
-                    }
-
-                    var message = Encoding.UTF8.GetString(buffer, 0, result.Count);
-                    Console.WriteLine($"Received message: {message}");
-
-                    var response = Encoding.UTF8.GetBytes($"Echo: {message}");
-                    await WebSocket.SendAsync(new ArraySegment<byte>(response), WebSocketMessageType.Text, true, CancellationToken.None);
+                    CloseSocket(Index); // Disconnect client
+                    return;
                 }
+
+                // Create a new byte array to hold the received data
+                byte[] newBytes = null;
+                Array.Resize(ref newBytes, readBytes);
+                Buffer.BlockCopy(readBuff, 0, newBytes, 0, readBytes);
+
+                // Handle the received data using the provided data handler (SHandleData)
+                _sHandleData.HandleMessages(Index, newBytes);
+
+                // Continue reading data asynchronously
+                myStream.BeginRead(readBuff, 0, Socket.ReceiveBufferSize, OnReceiveData, null);
             }
-            catch (Exception ex)
+            catch
             {
-                Console.WriteLine($"Error communicating with client {Index}: {ex.Message}");
-                return;
+                // If an error occurs, close the socket (client disconnected)
+                CloseSocket(Index); // Disconnect client
             }
+        }
+
+        private void CloseSocket(int index)
+        {
+            // Print a message indicating that the connection was terminated
+            Console.WriteLine(string.Format(
+                TranslationManager.Instance.GetTranslation("connection.terminated"),
+                IP));
+
+            // Close the socket and set it to null
+            Socket.Close();
+            Socket = null;
         }
     }
 }

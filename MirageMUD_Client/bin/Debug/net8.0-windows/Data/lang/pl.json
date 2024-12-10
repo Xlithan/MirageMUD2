@@ -1,0 +1,119 @@
+{
+  "messages": {
+    "login_prompt": "Proszę wprowadzić nazwę użytkownika i hasło!",
+    "login_name_prompt": "Proszę wprowadzić nazwę użytkownika!",
+    "password_prompt": "Proszę wprowadzić hasło!",
+	"language_updated": "Język został pomyślnie zaktualizowany!",
+	"invalid_language": "Wybrano nieprawidłowy język."
+  },
+  "controls": {
+    "btnExit": {
+      "text": "Zakończ Grę"
+    },
+    "btnHome": {
+      "text": "Strona Główna"
+    },
+    "btnNewAcc": {
+      "text": "Nowe Konto"
+    },
+    "btnLogin": {
+      "text": "Zaloguj się"
+    },
+    "btnIPConfig": {
+      "text": "Konfiguracja IP"
+    },
+    "btnGameOptions": {
+      "text": "Opcje Gry"
+    },
+    "btnCredits": {
+      "text": "Napisy Końcowe"
+    },
+    "lblAccountName": {
+      "text": "Nie Zalogowano"
+    },
+    "lblTNewAcc": {
+      "text": "Nowe Konto"
+    },
+    "lblLoginDesc": {
+      "text": "Wprowadź nazwę konta i hasło."
+    },
+    "lblNewAccDesc": {
+      "text": "Wprowadź nazwę konta i hasło. Możesz wybrać dowolną nazwę, nie mamy żadnych ograniczeń."
+    },
+    "lblNewAccName": {
+      "text": "Nazwa:"
+    },
+    "lblNewAccPass": {
+      "text": "Hasło:"
+    },
+    "lblNewAccConfirm": {
+      "text": "Potwierdź Hasło:"
+    },
+    "lblTLogin": {
+      "text": "Zaloguj się"
+    },
+    "lblLoginName": {
+      "text": "Nazwa:"
+    },
+    "lblLoginPassword": {
+      "text": "Hasło:"
+    },
+    "chkRemember": {
+      "text": "Zapamiętaj mnie"
+    },
+    "lblTExitGame": {
+      "text": "Zakończ Grę"
+    },
+    "lblExitDesc": {
+      "text": "Potwierdź, że chcesz zakończyć grę."
+    },
+    "btnExitConfirm": {
+      "text": "Potwierdź"
+    },
+    "lblTIPConfig": {
+      "text": "Konfiguracja IP"
+    },
+    "lblIPHost": {
+      "text": "Host:"
+    },
+    "lblIPPort": {
+      "text": "Port:"
+    },
+    "btnIPConfSave": {
+      "text": "Zapisz"
+    },
+    "lblTCredits": {
+      "text": "Napisy Końcowe"
+    },
+    "lblCreditsDesc": {
+      "text": "MirageSource było i zawsze będzie wspólnym wysiłkiem społeczności MirageSource od momentu jego powstania."
+    },
+    "lblCreditsThanks": {
+      "text": "Specjalne Podziękowania:"
+    },
+    "lblTGameOptions": {
+      "text": "Opcje Gry"
+    },
+    "lblOptMusic": {
+      "text": "Muzyka:"
+    },
+    "lblOptSound": {
+      "text": "Dźwięk:"
+    },
+    "lblOptFont": {
+      "text": "Czcionka:"
+    },
+    "lblOptLang": {
+      "text": "Język:"
+    },
+    "btnOptionsSave": {
+      "text": "Zapisz"
+    },
+    "lblTWelcome": {
+      "text": "Witaj"
+    },
+    "lblWelcomeDesc": {
+      "text": "Witaj w MirageMUD 2, najbardziej zaawansowanym graficznym silniku MUD na świecie.\n\nUżyj nawigacji po lewej stronie, aby utworzyć nowe konto lub zalogować się na serwer."
+    }
+  }
+}

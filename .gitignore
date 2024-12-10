@@ -18,7 +18,7 @@ mono_crash.*
 
 # Secret Projects :O
 MirageMUD2_WPFClient/
-MirageMUD_Client/
+MirageMUD_Web/
 
 # Build results
 #[Dd]ebug/

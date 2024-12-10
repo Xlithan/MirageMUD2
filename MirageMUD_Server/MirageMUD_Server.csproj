@@ -10,7 +10,7 @@
   <Import Project="..\Bindings\Bindings.projitems" Label="Shared" />
 
   <ItemGroup>
-    <Compile Remove="Network\ServerTCP.cs" />
+    <Compile Remove="Network\ServerWebSocket.cs" />
   </ItemGroup>
 
 </Project>

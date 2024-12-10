@@ -1,0 +1,119 @@
+{
+  "messages": {
+    "login_prompt": "Por favor, insira seu nome de login e senha!",
+    "login_name_prompt": "Por favor, insira seu nome de login!",
+    "password_prompt": "Por favor, insira sua senha!",
+	"language_updated": "Idioma atualizado com sucesso!",
+	"invalid_language": "Idioma inválido selecionado."
+  },
+  "controls": {
+    "btnExit": {
+      "text": "Sair do Jogo"
+    },
+    "btnHome": {
+      "text": "Início"
+    },
+    "btnNewAcc": {
+      "text": "Nova Conta"
+    },
+    "btnLogin": {
+      "text": "Entrar"
+    },
+    "btnIPConfig": {
+      "text": "Configuração IP"
+    },
+    "btnGameOptions": {
+      "text": "Opções do Jogo"
+    },
+    "btnCredits": {
+      "text": "Créditos"
+    },
+    "lblAccountName": {
+      "text": "Não Conectado"
+    },
+    "lblTNewAcc": {
+      "text": "Nova Conta"
+    },
+    "lblLoginDesc": {
+      "text": "Digite o nome da conta e a senha."
+    },
+    "lblNewAccDesc": {
+      "text": "Digite o nome da conta e a senha. Você pode escolher o nome que desejar, não temos restrições."
+    },
+    "lblNewAccName": {
+      "text": "Nome:"
+    },
+    "lblNewAccPass": {
+      "text": "Senha:"
+    },
+    "lblNewAccConfirm": {
+      "text": "Confirmar Senha:"
+    },
+    "lblTLogin": {
+      "text": "Entrar"
+    },
+    "lblLoginName": {
+      "text": "Nome:"
+    },
+    "lblLoginPassword": {
+      "text": "Senha:"
+    },
+    "chkRemember": {
+      "text": "Lembrar de mim"
+    },
+    "lblTExitGame": {
+      "text": "Sair do Jogo"
+    },
+    "lblExitDesc": {
+      "text": "Por favor, confirme que deseja sair do jogo."
+    },
+    "btnExitConfirm": {
+      "text": "Confirmar"
+    },
+    "lblTIPConfig": {
+      "text": "Configuração IP"
+    },
+    "lblIPHost": {
+      "text": "Host:"
+    },
+    "lblIPPort": {
+      "text": "Porta:"
+    },
+    "btnIPConfSave": {
+      "text": "Salvar"
+    },
+    "lblTCredits": {
+      "text": "Créditos"
+    },
+    "lblCreditsDesc": {
+      "text": "MirageSource sempre foi e sempre será um esforço coletivo da comunidade MirageSource desde a sua criação."
+    },
+    "lblCreditsThanks": {
+      "text": "Agradecimentos Especiais:"
+    },
+    "lblTGameOptions": {
+      "text": "Opções do Jogo"
+    },
+    "lblOptMusic": {
+      "text": "Música:"
+    },
+    "lblOptSound": {
+      "text": "Som:"
+    },
+    "lblOptFont": {
+      "text": "Fonte:"
+    },
+    "lblOptLang": {
+      "text": "Idioma:"
+    },
+    "btnOptionsSave": {
+      "text": "Salvar"
+    },
+    "lblTWelcome": {
+      "text": "Bem-vindo"
+    },
+    "lblWelcomeDesc": {
+      "text": "Bem-vindo ao MirageMUD 2, o motor gráfico MUD mais avançado do planeta.\n\nUse a navegação à esquerda para criar uma nova conta ou entrar no servidor."
+    }
+  }
+}
