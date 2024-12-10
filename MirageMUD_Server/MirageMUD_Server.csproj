@@ -9,4 +9,8 @@
 
   <Import Project="..\Bindings\Bindings.projitems" Label="Shared" />
 
+  <ItemGroup>
+    <Compile Remove="Network\ServerTCP.cs" />
+  </ItemGroup>
+
 </Project>
