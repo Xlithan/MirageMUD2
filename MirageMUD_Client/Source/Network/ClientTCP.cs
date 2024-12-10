@@ -62,7 +62,21 @@ namespace MirageMUD_WFClient.Source.Network
             }
             catch
             {
-                MessageBox.Show("No connection to server");
+                var result = MessageBox.Show(
+                    "No connection to server. Do you want to retry?",
+                    "Connection Error",
+                    MessageBoxButtons.RetryCancel,
+                    MessageBoxIcon.Error
+                );
+
+                frmMenu.Default.RunOnUIThread(() =>
+                    frmMenu.Default.lblStatus.Text = "Disconnected");
+
+                if (result == DialogResult.Retry)
+                {
+                    ConnectToServer();  // Retry connecting to the server
+                }
+                // If Cancel is clicked, do nothing
             }
 
             // Check if the connection was unsuccessful
@@ -87,6 +101,9 @@ namespace MirageMUD_WFClient.Source.Network
                 myStream.BeginRead(asyncBuff, 0, 8192, OnReceive, null);
                 connected = true;  // Set the connected flag
                 connecting = false;  // Set the connecting flag to false
+
+                frmMenu.Default.RunOnUIThread(() =>
+                    frmMenu.Default.lblStatus.Text = "Connected");
             }
         }
 
@@ -155,6 +172,8 @@ namespace MirageMUD_WFClient.Source.Network
 
             // Optionally, notify the user about the disconnection (e.g., message box or logging)
             MessageBox.Show("Connection lost to the server.", "Disconnected", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            frmMenu.Default.RunOnUIThread(() =>
+                    frmMenu.Default.lblStatus.Text = "Disconnected");
         }
 
         // Sends the specified byte array of data to the server

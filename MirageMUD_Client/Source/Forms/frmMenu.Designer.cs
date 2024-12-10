@@ -110,6 +110,7 @@
             textBox1 = new TextBox();
             label5 = new Label();
             label6 = new Label();
+            lblStatus = new Label();
             pnlLogin.SuspendLayout();
             pnlCharacters.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picCharsAvatar).BeginInit();
@@ -1206,6 +1207,18 @@
             label6.Text = "New Character";
             label6.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // lblStatus
+            // 
+            lblStatus.BackColor = Color.Transparent;
+            lblStatus.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblStatus.ForeColor = Color.FromArgb(224, 224, 224);
+            lblStatus.Location = new Point(423, 0);
+            lblStatus.Name = "lblStatus";
+            lblStatus.Size = new Size(164, 20);
+            lblStatus.TabIndex = 29;
+            lblStatus.Text = "Disconnected";
+            lblStatus.TextAlign = ContentAlignment.MiddleRight;
+            // 
             // frmMenu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -1215,17 +1228,18 @@
             BackgroundImageLayout = ImageLayout.None;
             ClientSize = new Size(590, 384);
             ControlBox = false;
+            Controls.Add(panel1);
             Controls.Add(pnlNewChar);
             Controls.Add(pnlCharacters);
-            Controls.Add(panel1);
             Controls.Add(pnlNewAccount);
             Controls.Add(pnlLogin);
             Controls.Add(pnlExit);
             Controls.Add(pnlIPConfig);
             Controls.Add(pnlCredits);
             Controls.Add(pnlGameOptions);
-            Controls.Add(lblTWelcome);
             Controls.Add(lblWelcomeDesc);
+            Controls.Add(lblTWelcome);
+            Controls.Add(lblStatus);
             Controls.Add(picBackground);
             DoubleBuffered = true;
             FormBorderStyle = FormBorderStyle.None;
@@ -1338,5 +1352,6 @@
         private PictureBox picNewCharAvatar;
         private RadioButton radioButton2;
         private RadioButton radioButton1;
+        public Label lblStatus;
     }
 }
