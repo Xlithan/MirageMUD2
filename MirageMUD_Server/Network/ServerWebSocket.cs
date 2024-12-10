@@ -113,26 +113,48 @@ namespace MirageMUD_Server.Network
 
         public async Task AlertMsg(int connectionID, string msg)
         {
-            var buffer = new PacketBuffer();
-            buffer.AddInteger((int)ServerPackets.SAlertMsg);
-            buffer.AddString(msg);
-            await SendDataTo(connectionID, buffer.ToArray());
-            buffer.Dispose();
+            // Construct the message as a byte array
+            byte[] packetType = GetBytes((int)ServerPackets.SAlertMsg);
+            byte[] messageBytes = GetBytes(msg);
+
+            // Combine everything into a single byte array
+            byte[] data = Combine(packetType, messageBytes);
+
+            await SendDataTo(connectionID, data);
         }
 
         public async Task SendChars(int connectionID)
         {
-            var buffer = new PacketBuffer();
-            buffer.AddInteger((int)ServerPackets.SAllChars);
-            buffer.AddString(STypes.Player[connectionID].Login);
+            var player = STypes.Player[connectionID];
 
+            byte[] packetType = GetBytes((int)ServerPackets.SAllChars);
+            byte[] loginBytes = GetBytes(player.Login);
+
+            var charNamesBytes = new List<byte>();
             for (int i = 0; i < Constants.MAX_CHARS; i++)
             {
-                buffer.AddString(STypes.Player[connectionID].Character[i].Name);
+                charNamesBytes.AddRange(GetBytes(player.Character[i].Name));
             }
 
-            await SendDataTo(connectionID, buffer.ToArray());
-            buffer.Dispose();
+            // Combine everything into a single byte array
+            byte[] data = Combine(packetType, loginBytes, charNamesBytes.ToArray());
+
+            await SendDataTo(connectionID, data);
+        }
+
+        private byte[] GetBytes(int value)
+        {
+            return BitConverter.GetBytes(value);
+        }
+
+        private byte[] GetBytes(string str)
+        {
+            return Encoding.UTF8.GetBytes(str);
+        }
+
+        private byte[] Combine(params byte[][] arrays)
+        {
+            return arrays.SelectMany(arr => arr).ToArray();
         }
     }
 }
