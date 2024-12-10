@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace MirageMUD_Server.PlayerData
 {
-    [Serializable]
     internal class Inventory
     {
         public int ItemID { get; set; }

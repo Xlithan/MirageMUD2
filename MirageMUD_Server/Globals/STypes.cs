@@ -10,7 +10,6 @@ namespace MirageMUD_Server.Globals
         public static AccountStruct[] Player = new AccountStruct[Constants.MAX_PLAYERS];
 
         // Represents a player's account, including login details and associated characters.
-        [Serializable]
         public class AccountStruct
         {
             public string Login { get; set; }           // Username for login.
@@ -41,7 +40,6 @@ namespace MirageMUD_Server.Globals
         }
 
         // Represents a player's character with attributes, guild info, position, and status.
-        [Serializable]
         public class CharacterStruct
         {
             // Basic character details.

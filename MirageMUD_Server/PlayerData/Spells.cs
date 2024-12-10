@@ -1,6 +1,5 @@
 ﻿namespace MirageMUD_Server.PlayerData
 {
-    [Serializable]
     internal class Spells
     {
         public int SpellID { get; set; }
