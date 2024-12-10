@@ -202,6 +202,9 @@ namespace MirageMUD_Server
                         if (Convert.ToBase64String(inputHashedPassword) == storedHashedPassword)
                         {
                             // Can log in
+                            db.LoadPlayer(Index, username);
+                            serverTCP.SendChars(Index);
+                            // SendMaxes();
                             Console.WriteLine(TranslationManager.Instance.GetTranslation("user.logged_in"), username, ServerTCP.Clients[Index].IP);
                         }
                         else
@@ -214,7 +217,7 @@ namespace MirageMUD_Server
                 else
                 {
                     // Username does not exist, send the error
-                    serverTCP.AlertMsg(Index, "Username does not exist.");
+                    serverTCP.AlertMsg(Index, "Account does not exist.");
                 }
             }
         }

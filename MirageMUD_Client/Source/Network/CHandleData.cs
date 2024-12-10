@@ -1,9 +1,5 @@
-﻿using System;
+﻿using Bindings;
 using System.Diagnostics;
-using System.Collections.Generic;
-using Bindings;
-using System.Text;
-using Microsoft.VisualBasic;
 
 namespace MirageMUD_WFClient.Source.Network
 {
@@ -129,11 +125,38 @@ namespace MirageMUD_WFClient.Source.Network
                 buffer.GetInteger(); // Skip packet ID
                 string msg = buffer.GetString(); // Extract msg
 
-                frmMenu.Default.RunOnUIThread(() => frmMenu.Default.ResetMenu());
+                //frmMenu.Default.RunOnUIThread(() => frmMenu.Default.ResetMenu());
                 MessageBox.Show(msg, "Alert", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
-        public void HandleAllChars(byte[] data) { }
+        public void HandleAllChars(byte[] data)
+        {
+            using(PacketBuffer buffer = new PacketBuffer())
+            {
+                buffer.AddBytes(data);
+                buffer.GetInteger(); // Skip packet ID
+                frmMenu.Default.RunOnUIThread(() =>
+                    frmMenu.Default.lblAccountName.Text = buffer.GetString());
+                string charName;
+                for(int i = 0; i < Constants.MAX_CHARS; i++)
+                {
+                    charName = buffer.GetString();
+                    if(charName.Length == 0)
+                    {
+                        frmMenu.Default.RunOnUIThread(() =>
+                            frmMenu.Default.lstCharacters.Items.Add("Empty Slot"));
+                    }
+                    else
+                    {
+                        frmMenu.Default.RunOnUIThread(() =>
+                            frmMenu.Default.lstCharacters.Items.Add(charName));
+                    }
+
+                    frmMenu.Default.RunOnUIThread(() => frmMenu.Default.HidePanels());
+                    frmMenu.Default.RunOnUIThread(() => frmMenu.Default.pnlCharacters.Visible = true);
+                }
+            }
+        }
         public void HandleLoginOk(byte[] data) { }
         public void HandleNewCharClasses(byte[] data) { }
         public void HandleClassesData(byte[] data) { }

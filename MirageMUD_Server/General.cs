@@ -39,8 +39,8 @@ namespace MirageMUD_Server
                 ServerTCP.Clients[i] = newClient;
 
                 // Initialize the Player account and its characters
-                Types.Player[i] = new Types.AccountStruct();
-                Types.Player[i].Initialise(Constants.MAX_CHARS); // Initialize characters with the correct size
+                STypes.Player[i] = new STypes.AccountStruct();
+                STypes.Player[i].Initialise(Constants.MAX_CHARS); // Initialize characters with the correct size
             }
             stcp.InitialiseNetwork();
             Console.WriteLine(TranslationManager.Instance.GetTranslation("server.server_started"));

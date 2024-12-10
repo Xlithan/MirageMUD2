@@ -39,9 +39,9 @@
             lblLoginDesc = new Label();
             lblTLogin = new Label();
             pnlCharacters = new Panel();
-            button3 = new Button();
-            button2 = new Button();
-            button1 = new Button();
+            btnDeleteChar = new Button();
+            btnNewChar = new Button();
+            btnUseChar = new Button();
             btnCharsCancel = new Button();
             picCharsAvatar = new PictureBox();
             lstCharacters = new ListBox();
@@ -100,6 +100,16 @@
             lblTWelcome = new Label();
             lblWelcomeDesc = new Label();
             picBackground = new PictureBox();
+            pnlNewChar = new Panel();
+            picNewCharAvatar = new PictureBox();
+            radioButton2 = new RadioButton();
+            radioButton1 = new RadioButton();
+            comboBox1 = new ComboBox();
+            label1 = new Label();
+            button4 = new Button();
+            textBox1 = new TextBox();
+            label5 = new Label();
+            label6 = new Label();
             pnlLogin.SuspendLayout();
             pnlCharacters.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picCharsAvatar).BeginInit();
@@ -112,6 +122,8 @@
             pnlExit.SuspendLayout();
             pnlIPConfig.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picBackground).BeginInit();
+            pnlNewChar.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)picNewCharAvatar).BeginInit();
             SuspendLayout();
             // 
             // pnlLogin
@@ -229,9 +241,9 @@
             // 
             pnlCharacters.BackColor = Color.FromArgb(65, 65, 65);
             pnlCharacters.BackgroundImageLayout = ImageLayout.None;
-            pnlCharacters.Controls.Add(button3);
-            pnlCharacters.Controls.Add(button2);
-            pnlCharacters.Controls.Add(button1);
+            pnlCharacters.Controls.Add(btnDeleteChar);
+            pnlCharacters.Controls.Add(btnNewChar);
+            pnlCharacters.Controls.Add(btnUseChar);
             pnlCharacters.Controls.Add(btnCharsCancel);
             pnlCharacters.Controls.Add(picCharsAvatar);
             pnlCharacters.Controls.Add(lstCharacters);
@@ -241,53 +253,54 @@
             pnlCharacters.Size = new Size(406, 384);
             pnlCharacters.TabIndex = 10;
             // 
-            // button3
+            // btnDeleteChar
             // 
-            button3.BackColor = Color.FromArgb(45, 45, 45);
-            button3.BackgroundImageLayout = ImageLayout.None;
-            button3.FlatAppearance.BorderSize = 0;
-            button3.FlatStyle = FlatStyle.Flat;
-            button3.Font = new Font("Nirmala UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button3.ForeColor = Color.Silver;
-            button3.ImageAlign = ContentAlignment.MiddleLeft;
-            button3.Location = new Point(107, 265);
-            button3.Name = "button3";
-            button3.Size = new Size(190, 34);
-            button3.TabIndex = 15;
-            button3.Text = "Delete Character";
-            button3.UseVisualStyleBackColor = false;
+            btnDeleteChar.BackColor = Color.FromArgb(45, 45, 45);
+            btnDeleteChar.BackgroundImageLayout = ImageLayout.None;
+            btnDeleteChar.FlatAppearance.BorderSize = 0;
+            btnDeleteChar.FlatStyle = FlatStyle.Flat;
+            btnDeleteChar.Font = new Font("Nirmala UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnDeleteChar.ForeColor = Color.Silver;
+            btnDeleteChar.ImageAlign = ContentAlignment.MiddleLeft;
+            btnDeleteChar.Location = new Point(107, 265);
+            btnDeleteChar.Name = "btnDeleteChar";
+            btnDeleteChar.Size = new Size(190, 34);
+            btnDeleteChar.TabIndex = 15;
+            btnDeleteChar.Text = "Delete Character";
+            btnDeleteChar.UseVisualStyleBackColor = false;
             // 
-            // button2
+            // btnNewChar
             // 
-            button2.BackColor = Color.FromArgb(45, 45, 45);
-            button2.BackgroundImageLayout = ImageLayout.None;
-            button2.FlatAppearance.BorderSize = 0;
-            button2.FlatStyle = FlatStyle.Flat;
-            button2.Font = new Font("Nirmala UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button2.ForeColor = Color.Silver;
-            button2.ImageAlign = ContentAlignment.MiddleLeft;
-            button2.Location = new Point(107, 225);
-            button2.Name = "button2";
-            button2.Size = new Size(190, 34);
-            button2.TabIndex = 14;
-            button2.Text = "New Character";
-            button2.UseVisualStyleBackColor = false;
+            btnNewChar.BackColor = Color.FromArgb(45, 45, 45);
+            btnNewChar.BackgroundImageLayout = ImageLayout.None;
+            btnNewChar.FlatAppearance.BorderSize = 0;
+            btnNewChar.FlatStyle = FlatStyle.Flat;
+            btnNewChar.Font = new Font("Nirmala UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnNewChar.ForeColor = Color.Silver;
+            btnNewChar.ImageAlign = ContentAlignment.MiddleLeft;
+            btnNewChar.Location = new Point(107, 225);
+            btnNewChar.Name = "btnNewChar";
+            btnNewChar.Size = new Size(190, 34);
+            btnNewChar.TabIndex = 14;
+            btnNewChar.Text = "New Character";
+            btnNewChar.UseVisualStyleBackColor = false;
+            btnNewChar.Click += btnNewChar_Click;
             // 
-            // button1
+            // btnUseChar
             // 
-            button1.BackColor = Color.FromArgb(45, 45, 45);
-            button1.BackgroundImageLayout = ImageLayout.None;
-            button1.FlatAppearance.BorderSize = 0;
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.Font = new Font("Nirmala UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button1.ForeColor = Color.Silver;
-            button1.ImageAlign = ContentAlignment.MiddleLeft;
-            button1.Location = new Point(107, 185);
-            button1.Name = "button1";
-            button1.Size = new Size(190, 34);
-            button1.TabIndex = 13;
-            button1.Text = "Use Character";
-            button1.UseVisualStyleBackColor = false;
+            btnUseChar.BackColor = Color.FromArgb(45, 45, 45);
+            btnUseChar.BackgroundImageLayout = ImageLayout.None;
+            btnUseChar.FlatAppearance.BorderSize = 0;
+            btnUseChar.FlatStyle = FlatStyle.Flat;
+            btnUseChar.Font = new Font("Nirmala UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnUseChar.ForeColor = Color.Silver;
+            btnUseChar.ImageAlign = ContentAlignment.MiddleLeft;
+            btnUseChar.Location = new Point(107, 185);
+            btnUseChar.Name = "btnUseChar";
+            btnUseChar.Size = new Size(190, 34);
+            btnUseChar.TabIndex = 13;
+            btnUseChar.Text = "Use Character";
+            btnUseChar.UseVisualStyleBackColor = false;
             // 
             // btnCharsCancel
             // 
@@ -1066,6 +1079,133 @@
             picBackground.TabIndex = 26;
             picBackground.TabStop = false;
             // 
+            // pnlNewChar
+            // 
+            pnlNewChar.BackColor = Color.FromArgb(65, 65, 65);
+            pnlNewChar.BackgroundImageLayout = ImageLayout.None;
+            pnlNewChar.Controls.Add(picNewCharAvatar);
+            pnlNewChar.Controls.Add(radioButton2);
+            pnlNewChar.Controls.Add(radioButton1);
+            pnlNewChar.Controls.Add(comboBox1);
+            pnlNewChar.Controls.Add(label1);
+            pnlNewChar.Controls.Add(button4);
+            pnlNewChar.Controls.Add(textBox1);
+            pnlNewChar.Controls.Add(label5);
+            pnlNewChar.Controls.Add(label6);
+            pnlNewChar.Location = new Point(184, 0);
+            pnlNewChar.Name = "pnlNewChar";
+            pnlNewChar.Size = new Size(406, 384);
+            pnlNewChar.TabIndex = 27;
+            // 
+            // picNewCharAvatar
+            // 
+            picNewCharAvatar.BackgroundImageLayout = ImageLayout.Stretch;
+            picNewCharAvatar.BorderStyle = BorderStyle.FixedSingle;
+            picNewCharAvatar.Image = (Image)resources.GetObject("picNewCharAvatar.Image");
+            picNewCharAvatar.Location = new Point(299, 221);
+            picNewCharAvatar.Name = "picNewCharAvatar";
+            picNewCharAvatar.Size = new Size(48, 48);
+            picNewCharAvatar.SizeMode = PictureBoxSizeMode.StretchImage;
+            picNewCharAvatar.TabIndex = 21;
+            picNewCharAvatar.TabStop = false;
+            picNewCharAvatar.Click += picNewCharAvatar_Click;
+            // 
+            // radioButton2
+            // 
+            radioButton2.AutoSize = true;
+            radioButton2.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            radioButton2.ForeColor = Color.White;
+            radioButton2.Location = new Point(97, 223);
+            radioButton2.Name = "radioButton2";
+            radioButton2.Size = new Size(69, 21);
+            radioButton2.TabIndex = 20;
+            radioButton2.TabStop = true;
+            radioButton2.Text = "Female";
+            radioButton2.UseVisualStyleBackColor = true;
+            // 
+            // radioButton1
+            // 
+            radioButton1.AutoSize = true;
+            radioButton1.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            radioButton1.ForeColor = Color.White;
+            radioButton1.Location = new Point(36, 223);
+            radioButton1.Name = "radioButton1";
+            radioButton1.Size = new Size(55, 21);
+            radioButton1.TabIndex = 19;
+            radioButton1.TabStop = true;
+            radioButton1.Text = "Male";
+            radioButton1.UseVisualStyleBackColor = true;
+            // 
+            // comboBox1
+            // 
+            comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Items.AddRange(new object[] { "Welsh (Cymraeg)", "German (Deutsch)", "British English (English)", "American English (English)", "Spanish (Español)", "French (Français)", "Italian (Italiano)", "Portuguese (Português)", "Romanized Japanese (Romaji)", "Polish (Polski)", "Swedish (Svenska)" });
+            comboBox1.Location = new Point(36, 192);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(311, 23);
+            comboBox1.TabIndex = 18;
+            // 
+            // label1
+            // 
+            label1.BackColor = Color.Transparent;
+            label1.Font = new Font("Verdana", 9F, FontStyle.Bold);
+            label1.ForeColor = Color.White;
+            label1.Location = new Point(36, 171);
+            label1.Name = "label1";
+            label1.Size = new Size(103, 18);
+            label1.TabIndex = 17;
+            label1.Text = "Class:";
+            label1.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // button4
+            // 
+            button4.BackColor = Color.FromArgb(45, 45, 45);
+            button4.BackgroundImageLayout = ImageLayout.None;
+            button4.FlatAppearance.BorderSize = 0;
+            button4.FlatStyle = FlatStyle.Flat;
+            button4.Font = new Font("Nirmala UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button4.ForeColor = Color.Silver;
+            button4.ImageAlign = ContentAlignment.MiddleLeft;
+            button4.Location = new Point(204, 338);
+            button4.Name = "button4";
+            button4.Size = new Size(190, 34);
+            button4.TabIndex = 16;
+            button4.Text = "Save";
+            button4.UseVisualStyleBackColor = false;
+            // 
+            // textBox1
+            // 
+            textBox1.Location = new Point(36, 144);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(311, 23);
+            textBox1.TabIndex = 9;
+            // 
+            // label5
+            // 
+            label5.BackColor = Color.Transparent;
+            label5.Font = new Font("Verdana", 9F, FontStyle.Bold);
+            label5.ForeColor = Color.White;
+            label5.Location = new Point(36, 127);
+            label5.Name = "label5";
+            label5.Size = new Size(75, 18);
+            label5.TabIndex = 3;
+            label5.Text = "Name:";
+            label5.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // label6
+            // 
+            label6.BackColor = Color.Transparent;
+            label6.Dock = DockStyle.Top;
+            label6.Font = new Font("Verdana", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label6.ForeColor = Color.White;
+            label6.Location = new Point(0, 0);
+            label6.Name = "label6";
+            label6.Size = new Size(406, 34);
+            label6.TabIndex = 0;
+            label6.Text = "New Character";
+            label6.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // frmMenu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -1075,10 +1215,11 @@
             BackgroundImageLayout = ImageLayout.None;
             ClientSize = new Size(590, 384);
             ControlBox = false;
+            Controls.Add(pnlNewChar);
+            Controls.Add(pnlCharacters);
             Controls.Add(panel1);
             Controls.Add(pnlNewAccount);
             Controls.Add(pnlLogin);
-            Controls.Add(pnlCharacters);
             Controls.Add(pnlExit);
             Controls.Add(pnlIPConfig);
             Controls.Add(pnlCredits);
@@ -1109,11 +1250,13 @@
             pnlIPConfig.ResumeLayout(false);
             pnlIPConfig.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)picBackground).EndInit();
+            pnlNewChar.ResumeLayout(false);
+            pnlNewChar.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)picNewCharAvatar).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
-        private Panel pnlLogin;
         private TextBox txtLoginPass;
         private TextBox txtLoginName;
         private CheckBox chkRemember;
@@ -1121,11 +1264,8 @@
         private Label lblLoginName;
         private Label lblLoginDesc;
         private Label lblTLogin;
-        private Panel pnlCharacters;
         private Label label19;
         private PictureBox picCharsAvatar;
-        private ListBox lstCharacters;
-        private Panel pnlGameOptions;
         private TextBox txtFont;
         private CheckBox chkMusic;
         private Label lblOptFont;
@@ -1134,12 +1274,10 @@
         private CheckBox chkSound;
         private Label lblOptMusic;
         private Label lblOptSound;
-        private Panel pnlCredits;
         private Label lblCreditsDesc;
         private Label lblTCredits;
         private Label label32;
         private Label lblCreditsThanks;
-        private Panel pnlNewAccount;
         private TextBox txtNewAccPass;
         private TextBox txtNewAccName;
         private Label lblNewAccPass;
@@ -1156,14 +1294,11 @@
         private Button btnLogin;
         private Button btnNewAcc;
         private Panel pnlNav;
-        private Panel pnlExit;
         private Label lblTExitGame;
         private Button btnExitConfirm;
         private Label lblExitDesc;
         private PictureBox pictureBox1;
-        private Label lblAccountName;
         private Label label2;
-        private Panel pnlIPConfig;
         private TextBox txtPort;
         private TextBox txtHost;
         private Label lblIPPort;
@@ -1176,13 +1311,32 @@
         private Button btnOptionsSave;
         private Button btnNewAccConnect;
         private Button btnCharsCancel;
-        private Button button3;
-        private Button button2;
-        private Button button1;
+        private Button btnDeleteChar;
+        private Button btnNewChar;
+        private Button btnUseChar;
         private TextBox txtConfirmPass;
         private Label lblNewAccConfirm;
-        private PictureBox picBackground;
         private ComboBox cmbOptLang;
         private Label lblOptLang;
+        public ListBox lstCharacters;
+        public Panel pnlCharacters;
+        public Panel pnlLogin;
+        public Panel pnlGameOptions;
+        public Panel pnlCredits;
+        public Panel pnlNewAccount;
+        public Panel pnlExit;
+        public Panel pnlIPConfig;
+        public PictureBox picBackground;
+        public Label lblAccountName;
+        public Panel pnlNewChar;
+        private ComboBox comboBox1;
+        private Label label1;
+        private Button button4;
+        private TextBox textBox1;
+        private Label label5;
+        private Label label6;
+        private PictureBox picNewCharAvatar;
+        private RadioButton radioButton2;
+        private RadioButton radioButton1;
     }
 }

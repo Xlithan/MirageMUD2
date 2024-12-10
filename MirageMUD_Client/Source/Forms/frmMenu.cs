@@ -1,7 +1,9 @@
+using MirageMUD_WFClient.Source.Forms;
 using MirageMUD_WFClient.Source.General;  // Imports general utilities
 using MirageMUD_WFClient.Source.Network;  // Imports networking utilities
 using MirageMUD_WFClient.Source.Utilities;  // Imports additional utilities
 using System.Diagnostics;
+using System.Security.Policy;
 using System.Text;  // Imports text-related functionality
 
 namespace MirageMUD_WFClient
@@ -314,6 +316,7 @@ namespace MirageMUD_WFClient
         {
             this.BackgroundImage = null;  // Remove background image
             pnlCharacters.Visible = false;  // Hide characters panel
+            pnlNewChar.Visible = false;
             pnlCredits.Visible = false;  // Hide credits panel
             pnlGameOptions.Visible = false;  // Hide game options panel
             pnlIPConfig.Visible = false;  // Hide IP config panel
@@ -574,6 +577,42 @@ namespace MirageMUD_WFClient
                 // Show the error message in a message box
                 MessageBox.Show(translatedMessage);
             }
+        }
+
+        private void picNewCharAvatar_Click(object sender, EventArgs e)
+        {
+            // Open the dialog form
+            using (var imageSelectorForm = new dlgAvatarSelection())
+            {
+                if (imageSelectorForm.ShowDialog() == DialogResult.OK)
+                {
+                    // Get the selected image name
+                    string selectedImageName = imageSelectorForm.SelectedImageName;
+
+                    if (!string.IsNullOrEmpty(selectedImageName))
+                    {
+                        // Construct the full path to the image
+                        string imagePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "gfx", "avatars", "players", selectedImageName);
+
+                        if (File.Exists(imagePath))
+                        {
+                            // Set the image in the PictureBox
+                            picNewCharAvatar.Image = Image.FromFile(imagePath);
+                            picNewCharAvatar.SizeMode = PictureBoxSizeMode.StretchImage;
+                        }
+                        else
+                        {
+                            MessageBox.Show($"Image not found: {imagePath}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+            }
+        }
+
+        private void btnNewChar_Click(object sender, EventArgs e)
+        {
+            HidePanels();
+            pnlNewChar.Visible = true;
         }
     }
 }

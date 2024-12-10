@@ -90,5 +90,21 @@ namespace MirageMUD_Server
             // Dispose of the buffer after sending
             buffer.Dispose();
         }
+
+        public void SendChars(int Index)
+        {
+            PacketBuffer buffer = new PacketBuffer();
+
+            buffer.AddInteger((int)ServerPackets.SAllChars);
+            buffer.AddString(STypes.Player[Index].Login);
+            for(int i = 0; i < Constants.MAX_CHARS; i++)
+            {
+                buffer.AddString(STypes.Player[Index].Character[i].Name);
+            }
+
+            SendDataTo(Index, buffer.ToArray());
+
+            buffer.Dispose();
+        }
     }
 }

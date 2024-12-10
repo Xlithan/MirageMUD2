@@ -17,5 +17,8 @@ namespace Bindings
 
         // Account
         public const int MAX_CHARS = 5; // Max Characters
+
+        // Player
+        public const int MAX_PLAYERSPELLS = 10; // Max Player Spells
     }
 }
