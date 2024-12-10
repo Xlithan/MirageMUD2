@@ -1,160 +1,108 @@
-﻿using Bindings;
-using MirageMUD_Server.Globals;
-using System.Net;
+﻿using System.Net;
 using System.Net.WebSockets;
 using System.Text;
+using Bindings;
+using MirageMUD_Server.Globals;
 
 namespace MirageMUD_Server.Network
 {
     internal class ServerWebSocket
     {
-        public static int MaxClients = 100;
-        private static HttpListener _listener;
-        public static Dictionary<int, Client> Clients = new Dictionary<int, Client>();
+        private readonly int _port;
 
-        public static void InitialiseNetwork()
+        public static Client[] Clients = new Client[Constants.MAX_PLAYERS];
+
+        public ServerWebSocket()
         {
-            int port = 7777;
-
-            try
-            {
-                _listener = new HttpListener();
-                _listener.Prefixes.Add($"http://*:{port}/");
-                _listener.Start();
-
-                Console.WriteLine($"Server listening on http://*:7777/");
-
-                while (true)
-                {
-                    var context = _listener.GetContext();
-                    var response = context.Response;
-                    var responseString = "<html><body>Server Running</body></html>";
-                    var buffer = Encoding.UTF8.GetBytes(responseString);
-
-                    response.ContentLength64 = buffer.Length;
-                    var output = response.OutputStream;
-                    output.Write(buffer, 0, buffer.Length);
-                    output.Close();
-
-                    Console.WriteLine($"Debug Check");
-                }
-            }
-            catch (HttpListenerException ex)
-            {
-                Console.WriteLine($"HttpListener Error: {ex.Message}");
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                Console.WriteLine($"Access Denied: {ex.Message}");
-            }
-
-            Console.WriteLine($"WebSocket Server started on port {port}");
-            Task.Run(() => AcceptClientsAsync());
+            _port = 7777;
         }
 
-        private static async Task AcceptClientsAsync()
+        public async Task StartAsync()
         {
+            var listener = new HttpListener();
+            listener.Prefixes.Add($"http://localhost:{_port}/");
+            listener.Start();
+
+            Console.WriteLine($"WebSocket server running on port {_port}...");
+
             while (true)
             {
-                var context = await _listener.GetContextAsync();
+                var httpContext = await listener.GetContextAsync();
 
-                if (context.Request.IsWebSocketRequest)
+                if (httpContext.Request.IsWebSocketRequest)
                 {
-                    var webSocketContext = await context.AcceptWebSocketAsync(null);
-                    int connectionID = GetAvailableClientID();
-                    var client = new Client(connectionID, webSocketContext.WebSocket);
+                    var webSocketContext = await httpContext.AcceptWebSocketAsync(null);
+                    var webSocket = webSocketContext.WebSocket;
 
-                    Clients[connectionID] = client;
-                    OnClientConnect(connectionID, client);
-
-                    _ = Task.Run(() => client.ReceiveDataAsync());
+                    for (int i = 0; i < Constants.MAX_PLAYERS; i++)
+                    {
+                        if (Clients[i]?.WebSocket == null)
+                        {
+                            Clients[i] = new Client(i, webSocket);
+                            Console.WriteLine($"Client {Clients[i].Index} connected.");
+                            _ = Clients[i].HandleCommunication();
+                            break;
+                        }
+                    }
                 }
                 else
                 {
-                    context.Response.StatusCode = 400; // Bad Request
-                    context.Response.Close();
+                    httpContext.Response.StatusCode = 400;
+                    httpContext.Response.Close();
                 }
             }
         }
 
-        private static int GetAvailableClientID()
+        public async Task SendDataTo(int Index, byte[] data)
         {
-            for (int i = 1; i <= MaxClients; i++)
+            if (Clients[Index]?.WebSocket != null && Clients[Index].WebSocket.State == WebSocketState.Open)
             {
-                if (!Clients.ContainsKey(i))
-                    return i;
+                try
+                {
+                    await Clients[Index].WebSocket.SendAsync(
+                        new ArraySegment<byte>(data),
+                        WebSocketMessageType.Binary,
+                        true,
+                        CancellationToken.None
+                    );
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Failed to send data to client {Index}: {ex.Message}");
+                }
             }
-            throw new Exception("No available client IDs.");
-        }
-
-        public static void OnClientConnect(int connectionID, Client client)
-        {
-            Console.WriteLine($"Client {connectionID} connected.");
-        }
-
-        public static async Task DisconnectClient(int connectionID)
-        {
-            if (Clients.ContainsKey(connectionID))
+            else
             {
-                await Clients[connectionID].DisconnectClient();  // Call async method
-                Clients.Remove(connectionID);
-                Console.WriteLine($"Client {connectionID} disconnected.");
-            }
-        }
-
-        public static async Task SendDataTo(int connectionID, byte[] data)
-        {
-            if (Clients.ContainsKey(connectionID))
-            {
-                var client = Clients[connectionID];
-                await client.SendDataAsync(data);
+                Console.WriteLine($"Client {Index} WebSocket is not open.");
             }
         }
 
-        public async Task AlertMsg(int connectionID, string msg)
+        public async Task AlertMsg(int Index, string message)
         {
-            // Construct the message as a byte array
-            byte[] packetType = GetBytes((int)ServerPackets.SAlertMsg);
-            byte[] messageBytes = GetBytes(msg);
-
-            // Combine everything into a single byte array
-            byte[] data = Combine(packetType, messageBytes);
-
-            await SendDataTo(connectionID, data);
+            byte[] data = Encoding.UTF8.GetBytes(message);
+            await SendDataTo(Index, data);
         }
 
-        public async Task SendChars(int connectionID)
+        public async Task SendChars(int Index)
         {
-            var player = STypes.Player[connectionID];
+            // Prepare the data to send
+            var data = new List<byte>();
 
-            byte[] packetType = GetBytes((int)ServerPackets.SAllChars);
-            byte[] loginBytes = GetBytes(player.Login);
+            // Add the packet identifier
+            data.Add((byte)ServerPackets.SAllChars);
 
-            var charNamesBytes = new List<byte>();
+            // Add the player's login name
+            data.AddRange(Encoding.UTF8.GetBytes(STypes.Player[Index].Login));
+
+            // Add character names
             for (int i = 0; i < Constants.MAX_CHARS; i++)
             {
-                charNamesBytes.AddRange(GetBytes(player.Character[i].Name));
+                var charNameBytes = Encoding.UTF8.GetBytes(STypes.Player[Index].Character[i].Name);
+                data.AddRange(charNameBytes);
             }
 
-            // Combine everything into a single byte array
-            byte[] data = Combine(packetType, loginBytes, charNamesBytes.ToArray());
-
-            await SendDataTo(connectionID, data);
-        }
-
-        private byte[] GetBytes(int value)
-        {
-            return BitConverter.GetBytes(value);
-        }
-
-        private byte[] GetBytes(string str)
-        {
-            return Encoding.UTF8.GetBytes(str);
-        }
-
-        private byte[] Combine(params byte[][] arrays)
-        {
-            return arrays.SelectMany(arr => arr).ToArray();
+            // Send data asynchronously
+            await SendDataTo(Index, data.ToArray());
         }
     }
 }

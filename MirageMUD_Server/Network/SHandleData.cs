@@ -7,7 +7,7 @@ namespace MirageMUD_Server.Network
 {
     internal class SHandleData
     {
-        private delegate void Packet_(int Index, byte[] data);
+        private delegate Task Packet_(int Index, byte[] data);
         private Dictionary<int, Packet_> Packets;
         private Database db = new Database();
         private ServerWebSocket serverWebSocket = new ServerWebSocket();
@@ -110,38 +110,35 @@ namespace MirageMUD_Server.Network
             }
         }
 
-        private void HandleGetClasses(int Index, byte[] data) { }
-        private void HandleNewAccount(int Index, byte[] data)
+        private async Task HandleGetClasses(int Index, byte[] data) { }
+        private async Task HandleNewAccount(int Index, byte[] data)
         {
-            int offset = 1; // Start parsing after the packet ID byte
+            int offset = 1;
             string username = Encoding.UTF8.GetString(data, offset, data.Length - offset - 32);
             offset += username.Length + 1;
 
             string password = Encoding.UTF8.GetString(data, offset, data.Length - offset);
 
-            using (var rng = new RNGCryptoServiceProvider())
+            // Use `RandomNumberGenerator` instead of deprecated RNGCryptoServiceProvider
+            byte[] salt = new byte[16];
+            RandomNumberGenerator.Fill(salt);
+
+            string hashedPassword = Convert.ToBase64String(Encoding.UTF8.GetBytes(password + Convert.ToBase64String(salt)));
+
+            if (!db.AccountExist(username))
             {
-                byte[] salt = new byte[16];
-                rng.GetBytes(salt);
-
-                string hashedPassword = Convert.ToBase64String(Encoding.UTF8.GetBytes(password + salt));
-
-                if (!db.AccountExist(username))
-                {
-                    db.AddAccount(Index, username, hashedPassword, Convert.ToBase64String(salt));
-                    Console.WriteLine(TranslationManager.Instance.GetTranslation("user.account_created"));
-                }
-                else
-                {
-                    serverWebSocket.AlertMsg(Index, "Username already exists.");
-                }
+                db.AddAccount(Index, username, hashedPassword, Convert.ToBase64String(salt));
+                Console.WriteLine(TranslationManager.Instance.GetTranslation("user.account_created"));
+            }
+            else
+            {
+                serverWebSocket.AlertMsg(Index, "Username already exists.");
             }
         }
-        private void HandleDelAccount(int Index, byte[] data) { }
-        private void HandleLogin(int Index, byte[] data)
+        private async Task HandleDelAccount(int Index, byte[] data) { }
+        private async Task HandleLogin(int Index, byte[] data)
         {
             int offset = 1;
-
             string username = Encoding.UTF8.GetString(data, offset, data.Length - offset - 32);
             offset += username.Length;
 
@@ -152,89 +149,89 @@ namespace MirageMUD_Server.Network
                 string dbPassword = db.GetHashedPassword(username);
                 string dbSalt = db.GetSalt(username);
 
-                string hashInput = Convert.ToBase64String(Encoding.UTF8.GetBytes(password + dbSalt));
+                string inputHash = Convert.ToBase64String(Encoding.UTF8.GetBytes(password + dbSalt));
 
-                if (hashInput == dbPassword)
+                if (inputHash == dbPassword)
                 {
                     db.LoadPlayer(Index, username);
-                    serverWebSocket.SendChars(Index);
+                    Console.WriteLine($"User {username} successfully logged in.");
                 }
                 else
                 {
-                    serverWebSocket.AlertMsg(Index, "Incorrect password.");
+                    await serverWebSocket.AlertMsg(Index, "Incorrect password.");
                 }
             }
             else
             {
-                serverWebSocket.AlertMsg(Index, "Account not found.");
+                await serverWebSocket.AlertMsg(Index, "Account not found.");
             }
         }
-        private void HandleAddChar(int Index, byte[] data) { }
-        private void HandleDelChar(int Index, byte[] data) { }
-        private void HandleUseChar(int Index, byte[] data) { }
-        private void HandleSayMsg(int Index, byte[] data) { }
-        private void HandleEmoteMsg(int Index, byte[] data) { }
-        private void HandleBroadcastMsg(int Index, byte[] data) { }
-        private void HandleGlobalMsg(int Index, byte[] data) { }
-        private void HandleAdminMsg(int Index, byte[] data) { }
-        private void HandlePlayerMsg(int Index, byte[] data) { }
-        private void HandlePlayerMove(int Index, byte[] data) { }
-        private void HandlePlayerDir(int Index, byte[] data) { }
-        private void HandleUseItem(int Index, byte[] data) { }
-        private void HandleAttack(int Index, byte[] data) { }
-        private void HandleUseStatPoint(int Index, byte[] data) { }
-        private void HandlePlayerInfoRequest(int Index, byte[] data) { }
-        private void HandleWarpMeTo(int Index, byte[] data) { }
-        private void HandleWarpToMe(int Index, byte[] data) { }
-        private void HandleWarpTo(int Index, byte[] data) { }
-        private void HandleSetAvatar(int Index, byte[] data) { }
-        private void HandleGetStats(int Index, byte[] data) { }
-        private void HandleRequestNewRoom(int Index, byte[] data) { }
-        private void HandleRoomData(int Index, byte[] data) { }
-        private void HandleNeedRoom(int Index, byte[] data) { }
-        private void HandleRoomGetItem(int Index, byte[] data) { }
-        private void HandleRoomDropItem(int Index, byte[] data) { }
-        private void HandleRoomRespawn(int Index, byte[] data) { }
-        private void HandleRoomReport(int Index, byte[] data) { }
-        private void HandleKickPlayer(int Index, byte[] data) { }
-        private void HandleBanList(int Index, byte[] data) { }
-        private void HandleBanDestroy(int Index, byte[] data) { }
-        private void HandleBanPlayer(int Index, byte[] data) { }
-        private void HandleRequestEditRoom(int Index, byte[] data) { }
-        private void HandleRequestEditItem(int Index, byte[] data) { }
-        private void HandleEditItem(int Index, byte[] data) { }
-        private void HandleSaveItem(int Index, byte[] data) { }
-        private void HandleRequestEditNpc(int Index, byte[] data) { }
-        private void HandleEditNpc(int Index, byte[] data) { }
-        private void HandleSaveNpc(int Index, byte[] data) { }
-        private void HandleRequestEditShop(int Index, byte[] data) { }
-        private void HandleEditShop(int Index, byte[] data) { }
-        private void HandleSaveShop(int Index, byte[] data) { }
-        private void HandleRequestEditSpell(int Index, byte[] data) { }
-        private void HandleEditSpell(int Index, byte[] data) { }
-        private void HandleSaveSpell(int Index, byte[] data) { }
-        private void HandleDelete(int Index, byte[] data) { }
-        private void HandleSetAccess(int Index, byte[] data) { }
-        private void HandleWhosOnline(int Index, byte[] data) { }
-        private void HandleSetMotd(int Index, byte[] data) { }
-        private void HandleTrade(int Index, byte[] data) { }
-        private void HandleTradeRequest(int Index, byte[] data) { }
-        private void HandleFixItem(int Index, byte[] data) { }
-        private void HandleSearch(int Index, byte[] data) { }
-        private void HandleParty(int Index, byte[] data) { }
-        private void HandleJoinParty(int Index, byte[] data) { }
-        private void HandleLeaveParty(int Index, byte[] data) { }
-        private void HandleSpells(int Index, byte[] data) { }
-        private void HandleCast(int Index, byte[] data) { }
-        private void HandleQuit(int Index, byte[] data) { }
-        private void HandleSync(int Index, byte[] data) { }
-        private void HandleRoomReqs(int Index, byte[] data) { }
-        private void HandleSleepInn(int Index, byte[] data) { }
-        private void HandleRemoveFromGuild(int Index, byte[] data) { }
-        private void HandleCreateGuild(int Index, byte[] data) { }
-        private void HandleInviteGuild(int Index, byte[] data) { }
-        private void HandleKickGuild(int Index, byte[] data) { }
-        private void HandleGuildPromote(int Index, byte[] data) { }
-        private void HandleLeaveGuild(int Index, byte[] data) { }
+        private async Task HandleAddChar(int Index, byte[] data) { }
+        private async Task HandleDelChar(int Index, byte[] data) { }
+        private async Task HandleUseChar(int Index, byte[] data) { }
+        private async Task HandleSayMsg(int Index, byte[] data) { }
+        private async Task HandleEmoteMsg(int Index, byte[] data) { }
+        private async Task HandleBroadcastMsg(int Index, byte[] data) { }
+        private async Task HandleGlobalMsg(int Index, byte[] data) { }
+        private async Task HandleAdminMsg(int Index, byte[] data) { }
+        private async Task HandlePlayerMsg(int Index, byte[] data) { }
+        private async Task HandlePlayerMove(int Index, byte[] data) { }
+        private async Task HandlePlayerDir(int Index, byte[] data) { }
+        private async Task HandleUseItem(int Index, byte[] data) { }
+        private async Task HandleAttack(int Index, byte[] data) { }
+        private async Task HandleUseStatPoint(int Index, byte[] data) { }
+        private async Task HandlePlayerInfoRequest(int Index, byte[] data) { }
+        private async Task HandleWarpMeTo(int Index, byte[] data) { }
+        private async Task HandleWarpToMe(int Index, byte[] data) { }
+        private async Task HandleWarpTo(int Index, byte[] data) { }
+        private async Task HandleSetAvatar(int Index, byte[] data) { }
+        private async Task HandleGetStats(int Index, byte[] data) { }
+        private async Task HandleRequestNewRoom(int Index, byte[] data) { }
+        private async Task HandleRoomData(int Index, byte[] data) { }
+        private async Task HandleNeedRoom(int Index, byte[] data) { }
+        private async Task HandleRoomGetItem(int Index, byte[] data) { }
+        private async Task HandleRoomDropItem(int Index, byte[] data) { }
+        private async Task HandleRoomRespawn(int Index, byte[] data) { }
+        private async Task HandleRoomReport(int Index, byte[] data) { }
+        private async Task HandleKickPlayer(int Index, byte[] data) { }
+        private async Task HandleBanList(int Index, byte[] data) { }
+        private async Task HandleBanDestroy(int Index, byte[] data) { }
+        private async Task HandleBanPlayer(int Index, byte[] data) { }
+        private async Task HandleRequestEditRoom(int Index, byte[] data) { }
+        private async Task HandleRequestEditItem(int Index, byte[] data) { }
+        private async Task HandleEditItem(int Index, byte[] data) { }
+        private async Task HandleSaveItem(int Index, byte[] data) { }
+        private async Task HandleRequestEditNpc(int Index, byte[] data) { }
+        private async Task HandleEditNpc(int Index, byte[] data) { }
+        private async Task HandleSaveNpc(int Index, byte[] data) { }
+        private async Task HandleRequestEditShop(int Index, byte[] data) { }
+        private async Task HandleEditShop(int Index, byte[] data) { }
+        private async Task HandleSaveShop(int Index, byte[] data) { }
+        private async Task HandleRequestEditSpell(int Index, byte[] data) { }
+        private async Task HandleEditSpell(int Index, byte[] data) { }
+        private async Task HandleSaveSpell(int Index, byte[] data) { }
+        private async Task HandleDelete(int Index, byte[] data) { }
+        private async Task HandleSetAccess(int Index, byte[] data) { }
+        private async Task HandleWhosOnline(int Index, byte[] data) { }
+        private async Task HandleSetMotd(int Index, byte[] data) { }
+        private async Task HandleTrade(int Index, byte[] data) { }
+        private async Task HandleTradeRequest(int Index, byte[] data) { }
+        private async Task HandleFixItem(int Index, byte[] data) { }
+        private async Task HandleSearch(int Index, byte[] data) { }
+        private async Task HandleParty(int Index, byte[] data) { }
+        private async Task HandleJoinParty(int Index, byte[] data) { }
+        private async Task HandleLeaveParty(int Index, byte[] data) { }
+        private async Task HandleSpells(int Index, byte[] data) { }
+        private async Task HandleCast(int Index, byte[] data) { }
+        private async Task HandleQuit(int Index, byte[] data) { }
+        private async Task HandleSync(int Index, byte[] data) { }
+        private async Task HandleRoomReqs(int Index, byte[] data) { }
+        private async Task HandleSleepInn(int Index, byte[] data) { }
+        private async Task HandleRemoveFromGuild(int Index, byte[] data) { }
+        private async Task HandleCreateGuild(int Index, byte[] data) { }
+        private async Task HandleInviteGuild(int Index, byte[] data) { }
+        private async Task HandleKickGuild(int Index, byte[] data) { }
+        private async Task HandleGuildPromote(int Index, byte[] data) { }
+        private async Task HandleLeaveGuild(int Index, byte[] data) { }
     }
 }
