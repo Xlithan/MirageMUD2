@@ -1,7 +1,7 @@
 {
   "Login": "Xlithan",
-  "Password": "j95Puimj2k\u002BfHhdJtrO6VXQoJ5HvkrNVNRTjQAzycN0=",
-  "Salt": "AY7zlMBIEnCopt4vZRUcAw==",
+  "Password": "UAku0V6ONUWxckSNHeRhuNkVU4BPZasVyZNAN227TcM=",
+  "Salt": "B7E9dp9wOvC140nwGmpEgQ==",
   "Access": 0,
   "Character": [
     {
@@ -14,63 +14,6 @@
       "PK": 0,
       "Guild": "",
       "GuildAccess": 0,
-      "Stats": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-      ],
-      "Equipment": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-      ],
-      "Inventory": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-      ],
-      "Spell": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-      ],
       "Room": 0,
       "Dir": 0,
       "MaxHP": 10,
@@ -79,7 +22,120 @@
       "Attacking": 0,
       "AttackTimer": 0,
       "RoomGetTimer": 0,
-      "CastedSpell": 0
+      "CastedSpell": 0,
+      "PlayerInv": [
+        {
+          "ItemID": 0,
+          "Quantity": 0
+        },
+        {
+          "ItemID": 0,
+          "Quantity": 0
+        },
+        {
+          "ItemID": 0,
+          "Quantity": 0
+        },
+        {
+          "ItemID": 0,
+          "Quantity": 0
+        },
+        {
+          "ItemID": 0,
+          "Quantity": 0
+        },
+        {
+          "ItemID": 0,
+          "Quantity": 0
+        },
+        {
+          "ItemID": 0,
+          "Quantity": 0
+        },
+        {
+          "ItemID": 0,
+          "Quantity": 0
+        },
+        {
+          "ItemID": 0,
+          "Quantity": 0
+        },
+        {
+          "ItemID": 0,
+          "Quantity": 0
+        },
+        {
+          "ItemID": 0,
+          "Quantity": 0
+        },
+        {
+          "ItemID": 0,
+          "Quantity": 0
+        },
+        {
+          "ItemID": 0,
+          "Quantity": 0
+        },
+        {
+          "ItemID": 0,
+          "Quantity": 0
+        }
+      ],
+      "PlayerSpells": [
+        {
+          "SpellID": 0
+        },
+        {
+          "SpellID": 0
+        },
+        {
+          "SpellID": 0
+        },
+        {
+          "SpellID": 0
+        },
+        {
+          "SpellID": 0
+        },
+        {
+          "SpellID": 0
+        },
+        {
+          "SpellID": 0
+        },
+        {
+          "SpellID": 0
+        },
+        {
+          "SpellID": 0
+        },
+        {
+          "SpellID": 0
+        }
+      ],
+      "CharacterStats": {
+        "Strength": 10,
+        "Dexterity": 10,
+        "Constitution": 10,
+        "Wisdom": 10,
+        "Intelligence": 10,
+        "Charisma": 10
+      },
+      "CharacterEquip": {
+        "Helmet": 0,
+        "Armor": 0,
+        "Weapon": 0,
+        "Shield": 0,
+        "Gloves": 0,
+        "Shoes": 0,
+        "Ring1": 0,
+        "Ring2": 0,
+        "Ring3": 0,
+        "Ring4": 0,
+        "Bracelet1": 0,
+        "Bracelet2": 0,
+        "Amulet": 0
+      }
     },
     {
       "Name": "",
@@ -91,63 +147,6 @@
       "PK": 0,
       "Guild": "",
       "GuildAccess": 0,
-      "Stats": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-      ],
-      "Equipment": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-      ],
-      "Inventory": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-      ],
-      "Spell": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-      ],
       "Room": 0,
       "Dir": 0,
       "MaxHP": 10,
@@ -156,7 +155,120 @@
       "Attacking": 0,
       "AttackTimer": 0,
       "RoomGetTimer": 0,
-      "CastedSpell": 0
+      "CastedSpell": 0,
+      "PlayerInv": [
+        {
+          "ItemID": 0,
+          "Quantity": 0
+        },
+        {
+          "ItemID": 0,
+          "Quantity": 0
+        },
+        {
+          "ItemID": 0,
+          "Quantity": 0
+        },
+        {
+          "ItemID": 0,
+          "Quantity": 0
+        },
+        {
+          "ItemID": 0,
+          "Quantity": 0
+        },
+        {
+          "ItemID": 0,
+          "Quantity": 0
+        },
+        {
+          "ItemID": 0,
+          "Quantity": 0
+        },
+        {
+          "ItemID": 0,
+          "Quantity": 0
+        },
+        {
+          "ItemID": 0,
+          "Quantity": 0
+        },
+        {
+          "ItemID": 0,
+          "Quantity": 0
+        },
+        {
+          "ItemID": 0,
+          "Quantity": 0
+        },
+        {
+          "ItemID": 0,
+          "Quantity": 0
+        },
+        {
+          "ItemID": 0,
+          "Quantity": 0
+        },
+        {
+          "ItemID": 0,
+          "Quantity": 0
+        }
+      ],
+      "PlayerSpells": [
+        {
+          "SpellID": 0
+        },
+        {
+          "SpellID": 0
+        },
+        {
+          "SpellID": 0
+        },
+        {
+          "SpellID": 0
+        },
+        {
+          "SpellID": 0
+        },
+        {
+          "SpellID": 0
+        },
+        {
+          "SpellID": 0
+        },
+        {
+          "SpellID": 0
+        },
+        {
+          "SpellID": 0
+        },
+        {
+          "SpellID": 0
+        }
+      ],
+      "CharacterStats": {
+        "Strength": 10,
+        "Dexterity": 10,
+        "Constitution": 10,
+        "Wisdom": 10,
+        "Intelligence": 10,
+        "Charisma": 10
+      },
+      "CharacterEquip": {
+        "Helmet": 0,
+        "Armor": 0,
+        "Weapon": 0,
+        "Shield": 0,
+        "Gloves": 0,
+        "Shoes": 0,
+        "Ring1": 0,
+        "Ring2": 0,
+        "Ring3": 0,
+        "Ring4": 0,
+        "Bracelet1": 0,
+        "Bracelet2": 0,
+        "Amulet": 0
+      }
     },
     {
       "Name": "",
@@ -168,63 +280,6 @@
       "PK": 0,
       "Guild": "",
       "GuildAccess": 0,
-      "Stats": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-      ],
-      "Equipment": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-      ],
-      "Inventory": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-      ],
-      "Spell": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-      ],
       "Room": 0,
       "Dir": 0,
       "MaxHP": 10,
@@ -233,7 +288,120 @@
       "Attacking": 0,
       "AttackTimer": 0,
       "RoomGetTimer": 0,
-      "CastedSpell": 0
+      "CastedSpell": 0,
+      "PlayerInv": [
+        {
+          "ItemID": 0,
+          "Quantity": 0
+        },
+        {
+          "ItemID": 0,
+          "Quantity": 0
+        },
+        {
+          "ItemID": 0,
+          "Quantity": 0
+        },
+        {
+          "ItemID": 0,
+          "Quantity": 0
+        },
+        {
+          "ItemID": 0,
+          "Quantity": 0
+        },
+        {
+          "ItemID": 0,
+          "Quantity": 0
+        },
+        {
+          "ItemID": 0,
+          "Quantity": 0
+        },
+        {
+          "ItemID": 0,
+          "Quantity": 0
+        },
+        {
+          "ItemID": 0,
+          "Quantity": 0
+        },
+        {
+          "ItemID": 0,
+          "Quantity": 0
+        },
+        {
+          "ItemID": 0,
+          "Quantity": 0
+        },
+        {
+          "ItemID": 0,
+          "Quantity": 0
+        },
+        {
+          "ItemID": 0,
+          "Quantity": 0
+        },
+        {
+          "ItemID": 0,
+          "Quantity": 0
+        }
+      ],
+      "PlayerSpells": [
+        {
+          "SpellID": 0
+        },
+        {
+          "SpellID": 0
+        },
+        {
+          "SpellID": 0
+        },
+        {
+          "SpellID": 0
+        },
+        {
+          "SpellID": 0
+        },
+        {
+          "SpellID": 0
+        },
+        {
+          "SpellID": 0
+        },
+        {
+          "SpellID": 0
+        },
+        {
+          "SpellID": 0
+        },
+        {
+          "SpellID": 0
+        }
+      ],
+      "CharacterStats": {
+        "Strength": 10,
+        "Dexterity": 10,
+        "Constitution": 10,
+        "Wisdom": 10,
+        "Intelligence": 10,
+        "Charisma": 10
+      },
+      "CharacterEquip": {
+        "Helmet": 0,
+        "Armor": 0,
+        "Weapon": 0,
+        "Shield": 0,
+        "Gloves": 0,
+        "Shoes": 0,
+        "Ring1": 0,
+        "Ring2": 0,
+        "Ring3": 0,
+        "Ring4": 0,
+        "Bracelet1": 0,
+        "Bracelet2": 0,
+        "Amulet": 0
+      }
     },
     {
       "Name": "",
@@ -245,63 +413,6 @@
       "PK": 0,
       "Guild": "",
       "GuildAccess": 0,
-      "Stats": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-      ],
-      "Equipment": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-      ],
-      "Inventory": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-      ],
-      "Spell": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-      ],
       "Room": 0,
       "Dir": 0,
       "MaxHP": 10,
@@ -310,7 +421,120 @@
       "Attacking": 0,
       "AttackTimer": 0,
       "RoomGetTimer": 0,
-      "CastedSpell": 0
+      "CastedSpell": 0,
+      "PlayerInv": [
+        {
+          "ItemID": 0,
+          "Quantity": 0
+        },
+        {
+          "ItemID": 0,
+          "Quantity": 0
+        },
+        {
+          "ItemID": 0,
+          "Quantity": 0
+        },
+        {
+          "ItemID": 0,
+          "Quantity": 0
+        },
+        {
+          "ItemID": 0,
+          "Quantity": 0
+        },
+        {
+          "ItemID": 0,
+          "Quantity": 0
+        },
+        {
+          "ItemID": 0,
+          "Quantity": 0
+        },
+        {
+          "ItemID": 0,
+          "Quantity": 0
+        },
+        {
+          "ItemID": 0,
+          "Quantity": 0
+        },
+        {
+          "ItemID": 0,
+          "Quantity": 0
+        },
+        {
+          "ItemID": 0,
+          "Quantity": 0
+        },
+        {
+          "ItemID": 0,
+          "Quantity": 0
+        },
+        {
+          "ItemID": 0,
+          "Quantity": 0
+        },
+        {
+          "ItemID": 0,
+          "Quantity": 0
+        }
+      ],
+      "PlayerSpells": [
+        {
+          "SpellID": 0
+        },
+        {
+          "SpellID": 0
+        },
+        {
+          "SpellID": 0
+        },
+        {
+          "SpellID": 0
+        },
+        {
+          "SpellID": 0
+        },
+        {
+          "SpellID": 0
+        },
+        {
+          "SpellID": 0
+        },
+        {
+          "SpellID": 0
+        },
+        {
+          "SpellID": 0
+        },
+        {
+          "SpellID": 0
+        }
+      ],
+      "CharacterStats": {
+        "Strength": 10,
+        "Dexterity": 10,
+        "Constitution": 10,
+        "Wisdom": 10,
+        "Intelligence": 10,
+        "Charisma": 10
+      },
+      "CharacterEquip": {
+        "Helmet": 0,
+        "Armor": 0,
+        "Weapon": 0,
+        "Shield": 0,
+        "Gloves": 0,
+        "Shoes": 0,
+        "Ring1": 0,
+        "Ring2": 0,
+        "Ring3": 0,
+        "Ring4": 0,
+        "Bracelet1": 0,
+        "Bracelet2": 0,
+        "Amulet": 0
+      }
     },
     {
       "Name": "",
@@ -322,63 +546,6 @@
       "PK": 0,
       "Guild": "",
       "GuildAccess": 0,
-      "Stats": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-      ],
-      "Equipment": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-      ],
-      "Inventory": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-      ],
-      "Spell": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-      ],
       "Room": 0,
       "Dir": 0,
       "MaxHP": 10,
@@ -387,7 +554,120 @@
       "Attacking": 0,
       "AttackTimer": 0,
       "RoomGetTimer": 0,
-      "CastedSpell": 0
+      "CastedSpell": 0,
+      "PlayerInv": [
+        {
+          "ItemID": 0,
+          "Quantity": 0
+        },
+        {
+          "ItemID": 0,
+          "Quantity": 0
+        },
+        {
+          "ItemID": 0,
+          "Quantity": 0
+        },
+        {
+          "ItemID": 0,
+          "Quantity": 0
+        },
+        {
+          "ItemID": 0,
+          "Quantity": 0
+        },
+        {
+          "ItemID": 0,
+          "Quantity": 0
+        },
+        {
+          "ItemID": 0,
+          "Quantity": 0
+        },
+        {
+          "ItemID": 0,
+          "Quantity": 0
+        },
+        {
+          "ItemID": 0,
+          "Quantity": 0
+        },
+        {
+          "ItemID": 0,
+          "Quantity": 0
+        },
+        {
+          "ItemID": 0,
+          "Quantity": 0
+        },
+        {
+          "ItemID": 0,
+          "Quantity": 0
+        },
+        {
+          "ItemID": 0,
+          "Quantity": 0
+        },
+        {
+          "ItemID": 0,
+          "Quantity": 0
+        }
+      ],
+      "PlayerSpells": [
+        {
+          "SpellID": 0
+        },
+        {
+          "SpellID": 0
+        },
+        {
+          "SpellID": 0
+        },
+        {
+          "SpellID": 0
+        },
+        {
+          "SpellID": 0
+        },
+        {
+          "SpellID": 0
+        },
+        {
+          "SpellID": 0
+        },
+        {
+          "SpellID": 0
+        },
+        {
+          "SpellID": 0
+        },
+        {
+          "SpellID": 0
+        }
+      ],
+      "CharacterStats": {
+        "Strength": 10,
+        "Dexterity": 10,
+        "Constitution": 10,
+        "Wisdom": 10,
+        "Intelligence": 10,
+        "Charisma": 10
+      },
+      "CharacterEquip": {
+        "Helmet": 0,
+        "Armor": 0,
+        "Weapon": 0,
+        "Shield": 0,
+        "Gloves": 0,
+        "Shoes": 0,
+        "Ring1": 0,
+        "Ring2": 0,
+        "Ring3": 0,
+        "Ring4": 0,
+        "Bracelet1": 0,
+        "Bracelet2": 0,
+        "Amulet": 0
+      }
     }
   ]
 }

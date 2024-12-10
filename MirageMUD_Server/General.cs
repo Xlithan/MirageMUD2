@@ -4,6 +4,8 @@ using System.Net;
 using Bindings;
 using System.Security.Claims;
 using System.Reflection.Emit;
+using MirageMUD_Server.Network;
+using MirageMUD_Server.Globals;
 
 namespace MirageMUD_Server
 {

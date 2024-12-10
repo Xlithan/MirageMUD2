@@ -20,5 +20,6 @@ namespace Bindings
 
         // Player
         public const int MAX_PLAYERSPELLS = 10; // Max Player Spells
+        public const int MAX_PLAYERINV = 14; // Max Player Inventory
     }
 }
