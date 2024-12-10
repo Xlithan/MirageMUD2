@@ -7,17 +7,16 @@ namespace MirageMUD_Server.Network
 {
     internal class SHandleData
     {
-        private delegate void Packet_(int Index, byte[] data); // Delegate to handle packet processing
-        private Dictionary<int, Packet_> Packets; // Dictionary to store packet handlers
-        private Database db = new Database(); // Database instance to interact with stored data
-        private ServerTCP serverTCP = new ServerTCP();
+        private delegate void Packet_(int Index, byte[] data);
+        private Dictionary<int, Packet_> Packets;
+        private Database db = new Database();
+        private ServerWebSocket serverWebSocket = new ServerWebSocket();
 
         public void InitialiseMessages()
         {
-            Console.WriteLine(TranslationManager.Instance.GetTranslation("server.initialising_network_packets")); // Log message for initializing network packets
-            Packets = new Dictionary<int, Packet_>(); // Initialize the dictionary for packet handlers
+            Console.WriteLine(TranslationManager.Instance.GetTranslation("server.initialising_network_packets"));
+            Packets = new Dictionary<int, Packet_>();
 
-            // Map each packet ID to its respective handler method
             Packets.Add((int)ClientPackets.CGetClasses, HandleGetClasses);
             Packets.Add((int)ClientPackets.CNewAccount, HandleNewAccount);
             Packets.Add((int)ClientPackets.CDelAccount, HandleDelAccount);
@@ -93,130 +92,81 @@ namespace MirageMUD_Server.Network
 
         public void HandleMessages(int Index, byte[] data)
         {
-            // Check if the incoming data is null or empty
             if (data == null || data.Length == 0)
             {
                 Console.WriteLine(TranslationManager.Instance.GetTranslation("errors.null_or_empty_data"));
                 return;
             }
 
-            // Check if packets dictionary is uninitialized
-            if (Packets == null)
-            {
-                Console.WriteLine(TranslationManager.Instance.GetTranslation("errors.uninitialized_packets"));
-                return;
-            }
+            int packetNum = data[0];
 
-            int packetNum;
-            using (PacketBuffer buffer = new PacketBuffer())
-            {
-                buffer.AddBytes(data); // Add data to buffer
-                packetNum = buffer.GetInteger(); // Extract the packet ID from the buffer
-            }
-
-            // Check if the packet number has a handler and invoke it if found
             if (Packets.TryGetValue(packetNum, out Packet_ packet))
             {
-                packet.Invoke(Index, data); // Invoke the handler with the given index and data
+                packet.Invoke(Index, data);
             }
             else
             {
-                // Log error if no handler is found for the packet
-                Console.WriteLine(string.Format(TranslationManager.Instance.GetTranslation("errors.no_handler"), packetNum));
+                Console.WriteLine($"No handler for packet {packetNum}");
             }
         }
 
-        // Method to handle account creation
         private void HandleGetClasses(int Index, byte[] data) { }
-
         private void HandleNewAccount(int Index, byte[] data)
         {
-            using (PacketBuffer buffer = new PacketBuffer())
-            {
-                buffer.AddBytes(data); // Add data to buffer
-                buffer.GetInteger(); // Skip packet ID
-                string username = buffer.GetString(); // Extract username from buffer
-                string password = buffer.GetString(); // Extract password from buffer
+            int offset = 1; // Start parsing after the packet ID byte
+            string username = Encoding.UTF8.GetString(data, offset, data.Length - offset - 32);
+            offset += username.Length + 1;
 
-                // Generate a random salt (16 bytes)
+            string password = Encoding.UTF8.GetString(data, offset, data.Length - offset);
+
+            using (var rng = new RNGCryptoServiceProvider())
+            {
                 byte[] salt = new byte[16];
-                using (var rng = new RNGCryptoServiceProvider())
+                rng.GetBytes(salt);
+
+                string hashedPassword = Convert.ToBase64String(Encoding.UTF8.GetBytes(password + salt));
+
+                if (!db.AccountExist(username))
                 {
-                    rng.GetBytes(salt); // Generate random salt
-                }
-
-                // Combine password and salt
-                string passwordWithSalt = password + Convert.ToBase64String(salt);
-
-                // Hash the password + salt using SHA256
-                using (SHA256 sha256 = SHA256.Create())
-                {
-                    byte[] hashedPassword = sha256.ComputeHash(Encoding.UTF8.GetBytes(passwordWithSalt));
-
-                    // Check if the account already exists
-                    if (!db.AccountExist(username))
-                    {
-                        // Store the hashed password and salt
-                        db.AddAccount(Index, username, Convert.ToBase64String(hashedPassword), Convert.ToBase64String(salt));
-                        Console.WriteLine(TranslationManager.Instance.GetTranslation("user.account_created"), username);
-                    }
-                    else
-                    {
-                        // Account already exists, send error
-                        serverTCP.AlertMsg(Index, "Username already exists.");
-                    }
-                }
-            }
-        }
-
-        private void HandleDelAccount(int Index, byte[] data) { }
-
-        // Method to handle login
-        private void HandleLogin(int Index, byte[] data)
-        {
-            using (PacketBuffer buffer = new PacketBuffer())
-            {
-                buffer.AddBytes(data); // Add data to buffer
-                buffer.GetInteger(); // Skip packet ID
-                string username = buffer.GetString(); // Extract username
-                string password = buffer.GetString(); // Extract password
-
-                // Check if the username exists in the database
-                if (db.AccountExist(username))
-                {
-                    // Retrieve the hashed password and salt from the database
-                    string storedHashedPassword = db.GetHashedPassword(username);
-                    string storedSalt = db.GetSalt(username);
-
-                    // Combine the input password with the stored salt
-                    string passwordWithSalt = password + storedSalt;
-
-                    // Hash the input password with salt
-                    using (SHA256 sha256 = SHA256.Create())
-                    {
-                        byte[] inputHashedPassword = sha256.ComputeHash(Encoding.UTF8.GetBytes(passwordWithSalt));
-
-                        // Compare the hashed password with the stored hashed password
-                        if (Convert.ToBase64String(inputHashedPassword) == storedHashedPassword)
-                        {
-                            // Can log in
-                            db.LoadPlayer(Index, username);
-                            serverTCP.SendChars(Index);
-                            // SendMaxes();
-                            Console.WriteLine(TranslationManager.Instance.GetTranslation("user.logged_in"), username, ServerTCP.Clients[Index].IP);
-                        }
-                        else
-                        {
-                            // Incorrect password, send the error
-                            serverTCP.AlertMsg(Index, "Incorrect password for this account.");
-                        }
-                    }
+                    db.AddAccount(Index, username, hashedPassword, Convert.ToBase64String(salt));
+                    Console.WriteLine(TranslationManager.Instance.GetTranslation("user.account_created"));
                 }
                 else
                 {
-                    // Username does not exist, send the error
-                    serverTCP.AlertMsg(Index, "Account does not exist.");
+                    serverWebSocket.AlertMsg(Index, "Username already exists.");
                 }
+            }
+        }
+        private void HandleDelAccount(int Index, byte[] data) { }
+        private void HandleLogin(int Index, byte[] data)
+        {
+            int offset = 1;
+
+            string username = Encoding.UTF8.GetString(data, offset, data.Length - offset - 32);
+            offset += username.Length;
+
+            string password = Encoding.UTF8.GetString(data, offset, data.Length - offset);
+
+            if (db.AccountExist(username))
+            {
+                string dbPassword = db.GetHashedPassword(username);
+                string dbSalt = db.GetSalt(username);
+
+                string hashInput = Convert.ToBase64String(Encoding.UTF8.GetBytes(password + dbSalt));
+
+                if (hashInput == dbPassword)
+                {
+                    db.LoadPlayer(Index, username);
+                    serverWebSocket.SendChars(Index);
+                }
+                else
+                {
+                    serverWebSocket.AlertMsg(Index, "Incorrect password.");
+                }
+            }
+            else
+            {
+                serverWebSocket.AlertMsg(Index, "Account not found.");
             }
         }
         private void HandleAddChar(int Index, byte[] data) { }

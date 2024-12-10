@@ -10,58 +10,58 @@ namespace MirageMUD_Server.Network
 {
     internal class ServerTCP
     {
-        public static ServerTCP instance = new ServerTCP();
+        public static int MaxClients = 100;
+        private static HttpListener _listener;
 
-        // Array to hold client connections
-        public static Client[] Clients = new Client[Constants.MAX_PLAYERS];
-
-        // TcpListener to listen for incoming TCP client connections
-        public TcpListener ServerSocket;
-
-        // Initializes the network listener and begins accepting client connections
-        public void InitialiseNetwork()
+        public static void InitialiseNetwork(int port)
         {
-            Console.WriteLine(TranslationManager.Instance.GetTranslation("server.initialising_server_network"));
-            ServerSocket = new TcpListener(IPAddress.Any, 7777);
-            ServerSocket.Start();
-            ServerSocket.BeginAcceptTcpClient(OnClientConnect, null);
+            _listener = new HttpListener();
+            _listener.Prefixes.Add($"http://*:{port}/");
+            _listener.Start();
+
+            Console.WriteLine($"WebSocket Server started on port {port}");
+            Task.Run(() => AcceptClientsAsync());
         }
 
-        // Callback function to handle incoming client connections
-        private void OnClientConnect(IAsyncResult ar)
+        private static async Task AcceptClientsAsync()
         {
-            // Get the connecting client
-            var connectingTcpClient = ServerSocket.EndAcceptTcpClient(ar);
-
-            // Determine the IP of the incoming connection
-            var sourceIp = connectingTcpClient.Client.RemoteEndPoint?.ToString();
-
-            Console.WriteLine(string.Format(TranslationManager.Instance.GetTranslation("server.connection_received"), sourceIp));
-
-            // Disable Nagle's algorithm to improve performance for small messages
-            connectingTcpClient.NoDelay = false;
-
-            // For every client slot
-            for (int i = 0; i < Constants.MAX_PLAYERS; i++)
+            while (true)
             {
-                // If the client slot has a null socket
-                if (Clients[i].Socket == null)
+                var context = await _listener.GetContextAsync();
+
+                if (context.Request.IsWebSocketRequest)
                 {
-                    // Assign the incoming connection to this slot
-                    Clients[i].Socket = connectingTcpClient;
-                    Clients[i].Index = i;
-                    Clients[i].IP = sourceIp;
+                    var webSocketContext = await context.AcceptWebSocketAsync(null);
+                    int connectionID = GetAvailableClientID();
+                    var client = new Client(connectionID, webSocketContext.WebSocket);
 
-                    // Start receiving data from the client
-                    Clients[i].Start();
-
-                    // Break out of the for loop now that the client has been assigned successfully
-                    break;
+                    ServerTCP.OnClientConnect(connectionID, client);
+                    client.ReceiveDataAsync();
+                }
+                else
+                {
+                    context.Response.StatusCode = 400; // Bad Request
+                    context.Response.Close();
                 }
             }
+        }
 
-            // Start waiting for the next connection to come in
-            ServerSocket.BeginAcceptTcpClient(OnClientConnect, null);
+        private static int GetAvailableClientID()
+        {
+            // Placeholder logic for assigning connection IDs
+            return new Random().Next(1, MaxClients);
+        }
+
+        public static void OnClientConnect(int connectionID, Client client)
+        {
+            Console.WriteLine($"Client {connectionID} connected.");
+            // Add to client management logic here if necessary
+        }
+
+        public static void DisconnectClient(int connectionID)
+        {
+            Console.WriteLine($"Client {connectionID} disconnected.");
+            // Handle client removal here if necessary
         }
 
         public void SendDataTo(int Index, byte[] data)
@@ -71,7 +71,7 @@ namespace MirageMUD_Server.Network
             buffer.AddBytes(data);
 
             // Write the data to the network stream
-            Clients[Index].myStream.Write(buffer.ToArray(), 0, buffer.ToArray().Length);
+            //Clients[Index].myStream.Write(buffer.ToArray(), 0, buffer.ToArray().Length);
 
             buffer.Dispose();
         }

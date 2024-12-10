@@ -7,7 +7,7 @@ namespace MirageMUD_Server
 {
     internal class General
     {
-        private ServerTCP stcp;
+        private ServerWebSocket serverWebSocket;
 
         // The object that will handle all data. Readonly because we dont want this to change, we want a single instance.
         private readonly SHandleData _sHandleData;
@@ -25,7 +25,7 @@ namespace MirageMUD_Server
         {
             Console.Title = "MirageMUD 2";
 
-            stcp = new ServerTCP();
+            serverWebSocket = new ServerWebSocket();
 
             // Load language code from the config file using the ConfigReader
             string languageCode = ConfigReader.GetLanguageCode("Data/config.json");
@@ -42,17 +42,19 @@ namespace MirageMUD_Server
             // Initialize all clients and their corresponding player data
             for (int i = 0; i < Constants.MAX_PLAYERS; i++)
             {
-                // Create a new Client object, and pass in the data handler object for it to use
-                var newClient = new Client(_sHandleData);
+                // Create a new Client object, passing the index and WebSocket (null for now)
+                var newClient = new Client(i, null); // The WebSocket will be assigned on connection
 
                 // Put the newly created client into the Clients array
-                ServerTCP.Clients[i] = newClient;
+                ServerWebSocket.Clients[i] = newClient;
 
                 // Initialize the Player account and its characters
                 STypes.Player[i] = new STypes.AccountStruct();
                 STypes.Player[i].Initialise(Constants.MAX_CHARS); // Initialize characters with the correct size
             }
-            stcp.InitialiseNetwork();
+
+            // Start the WebSocket server
+            ServerWebSocket.InitialiseNetwork(); // Change the port if necessary
             Console.WriteLine(TranslationManager.Instance.GetTranslation("server.server_started"));
         }
     }

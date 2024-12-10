@@ -1,85 +1,94 @@
-﻿using System;
-using System.Net.Sockets;
-using System.Net;
-using System.Reflection;
+﻿using System.Net.Sockets;
+using System.Net.WebSockets;
 
 namespace MirageMUD_Server.Network
 {
     internal class Client
     {
         private readonly SHandleData _sHandleData;
+        private readonly WebSocket _webSocket;
+        private readonly CancellationTokenSource _cancellationTokenSource;
+        private readonly CancellationToken _cancellationToken;
 
-        public int Index;
-        public string IP;
-        public int Port;
-        public TcpClient Socket;
-        public NetworkStream myStream;
-        public bool Closing;
-        public byte[] readBuff;
+        public int Index { get; }
+        public string IP { get; }
+        public bool Closing { get; private set; }
 
-        public Client(SHandleData sHandleData)
+        public Client(int index, WebSocket webSocket)
         {
-            // Assign the provided sHandleData to the internal _sHandleData field
-            _sHandleData = sHandleData;
+            Index = index;
+            _webSocket = webSocket;
+            _cancellationTokenSource = new CancellationTokenSource();
+            _cancellationToken = _cancellationTokenSource.Token;
         }
 
-        public void Start()
-        {
-            // Set the send and receive buffer sizes
-            Socket.SendBufferSize = 4096;
-            Socket.ReceiveBufferSize = 4096;
-
-            // Get the network stream associated with the socket
-            myStream = Socket.GetStream();
-
-            // Resize the buffer for reading incoming data
-            Array.Resize(ref readBuff, Socket.ReceiveBufferSize);
-
-            // Begin asynchronous read operation
-            myStream.BeginRead(readBuff, 0, Socket.ReceiveBufferSize, OnReceiveData, null);
-        }
-        private void OnReceiveData(IAsyncResult ar)
+        public async Task ReceiveDataAsync()
         {
             try
             {
-                // End the read operation and get the number of bytes read
-                int readBytes = myStream.EndRead(ar);
-
-                // If no bytes were read, close the socket (client disconnected)
-                if (readBytes <= 0)
+                byte[] buffer = new byte[4096];
+                while (_webSocket.State == WebSocketState.Open && !Closing)
                 {
-                    CloseSocket(Index); // Disconnect client
-                    return;
+                    var result = await _webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), _cancellationToken);
+
+                    if (result.MessageType == WebSocketMessageType.Close)
+                    {
+                        await DisconnectClient();
+                        return;
+                    }
+
+                    if (result.MessageType == WebSocketMessageType.Binary)
+                    {
+                        byte[] data = new byte[result.Count];
+                        Array.Copy(buffer, data, result.Count);
+                        _sHandleData.HandleMessages(Index, data);
+                    }
                 }
-
-                // Create a new byte array to hold the received data
-                byte[] newBytes = null;
-                Array.Resize(ref newBytes, readBytes);
-                Buffer.BlockCopy(readBuff, 0, newBytes, 0, readBytes);
-
-                // Handle the received data using the provided data handler (SHandleData)
-                _sHandleData.HandleMessages(Index, newBytes);
-
-                // Continue reading data asynchronously
-                myStream.BeginRead(readBuff, 0, Socket.ReceiveBufferSize, OnReceiveData, null);
             }
-            catch
+            catch (Exception ex)
             {
-                // If an error occurs, close the socket (client disconnected)
-                CloseSocket(Index); // Disconnect client
+                Console.WriteLine($"Error receiving data from client {Index}: {ex.Message}");
+                await DisconnectClient();
             }
         }
 
-        private void CloseSocket(int index)
+        public async Task SendDataAsync(byte[] data)
         {
-            // Print a message indicating that the connection was terminated
-            Console.WriteLine(string.Format(
-                TranslationManager.Instance.GetTranslation("connection.terminated"),
-                IP));
+            if (_webSocket.State == WebSocketState.Open)
+            {
+                try
+                {
+                    await _webSocket.SendAsync(new ArraySegment<byte>(data), WebSocketMessageType.Binary, true, _cancellationToken);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error sending data to client {Index}: {ex.Message}");
+                }
+            }
+        }
 
-            // Close the socket and set it to null
-            Socket.Close();
-            Socket = null;
+        public async Task DisconnectClient()
+        {
+            if (Closing) return;
+
+            Closing = true;
+            Console.WriteLine($"Client {Index} disconnected.");
+
+            try
+            {
+                if (_webSocket.State == WebSocketState.Open || _webSocket.State == WebSocketState.CloseReceived)
+                {
+                    await _webSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, "Closing connection", _cancellationToken);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error closing WebSocket for client {Index}: {ex.Message}");
+            }
+            finally
+            {
+                _cancellationTokenSource.Cancel();
+            }
         }
     }
 }
