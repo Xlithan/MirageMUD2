@@ -101,6 +101,7 @@
             lblWelcomeDesc = new Label();
             picBackground = new PictureBox();
             pnlNewChar = new Panel();
+            pnlRoller = new Panel();
             btnReroll = new Button();
             lblstat_Cha = new Label();
             lblstat_Wis = new Label();
@@ -115,15 +116,16 @@
             label8 = new Label();
             label7 = new Label();
             label4 = new Label();
-            comboBox2 = new ComboBox();
+            btnNewCharCreate = new Button();
+            cmbClass = new ComboBox();
             label3 = new Label();
             picNewCharAvatar = new PictureBox();
-            radioButton2 = new RadioButton();
-            radioButton1 = new RadioButton();
-            comboBox1 = new ComboBox();
+            optFemale = new RadioButton();
+            optMale = new RadioButton();
+            cmbRace = new ComboBox();
             label1 = new Label();
-            button4 = new Button();
-            textBox1 = new TextBox();
+            btnNewCharCancel = new Button();
+            txtNewCharName = new TextBox();
             label5 = new Label();
             label6 = new Label();
             lblStatus = new Label();
@@ -140,6 +142,7 @@
             pnlIPConfig.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picBackground).BeginInit();
             pnlNewChar.SuspendLayout();
+            pnlRoller.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picNewCharAvatar).BeginInit();
             SuspendLayout();
             // 
@@ -1100,35 +1103,45 @@
             // 
             pnlNewChar.BackColor = Color.FromArgb(65, 65, 65);
             pnlNewChar.BackgroundImageLayout = ImageLayout.None;
-            pnlNewChar.Controls.Add(btnReroll);
-            pnlNewChar.Controls.Add(lblstat_Cha);
-            pnlNewChar.Controls.Add(lblstat_Wis);
-            pnlNewChar.Controls.Add(lblstat_Con);
-            pnlNewChar.Controls.Add(lblstat_Dex);
-            pnlNewChar.Controls.Add(lblstat_Int);
-            pnlNewChar.Controls.Add(lblstat_Str);
-            pnlNewChar.Controls.Add(label12);
-            pnlNewChar.Controls.Add(label11);
-            pnlNewChar.Controls.Add(label10);
-            pnlNewChar.Controls.Add(label9);
-            pnlNewChar.Controls.Add(label8);
-            pnlNewChar.Controls.Add(label7);
-            pnlNewChar.Controls.Add(label4);
-            pnlNewChar.Controls.Add(comboBox2);
+            pnlNewChar.Controls.Add(pnlRoller);
+            pnlNewChar.Controls.Add(btnNewCharCreate);
+            pnlNewChar.Controls.Add(cmbClass);
             pnlNewChar.Controls.Add(label3);
             pnlNewChar.Controls.Add(picNewCharAvatar);
-            pnlNewChar.Controls.Add(radioButton2);
-            pnlNewChar.Controls.Add(radioButton1);
-            pnlNewChar.Controls.Add(comboBox1);
+            pnlNewChar.Controls.Add(optFemale);
+            pnlNewChar.Controls.Add(optMale);
+            pnlNewChar.Controls.Add(cmbRace);
             pnlNewChar.Controls.Add(label1);
-            pnlNewChar.Controls.Add(button4);
-            pnlNewChar.Controls.Add(textBox1);
+            pnlNewChar.Controls.Add(btnNewCharCancel);
+            pnlNewChar.Controls.Add(txtNewCharName);
             pnlNewChar.Controls.Add(label5);
             pnlNewChar.Controls.Add(label6);
             pnlNewChar.Location = new Point(184, 0);
             pnlNewChar.Name = "pnlNewChar";
             pnlNewChar.Size = new Size(406, 384);
             pnlNewChar.TabIndex = 27;
+            // 
+            // pnlRoller
+            // 
+            pnlRoller.BackColor = Color.FromArgb(55, 55, 55);
+            pnlRoller.Controls.Add(btnReroll);
+            pnlRoller.Controls.Add(lblstat_Cha);
+            pnlRoller.Controls.Add(lblstat_Wis);
+            pnlRoller.Controls.Add(lblstat_Con);
+            pnlRoller.Controls.Add(lblstat_Dex);
+            pnlRoller.Controls.Add(lblstat_Int);
+            pnlRoller.Controls.Add(lblstat_Str);
+            pnlRoller.Controls.Add(label12);
+            pnlRoller.Controls.Add(label11);
+            pnlRoller.Controls.Add(label10);
+            pnlRoller.Controls.Add(label9);
+            pnlRoller.Controls.Add(label8);
+            pnlRoller.Controls.Add(label7);
+            pnlRoller.Controls.Add(label4);
+            pnlRoller.Location = new Point(221, 119);
+            pnlRoller.Name = "pnlRoller";
+            pnlRoller.Size = new Size(154, 170);
+            pnlRoller.TabIndex = 39;
             // 
             // btnReroll
             // 
@@ -1139,10 +1152,10 @@
             btnReroll.Font = new Font("Nirmala UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnReroll.ForeColor = Color.Silver;
             btnReroll.ImageAlign = ContentAlignment.MiddleLeft;
-            btnReroll.Location = new Point(204, 298);
+            btnReroll.Location = new Point(7, 138);
             btnReroll.Name = "btnReroll";
-            btnReroll.Size = new Size(190, 34);
-            btnReroll.TabIndex = 37;
+            btnReroll.Size = new Size(139, 25);
+            btnReroll.TabIndex = 51;
             btnReroll.Text = "Reroll";
             btnReroll.UseVisualStyleBackColor = false;
             btnReroll.Click += btnReroll_Click;
@@ -1152,10 +1165,10 @@
             lblstat_Cha.BackColor = Color.Transparent;
             lblstat_Cha.Font = new Font("Verdana", 9F, FontStyle.Bold);
             lblstat_Cha.ForeColor = Color.Goldenrod;
-            lblstat_Cha.Location = new Point(137, 363);
+            lblstat_Cha.Location = new Point(108, 114);
             lblstat_Cha.Name = "lblstat_Cha";
             lblstat_Cha.Size = new Size(38, 18);
-            lblstat_Cha.TabIndex = 36;
+            lblstat_Cha.TabIndex = 50;
             lblstat_Cha.Text = "2";
             lblstat_Cha.TextAlign = ContentAlignment.MiddleLeft;
             // 
@@ -1164,10 +1177,10 @@
             lblstat_Wis.BackColor = Color.Transparent;
             lblstat_Wis.Font = new Font("Verdana", 9F, FontStyle.Bold);
             lblstat_Wis.ForeColor = Color.Goldenrod;
-            lblstat_Wis.Location = new Point(137, 345);
+            lblstat_Wis.Location = new Point(108, 96);
             lblstat_Wis.Name = "lblstat_Wis";
             lblstat_Wis.Size = new Size(38, 18);
-            lblstat_Wis.TabIndex = 35;
+            lblstat_Wis.TabIndex = 49;
             lblstat_Wis.Text = "2";
             lblstat_Wis.TextAlign = ContentAlignment.MiddleLeft;
             // 
@@ -1176,10 +1189,10 @@
             lblstat_Con.BackColor = Color.Transparent;
             lblstat_Con.Font = new Font("Verdana", 9F, FontStyle.Bold);
             lblstat_Con.ForeColor = Color.Goldenrod;
-            lblstat_Con.Location = new Point(137, 327);
+            lblstat_Con.Location = new Point(108, 78);
             lblstat_Con.Name = "lblstat_Con";
             lblstat_Con.Size = new Size(38, 18);
-            lblstat_Con.TabIndex = 34;
+            lblstat_Con.TabIndex = 48;
             lblstat_Con.Text = "2";
             lblstat_Con.TextAlign = ContentAlignment.MiddleLeft;
             // 
@@ -1188,10 +1201,10 @@
             lblstat_Dex.BackColor = Color.Transparent;
             lblstat_Dex.Font = new Font("Verdana", 9F, FontStyle.Bold);
             lblstat_Dex.ForeColor = Color.Goldenrod;
-            lblstat_Dex.Location = new Point(137, 309);
+            lblstat_Dex.Location = new Point(108, 60);
             lblstat_Dex.Name = "lblstat_Dex";
             lblstat_Dex.Size = new Size(38, 18);
-            lblstat_Dex.TabIndex = 33;
+            lblstat_Dex.TabIndex = 47;
             lblstat_Dex.Text = "2";
             lblstat_Dex.TextAlign = ContentAlignment.MiddleLeft;
             // 
@@ -1200,10 +1213,10 @@
             lblstat_Int.BackColor = Color.Transparent;
             lblstat_Int.Font = new Font("Verdana", 9F, FontStyle.Bold);
             lblstat_Int.ForeColor = Color.Goldenrod;
-            lblstat_Int.Location = new Point(137, 293);
+            lblstat_Int.Location = new Point(108, 44);
             lblstat_Int.Name = "lblstat_Int";
             lblstat_Int.Size = new Size(38, 18);
-            lblstat_Int.TabIndex = 32;
+            lblstat_Int.TabIndex = 46;
             lblstat_Int.Text = "2";
             lblstat_Int.TextAlign = ContentAlignment.MiddleLeft;
             // 
@@ -1212,10 +1225,10 @@
             lblstat_Str.BackColor = Color.Transparent;
             lblstat_Str.Font = new Font("Verdana", 9F, FontStyle.Bold);
             lblstat_Str.ForeColor = Color.Goldenrod;
-            lblstat_Str.Location = new Point(137, 275);
+            lblstat_Str.Location = new Point(108, 26);
             lblstat_Str.Name = "lblstat_Str";
             lblstat_Str.Size = new Size(38, 18);
-            lblstat_Str.TabIndex = 31;
+            lblstat_Str.TabIndex = 45;
             lblstat_Str.Text = "2";
             lblstat_Str.TextAlign = ContentAlignment.MiddleLeft;
             // 
@@ -1224,10 +1237,10 @@
             label12.BackColor = Color.Transparent;
             label12.Font = new Font("Verdana", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label12.ForeColor = Color.White;
-            label12.Location = new Point(36, 363);
+            label12.Location = new Point(7, 114);
             label12.Name = "label12";
             label12.Size = new Size(95, 18);
-            label12.TabIndex = 30;
+            label12.TabIndex = 44;
             label12.Text = "Charisma";
             label12.TextAlign = ContentAlignment.MiddleRight;
             // 
@@ -1236,10 +1249,10 @@
             label11.BackColor = Color.Transparent;
             label11.Font = new Font("Verdana", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label11.ForeColor = Color.White;
-            label11.Location = new Point(36, 345);
+            label11.Location = new Point(7, 96);
             label11.Name = "label11";
             label11.Size = new Size(95, 18);
-            label11.TabIndex = 29;
+            label11.TabIndex = 43;
             label11.Text = "Wisdom:";
             label11.TextAlign = ContentAlignment.MiddleRight;
             // 
@@ -1248,10 +1261,10 @@
             label10.BackColor = Color.Transparent;
             label10.Font = new Font("Verdana", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label10.ForeColor = Color.White;
-            label10.Location = new Point(36, 327);
+            label10.Location = new Point(7, 78);
             label10.Name = "label10";
             label10.Size = new Size(95, 18);
-            label10.TabIndex = 28;
+            label10.TabIndex = 42;
             label10.Text = "Constitution:";
             label10.TextAlign = ContentAlignment.MiddleRight;
             // 
@@ -1260,10 +1273,10 @@
             label9.BackColor = Color.Transparent;
             label9.Font = new Font("Verdana", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label9.ForeColor = Color.White;
-            label9.Location = new Point(36, 309);
+            label9.Location = new Point(7, 60);
             label9.Name = "label9";
             label9.Size = new Size(95, 18);
-            label9.TabIndex = 27;
+            label9.TabIndex = 41;
             label9.Text = "Dexterity:";
             label9.TextAlign = ContentAlignment.MiddleRight;
             // 
@@ -1272,10 +1285,10 @@
             label8.BackColor = Color.Transparent;
             label8.Font = new Font("Verdana", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label8.ForeColor = Color.White;
-            label8.Location = new Point(36, 293);
+            label8.Location = new Point(7, 44);
             label8.Name = "label8";
             label8.Size = new Size(95, 18);
-            label8.TabIndex = 26;
+            label8.TabIndex = 40;
             label8.Text = "Intelligence:";
             label8.TextAlign = ContentAlignment.MiddleRight;
             // 
@@ -1284,10 +1297,10 @@
             label7.BackColor = Color.Transparent;
             label7.Font = new Font("Verdana", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label7.ForeColor = Color.White;
-            label7.Location = new Point(36, 275);
+            label7.Location = new Point(7, 26);
             label7.Name = "label7";
             label7.Size = new Size(95, 18);
-            label7.TabIndex = 25;
+            label7.TabIndex = 39;
             label7.Text = "Strength:";
             label7.TextAlign = ContentAlignment.MiddleRight;
             // 
@@ -1296,22 +1309,39 @@
             label4.BackColor = Color.Transparent;
             label4.Font = new Font("Verdana", 9F, FontStyle.Bold);
             label4.ForeColor = Color.White;
-            label4.Location = new Point(36, 255);
+            label4.Location = new Point(7, 6);
             label4.Name = "label4";
             label4.Size = new Size(130, 18);
-            label4.TabIndex = 24;
+            label4.TabIndex = 38;
             label4.Text = "Base Stat Roller";
             label4.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // comboBox2
+            // btnNewCharCreate
             // 
-            comboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBox2.FormattingEnabled = true;
-            comboBox2.Items.AddRange(new object[] { "Berserker", "Pacifist", "Paladin", "Fighter", "Mage", "Cleric", "Druid", "Ranger", "Thief" });
-            comboBox2.Location = new Point(36, 187);
-            comboBox2.Name = "comboBox2";
-            comboBox2.Size = new Size(311, 23);
-            comboBox2.TabIndex = 23;
+            btnNewCharCreate.BackColor = Color.FromArgb(45, 45, 45);
+            btnNewCharCreate.BackgroundImageLayout = ImageLayout.None;
+            btnNewCharCreate.FlatAppearance.BorderSize = 0;
+            btnNewCharCreate.FlatStyle = FlatStyle.Flat;
+            btnNewCharCreate.Font = new Font("Nirmala UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnNewCharCreate.ForeColor = Color.Silver;
+            btnNewCharCreate.ImageAlign = ContentAlignment.MiddleLeft;
+            btnNewCharCreate.Location = new Point(204, 298);
+            btnNewCharCreate.Name = "btnNewCharCreate";
+            btnNewCharCreate.Size = new Size(190, 34);
+            btnNewCharCreate.TabIndex = 38;
+            btnNewCharCreate.Text = "Create";
+            btnNewCharCreate.UseVisualStyleBackColor = false;
+            // 
+            // cmbClass
+            // 
+            cmbClass.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbClass.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            cmbClass.FormattingEnabled = true;
+            cmbClass.Items.AddRange(new object[] { "Berserker", "Pacifist", "Paladin", "Fighter", "Mage", "Cleric", "Druid", "Ranger", "Thief" });
+            cmbClass.Location = new Point(36, 187);
+            cmbClass.Name = "cmbClass";
+            cmbClass.Size = new Size(165, 23);
+            cmbClass.TabIndex = 23;
             // 
             // label3
             // 
@@ -1330,49 +1360,50 @@
             picNewCharAvatar.BackgroundImageLayout = ImageLayout.Stretch;
             picNewCharAvatar.BorderStyle = BorderStyle.FixedSingle;
             picNewCharAvatar.Image = (Image)resources.GetObject("picNewCharAvatar.Image");
-            picNewCharAvatar.Location = new Point(299, 221);
+            picNewCharAvatar.Location = new Point(36, 259);
             picNewCharAvatar.Name = "picNewCharAvatar";
-            picNewCharAvatar.Size = new Size(48, 48);
+            picNewCharAvatar.Size = new Size(96, 96);
             picNewCharAvatar.SizeMode = PictureBoxSizeMode.StretchImage;
             picNewCharAvatar.TabIndex = 21;
             picNewCharAvatar.TabStop = false;
             picNewCharAvatar.Click += picNewCharAvatar_Click;
             // 
-            // radioButton2
+            // optFemale
             // 
-            radioButton2.AutoSize = true;
-            radioButton2.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            radioButton2.ForeColor = Color.White;
-            radioButton2.Location = new Point(97, 223);
-            radioButton2.Name = "radioButton2";
-            radioButton2.Size = new Size(69, 21);
-            radioButton2.TabIndex = 20;
-            radioButton2.TabStop = true;
-            radioButton2.Text = "Female";
-            radioButton2.UseVisualStyleBackColor = true;
+            optFemale.AutoSize = true;
+            optFemale.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            optFemale.ForeColor = Color.White;
+            optFemale.Location = new Point(97, 223);
+            optFemale.Name = "optFemale";
+            optFemale.Size = new Size(69, 21);
+            optFemale.TabIndex = 20;
+            optFemale.TabStop = true;
+            optFemale.Text = "Female";
+            optFemale.UseVisualStyleBackColor = true;
             // 
-            // radioButton1
+            // optMale
             // 
-            radioButton1.AutoSize = true;
-            radioButton1.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            radioButton1.ForeColor = Color.White;
-            radioButton1.Location = new Point(36, 223);
-            radioButton1.Name = "radioButton1";
-            radioButton1.Size = new Size(55, 21);
-            radioButton1.TabIndex = 19;
-            radioButton1.TabStop = true;
-            radioButton1.Text = "Male";
-            radioButton1.UseVisualStyleBackColor = true;
+            optMale.AutoSize = true;
+            optMale.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            optMale.ForeColor = Color.White;
+            optMale.Location = new Point(36, 223);
+            optMale.Name = "optMale";
+            optMale.Size = new Size(55, 21);
+            optMale.TabIndex = 19;
+            optMale.TabStop = true;
+            optMale.Text = "Male";
+            optMale.UseVisualStyleBackColor = true;
             // 
-            // comboBox1
+            // cmbRace
             // 
-            comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Items.AddRange(new object[] { "Dwarf", "Elf", "Human", "Gnome", "Halfling", "Half-Elf", "Half-Orc" });
-            comboBox1.Location = new Point(36, 137);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(311, 23);
-            comboBox1.TabIndex = 18;
+            cmbRace.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbRace.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            cmbRace.FormattingEnabled = true;
+            cmbRace.Items.AddRange(new object[] { "Dwarf", "Elf", "Human", "Gnome", "Halfling", "Half-Elf", "Half-Orc" });
+            cmbRace.Location = new Point(36, 137);
+            cmbRace.Name = "cmbRace";
+            cmbRace.Size = new Size(165, 23);
+            cmbRace.TabIndex = 18;
             // 
             // label1
             // 
@@ -1386,28 +1417,28 @@
             label1.Text = "Race:";
             label1.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // button4
+            // btnNewCharCancel
             // 
-            button4.BackColor = Color.FromArgb(45, 45, 45);
-            button4.BackgroundImageLayout = ImageLayout.None;
-            button4.FlatAppearance.BorderSize = 0;
-            button4.FlatStyle = FlatStyle.Flat;
-            button4.Font = new Font("Nirmala UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button4.ForeColor = Color.Silver;
-            button4.ImageAlign = ContentAlignment.MiddleLeft;
-            button4.Location = new Point(204, 338);
-            button4.Name = "button4";
-            button4.Size = new Size(190, 34);
-            button4.TabIndex = 16;
-            button4.Text = "Save";
-            button4.UseVisualStyleBackColor = false;
+            btnNewCharCancel.BackColor = Color.FromArgb(45, 45, 45);
+            btnNewCharCancel.BackgroundImageLayout = ImageLayout.None;
+            btnNewCharCancel.FlatAppearance.BorderSize = 0;
+            btnNewCharCancel.FlatStyle = FlatStyle.Flat;
+            btnNewCharCancel.Font = new Font("Nirmala UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnNewCharCancel.ForeColor = Color.Silver;
+            btnNewCharCancel.ImageAlign = ContentAlignment.MiddleLeft;
+            btnNewCharCancel.Location = new Point(204, 338);
+            btnNewCharCancel.Name = "btnNewCharCancel";
+            btnNewCharCancel.Size = new Size(190, 34);
+            btnNewCharCancel.TabIndex = 16;
+            btnNewCharCancel.Text = "Cancel";
+            btnNewCharCancel.UseVisualStyleBackColor = false;
             // 
-            // textBox1
+            // txtNewCharName
             // 
-            textBox1.Location = new Point(36, 90);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(311, 23);
-            textBox1.TabIndex = 9;
+            txtNewCharName.Location = new Point(36, 90);
+            txtNewCharName.Name = "txtNewCharName";
+            txtNewCharName.Size = new Size(311, 23);
+            txtNewCharName.TabIndex = 9;
             // 
             // label5
             // 
@@ -1493,6 +1524,7 @@
             ((System.ComponentModel.ISupportInitialize)picBackground).EndInit();
             pnlNewChar.ResumeLayout(false);
             pnlNewChar.PerformLayout();
+            pnlRoller.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)picNewCharAvatar).EndInit();
             ResumeLayout(false);
         }
@@ -1570,31 +1602,33 @@
         public PictureBox picBackground;
         public Label lblAccountName;
         public Panel pnlNewChar;
-        private ComboBox comboBox1;
+        private ComboBox cmbRace;
         private Label label1;
-        private Button button4;
-        private TextBox textBox1;
+        private Button btnNewCharCancel;
+        private TextBox txtNewCharName;
         private Label label5;
         private Label label6;
         private PictureBox picNewCharAvatar;
-        private RadioButton radioButton2;
-        private RadioButton radioButton1;
+        private RadioButton optFemale;
+        private RadioButton optMale;
         public Label lblStatus;
-        private ComboBox comboBox2;
+        private ComboBox cmbClass;
         private Label label3;
-        private Label label7;
-        private Label label4;
-        private Label label9;
-        private Label label8;
+        private Button btnNewCharCreate;
+        private Panel pnlRoller;
         private Button btnReroll;
-        private Label label12;
-        private Label label11;
-        private Label label10;
         public Label lblstat_Cha;
         public Label lblstat_Wis;
         public Label lblstat_Con;
         public Label lblstat_Dex;
         public Label lblstat_Int;
         public Label lblstat_Str;
+        private Label label12;
+        private Label label11;
+        private Label label10;
+        private Label label9;
+        private Label label8;
+        private Label label7;
+        private Label label4;
     }
 }

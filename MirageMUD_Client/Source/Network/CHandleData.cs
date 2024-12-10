@@ -154,6 +154,9 @@ namespace MirageMUD_WFClient.Source.Network
 
                     frmMenu.Default.RunOnUIThread(() => frmMenu.Default.HidePanels());
                     frmMenu.Default.RunOnUIThread(() => frmMenu.Default.pnlCharacters.Visible = true);
+
+                    // Disable main menu now that we've logged in
+                    frmMenu.Default.RunOnUIThread(() => frmMenu.Default.ToggleNav());
                 }
             }
         }

@@ -4,7 +4,7 @@ using System.Net;
 using Bindings;
 using System.Xml.Linq;
 using System.IO;
-using MirageMUD_Server.Globals;
+using MirageMUD_Server.Types;
 using MirageMUD_Server.Utilities;
 
 namespace MirageMUD_Server.Network
@@ -124,8 +124,8 @@ namespace MirageMUD_Server.Network
             buffer.AddInteger(stats[1]); // Intelligence
             buffer.AddInteger(stats[2]); // Dexterity
             buffer.AddInteger(stats[3]); // Constitution
-            buffer.AddInteger(stats[4]); // Charisma
-            buffer.AddInteger(stats[5]); // Wisdom
+            buffer.AddInteger(stats[4]); // Wisdom
+            buffer.AddInteger(stats[5]); // Charisma
 
             SendDataTo(Index, buffer.ToArray());
 

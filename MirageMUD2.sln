@@ -5,7 +5,7 @@ VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Bindings", "Bindings\Bindings.shproj", "{1A4FF3ED-7E17-457E-AD54-AA1BA4B0111C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MirageMUD_WFClient", "MirageMUD_Client\MirageMUD_WFClient.csproj", "{4A092E15-2E27-487A-B68A-D103E78906D3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MirageMUD_Client", "MirageMUD_Client\MirageMUD_Client.csproj", "{4A092E15-2E27-487A-B68A-D103E78906D3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MirageMUD_Server", "MirageMUD_Server\MirageMUD_Server.csproj", "{1871AE8C-A611-40EA-B0DA-61D0C9EFD1CA}"
 EndProject

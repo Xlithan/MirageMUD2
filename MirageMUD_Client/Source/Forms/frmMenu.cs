@@ -1,5 +1,5 @@
+using MirageMUD_Client.Core;
 using MirageMUD_WFClient.Source.Forms;
-using MirageMUD_WFClient.Source.General;  // Imports general utilities
 using MirageMUD_WFClient.Source.Network;  // Imports networking utilities
 using MirageMUD_WFClient.Source.Utilities;  // Imports additional utilities
 using System.Diagnostics;
@@ -12,6 +12,7 @@ namespace MirageMUD_WFClient
     public partial class frmMenu : Form
     {
         ClientTCP clientTCP;  // Instance of ClientTCP for network communication
+        public bool navEnabled = true; // Navigation menu toggle
 
         // Enum for different menu states
         public enum MenuState : byte
@@ -153,6 +154,8 @@ namespace MirageMUD_WFClient
         // Event handler for when the "New Account" button is clicked
         private void btnNewAcc_Click(object sender, EventArgs e)
         {
+            if (!navEnabled) return;
+
             HidePanels();  // Hide all panels
             pnlNewAccount.Visible = true;  // Show new account panel
 
@@ -169,6 +172,8 @@ namespace MirageMUD_WFClient
         // Event handler for when the "Home" button is clicked
         private void btnHome_Click(object sender, EventArgs e)
         {
+            if (!navEnabled) return;
+
             HidePanels();  // Hide all panels
             // Set the background image from the resources
             this.BackgroundImage = Properties.Resources.menuback;  // Set default background image
@@ -183,6 +188,8 @@ namespace MirageMUD_WFClient
         // Event handler for when the "Login" button is clicked
         private void btnLogin_Click(object sender, EventArgs e)
         {
+            if (!navEnabled) return;
+
             HidePanels();  // Hide all panels
             pnlLogin.Visible = true;  // Show login panel
 
@@ -199,6 +206,8 @@ namespace MirageMUD_WFClient
         // Event handler for when the "IP Configuration" button is clicked
         private void btnIPConfig_Click(object sender, EventArgs e)
         {
+            if (!navEnabled) return;
+
             HidePanels();  // Hide all panels
             pnlIPConfig.Visible = true;  // Show IP configuration panel
 
@@ -215,6 +224,8 @@ namespace MirageMUD_WFClient
         // Event handler for when the "Game Options" button is clicked
         private void btnGameOptions_Click(object sender, EventArgs e)
         {
+            if (!navEnabled) return;
+
             HidePanels();  // Hide all panels
             pnlGameOptions.Visible = true;  // Show game options panel
 
@@ -231,6 +242,8 @@ namespace MirageMUD_WFClient
         // Event handler for when the "Credits" button is clicked
         private void btnCredits_Click(object sender, EventArgs e)
         {
+            if (!navEnabled) return;
+
             HidePanels();  // Hide all panels
             pnlCredits.Visible = true;  // Show credits panel
 
@@ -247,6 +260,8 @@ namespace MirageMUD_WFClient
         // Event handler for when the "Exit" button is clicked
         private void btnExit_Click(object sender, EventArgs e)
         {
+            if (!navEnabled) return;
+
             HidePanels();  // Hide all panels
             pnlExit.Visible = true;  // Show exit confirmation panel
 
@@ -323,6 +338,12 @@ namespace MirageMUD_WFClient
             pnlLogin.Visible = false;  // Hide login panel
             pnlNewAccount.Visible = false;  // Hide new account panel
             pnlExit.Visible = false;  // Hide exit panel
+        }
+
+        // Disable/Enable navigation menu
+        public void ToggleNav()
+        {
+            navEnabled = !navEnabled;
         }
 
         // Event handler for when the "Exit" confirmation button is clicked
@@ -613,6 +634,8 @@ namespace MirageMUD_WFClient
         {
             HidePanels();
             pnlNewChar.Visible = true;
+
+            clientTCP.SendRerollRequest();  // Send login data to server
         }
 
         private void btnReroll_Click(object sender, EventArgs e)

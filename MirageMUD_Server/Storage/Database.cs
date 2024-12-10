@@ -1,5 +1,5 @@
 ﻿using Bindings;
-using MirageMUD_Server.Globals;
+using MirageMUD_Server.Types;
 using System.Text.Json;
 
 namespace MirageMUD_Server.Storage
