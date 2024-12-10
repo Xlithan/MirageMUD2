@@ -74,12 +74,12 @@ namespace MirageMUD_WFClient.Source.Network
             Packets.Add((int)ServerPackets.SSendMaxes, HandleMaxes);
             Packets.Add((int)ServerPackets.SSync, HandleSync);
             Packets.Add((int)ServerPackets.SRoomRevs, HandleRoomRevs);
+            Packets.Add((int)ServerPackets.SReRoll, HandleReRoll);
         }
 
         // Handles incoming messages by identifying the appropriate packet handler
         public void HandleMessages(byte[] data)
         {
-            Debug.WriteLine("Handling messages...");
 
             // Check if the incoming data is null or empty
             if (data == null || data.Length == 0)
@@ -208,5 +208,26 @@ namespace MirageMUD_WFClient.Source.Network
         public void HandleMaxes(byte[] data) { }
         public void HandleSync(byte[] data) { }
         public void HandleRoomRevs(byte[] data) { }
+        public void HandleReRoll(byte[] data)
+        {
+            using (PacketBuffer buffer = new PacketBuffer())
+            {
+                buffer.AddBytes(data); // Add data to buffer
+                buffer.GetInteger(); // Skip packet ID
+
+                frmMenu.Default.RunOnUIThread(() => // Strength
+                    frmMenu.Default.lblstat_Str.Text = buffer.GetInteger().ToString());
+                frmMenu.Default.RunOnUIThread(() => // Intelligence
+                    frmMenu.Default.lblstat_Int.Text = buffer.GetInteger().ToString());
+                frmMenu.Default.RunOnUIThread(() => // Dexterity
+                    frmMenu.Default.lblstat_Dex.Text = buffer.GetInteger().ToString());
+                frmMenu.Default.RunOnUIThread(() => // Constitution
+                    frmMenu.Default.lblstat_Con.Text = buffer.GetInteger().ToString());
+                frmMenu.Default.RunOnUIThread(() => // Wisdom
+                    frmMenu.Default.lblstat_Wis.Text = buffer.GetInteger().ToString());
+                frmMenu.Default.RunOnUIThread(() => // Charisma
+                    frmMenu.Default.lblstat_Cha.Text = buffer.GetInteger().ToString());
+            }
+        }
     }
 }

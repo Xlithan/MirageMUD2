@@ -5,6 +5,7 @@ using Bindings;
 using System.Xml.Linq;
 using System.IO;
 using MirageMUD_Server.Globals;
+using MirageMUD_Server.Utilities;
 
 namespace MirageMUD_Server.Network
 {
@@ -102,6 +103,29 @@ namespace MirageMUD_Server.Network
             {
                 buffer.AddString(STypes.Player[Index].Character[i].Name);
             }
+
+            SendDataTo(Index, buffer.ToArray());
+
+            buffer.Dispose();
+        }
+        public void SendReRoll(int Index)
+        {
+            StatRoller statRoller = new StatRoller();
+
+            // Generate a random distribution of stats.
+            int[] stats = statRoller.GenerateRandomStats();
+
+            PacketBuffer buffer = new PacketBuffer();
+
+            buffer.AddInteger((int)ServerPackets.SReRoll);
+
+            // Add each stat value to the buffer.
+            buffer.AddInteger(stats[0]); // Strength
+            buffer.AddInteger(stats[1]); // Intelligence
+            buffer.AddInteger(stats[2]); // Dexterity
+            buffer.AddInteger(stats[3]); // Constitution
+            buffer.AddInteger(stats[4]); // Charisma
+            buffer.AddInteger(stats[5]); // Wisdom
 
             SendDataTo(Index, buffer.ToArray());
 

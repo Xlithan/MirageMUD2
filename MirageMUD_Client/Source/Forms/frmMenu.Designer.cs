@@ -101,6 +101,22 @@
             lblWelcomeDesc = new Label();
             picBackground = new PictureBox();
             pnlNewChar = new Panel();
+            btnReroll = new Button();
+            lblstat_Cha = new Label();
+            lblstat_Wis = new Label();
+            lblstat_Con = new Label();
+            lblstat_Dex = new Label();
+            lblstat_Int = new Label();
+            lblstat_Str = new Label();
+            label12 = new Label();
+            label11 = new Label();
+            label10 = new Label();
+            label9 = new Label();
+            label8 = new Label();
+            label7 = new Label();
+            label4 = new Label();
+            comboBox2 = new ComboBox();
+            label3 = new Label();
             picNewCharAvatar = new PictureBox();
             radioButton2 = new RadioButton();
             radioButton1 = new RadioButton();
@@ -1084,6 +1100,22 @@
             // 
             pnlNewChar.BackColor = Color.FromArgb(65, 65, 65);
             pnlNewChar.BackgroundImageLayout = ImageLayout.None;
+            pnlNewChar.Controls.Add(btnReroll);
+            pnlNewChar.Controls.Add(lblstat_Cha);
+            pnlNewChar.Controls.Add(lblstat_Wis);
+            pnlNewChar.Controls.Add(lblstat_Con);
+            pnlNewChar.Controls.Add(lblstat_Dex);
+            pnlNewChar.Controls.Add(lblstat_Int);
+            pnlNewChar.Controls.Add(lblstat_Str);
+            pnlNewChar.Controls.Add(label12);
+            pnlNewChar.Controls.Add(label11);
+            pnlNewChar.Controls.Add(label10);
+            pnlNewChar.Controls.Add(label9);
+            pnlNewChar.Controls.Add(label8);
+            pnlNewChar.Controls.Add(label7);
+            pnlNewChar.Controls.Add(label4);
+            pnlNewChar.Controls.Add(comboBox2);
+            pnlNewChar.Controls.Add(label3);
             pnlNewChar.Controls.Add(picNewCharAvatar);
             pnlNewChar.Controls.Add(radioButton2);
             pnlNewChar.Controls.Add(radioButton1);
@@ -1097,6 +1129,201 @@
             pnlNewChar.Name = "pnlNewChar";
             pnlNewChar.Size = new Size(406, 384);
             pnlNewChar.TabIndex = 27;
+            // 
+            // btnReroll
+            // 
+            btnReroll.BackColor = Color.FromArgb(45, 45, 45);
+            btnReroll.BackgroundImageLayout = ImageLayout.None;
+            btnReroll.FlatAppearance.BorderSize = 0;
+            btnReroll.FlatStyle = FlatStyle.Flat;
+            btnReroll.Font = new Font("Nirmala UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnReroll.ForeColor = Color.Silver;
+            btnReroll.ImageAlign = ContentAlignment.MiddleLeft;
+            btnReroll.Location = new Point(204, 298);
+            btnReroll.Name = "btnReroll";
+            btnReroll.Size = new Size(190, 34);
+            btnReroll.TabIndex = 37;
+            btnReroll.Text = "Reroll";
+            btnReroll.UseVisualStyleBackColor = false;
+            btnReroll.Click += btnReroll_Click;
+            // 
+            // lblstat_Cha
+            // 
+            lblstat_Cha.BackColor = Color.Transparent;
+            lblstat_Cha.Font = new Font("Verdana", 9F, FontStyle.Bold);
+            lblstat_Cha.ForeColor = Color.Goldenrod;
+            lblstat_Cha.Location = new Point(137, 363);
+            lblstat_Cha.Name = "lblstat_Cha";
+            lblstat_Cha.Size = new Size(38, 18);
+            lblstat_Cha.TabIndex = 36;
+            lblstat_Cha.Text = "2";
+            lblstat_Cha.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // lblstat_Wis
+            // 
+            lblstat_Wis.BackColor = Color.Transparent;
+            lblstat_Wis.Font = new Font("Verdana", 9F, FontStyle.Bold);
+            lblstat_Wis.ForeColor = Color.Goldenrod;
+            lblstat_Wis.Location = new Point(137, 345);
+            lblstat_Wis.Name = "lblstat_Wis";
+            lblstat_Wis.Size = new Size(38, 18);
+            lblstat_Wis.TabIndex = 35;
+            lblstat_Wis.Text = "2";
+            lblstat_Wis.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // lblstat_Con
+            // 
+            lblstat_Con.BackColor = Color.Transparent;
+            lblstat_Con.Font = new Font("Verdana", 9F, FontStyle.Bold);
+            lblstat_Con.ForeColor = Color.Goldenrod;
+            lblstat_Con.Location = new Point(137, 327);
+            lblstat_Con.Name = "lblstat_Con";
+            lblstat_Con.Size = new Size(38, 18);
+            lblstat_Con.TabIndex = 34;
+            lblstat_Con.Text = "2";
+            lblstat_Con.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // lblstat_Dex
+            // 
+            lblstat_Dex.BackColor = Color.Transparent;
+            lblstat_Dex.Font = new Font("Verdana", 9F, FontStyle.Bold);
+            lblstat_Dex.ForeColor = Color.Goldenrod;
+            lblstat_Dex.Location = new Point(137, 309);
+            lblstat_Dex.Name = "lblstat_Dex";
+            lblstat_Dex.Size = new Size(38, 18);
+            lblstat_Dex.TabIndex = 33;
+            lblstat_Dex.Text = "2";
+            lblstat_Dex.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // lblstat_Int
+            // 
+            lblstat_Int.BackColor = Color.Transparent;
+            lblstat_Int.Font = new Font("Verdana", 9F, FontStyle.Bold);
+            lblstat_Int.ForeColor = Color.Goldenrod;
+            lblstat_Int.Location = new Point(137, 293);
+            lblstat_Int.Name = "lblstat_Int";
+            lblstat_Int.Size = new Size(38, 18);
+            lblstat_Int.TabIndex = 32;
+            lblstat_Int.Text = "2";
+            lblstat_Int.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // lblstat_Str
+            // 
+            lblstat_Str.BackColor = Color.Transparent;
+            lblstat_Str.Font = new Font("Verdana", 9F, FontStyle.Bold);
+            lblstat_Str.ForeColor = Color.Goldenrod;
+            lblstat_Str.Location = new Point(137, 275);
+            lblstat_Str.Name = "lblstat_Str";
+            lblstat_Str.Size = new Size(38, 18);
+            lblstat_Str.TabIndex = 31;
+            lblstat_Str.Text = "2";
+            lblstat_Str.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // label12
+            // 
+            label12.BackColor = Color.Transparent;
+            label12.Font = new Font("Verdana", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label12.ForeColor = Color.White;
+            label12.Location = new Point(36, 363);
+            label12.Name = "label12";
+            label12.Size = new Size(95, 18);
+            label12.TabIndex = 30;
+            label12.Text = "Charisma";
+            label12.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // label11
+            // 
+            label11.BackColor = Color.Transparent;
+            label11.Font = new Font("Verdana", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label11.ForeColor = Color.White;
+            label11.Location = new Point(36, 345);
+            label11.Name = "label11";
+            label11.Size = new Size(95, 18);
+            label11.TabIndex = 29;
+            label11.Text = "Wisdom:";
+            label11.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // label10
+            // 
+            label10.BackColor = Color.Transparent;
+            label10.Font = new Font("Verdana", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label10.ForeColor = Color.White;
+            label10.Location = new Point(36, 327);
+            label10.Name = "label10";
+            label10.Size = new Size(95, 18);
+            label10.TabIndex = 28;
+            label10.Text = "Constitution:";
+            label10.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // label9
+            // 
+            label9.BackColor = Color.Transparent;
+            label9.Font = new Font("Verdana", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label9.ForeColor = Color.White;
+            label9.Location = new Point(36, 309);
+            label9.Name = "label9";
+            label9.Size = new Size(95, 18);
+            label9.TabIndex = 27;
+            label9.Text = "Dexterity:";
+            label9.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // label8
+            // 
+            label8.BackColor = Color.Transparent;
+            label8.Font = new Font("Verdana", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label8.ForeColor = Color.White;
+            label8.Location = new Point(36, 293);
+            label8.Name = "label8";
+            label8.Size = new Size(95, 18);
+            label8.TabIndex = 26;
+            label8.Text = "Intelligence:";
+            label8.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // label7
+            // 
+            label7.BackColor = Color.Transparent;
+            label7.Font = new Font("Verdana", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label7.ForeColor = Color.White;
+            label7.Location = new Point(36, 275);
+            label7.Name = "label7";
+            label7.Size = new Size(95, 18);
+            label7.TabIndex = 25;
+            label7.Text = "Strength:";
+            label7.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // label4
+            // 
+            label4.BackColor = Color.Transparent;
+            label4.Font = new Font("Verdana", 9F, FontStyle.Bold);
+            label4.ForeColor = Color.White;
+            label4.Location = new Point(36, 255);
+            label4.Name = "label4";
+            label4.Size = new Size(130, 18);
+            label4.TabIndex = 24;
+            label4.Text = "Base Stat Roller";
+            label4.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // comboBox2
+            // 
+            comboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBox2.FormattingEnabled = true;
+            comboBox2.Items.AddRange(new object[] { "Berserker", "Pacifist", "Paladin", "Fighter", "Mage", "Cleric", "Druid", "Ranger", "Thief" });
+            comboBox2.Location = new Point(36, 187);
+            comboBox2.Name = "comboBox2";
+            comboBox2.Size = new Size(311, 23);
+            comboBox2.TabIndex = 23;
+            // 
+            // label3
+            // 
+            label3.BackColor = Color.Transparent;
+            label3.Font = new Font("Verdana", 9F, FontStyle.Bold);
+            label3.ForeColor = Color.White;
+            label3.Location = new Point(36, 166);
+            label3.Name = "label3";
+            label3.Size = new Size(103, 18);
+            label3.TabIndex = 22;
+            label3.Text = "Class:";
+            label3.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // picNewCharAvatar
             // 
@@ -1141,8 +1368,8 @@
             // 
             comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox1.FormattingEnabled = true;
-            comboBox1.Items.AddRange(new object[] { "Welsh (Cymraeg)", "German (Deutsch)", "British English (English)", "American English (English)", "Spanish (Español)", "French (Français)", "Italian (Italiano)", "Portuguese (Português)", "Romanized Japanese (Romaji)", "Polish (Polski)", "Swedish (Svenska)" });
-            comboBox1.Location = new Point(36, 192);
+            comboBox1.Items.AddRange(new object[] { "Dwarf", "Elf", "Human", "Gnome", "Halfling", "Half-Elf", "Half-Orc" });
+            comboBox1.Location = new Point(36, 137);
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(311, 23);
             comboBox1.TabIndex = 18;
@@ -1152,11 +1379,11 @@
             label1.BackColor = Color.Transparent;
             label1.Font = new Font("Verdana", 9F, FontStyle.Bold);
             label1.ForeColor = Color.White;
-            label1.Location = new Point(36, 171);
+            label1.Location = new Point(36, 116);
             label1.Name = "label1";
             label1.Size = new Size(103, 18);
             label1.TabIndex = 17;
-            label1.Text = "Class:";
+            label1.Text = "Race:";
             label1.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // button4
@@ -1177,7 +1404,7 @@
             // 
             // textBox1
             // 
-            textBox1.Location = new Point(36, 144);
+            textBox1.Location = new Point(36, 90);
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(311, 23);
             textBox1.TabIndex = 9;
@@ -1187,7 +1414,7 @@
             label5.BackColor = Color.Transparent;
             label5.Font = new Font("Verdana", 9F, FontStyle.Bold);
             label5.ForeColor = Color.White;
-            label5.Location = new Point(36, 127);
+            label5.Location = new Point(36, 69);
             label5.Name = "label5";
             label5.Size = new Size(75, 18);
             label5.TabIndex = 3;
@@ -1353,5 +1580,21 @@
         private RadioButton radioButton2;
         private RadioButton radioButton1;
         public Label lblStatus;
+        private ComboBox comboBox2;
+        private Label label3;
+        private Label label7;
+        private Label label4;
+        private Label label9;
+        private Label label8;
+        private Button btnReroll;
+        private Label label12;
+        private Label label11;
+        private Label label10;
+        public Label lblstat_Cha;
+        public Label lblstat_Wis;
+        public Label lblstat_Con;
+        public Label lblstat_Dex;
+        public Label lblstat_Int;
+        public Label lblstat_Str;
     }
 }

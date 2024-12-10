@@ -228,5 +228,21 @@ namespace MirageMUD_WFClient.Source.Network
             // Dispose of the buffer after sending
             buffer.Dispose();
         }
+
+        // Sends a request to the server to reroll the stats for a new character
+        public void SendRerollRequest()
+        {
+            // Create a new packet buffer for the account creation data
+            PacketBuffer buffer = new PacketBuffer();
+
+            // Add the new account request packet identifier and the account details
+            buffer.AddInteger((int)ClientPackets.CReRoll);
+
+            // Send the new account data to the server
+            SendData(buffer.ToArray());
+
+            // Dispose of the buffer after sending
+            buffer.Dispose();
+        }
     }
 }

@@ -614,5 +614,13 @@ namespace MirageMUD_WFClient
             HidePanels();
             pnlNewChar.Visible = true;
         }
+
+        private void btnReroll_Click(object sender, EventArgs e)
+        {
+            if (clientTCP.PlayerSocket.Connected && pnlNewChar.Visible == true)
+            {
+                clientTCP.SendRerollRequest();  // Send login data to server
+            }
+        }
     }
 }

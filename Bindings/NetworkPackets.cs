@@ -59,6 +59,7 @@
         SSendMaxes,
         SSync,
         SRoomRevs,
+        SReRoll,
         //The following enum member automatically stores the number of messages,
         //since it is last. Any new messages must be placed above this entry.
         SMSG_COUNT
@@ -136,6 +137,7 @@
         CKickGuild,
         CGuildPromote,
         CLeaveGuild,
+        CReRoll,
         //The following enum member automatically stores the number of messages,
         //since it is last. Any new messages must be placed above this entry.
         CMSG_COUNT

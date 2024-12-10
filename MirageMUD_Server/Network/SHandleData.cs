@@ -2,6 +2,7 @@
 using System.Security.Cryptography;
 using System.Text;
 using MirageMUD_Server.Storage;
+using MirageMUD_Server.Utilities;
 
 namespace MirageMUD_Server.Network
 {
@@ -89,6 +90,7 @@ namespace MirageMUD_Server.Network
             Packets.Add((int)ClientPackets.CKickGuild, HandleKickGuild);
             Packets.Add((int)ClientPackets.CGuildPromote, HandleGuildPromote);
             Packets.Add((int)ClientPackets.CLeaveGuild, HandleLeaveGuild);
+            Packets.Add((int)ClientPackets.CReRoll, HandleReRoll);
         }
 
         public void HandleMessages(int Index, byte[] data)
@@ -286,5 +288,9 @@ namespace MirageMUD_Server.Network
         private void HandleKickGuild(int Index, byte[] data) { }
         private void HandleGuildPromote(int Index, byte[] data) { }
         private void HandleLeaveGuild(int Index, byte[] data) { }
+        private void HandleReRoll(int Index, byte[] data)
+        {
+            serverTCP.SendReRoll(Index);
+        }
     }
 }
