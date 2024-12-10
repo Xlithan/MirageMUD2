@@ -3,13 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MirageMUD_WFClient", "MirageMUD_Client\MirageMUD_WFClient.csproj", "{7EB053A5-C55F-4C83-8279-2676E3B9B3A1}"
-EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Bindings", "Bindings\Bindings.shproj", "{1A4FF3ED-7E17-457E-AD54-AA1BA4B0111C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MirageMUD_Server", "MirageMUD_Server\MirageMUD_Server.csproj", "{A2B98BC6-0AE9-4B09-A09D-631AA34152D4}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MirageMUD2_WPFClient", "MirageMUD2_WPFClient\MirageMUD2_WPFClient.csproj", "{8A97AD65-19DE-4E70-9B45-ECC6BB9D651A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MirageMUD_Web", "MirageMUD_Web\MirageMUD_Web.csproj", "{510DE579-AA40-4CBF-B0A0-A4613A4687BA}"
 EndProject
@@ -19,18 +15,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{7EB053A5-C55F-4C83-8279-2676E3B9B3A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7EB053A5-C55F-4C83-8279-2676E3B9B3A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7EB053A5-C55F-4C83-8279-2676E3B9B3A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7EB053A5-C55F-4C83-8279-2676E3B9B3A1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A2B98BC6-0AE9-4B09-A09D-631AA34152D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A2B98BC6-0AE9-4B09-A09D-631AA34152D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A2B98BC6-0AE9-4B09-A09D-631AA34152D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A2B98BC6-0AE9-4B09-A09D-631AA34152D4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8A97AD65-19DE-4E70-9B45-ECC6BB9D651A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8A97AD65-19DE-4E70-9B45-ECC6BB9D651A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8A97AD65-19DE-4E70-9B45-ECC6BB9D651A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8A97AD65-19DE-4E70-9B45-ECC6BB9D651A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{510DE579-AA40-4CBF-B0A0-A4613A4687BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{510DE579-AA40-4CBF-B0A0-A4613A4687BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{510DE579-AA40-4CBF-B0A0-A4613A4687BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -44,7 +32,6 @@ Global
 	EndGlobalSection
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Bindings\Bindings.projitems*{1a4ff3ed-7e17-457e-ad54-aa1ba4b0111c}*SharedItemsImports = 13
-		Bindings\Bindings.projitems*{7eb053a5-c55f-4c83-8279-2676e3b9b3a1}*SharedItemsImports = 5
 		Bindings\Bindings.projitems*{a2b98bc6-0ae9-4b09-a09d-631aa34152d4}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal
