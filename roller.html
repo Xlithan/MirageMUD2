@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D&D Stat Roller</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        table {
+            margin: 0 auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <h1>D&D Stat Roller</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Stat</th>
+                <th>Value</th>
+            </tr>
+        </thead>
+        <tbody id="stats-table">
+            <tr>
+                <td>Strength</td>
+                <td id="str">0</td>
+            </tr>
+            <tr>
+                <td>Constitution</td>
+                <td id="con">0</td>
+            </tr>
+            <tr>
+                <td>Dexterity</td>
+                <td id="dex">0</td>
+            </tr>
+            <tr>
+                <td>Intelligence</td>
+                <td id="int">0</td>
+            </tr>
+            <tr>
+                <td>Wisdom</td>
+                <td id="wis">0</td>
+            </tr>
+            <tr>
+                <td>Charisma</td>
+                <td id="cha">0</td>
+            </tr>
+        </tbody>
+    </table>
+    <button onclick="rollStats()">Roll Stats</button>
+
+    <script>
+        function rollStats() {
+            const stats = ["str", "con", "dex", "int", "wis", "cha"];
+            const points = 12;
+            const statValues = [0, 0, 0, 0, 0, 0];
+            
+            let remainingPoints = points;
+
+            // Randomly distribute points
+            while (remainingPoints > 0) {
+                const randomIndex = Math.floor(Math.random() * stats.length);
+                statValues[randomIndex]++;
+                remainingPoints--;
+            }
+
+            // Update the table with new values
+            stats.forEach((stat, index) => {
+                document.getElementById(stat).innerText = statValues[index];
+            });
+        }
+    </script>
+</body>
+</html>

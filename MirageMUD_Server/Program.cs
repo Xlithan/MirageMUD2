@@ -1,5 +1,8 @@
-﻿using MirageMUD_Server;
-using MirageMUD_Server.Storage;
+﻿using Microsoft.Extensions.DependencyInjection;
+using System.Threading;
+using MirageMUD_Server;
+using MirageMUD_Server.Network;
+using System;
 
 namespace MirageMud_Server
 {
@@ -8,29 +11,29 @@ namespace MirageMud_Server
         private static Thread consoleThread;
         private static General gnrl;
 
-        // Main entry point of the server application
-        // Initializes language settings, loads translations, and starts the server
+        private static ServiceProvider serviceProvider;
+
         static void Main(string[] args)
         {
-            // Load language code from the config file using the ConfigReader
-            string languageCode = ConfigReader.GetLanguageCode("Data/config.json");
+            var serviceCollection = new ServiceCollection();
 
-            // Access the singleton instance of TranslationManager
-            TranslationManager translator = TranslationManager.Instance;
+            // Register dependencies with DI
+            serviceCollection.AddSingleton<SHandleData>();
+            serviceCollection.AddSingleton<IServerTCP, ServerTCP>();
+            serviceCollection.AddTransient<IClient, Client>();
+            serviceCollection.AddTransient<General>();
 
-            // Set the language code in the TranslationManager
-            TranslationManager.LanguageCode = languageCode;  // Set the language code to ensure it's used
+            serviceProvider = serviceCollection.BuildServiceProvider();
 
-            // Dynamically load the corresponding language file
-            translator.LoadTranslations(languageCode); // Pass language code to load the file
+            // Resolve General from DI
+            gnrl = serviceProvider.GetService<General>();
 
-            gnrl = new General();
             consoleThread = new Thread(new ThreadStart(ConsoleThread));
             consoleThread.Start();
+
             gnrl.InitialiseServer();
         }
 
-        // Reads input to keep the console thread active
         static void ConsoleThread()
         {
             Console.ReadLine();

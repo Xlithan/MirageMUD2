@@ -1,11 +1,7 @@
-﻿using System;
-using System.Net.Sockets;
-using System.Net;
-using Bindings;
-using System.Security.Claims;
-using System.Reflection.Emit;
-using MirageMUD_Server.Network;
+﻿using Bindings;
 using MirageMUD_Server.Globals;
+using MirageMUD_Server.Network;
+using MirageMUD_Server.Storage;
 
 namespace MirageMUD_Server
 {
@@ -30,6 +26,18 @@ namespace MirageMUD_Server
             Console.Title = "MirageMUD 2";
 
             stcp = new ServerTCP();
+
+            // Load language code from the config file using the ConfigReader
+            string languageCode = ConfigReader.GetLanguageCode("Data/config.json");
+
+            // Access the singleton instance of TranslationManager
+            TranslationManager translator = TranslationManager.Instance;
+
+            // Set the language code in the TranslationManager
+            TranslationManager.LanguageCode = languageCode;  // Set the language code to ensure it's used
+
+            // Dynamically load the corresponding language file
+            translator.LoadTranslations(languageCode); // Pass language code to load the file
 
             // Initialize all clients and their corresponding player data
             for (int i = 0; i < Constants.MAX_PLAYERS; i++)
