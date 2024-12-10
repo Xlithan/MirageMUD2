@@ -1,8 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using System.Threading;
-using MirageMUD_Server;
-using MirageMUD_Server.Network;
-using System;
+﻿using MirageMUD_Server;
 
 namespace MirageMud_Server
 {
@@ -11,22 +7,12 @@ namespace MirageMud_Server
         private static Thread consoleThread;
         private static General gnrl;
 
-        private static ServiceProvider serviceProvider;
+        // Main entry point of the server application
+        // Initializes language settings, loads translations, and starts the server
 
         static void Main(string[] args)
         {
-            var serviceCollection = new ServiceCollection();
-
-            // Register dependencies with DI
-            serviceCollection.AddSingleton<SHandleData>();
-            serviceCollection.AddSingleton<IServerTCP, ServerTCP>();
-            serviceCollection.AddTransient<IClient, Client>();
-            serviceCollection.AddTransient<General>();
-
-            serviceProvider = serviceCollection.BuildServiceProvider();
-
-            // Resolve General from DI
-            gnrl = serviceProvider.GetService<General>();
+            gnrl = new General();
 
             consoleThread = new Thread(new ThreadStart(ConsoleThread));
             consoleThread.Start();

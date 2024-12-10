@@ -68,8 +68,8 @@ namespace MirageMUD_Server.Globals
             public int AttackTimer { get; set; }
             public int RoomGetTimer { get; set; }
             public byte CastedSpell { get; set; }
-            public List<Inventory> PlayerInv { get; set; } = new List<Inventory>(Constants.MAX_PLAYERINV);
-            public List<Spells> PlayerSpells { get; set; } = new List<Spells>(Constants.MAX_PLAYERSPELLS);
+            public List<Inventory> PlayerInv { get; set; } = new List<Inventory>();
+            public List<Spells> PlayerSpells { get; set; } = new List<Spells>();
 
             // Encapsulated data.
             public Stats CharacterStats { get; set; } = new Stats();
@@ -114,7 +114,7 @@ namespace MirageMUD_Server.Globals
                 PlayerSpells.Clear();
                 while (PlayerSpells.Count < Constants.MAX_PLAYERSPELLS)
                 {
-                    PlayerSpells.Add(new Spells(0, 0));  // Empty spell slots with 0 quantity
+                    PlayerSpells.Add(new Spells(0));  // Empty spell slots with 0 quantity
                 }
 
                 // Reset data to defaults.
