@@ -1,7 +1,11 @@
+using MirageMUD_Web.Services;
 using System.Net.WebSockets;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Register WebSocket service for dependency injection
+builder.Services.AddSingleton<WebSocketService>();
 
 // Add services to the container.
 builder.Services.AddRazorPages();
@@ -54,14 +58,24 @@ async Task HandleWebSocketAsync(WebSocket webSocket)
     {
         // Decode received message
         var receivedMessage = Encoding.UTF8.GetString(buffer, 0, receiveResult.Count);
-        Console.WriteLine($"Received from client: {receivedMessage}");
+        Console.WriteLine($"Received: {receivedMessage}");
 
-        // Handle message and create a response
-        var responseMessage = $"Server: {receivedMessage}";
-        var responseBytes = Encoding.UTF8.GetBytes(responseMessage);
+        if (receivedMessage == "ping")
+        {
+            // Send a response back to acknowledge ping
+            var pongMessage = "pong";
+            var responseBytes = Encoding.UTF8.GetBytes(pongMessage);
 
-        // Send response back to client
-        await webSocket.SendAsync(new ArraySegment<byte>(responseBytes), WebSocketMessageType.Text, true, CancellationToken.None);
+            await webSocket.SendAsync(new ArraySegment<byte>(responseBytes), WebSocketMessageType.Text, true, CancellationToken.None);
+        }
+        else
+        {
+            // Echo back the message
+            var responseMessage = $"Server: {receivedMessage}";
+            var responseBytes = Encoding.UTF8.GetBytes(responseMessage);
+
+            await webSocket.SendAsync(new ArraySegment<byte>(responseBytes), WebSocketMessageType.Text, true, CancellationToken.None);
+        }
 
         // Wait for the next message
         receiveResult = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);

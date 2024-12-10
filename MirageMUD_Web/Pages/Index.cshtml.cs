@@ -1,20 +1,22 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using MirageMUD_Web.Services;
 
 namespace MirageMUD_Web.Pages
 {
     public class IndexModel : PageModel
     {
         private readonly ILogger<IndexModel> _logger;
+        private readonly WebSocketService _webSocketService;
 
-        public IndexModel(ILogger<IndexModel> logger)
+        public IndexModel(WebSocketService webSocketService)
         {
-            _logger = logger;
+            _webSocketService = webSocketService;
         }
 
-        public void OnGet()
+        public async Task OnGetAsync()
         {
-
+            await _webSocketService.PingServerAsync(new Uri("wss://localhost:7777/ws"));
         }
     }
 }
