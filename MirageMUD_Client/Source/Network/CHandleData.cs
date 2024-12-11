@@ -75,6 +75,8 @@ namespace MirageMUD_WFClient.Source.Network
             Packets.Add((int)ServerPackets.SSync, HandleSync);
             Packets.Add((int)ServerPackets.SRoomRevs, HandleRoomRevs);
             Packets.Add((int)ServerPackets.SReRoll, HandleReRoll);
+            Packets.Add((int)ServerPackets.SRaces, HandleRaces);
+            Packets.Add((int)ServerPackets.SClasses, HandleClasses);
         }
 
         // Handles incoming messages by identifying the appropriate packet handler
@@ -232,5 +234,7 @@ namespace MirageMUD_WFClient.Source.Network
                     frmMenu.Default.lblstat_Cha.Text = buffer.GetInteger().ToString());
             }
         }
+        public void HandleRaces(byte[] data) { }
+        public void HandleClasses(byte[] data) { }
     }
 }

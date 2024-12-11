@@ -6,6 +6,7 @@ using System.Xml.Linq;
 using System.IO;
 using MirageMUD_Server.Types;
 using MirageMUD_Server.Utilities;
+using MirageMUD_Server.PlayerData;
 
 namespace MirageMUD_Server.Network
 {
@@ -131,5 +132,43 @@ namespace MirageMUD_Server.Network
 
             buffer.Dispose();
         }
+
+        public void SendRaces(int Index)
+        {
+            PacketBuffer buffer = new PacketBuffer();
+
+            // Indicate the type of packet being sent
+            buffer.AddInteger((int)ServerPackets.SRaces);
+
+            // Get the list of races from the race dictionary or collection
+            foreach (var race in Races.GetAllRaces())
+            {
+                buffer.AddString(race.Name); // Add each race's name to the buffer
+            }
+
+            // Send the buffer data to the client
+            SendDataTo(Index, buffer.ToArray());
+
+            buffer.Dispose();
+        }
+        public void SendClasses(int Index)
+        {
+            PacketBuffer buffer = new PacketBuffer();
+
+            // Indicate the type of packet being sent
+            buffer.AddInteger((int)ServerPackets.SClasses);
+
+            // Get the list of classes from the class dictionary or collection
+            foreach (var playerClass in Classes.GetAllClasses())
+            {
+                buffer.AddString(playerClass.Name); // Add each class's name to the buffer
+            }
+
+            // Send the buffer data to the client
+            SendDataTo(Index, buffer.ToArray());
+
+            buffer.Dispose();
+        }
+
     }
 }

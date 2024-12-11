@@ -2,6 +2,7 @@
 using MirageMUD_Server.Types;
 using MirageMUD_Server.Network;
 using MirageMUD_Server.Storage;
+using MirageMUD_Server.PlayerData;
 
 namespace MirageMUD_Server.Core
 {
@@ -51,6 +52,12 @@ namespace MirageMUD_Server.Core
                 // Initialize the Player account and its characters
                 STypes.Player[i] = new STypes.AccountStruct();
                 STypes.Player[i].Initialise(Constants.MAX_CHARS); // Initialize characters with the correct size
+
+                // Load races and classes
+                string raceJson = System.IO.File.ReadAllText("Data/races.json");
+                Races.LoadRacesFromJson(raceJson); // Load the races
+                string classJson = System.IO.File.ReadAllText("Data/classes.json");
+                Classes.LoadClassesFromJson(classJson); // Load the classes
             }
             stcp.InitialiseNetwork();
             Console.WriteLine(TranslationManager.Instance.GetTranslation("server.server_started"));

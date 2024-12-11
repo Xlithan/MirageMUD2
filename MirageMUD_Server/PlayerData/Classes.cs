@@ -1,67 +1,54 @@
-﻿namespace MirageMUD_Server.PlayerData
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace MirageMUD_Server.PlayerData
 {
-    internal enum PlayerClass
+    internal class Class
     {
-        Berserker = 0,
-        Pacifist = 1,
-        Paladin = 2,
-        Fighter = 3,
-        Mage = 4,
-        Cleric = 5,
-        Druid = 6,
-        Ranger = 7,
-        Thief = 8
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public Dictionary<string, int> Bonuses { get; set; } // Optional stat bonuses
     }
 
     internal static class Classes
     {
+        // Store the class data dynamically
+        private static List<Class> _classes = new List<Class>();
+
+        // Load classes from JSON
+        public static void LoadClassesFromJson(string json)
+        {
+            _classes = System.Text.Json.JsonSerializer.Deserialize<List<Class>>(json)
+                      ?? new List<Class>();
+        }
+
         // Converts a class ID to its name as a string
         public static string GetClassName(int classId)
         {
-            if (Enum.IsDefined(typeof(PlayerClass), classId))
-            {
-                return ((PlayerClass)classId).ToString();
-            }
-            return "Unknown";
+            var playerClass = _classes.FirstOrDefault(c => c.Id == classId);
+            return playerClass?.Name ?? "Unknown";
         }
 
         // Converts a class name to its ID
         public static int GetClassId(string className)
         {
-            if (Enum.TryParse(className, true, out PlayerClass playerClass))
-            {
-                return (int)playerClass;
-            }
-            return -1; // Return -1 if the class name is invalid
+            var playerClass = _classes.FirstOrDefault(c => string.Equals(c.Name, className, StringComparison.OrdinalIgnoreCase));
+            return playerClass?.Id ?? -1; // Return -1 if the class name is invalid
+        }
+        public static List<Class> GetAllClasses()
+        {
+            return _classes; // Returns the loaded list of classes
         }
 
-        // Example: Get the base stats for a class
-        public static (int Strength, int Agility, int Intelligence) GetBaseStats(PlayerClass playerClass)
+        // Example method to demonstrate dynamic functionality
+        public static void Examples()
         {
-            return playerClass switch
-            {
-                PlayerClass.Berserker => (18, 10, 5),
-                PlayerClass.Pacifist => (5, 10, 18),
-                PlayerClass.Paladin => (15, 12, 8),
-                PlayerClass.Fighter => (16, 12, 6),
-                PlayerClass.Mage => (5, 8, 20),
-                PlayerClass.Cleric => (8, 10, 16),
-                PlayerClass.Druid => (10, 10, 15),
-                PlayerClass.Ranger => (12, 16, 8),
-                PlayerClass.Thief => (10, 18, 5),
-                _ => (0, 0, 0)
-            };
-        }
+            int classId = 3; // Assume this is Fighter
+            string className = GetClassName(classId); // Dynamically gets "Fighter" from JSON
 
-        // Examples usages:
-        private static void Examples()
-        {
-            int classId = 3; // Fighter
-            string className = GetClassName(classId); // "Fighter"
-
-            int id = GetClassId("Mage"); // 4
-
-            var stats = GetBaseStats(PlayerClass.Thief); // (10, 18, 5)
+            int id = GetClassId("Mage"); // Dynamically gets ID for "Mage" from JSON
         }
     }
 }

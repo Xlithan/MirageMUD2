@@ -60,6 +60,8 @@
         SSync,
         SRoomRevs,
         SReRoll,
+        SRaces,
+        SClasses,
         //The following enum member automatically stores the number of messages,
         //since it is last. Any new messages must be placed above this entry.
         SMSG_COUNT
