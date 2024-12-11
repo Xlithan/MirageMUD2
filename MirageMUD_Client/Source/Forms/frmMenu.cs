@@ -15,9 +15,6 @@ namespace MirageMUD_WFClient
         ClientTCP clientTCP;  // Instance of ClientTCP for network communication
         public bool navEnabled = true; // Navigation menu toggle
 
-        private RadioButtonManager _raceManager; // For new character race selection
-        private RadioButtonManager _classManager; // For new character class selection
-
         // Enum for different menu states
         public enum MenuState : byte
         {
@@ -34,12 +31,18 @@ namespace MirageMUD_WFClient
 
         public void RunOnUIThread(Action action)
         {
-            if (InvokeRequired)
-                Invoke(action);
-            else
-                action();
+            try
+            {
+                if (InvokeRequired)
+                    BeginInvoke(action);
+                else
+                    action();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Exception on UI thread: {ex.Message}");
+            }
         }
-
         private static frmMenu defaultInstance;
         public static frmMenu Default
         {
@@ -87,16 +90,6 @@ namespace MirageMUD_WFClient
                 { "sv", "Swedish (Svenska)" }
             };
 
-            // Initialize managers for the panels
-            _raceManager = new RadioButtonManager(pnlRace);
-            _classManager = new RadioButtonManager(pnlClass);
-
-            // Subscribe to the CheckedChanged event for race radio buttons
-            foreach (var radioButton in _raceManager.RadioButtons)
-            {
-                radioButton.CheckedChanged += RaceRadioButton_CheckedChanged;
-            }
-
             // Populate the combo box with language names
             cmbOptLang.Items.Clear();  // Clear any existing items
             foreach (var option in languageOptions.Values)  // Loop through and add languages
@@ -130,7 +123,6 @@ namespace MirageMUD_WFClient
         private void frmMenu_Load(object sender, EventArgs e)
         {
             // Set all panel visibility to false initially
-            pnlCharacters.Visible = false;
             pnlCredits.Visible = false;
             pnlGameOptions.Visible = false;
             pnlIPConfig.Visible = false;
@@ -344,8 +336,6 @@ namespace MirageMUD_WFClient
         public void HidePanels()
         {
             this.BackgroundImage = null;  // Remove background image
-            pnlCharacters.Visible = false;  // Hide characters panel
-            pnlNewChar.Visible = false;
             pnlCredits.Visible = false;  // Hide credits panel
             pnlGameOptions.Visible = false;  // Hide game options panel
             pnlIPConfig.Visible = false;  // Hide IP config panel
@@ -407,13 +397,6 @@ namespace MirageMUD_WFClient
                     MessageBox.Show(translatedMessage, "Error", MessageBoxButtons.OK);
                 }
             }
-        }
-
-        // Event handler for when the "Cancel" button in characters panel is clicked
-        private void btnCharsCancel_Click(object sender, EventArgs e)
-        {
-            pnlCharacters.Visible = false;  // Hide characters panel
-            pnlLogin.Visible = true;  // Show login panel
         }
 
         // Event handler for when the "New Account Connect" button is clicked
@@ -612,142 +595,6 @@ namespace MirageMUD_WFClient
                 // Show the error message in a message box
                 MessageBox.Show(translatedMessage);
             }
-        }
-
-        private void RaceRadioButton_CheckedChanged(object sender, EventArgs e)
-        {
-            if (sender is RadioButton selected && selected.Checked)
-            {
-                // Disable certain class options based on the selected race
-                if (selected.Text == "Dwarf")
-                {
-                    _classManager.SetEnabled(new[] { "Berserker", "Fighter", "Cleric", "Thief", "Pacifist" }, true); // Enable certain classes
-                    _classManager.SetEnabled(new[] { "Paladin", "Mage", "Druid", "Ranger" }, false); // Disable others
-                    optClassBerserker.Checked = true;
-                }
-                else if (selected.Text == "Elf")
-                {
-                    _classManager.SetEnabled(new[] { "Fighter", "Mage", "Cleric", "Druid", "Ranger", "Pacifist" }, true);
-                    _classManager.SetEnabled(new[] { "Berserker", "Paladin", "Thief" }, false);
-                    optClassFighter.Checked = true;
-                }
-                else if (selected.Text == "Human")
-                {
-                    _classManager.SetEnabled(new[] { "Berserker", "Paladin", "Fighter", "Mage", "Cleric", "Druid", "Ranger", "Thief", "Pacifist" }, true);
-                    _classManager.SetEnabled(new[] { "" }, false);
-                    optClassBerserker.Checked = true;
-                }
-                else if (selected.Text == "Gnome")
-                {
-                    _classManager.SetEnabled(new[] { "Mage", "Cleric", "Thief", "Pacifist" }, true);
-                    _classManager.SetEnabled(new[] { "Berserker", "Paladin", "Fighter", "Druid", "Ranger" }, false);
-                    optClassMage.Checked = true;
-                }
-                else if (selected.Text == "Halfling")
-                {
-                    _classManager.SetEnabled(new[] { "Paladin", "Fighter", "Cleric", "Druid", "Ranger", "Thief", "Pacifist" }, true);
-                    _classManager.SetEnabled(new[] { "Berserker", "Mage" }, false);
-                    optClassPaladin.Checked = true;
-                }
-                else if (selected.Text == "Half-Elf")
-                {
-                    _classManager.SetEnabled(new[] { "Berserker", "Fighter", "Mage", "Cleric", "Druid", "Ranger", "Pacifist" }, true);
-                    _classManager.SetEnabled(new[] { "Paladin", "Thief" }, false);
-                    optClassBerserker.Checked = true;
-                }
-                else if (selected.Text == "Half-Orc")
-                {
-                    _classManager.SetEnabled(new[] { "Berserker", "Fighter" }, true);
-                    _classManager.SetEnabled(new[] { "Pacifist", "Paladin", "Mage", "Cleric", "Druid", "Ranger", "Thief" }, false);
-                    optClassBerserker.Checked = true;
-                }
-                else
-                {
-                    // Disable all class options if no specific race is selected
-                    _classManager.SetEnabled(_classManager.RadioButtons.Select(rb => rb.Text).ToArray(), false);
-                }
-            }
-        }
-
-        private void picNewCharAvatar_Click(object sender, EventArgs e)
-        {
-            // Open the dialog form
-            using (var imageSelectorForm = new dlgAvatarSelection())
-            {
-                if (imageSelectorForm.ShowDialog() == DialogResult.OK)
-                {
-                    // Get the selected image name
-                    string selectedImageName = imageSelectorForm.SelectedImageName;
-
-                    if (!string.IsNullOrEmpty(selectedImageName))
-                    {
-                        // Construct the full path to the image
-                        string imagePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "gfx", "avatars", "players", selectedImageName);
-
-                        if (File.Exists(imagePath))
-                        {
-                            // Set the image in the PictureBox
-                            picNewCharAvatar.Image = Image.FromFile(imagePath);
-                            picNewCharAvatar.SizeMode = PictureBoxSizeMode.StretchImage;
-                        }
-                        else
-                        {
-                            MessageBox.Show($"Image not found: {imagePath}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                    }
-                }
-            }
-        }
-
-        public void NewCharReset()
-        {
-            // Construct the full path to the image
-            string imagePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "gfx", "avatars", "players", "1.bmp");
-
-            if (File.Exists(imagePath))
-            {
-                // Set the image in the PictureBox
-                picNewCharAvatar.Image = Image.FromFile(imagePath);
-                picNewCharAvatar.SizeMode = PictureBoxSizeMode.StretchImage;
-            }
-            else
-            {
-                picNewCharAvatar.Image = null;
-            }
-
-            txtNewCharName.Text = string.Empty;
-            optRaceDwarf.Checked = true;
-            optClassBerserker.Checked = true;
-            optMale.Checked = true;
-        }
-
-        private void btnNewChar_Click(object sender, EventArgs e)
-        {
-            HidePanels();
-            pnlNewChar.Visible = true;
-
-            clientTCP.SendRerollRequest();  // Send login data to server
-            NewCharReset();
-        }
-
-        private void btnReroll_Click(object sender, EventArgs e)
-        {
-            if (clientTCP.PlayerSocket.Connected && pnlNewChar.Visible == true)
-            {
-                clientTCP.SendRerollRequest();  // Send login data to server
-            }
-        }
-
-        private void btnNewCharCancel_Click(object sender, EventArgs e)
-        {
-            NewCharReset();
-            HidePanels();
-            pnlCharacters.Visible = true;
-        }
-
-        private void btnNewCharCreate_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

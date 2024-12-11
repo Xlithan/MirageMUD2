@@ -1,4 +1,5 @@
 ﻿using Bindings;
+using MirageMUD_Client.Source.Forms;
 using System.Diagnostics;
 
 namespace MirageMUD_WFClient.Source.Network
@@ -137,28 +138,27 @@ namespace MirageMUD_WFClient.Source.Network
             {
                 buffer.AddBytes(data);
                 buffer.GetInteger(); // Skip packet ID
+
+                frmAccount.Default = new frmAccount();
+                frmAccount.Default.Show();
+
                 frmMenu.Default.RunOnUIThread(() =>
-                    frmMenu.Default.lblAccountName.Text = buffer.GetString());
+                    frmMenu.Default.Hide());
+
                 string charName;
                 for(int i = 0; i < Constants.MAX_CHARS; i++)
                 {
                     charName = buffer.GetString();
                     if(charName.Length == 0)
                     {
-                        frmMenu.Default.RunOnUIThread(() =>
-                            frmMenu.Default.lstCharacters.Items.Add("Empty Slot"));
+                        frmAccount.Default.RunOnUIThread(() =>
+                            frmAccount.Default.lstCharacters.Items.Add("Empty Slot"));
                     }
                     else
                     {
-                        frmMenu.Default.RunOnUIThread(() =>
-                            frmMenu.Default.lstCharacters.Items.Add(charName));
+                        frmAccount.Default.RunOnUIThread(() =>
+                            frmAccount.Default.lstCharacters.Items.Add(charName));
                     }
-
-                    frmMenu.Default.RunOnUIThread(() => frmMenu.Default.HidePanels());
-                    frmMenu.Default.RunOnUIThread(() => frmMenu.Default.pnlCharacters.Visible = true);
-
-                    // Disable main menu now that we've logged in
-                    frmMenu.Default.RunOnUIThread(() => frmMenu.Default.ToggleNav());
                 }
             }
         }
@@ -220,18 +220,18 @@ namespace MirageMUD_WFClient.Source.Network
                 buffer.AddBytes(data); // Add data to buffer
                 buffer.GetInteger(); // Skip packet ID
 
-                frmMenu.Default.RunOnUIThread(() => // Strength
-                    frmMenu.Default.lblstat_Str.Text = buffer.GetInteger().ToString());
-                frmMenu.Default.RunOnUIThread(() => // Intelligence
-                    frmMenu.Default.lblstat_Int.Text = buffer.GetInteger().ToString());
-                frmMenu.Default.RunOnUIThread(() => // Dexterity
-                    frmMenu.Default.lblstat_Dex.Text = buffer.GetInteger().ToString());
-                frmMenu.Default.RunOnUIThread(() => // Constitution
-                    frmMenu.Default.lblstat_Con.Text = buffer.GetInteger().ToString());
-                frmMenu.Default.RunOnUIThread(() => // Wisdom
-                    frmMenu.Default.lblstat_Wis.Text = buffer.GetInteger().ToString());
-                frmMenu.Default.RunOnUIThread(() => // Charisma
-                    frmMenu.Default.lblstat_Cha.Text = buffer.GetInteger().ToString());
+                frmAccount.Default.RunOnUIThread(() => // Strength
+                    frmAccount.Default.lblstat_Str.Text = buffer.GetInteger().ToString());
+                frmAccount.Default.RunOnUIThread(() => // Intelligence
+                    frmAccount.Default.lblstat_Int.Text = buffer.GetInteger().ToString());
+                frmAccount.Default.RunOnUIThread(() => // Dexterity
+                    frmAccount.Default.lblstat_Dex.Text = buffer.GetInteger().ToString());
+                frmAccount.Default.RunOnUIThread(() => // Constitution
+                    frmAccount.Default.lblstat_Con.Text = buffer.GetInteger().ToString());
+                frmAccount.Default.RunOnUIThread(() => // Wisdom
+                    frmAccount.Default.lblstat_Wis.Text = buffer.GetInteger().ToString());
+                frmAccount.Default.RunOnUIThread(() => // Charisma
+                    frmAccount.Default.lblstat_Cha.Text = buffer.GetInteger().ToString());
             }
         }
         public void HandleRaces(byte[] data) { }
