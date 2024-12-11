@@ -101,6 +101,24 @@
             lblWelcomeDesc = new Label();
             picBackground = new PictureBox();
             pnlNewChar = new Panel();
+            pnlClass = new FlowLayoutPanel();
+            optClassBerserker = new RadioButton();
+            optClassPacifist = new RadioButton();
+            optClassPaladin = new RadioButton();
+            optClassFighter = new RadioButton();
+            optClassMage = new RadioButton();
+            optClassCleric = new RadioButton();
+            optClassDruid = new RadioButton();
+            optClassRanger = new RadioButton();
+            optClassThief = new RadioButton();
+            pnlRace = new FlowLayoutPanel();
+            optRaceDwarf = new RadioButton();
+            optRaceElf = new RadioButton();
+            optRaceHuman = new RadioButton();
+            optRaceGnome = new RadioButton();
+            optRaceHalfling = new RadioButton();
+            optRaceHalfElf = new RadioButton();
+            optRaceHalfOrc = new RadioButton();
             pnlRoller = new Panel();
             btnReroll = new Button();
             lblstat_Cha = new Label();
@@ -117,12 +135,10 @@
             label7 = new Label();
             label4 = new Label();
             btnNewCharCreate = new Button();
-            cmbClass = new ComboBox();
             label3 = new Label();
             picNewCharAvatar = new PictureBox();
             optFemale = new RadioButton();
             optMale = new RadioButton();
-            cmbRace = new ComboBox();
             label1 = new Label();
             btnNewCharCancel = new Button();
             txtNewCharName = new TextBox();
@@ -142,6 +158,8 @@
             pnlIPConfig.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picBackground).BeginInit();
             pnlNewChar.SuspendLayout();
+            pnlClass.SuspendLayout();
+            pnlRace.SuspendLayout();
             pnlRoller.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picNewCharAvatar).BeginInit();
             SuspendLayout();
@@ -1103,14 +1121,14 @@
             // 
             pnlNewChar.BackColor = Color.FromArgb(65, 65, 65);
             pnlNewChar.BackgroundImageLayout = ImageLayout.None;
+            pnlNewChar.Controls.Add(pnlClass);
+            pnlNewChar.Controls.Add(pnlRace);
             pnlNewChar.Controls.Add(pnlRoller);
             pnlNewChar.Controls.Add(btnNewCharCreate);
-            pnlNewChar.Controls.Add(cmbClass);
             pnlNewChar.Controls.Add(label3);
             pnlNewChar.Controls.Add(picNewCharAvatar);
             pnlNewChar.Controls.Add(optFemale);
             pnlNewChar.Controls.Add(optMale);
-            pnlNewChar.Controls.Add(cmbRace);
             pnlNewChar.Controls.Add(label1);
             pnlNewChar.Controls.Add(btnNewCharCancel);
             pnlNewChar.Controls.Add(txtNewCharName);
@@ -1120,6 +1138,239 @@
             pnlNewChar.Name = "pnlNewChar";
             pnlNewChar.Size = new Size(406, 384);
             pnlNewChar.TabIndex = 27;
+            // 
+            // pnlClass
+            // 
+            pnlClass.BackColor = Color.FromArgb(55, 55, 55);
+            pnlClass.Controls.Add(optClassBerserker);
+            pnlClass.Controls.Add(optClassPacifist);
+            pnlClass.Controls.Add(optClassPaladin);
+            pnlClass.Controls.Add(optClassFighter);
+            pnlClass.Controls.Add(optClassMage);
+            pnlClass.Controls.Add(optClassCleric);
+            pnlClass.Controls.Add(optClassDruid);
+            pnlClass.Controls.Add(optClassRanger);
+            pnlClass.Controls.Add(optClassThief);
+            pnlClass.Location = new Point(36, 226);
+            pnlClass.Name = "pnlClass";
+            pnlClass.Size = new Size(198, 118);
+            pnlClass.TabIndex = 41;
+            // 
+            // optClassBerserker
+            // 
+            optClassBerserker.AutoSize = true;
+            optClassBerserker.Checked = true;
+            optClassBerserker.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            optClassBerserker.ForeColor = Color.White;
+            optClassBerserker.Location = new Point(3, 3);
+            optClassBerserker.Name = "optClassBerserker";
+            optClassBerserker.Size = new Size(83, 21);
+            optClassBerserker.TabIndex = 20;
+            optClassBerserker.TabStop = true;
+            optClassBerserker.Text = "Berserker";
+            optClassBerserker.UseVisualStyleBackColor = true;
+            // 
+            // optClassPacifist
+            // 
+            optClassPacifist.AutoSize = true;
+            optClassPacifist.Enabled = false;
+            optClassPacifist.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            optClassPacifist.ForeColor = Color.White;
+            optClassPacifist.Location = new Point(92, 3);
+            optClassPacifist.Name = "optClassPacifist";
+            optClassPacifist.Size = new Size(68, 21);
+            optClassPacifist.TabIndex = 21;
+            optClassPacifist.Text = "Pacifist";
+            optClassPacifist.UseVisualStyleBackColor = true;
+            // 
+            // optClassPaladin
+            // 
+            optClassPaladin.AutoSize = true;
+            optClassPaladin.Enabled = false;
+            optClassPaladin.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            optClassPaladin.ForeColor = Color.White;
+            optClassPaladin.Location = new Point(3, 30);
+            optClassPaladin.Name = "optClassPaladin";
+            optClassPaladin.Size = new Size(70, 21);
+            optClassPaladin.TabIndex = 22;
+            optClassPaladin.Text = "Paladin";
+            optClassPaladin.UseVisualStyleBackColor = true;
+            // 
+            // optClassFighter
+            // 
+            optClassFighter.AutoSize = true;
+            optClassFighter.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            optClassFighter.ForeColor = Color.White;
+            optClassFighter.Location = new Point(79, 30);
+            optClassFighter.Name = "optClassFighter";
+            optClassFighter.Size = new Size(69, 21);
+            optClassFighter.TabIndex = 23;
+            optClassFighter.Text = "Fighter";
+            optClassFighter.UseVisualStyleBackColor = true;
+            // 
+            // optClassMage
+            // 
+            optClassMage.AutoSize = true;
+            optClassMage.Enabled = false;
+            optClassMage.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            optClassMage.ForeColor = Color.White;
+            optClassMage.Location = new Point(3, 57);
+            optClassMage.Name = "optClassMage";
+            optClassMage.Size = new Size(60, 21);
+            optClassMage.TabIndex = 24;
+            optClassMage.Text = "Mage";
+            optClassMage.UseVisualStyleBackColor = true;
+            // 
+            // optClassCleric
+            // 
+            optClassCleric.AutoSize = true;
+            optClassCleric.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            optClassCleric.ForeColor = Color.White;
+            optClassCleric.Location = new Point(69, 57);
+            optClassCleric.Name = "optClassCleric";
+            optClassCleric.Size = new Size(58, 21);
+            optClassCleric.TabIndex = 25;
+            optClassCleric.Text = "Cleric";
+            optClassCleric.UseVisualStyleBackColor = true;
+            // 
+            // optClassDruid
+            // 
+            optClassDruid.AutoSize = true;
+            optClassDruid.Enabled = false;
+            optClassDruid.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            optClassDruid.ForeColor = Color.White;
+            optClassDruid.Location = new Point(133, 57);
+            optClassDruid.Name = "optClassDruid";
+            optClassDruid.Size = new Size(59, 21);
+            optClassDruid.TabIndex = 26;
+            optClassDruid.Text = "Druid";
+            optClassDruid.UseVisualStyleBackColor = true;
+            // 
+            // optClassRanger
+            // 
+            optClassRanger.AutoSize = true;
+            optClassRanger.Enabled = false;
+            optClassRanger.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            optClassRanger.ForeColor = Color.White;
+            optClassRanger.Location = new Point(3, 84);
+            optClassRanger.Name = "optClassRanger";
+            optClassRanger.Size = new Size(69, 21);
+            optClassRanger.TabIndex = 27;
+            optClassRanger.Text = "Ranger";
+            optClassRanger.UseVisualStyleBackColor = true;
+            // 
+            // optClassThief
+            // 
+            optClassThief.AutoSize = true;
+            optClassThief.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            optClassThief.ForeColor = Color.White;
+            optClassThief.Location = new Point(78, 84);
+            optClassThief.Name = "optClassThief";
+            optClassThief.Size = new Size(55, 21);
+            optClassThief.TabIndex = 28;
+            optClassThief.Text = "Thief";
+            optClassThief.UseVisualStyleBackColor = true;
+            // 
+            // pnlRace
+            // 
+            pnlRace.BackColor = Color.FromArgb(55, 55, 55);
+            pnlRace.Controls.Add(optRaceDwarf);
+            pnlRace.Controls.Add(optRaceElf);
+            pnlRace.Controls.Add(optRaceHuman);
+            pnlRace.Controls.Add(optRaceGnome);
+            pnlRace.Controls.Add(optRaceHalfling);
+            pnlRace.Controls.Add(optRaceHalfElf);
+            pnlRace.Controls.Add(optRaceHalfOrc);
+            pnlRace.Location = new Point(36, 114);
+            pnlRace.Name = "pnlRace";
+            pnlRace.Size = new Size(198, 88);
+            pnlRace.TabIndex = 40;
+            // 
+            // optRaceDwarf
+            // 
+            optRaceDwarf.AutoSize = true;
+            optRaceDwarf.Checked = true;
+            optRaceDwarf.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            optRaceDwarf.ForeColor = Color.White;
+            optRaceDwarf.Location = new Point(3, 3);
+            optRaceDwarf.Name = "optRaceDwarf";
+            optRaceDwarf.Size = new Size(61, 21);
+            optRaceDwarf.TabIndex = 20;
+            optRaceDwarf.TabStop = true;
+            optRaceDwarf.Text = "Dwarf";
+            optRaceDwarf.UseVisualStyleBackColor = true;
+            // 
+            // optRaceElf
+            // 
+            optRaceElf.AutoSize = true;
+            optRaceElf.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            optRaceElf.ForeColor = Color.White;
+            optRaceElf.Location = new Point(70, 3);
+            optRaceElf.Name = "optRaceElf";
+            optRaceElf.Size = new Size(40, 21);
+            optRaceElf.TabIndex = 21;
+            optRaceElf.Text = "Elf";
+            optRaceElf.UseVisualStyleBackColor = true;
+            // 
+            // optRaceHuman
+            // 
+            optRaceHuman.AutoSize = true;
+            optRaceHuman.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            optRaceHuman.ForeColor = Color.White;
+            optRaceHuman.Location = new Point(116, 3);
+            optRaceHuman.Name = "optRaceHuman";
+            optRaceHuman.Size = new Size(71, 21);
+            optRaceHuman.TabIndex = 22;
+            optRaceHuman.Text = "Human";
+            optRaceHuman.UseVisualStyleBackColor = true;
+            // 
+            // optRaceGnome
+            // 
+            optRaceGnome.AutoSize = true;
+            optRaceGnome.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            optRaceGnome.ForeColor = Color.White;
+            optRaceGnome.Location = new Point(3, 30);
+            optRaceGnome.Name = "optRaceGnome";
+            optRaceGnome.Size = new Size(70, 21);
+            optRaceGnome.TabIndex = 23;
+            optRaceGnome.Text = "Gnome";
+            optRaceGnome.UseVisualStyleBackColor = true;
+            // 
+            // optRaceHalfling
+            // 
+            optRaceHalfling.AutoSize = true;
+            optRaceHalfling.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            optRaceHalfling.ForeColor = Color.White;
+            optRaceHalfling.Location = new Point(79, 30);
+            optRaceHalfling.Name = "optRaceHalfling";
+            optRaceHalfling.Size = new Size(72, 21);
+            optRaceHalfling.TabIndex = 24;
+            optRaceHalfling.Text = "Halfling";
+            optRaceHalfling.UseVisualStyleBackColor = true;
+            // 
+            // optRaceHalfElf
+            // 
+            optRaceHalfElf.AutoSize = true;
+            optRaceHalfElf.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            optRaceHalfElf.ForeColor = Color.White;
+            optRaceHalfElf.Location = new Point(3, 57);
+            optRaceHalfElf.Name = "optRaceHalfElf";
+            optRaceHalfElf.Size = new Size(68, 21);
+            optRaceHalfElf.TabIndex = 25;
+            optRaceHalfElf.Text = "Half-Elf";
+            optRaceHalfElf.UseVisualStyleBackColor = true;
+            // 
+            // optRaceHalfOrc
+            // 
+            optRaceHalfOrc.AutoSize = true;
+            optRaceHalfOrc.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            optRaceHalfOrc.ForeColor = Color.White;
+            optRaceHalfOrc.Location = new Point(77, 57);
+            optRaceHalfOrc.Name = "optRaceHalfOrc";
+            optRaceHalfOrc.Size = new Size(75, 21);
+            optRaceHalfOrc.TabIndex = 26;
+            optRaceHalfOrc.Text = "Half-Orc";
+            optRaceHalfOrc.UseVisualStyleBackColor = true;
             // 
             // pnlRoller
             // 
@@ -1138,7 +1389,7 @@
             pnlRoller.Controls.Add(label8);
             pnlRoller.Controls.Add(label7);
             pnlRoller.Controls.Add(label4);
-            pnlRoller.Location = new Point(221, 119);
+            pnlRoller.Location = new Point(240, 114);
             pnlRoller.Name = "pnlRoller";
             pnlRoller.Size = new Size(154, 170);
             pnlRoller.TabIndex = 39;
@@ -1325,30 +1576,20 @@
             btnNewCharCreate.Font = new Font("Nirmala UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnNewCharCreate.ForeColor = Color.Silver;
             btnNewCharCreate.ImageAlign = ContentAlignment.MiddleLeft;
-            btnNewCharCreate.Location = new Point(204, 298);
+            btnNewCharCreate.Location = new Point(239, 298);
             btnNewCharCreate.Name = "btnNewCharCreate";
-            btnNewCharCreate.Size = new Size(190, 34);
+            btnNewCharCreate.Size = new Size(155, 34);
             btnNewCharCreate.TabIndex = 38;
             btnNewCharCreate.Text = "Create";
             btnNewCharCreate.UseVisualStyleBackColor = false;
-            // 
-            // cmbClass
-            // 
-            cmbClass.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbClass.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            cmbClass.FormattingEnabled = true;
-            cmbClass.Items.AddRange(new object[] { "Berserker", "Pacifist", "Paladin", "Fighter", "Mage", "Cleric", "Druid", "Ranger", "Thief" });
-            cmbClass.Location = new Point(36, 187);
-            cmbClass.Name = "cmbClass";
-            cmbClass.Size = new Size(165, 23);
-            cmbClass.TabIndex = 23;
+            btnNewCharCreate.Click += btnNewCharCreate_Click;
             // 
             // label3
             // 
             label3.BackColor = Color.Transparent;
             label3.Font = new Font("Verdana", 9F, FontStyle.Bold);
             label3.ForeColor = Color.White;
-            label3.Location = new Point(36, 166);
+            label3.Location = new Point(36, 205);
             label3.Name = "label3";
             label3.Size = new Size(103, 18);
             label3.TabIndex = 22;
@@ -1360,9 +1601,9 @@
             picNewCharAvatar.BackgroundImageLayout = ImageLayout.Stretch;
             picNewCharAvatar.BorderStyle = BorderStyle.FixedSingle;
             picNewCharAvatar.Image = (Image)resources.GetObject("picNewCharAvatar.Image");
-            picNewCharAvatar.Location = new Point(36, 259);
+            picNewCharAvatar.Location = new Point(322, 18);
             picNewCharAvatar.Name = "picNewCharAvatar";
-            picNewCharAvatar.Size = new Size(96, 96);
+            picNewCharAvatar.Size = new Size(72, 72);
             picNewCharAvatar.SizeMode = PictureBoxSizeMode.StretchImage;
             picNewCharAvatar.TabIndex = 21;
             picNewCharAvatar.TabStop = false;
@@ -1373,7 +1614,7 @@
             optFemale.AutoSize = true;
             optFemale.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             optFemale.ForeColor = Color.White;
-            optFemale.Location = new Point(97, 223);
+            optFemale.Location = new Point(97, 350);
             optFemale.Name = "optFemale";
             optFemale.Size = new Size(69, 21);
             optFemale.TabIndex = 20;
@@ -1386,7 +1627,7 @@
             optMale.AutoSize = true;
             optMale.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             optMale.ForeColor = Color.White;
-            optMale.Location = new Point(36, 223);
+            optMale.Location = new Point(36, 350);
             optMale.Name = "optMale";
             optMale.Size = new Size(55, 21);
             optMale.TabIndex = 19;
@@ -1394,23 +1635,12 @@
             optMale.Text = "Male";
             optMale.UseVisualStyleBackColor = true;
             // 
-            // cmbRace
-            // 
-            cmbRace.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbRace.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            cmbRace.FormattingEnabled = true;
-            cmbRace.Items.AddRange(new object[] { "Dwarf", "Elf", "Human", "Gnome", "Halfling", "Half-Elf", "Half-Orc" });
-            cmbRace.Location = new Point(36, 137);
-            cmbRace.Name = "cmbRace";
-            cmbRace.Size = new Size(165, 23);
-            cmbRace.TabIndex = 18;
-            // 
             // label1
             // 
             label1.BackColor = Color.Transparent;
             label1.Font = new Font("Verdana", 9F, FontStyle.Bold);
             label1.ForeColor = Color.White;
-            label1.Location = new Point(36, 116);
+            label1.Location = new Point(36, 93);
             label1.Name = "label1";
             label1.Size = new Size(103, 18);
             label1.TabIndex = 17;
@@ -1426,18 +1656,19 @@
             btnNewCharCancel.Font = new Font("Nirmala UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnNewCharCancel.ForeColor = Color.Silver;
             btnNewCharCancel.ImageAlign = ContentAlignment.MiddleLeft;
-            btnNewCharCancel.Location = new Point(204, 338);
+            btnNewCharCancel.Location = new Point(239, 338);
             btnNewCharCancel.Name = "btnNewCharCancel";
-            btnNewCharCancel.Size = new Size(190, 34);
+            btnNewCharCancel.Size = new Size(155, 34);
             btnNewCharCancel.TabIndex = 16;
             btnNewCharCancel.Text = "Cancel";
             btnNewCharCancel.UseVisualStyleBackColor = false;
+            btnNewCharCancel.Click += btnNewCharCancel_Click;
             // 
             // txtNewCharName
             // 
-            txtNewCharName.Location = new Point(36, 90);
+            txtNewCharName.Location = new Point(36, 67);
             txtNewCharName.Name = "txtNewCharName";
-            txtNewCharName.Size = new Size(311, 23);
+            txtNewCharName.Size = new Size(276, 23);
             txtNewCharName.TabIndex = 9;
             // 
             // label5
@@ -1445,7 +1676,7 @@
             label5.BackColor = Color.Transparent;
             label5.Font = new Font("Verdana", 9F, FontStyle.Bold);
             label5.ForeColor = Color.White;
-            label5.Location = new Point(36, 69);
+            label5.Location = new Point(36, 46);
             label5.Name = "label5";
             label5.Size = new Size(75, 18);
             label5.TabIndex = 3;
@@ -1524,6 +1755,10 @@
             ((System.ComponentModel.ISupportInitialize)picBackground).EndInit();
             pnlNewChar.ResumeLayout(false);
             pnlNewChar.PerformLayout();
+            pnlClass.ResumeLayout(false);
+            pnlClass.PerformLayout();
+            pnlRace.ResumeLayout(false);
+            pnlRace.PerformLayout();
             pnlRoller.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)picNewCharAvatar).EndInit();
             ResumeLayout(false);
@@ -1602,17 +1837,12 @@
         public PictureBox picBackground;
         public Label lblAccountName;
         public Panel pnlNewChar;
-        private ComboBox cmbRace;
         private Label label1;
         private Button btnNewCharCancel;
-        private TextBox txtNewCharName;
         private Label label5;
         private Label label6;
         private PictureBox picNewCharAvatar;
-        private RadioButton optFemale;
-        private RadioButton optMale;
         public Label lblStatus;
-        private ComboBox cmbClass;
         private Label label3;
         private Button btnNewCharCreate;
         private Panel pnlRoller;
@@ -1630,5 +1860,26 @@
         private Label label8;
         private Label label7;
         private Label label4;
+        public TextBox txtNewCharName;
+        public RadioButton optFemale;
+        public RadioButton optMale;
+        private FlowLayoutPanel pnlRace;
+        public RadioButton optRaceDwarf;
+        public RadioButton optRaceElf;
+        public RadioButton optRaceHuman;
+        public RadioButton optRaceGnome;
+        public RadioButton optRaceHalfling;
+        public RadioButton optRaceHalfElf;
+        public RadioButton optRaceHalfOrc;
+        private FlowLayoutPanel pnlClass;
+        public RadioButton optClassBerserker;
+        public RadioButton optClassPacifist;
+        public RadioButton optClassPaladin;
+        public RadioButton optClassFighter;
+        public RadioButton optClassMage;
+        public RadioButton optClassCleric;
+        public RadioButton optClassDruid;
+        public RadioButton optClassRanger;
+        public RadioButton optClassThief;
     }
 }

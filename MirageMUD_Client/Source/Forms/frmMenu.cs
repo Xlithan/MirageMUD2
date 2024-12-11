@@ -1,4 +1,5 @@
 using MirageMUD_Client.Core;
+using MirageMUD_Client.Source.Utilities;
 using MirageMUD_WFClient.Source.Forms;
 using MirageMUD_WFClient.Source.Network;  // Imports networking utilities
 using MirageMUD_WFClient.Source.Utilities;  // Imports additional utilities
@@ -13,6 +14,9 @@ namespace MirageMUD_WFClient
     {
         ClientTCP clientTCP;  // Instance of ClientTCP for network communication
         public bool navEnabled = true; // Navigation menu toggle
+
+        private RadioButtonManager _raceManager; // For new character race selection
+        private RadioButtonManager _classManager; // For new character class selection
 
         // Enum for different menu states
         public enum MenuState : byte
@@ -82,6 +86,16 @@ namespace MirageMUD_WFClient
                 { "pl", "Polish (Polski)" },
                 { "sv", "Swedish (Svenska)" }
             };
+
+            // Initialize managers for the panels
+            _raceManager = new RadioButtonManager(pnlRace);
+            _classManager = new RadioButtonManager(pnlClass);
+
+            // Subscribe to the CheckedChanged event for race radio buttons
+            foreach (var radioButton in _raceManager.RadioButtons)
+            {
+                radioButton.CheckedChanged += RaceRadioButton_CheckedChanged;
+            }
 
             // Populate the combo box with language names
             cmbOptLang.Items.Clear();  // Clear any existing items
@@ -176,7 +190,7 @@ namespace MirageMUD_WFClient
 
             HidePanels();  // Hide all panels
             // Set the background image from the resources
-            this.BackgroundImage = Properties.Resources.menuback;  // Set default background image
+            //this.BackgroundImage = Properties.Resources.menuback;  // Set default background image
 
             // Update navigation panel height and position to match home button
             pnlNav.Height = btnHome.Height;
@@ -317,7 +331,7 @@ namespace MirageMUD_WFClient
         {
             HidePanels();  // Hide all panels
             // Set the background image from the resources
-            this.BackgroundImage = Properties.Resources.menuback;  // Set default background image
+            //this.BackgroundImage = Properties.Resources.menuback;  // Set default background image
 
             // Update navigation panel height and position to match home button
             pnlNav.Height = btnHome.Height;
@@ -600,6 +614,61 @@ namespace MirageMUD_WFClient
             }
         }
 
+        private void RaceRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            if (sender is RadioButton selected && selected.Checked)
+            {
+                // Example logic: Disable certain class options based on the selected race
+                if (selected.Text == "Dwarf")
+                {
+                    _classManager.SetEnabled(new[] { "Berserker", "Fighter", "Cleric", "Thief", "Pacifist" }, true); // Enable certain classes
+                    _classManager.SetEnabled(new[] { "Paladin", "Mage", "Druid", "Ranger" }, false); // Disable others
+                    optClassBerserker.Checked = true;
+                }
+                else if (selected.Text == "Elf")
+                {
+                    _classManager.SetEnabled(new[] { "Fighter", "Mage", "Cleric", "Druid", "Ranger", "Pacifist" }, true);
+                    _classManager.SetEnabled(new[] { "Berserker", "Paladin", "Thief" }, false);
+                    optClassFighter.Checked = true;
+                }
+                else if (selected.Text == "Human")
+                {
+                    _classManager.SetEnabled(new[] { "Berserker", "Paladin", "Fighter", "Mage", "Cleric", "Druid", "Ranger", "Thief", "Pacifist" }, true);
+                    _classManager.SetEnabled(new[] { "" }, false);
+                    optClassBerserker.Checked = true;
+                }
+                else if (selected.Text == "Gnome")
+                {
+                    _classManager.SetEnabled(new[] { "Mage", "Cleric", "Thief", "Pacifist" }, true);
+                    _classManager.SetEnabled(new[] { "Berserker", "Paladin", "Fighter", "Druid", "Ranger" }, false);
+                    optClassMage.Checked = true;
+                }
+                else if (selected.Text == "Halfling")
+                {
+                    _classManager.SetEnabled(new[] { "Paladin", "Fighter", "Cleric", "Druid", "Ranger", "Thief", "Pacifist" }, true);
+                    _classManager.SetEnabled(new[] { "Berserker", "Mage" }, false);
+                    optClassPaladin.Checked = true;
+                }
+                else if (selected.Text == "Half-Elf")
+                {
+                    _classManager.SetEnabled(new[] { "Berserker", "Fighter", "Mage", "Cleric", "Druid", "Ranger", "Pacifist" }, true);
+                    _classManager.SetEnabled(new[] { "Paladin", "Thief" }, false);
+                    optClassBerserker.Checked = true;
+                }
+                else if (selected.Text == "Half-Orc")
+                {
+                    _classManager.SetEnabled(new[] { "Berserker", "Fighter" }, true);
+                    _classManager.SetEnabled(new[] { "Pacifist", "Paladin", "Mage", "Cleric", "Druid", "Ranger", "Thief" }, false);
+                    optClassBerserker.Checked = true;
+                }
+                else
+                {
+                    // Re-enable all class options if no specific race is selected
+                    _classManager.SetEnabled(_classManager.RadioButtons.Select(rb => rb.Text).ToArray(), true);
+                }
+            }
+        }
+
         private void picNewCharAvatar_Click(object sender, EventArgs e)
         {
             // Open the dialog form
@@ -630,12 +699,35 @@ namespace MirageMUD_WFClient
             }
         }
 
+        public void NewCharReset()
+        {
+            // Construct the full path to the image
+            string imagePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "gfx", "avatars", "players", "1.bmp");
+
+            if (File.Exists(imagePath))
+            {
+                // Set the image in the PictureBox
+                picNewCharAvatar.Image = Image.FromFile(imagePath);
+                picNewCharAvatar.SizeMode = PictureBoxSizeMode.StretchImage;
+            }
+            else
+            {
+                picNewCharAvatar.Image = null;
+            }
+
+            txtNewCharName.Text = string.Empty;
+            optRaceDwarf.Checked = true;
+            optClassBerserker.Checked = true;
+            optMale.Checked = true;
+        }
+
         private void btnNewChar_Click(object sender, EventArgs e)
         {
             HidePanels();
             pnlNewChar.Visible = true;
 
             clientTCP.SendRerollRequest();  // Send login data to server
+            NewCharReset();
         }
 
         private void btnReroll_Click(object sender, EventArgs e)
@@ -644,6 +736,18 @@ namespace MirageMUD_WFClient
             {
                 clientTCP.SendRerollRequest();  // Send login data to server
             }
+        }
+
+        private void btnNewCharCancel_Click(object sender, EventArgs e)
+        {
+            NewCharReset();
+            HidePanels();
+            pnlCharacters.Visible = true;
+        }
+
+        private void btnNewCharCreate_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
