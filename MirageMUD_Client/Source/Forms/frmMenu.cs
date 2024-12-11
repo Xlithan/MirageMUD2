@@ -618,7 +618,7 @@ namespace MirageMUD_WFClient
         {
             if (sender is RadioButton selected && selected.Checked)
             {
-                // Example logic: Disable certain class options based on the selected race
+                // Disable certain class options based on the selected race
                 if (selected.Text == "Dwarf")
                 {
                     _classManager.SetEnabled(new[] { "Berserker", "Fighter", "Cleric", "Thief", "Pacifist" }, true); // Enable certain classes
@@ -663,8 +663,8 @@ namespace MirageMUD_WFClient
                 }
                 else
                 {
-                    // Re-enable all class options if no specific race is selected
-                    _classManager.SetEnabled(_classManager.RadioButtons.Select(rb => rb.Text).ToArray(), true);
+                    // Disable all class options if no specific race is selected
+                    _classManager.SetEnabled(_classManager.RadioButtons.Select(rb => rb.Text).ToArray(), false);
                 }
             }
         }
