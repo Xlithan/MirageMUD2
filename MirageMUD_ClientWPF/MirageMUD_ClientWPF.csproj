@@ -15,6 +15,7 @@
     <None Remove="Images\logo.png" />
     <None Remove="Images\logo_63x63.png" />
     <None Remove="Images\menuback.png" />
+    <None Remove="Images\ME_icon.ico" />
     <None Remove="Images\newcharback.png" />
     <None Remove="Images\player.bmp" />
     <None Remove="Images\right-to-bracket-solid.png" />
@@ -25,7 +26,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Images\SplashImage.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="ViewModel\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NAudio" Version="2.2.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -39,6 +48,7 @@
     <Resource Include="Images\menuback.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Images\ME_icon.ico" />
     <Resource Include="Images\newcharback.png" />
     <Resource Include="Images\player.bmp" />
     <Resource Include="Images\right-to-bracket-solid.png" />

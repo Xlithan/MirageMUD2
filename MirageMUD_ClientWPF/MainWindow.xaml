@@ -5,8 +5,43 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MirageMUD_ClientWPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-
-    </Grid>
+        Title="MainWindow" Height="450" Width="800"
+        WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
+        Background="Transparent" AllowsTransparency="True">
+    <Border CornerRadius="10">
+        <Border Opacity="1.0"
+        CornerRadius="10">
+            <Border.BorderBrush>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#303030" Offset="0"/>
+                    <GradientStop Color="#252525" Offset="0.75"/>
+                    <GradientStop Color="#202020" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.BorderBrush>
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#303030" Offset="0"/>
+                    <GradientStop Color="#202020" Offset="0.75"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                <Image x:Name="SplashImage"
+                   Source="pack://application:,,,/MirageMUD_ClientWPF;component/Images/SplashImage.png"
+                   Stretch="None"/>
+                <TextBlock x:Name="txtMadeWith"
+                       Text="Made with Mirage Engine"
+                       Foreground="LightGray"
+                       FontSize="18"
+                       FontWeight="Bold"
+                       FontFamily="Verdana"
+                       Margin="0,0,0,0"
+                       HorizontalAlignment="Center"
+                       RenderTransformOrigin="0.5,0.5">
+                    <TextBlock.RenderTransform>
+                        <ScaleTransform x:Name="TextScaleTransform" ScaleX="0.2" ScaleY="0.2" />
+                    </TextBlock.RenderTransform>
+                </TextBlock>
+            </StackPanel>
+        </Border>
+    </Border>
 </Window>

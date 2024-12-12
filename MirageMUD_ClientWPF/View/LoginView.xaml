@@ -32,6 +32,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30"/>
                     <RowDefinition/>
+                    <RowDefinition Height="50"/>
                 </Grid.RowDefinitions>
                 <Grid Background="#1F1F1F">
                     <Grid.Clip>
@@ -113,7 +114,7 @@
                     </Button>
                 </Grid>
                 <StackPanel Width="250"
-                            Grid.Row="2"
+                            Grid.Row="1"
                             Orientation="Vertical"
                             Margin="0,5,0,0">
                     <Image Source="pack://application:,,,/MirageMUD_ClientWPF;component/Images/logo.png"
@@ -214,52 +215,73 @@
                     </TextBlock>
 
                 </StackPanel>
-                <Button x:Name="btnSettings"
-                        Grid.Row="1"
-                        BorderThickness="0"
-                        FontFamily="Verdana"
-                        FontSize="12"
-                        FontWeight="Bold"
-                        Cursor="Hand"
-                        Margin="0,0,12,12"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Bottom"
-                        Click="btnSettings_Click">
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="Background" Value="#151515"/>
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="Goldenrod"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <Border Width="25" Height="25"
-                                    CornerRadius="12"
-                                    Background="{TemplateBinding Background}">
-                                <!-- StackPanel to hold the image and text together -->
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="btnSettings"
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            BorderThickness="0"
+                            FontFamily="Verdana"
+                            FontSize="12"
+                            FontWeight="Bold"
+                            Cursor="Hand"
+                            Margin="0,0,12,12"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Bottom"
+                            Click="btnSettings_Click">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="#151515"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="Goldenrod"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Width="25" Height="25"
+                    CornerRadius="12"
+                    Background="{TemplateBinding Background}">
+                                    <!-- StackPanel to hold the image and text together -->
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
 
-                                    <!-- Image inside the button -->
-                                    <Image Source="pack://application:,,,/MirageMUD_ClientWPF;component/Images/gear-solid.png"
-                                           Width="16" Height="16"
-                                           VerticalAlignment="Center"
-                                           HorizontalAlignment="Center"
-                                           Margin="2"/>
+                                        <!-- Image inside the button -->
+                                        <Image Source="pack://application:,,,/MirageMUD_ClientWPF;component/Images/gear-solid.png"
+                           Width="16" Height="16"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           Margin="2"/>
 
-                                    <!-- Text inside the button -->
-                                    <ContentPresenter VerticalAlignment="Center"
-                                      HorizontalAlignment="Center"
-                                      Margin="0,0,0,0" />
+                                        <!-- Text inside the button -->
+                                        <ContentPresenter VerticalAlignment="Center"
+                      HorizontalAlignment="Center"
+                      Margin="0,0,0,0" />
 
-                                </StackPanel>
-                            </Border>
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
+                                    </StackPanel>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                    <StackPanel Orientation="Horizontal">
+                        <Image HorizontalAlignment="Left"
+                               Height="30"
+                               Margin="10,0,0,0"
+                               Grid.Column="0"
+                               VerticalAlignment="Center"
+                               Width="30" Source="/Images/ME_icon.ico"/>
+                        <TextBlock Text="Made with Mirage Engine"
+                                   Foreground="LightGray"
+                                   FontSize="12"
+                                   FontWeight="Bold"
+                                   FontFamily="Verdana"
+                                   Margin="10,17,0,0"/>
+                    </StackPanel>
+                </Grid>
             </Grid>
         </Border>
     </Border>

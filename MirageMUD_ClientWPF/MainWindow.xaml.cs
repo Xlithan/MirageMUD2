@@ -1,13 +1,8 @@
-﻿using System.Text;
+﻿using MirageMUD_ClientWPF.View;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.Windows.Media.Animation;
+using System.Windows.Threading;
 
 namespace MirageMUD_ClientWPF
 {
@@ -19,6 +14,78 @@ namespace MirageMUD_ClientWPF
         public MainWindow()
         {
             InitializeComponent();
+            Loaded += MainWindow_Loaded;
+        }
+
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            StartSplashAnimation();
+        }
+
+        private void StartSplashAnimation()
+        {
+            var duration = TimeSpan.FromSeconds(5);
+
+            // Scale (Zoom) Animation for the Image
+            var scaleTransform = new ScaleTransform(1.0, 1.0);
+            SplashImage.RenderTransformOrigin = new Point(0.5, 0.5);
+            SplashImage.RenderTransform = scaleTransform;
+
+            var zoomAnimation = new DoubleAnimation
+            {
+                From = 0.2,
+                To = 1.0,
+                Duration = new Duration(duration)
+            };
+
+            // Opacity (Fade) Animation for the Image
+            var fadeAnimation = new DoubleAnimation
+            {
+                From = 0.0,
+                To = 1.0,
+                Duration = new Duration(duration)
+            };
+
+            // Apply animations to the image
+            SplashImage.BeginAnimation(OpacityProperty, fadeAnimation);
+            scaleTransform.BeginAnimation(ScaleTransform.ScaleXProperty, zoomAnimation);
+            scaleTransform.BeginAnimation(ScaleTransform.ScaleYProperty, zoomAnimation);
+
+            // Text Zoom Animation
+            var textZoomAnimation = new DoubleAnimation
+            {
+                From = 0.2,
+                To = 1.0,
+                Duration = new Duration(duration)
+            };
+
+            var textFadeAnimation = new DoubleAnimation
+            {
+                From = 0.0,
+                To = 1.0,
+                Duration = new Duration(duration)
+            };
+
+            // Apply animations to the text
+            txtMadeWith.BeginAnimation(OpacityProperty, textFadeAnimation);
+            TextScaleTransform.BeginAnimation(ScaleTransform.ScaleXProperty, textZoomAnimation);
+            TextScaleTransform.BeginAnimation(ScaleTransform.ScaleYProperty, textZoomAnimation);
+
+            // Transition to LoginView after 3 seconds
+            var timer = new DispatcherTimer
+            {
+                Interval = duration
+            };
+
+            timer.Tick += (s, args) =>
+            {
+                timer.Stop();
+                var loginView = new LoginView();
+                loginView.Show();
+                this.Close();  // Close the splash window
+            };
+
+            timer.Start();
         }
     }
 }
