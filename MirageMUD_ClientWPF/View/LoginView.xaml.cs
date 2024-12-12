@@ -1,16 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+﻿using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace MirageMUD_ClientWPF.View
 {
@@ -35,6 +24,28 @@ namespace MirageMUD_ClientWPF.View
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
+        }
+        private void btnLogin_Click(object sender, RoutedEventArgs e)
+        {
+            // Create an instance of the new window
+            var charactersView = new CharactersView();
+            charactersView.Show();
+
+            // Optionally close the current window
+            this.Close();
+        }
+        private void txtNewAccount_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+        private void btnSettings_Click(object sender, RoutedEventArgs e)
+        {
+            // Create an instance of the new window
+            var settingsView = new SettingsView();
+            settingsView.Show();
+
+            // Optionally close the current window
+            this.Close();
         }
     }
 }

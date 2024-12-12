@@ -9,7 +9,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\charsback.png" />
+    <None Remove="Images\gear-solid.png" />
+    <None Remove="Images\key-solid.png" />
+    <None Remove="Images\logo.png" />
+    <None Remove="Images\logo_63x63.png" />
     <None Remove="Images\menuback.png" />
+    <None Remove="Images\newcharback.png" />
+    <None Remove="Images\player.bmp" />
+    <None Remove="Images\right-to-bracket-solid.png" />
+    <None Remove="Images\server-solid.png" />
+    <None Remove="Images\settingsback.png" />
+    <None Remove="Images\user-new.png" />
+    <None Remove="Images\user-solid.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -18,9 +30,23 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Images\charsback.png" />
+    <Resource Include="Images\gear-solid.png" />
+    <Resource Include="Images\key-solid.png" />
+    <Resource Include="Images\logo.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\logo_63x63.png" />
     <Resource Include="Images\menuback.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Images\newcharback.png" />
+    <Resource Include="Images\player.bmp" />
+    <Resource Include="Images\right-to-bracket-solid.png" />
+    <Resource Include="Images\server-solid.png" />
+    <Resource Include="Images\settingsback.png" />
+    <Resource Include="Images\user-new.png" />
+    <Resource Include="Images\user-solid.png" />
   </ItemGroup>
 
 </Project>

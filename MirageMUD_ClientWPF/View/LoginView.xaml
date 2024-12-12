@@ -6,13 +6,15 @@
         xmlns:local="clr-namespace:MirageMUD_ClientWPF.View"
         mc:Ignorable="d"
         Title="LoginView" Height="450" Width="800" MouseDown="Window_MouseDown"
-        WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
-    <Border>
+        WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
+        Background="Transparent" AllowsTransparency="True">
+    <Border CornerRadius="10">
         <Border.Background>
             <ImageBrush ImageSource="/Images/menuback.png"
                         Stretch="None"/>
         </Border.Background>
-        <Border Opacity="0.95">
+        <Border Opacity="0.95"
+                CornerRadius="10">
             <Border.BorderBrush>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                     <GradientStop Color="#656565" Offset="0"/>
@@ -32,6 +34,9 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <Grid Background="#1F1F1F">
+                    <Grid.Clip>
+                        <RectangleGeometry Rect="0,0,800,450" RadiusX="10" RadiusY="10"/>
+                    </Grid.Clip>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition Width="25"/>
@@ -107,6 +112,154 @@
 
                     </Button>
                 </Grid>
+                <StackPanel Width="250"
+                            Grid.Row="2"
+                            Orientation="Vertical"
+                            Margin="0,5,0,0">
+                    <Image Source="pack://application:,,,/MirageMUD_ClientWPF;component/Images/logo.png"
+                           Width="245" Height="100"/>
+
+                    <TextBlock Text="Username"
+                               Foreground="LightGray"
+                               FontSize="12"
+                               FontWeight="Bold"
+                               FontFamily="Verdana"
+                               Margin="0,35,0,0"/>
+                    <TextBox x:Name="txtUsername"
+                        Style="{StaticResource CustomTextBoxStyle}">
+                        <TextBox.Background>
+                            <ImageBrush 
+                                ImageSource="pack://application:,,,/MirageMUD_ClientWPF;component/Images/user-solid.png"
+                                Stretch="UniformToFill"
+                                AlignmentX="Left"
+                                AlignmentY="Center"
+                                TileMode="None"
+                                Viewport="2,4,12,12"
+                                ViewportUnits="Absolute"/>
+                        </TextBox.Background>
+                    </TextBox>
+                    <TextBlock x:Name="txtPassword"
+                                Text="Password"
+                               Foreground="LightGray"
+                               FontSize="12"
+                               FontWeight="Bold"
+                               FontFamily="Verdana"
+                               Margin="0,10,0,0"/>
+                    <PasswordBox 
+                        Style="{StaticResource CustomPasswordBoxStyle}">
+                        <PasswordBox.Background>
+                            <ImageBrush 
+                                ImageSource="pack://application:,,,/MirageMUD_ClientWPF;component/Images/key-solid.png"
+                                Stretch="UniformToFill"
+                                AlignmentX="Left"
+                                AlignmentY="Center"
+                                TileMode="None"
+                                Viewport="2,4,12,12"
+                                ViewportUnits="Absolute"/>
+                        </PasswordBox.Background>
+                    </PasswordBox>
+
+                    <Button x:Name="btnLogin"
+                            BorderThickness="0"
+                            Content="LOG IN"
+                            Foreground="White"
+                            FontFamily="Verdana"
+                            FontSize="12"
+                            FontWeight="Bold"
+                            Cursor="Hand"
+                            Margin="0,50,0,0"
+                            Click="btnLogin_Click">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="#181818"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="Goldenrod"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Width="150" Height="25"
+                                        CornerRadius="5"
+                                        Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center"
+                                                HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                    <TextBlock x:Name="txtNewAccount"
+                               Text="Create Account"
+                               FontSize="10"
+                               FontWeight="Normal"
+                               TextDecorations="Underline"
+                               FontFamily="Verdana"
+                               Cursor="Hand"
+                               Margin="0,5,0,0"
+                               HorizontalAlignment="Center"
+                               MouseLeftButtonDown="txtNewAccount_MouseLeftButtonDown">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Foreground" Value="LightGray" />
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Foreground" Value="Goldenrod" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+
+                    </TextBlock>
+
+                </StackPanel>
+                <Button x:Name="btnSettings"
+                        Grid.Row="1"
+                        BorderThickness="0"
+                        FontFamily="Verdana"
+                        FontSize="12"
+                        FontWeight="Bold"
+                        Cursor="Hand"
+                        Margin="0,0,12,12"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom"
+                        Click="btnSettings_Click">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="#151515"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="Goldenrod"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Width="25" Height="25"
+                                    CornerRadius="12"
+                                    Background="{TemplateBinding Background}">
+                                <!-- StackPanel to hold the image and text together -->
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+
+                                    <!-- Image inside the button -->
+                                    <Image Source="pack://application:,,,/MirageMUD_ClientWPF;component/Images/gear-solid.png"
+                                           Width="16" Height="16"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Center"
+                                           Margin="2"/>
+
+                                    <!-- Text inside the button -->
+                                    <ContentPresenter VerticalAlignment="Center"
+                                      HorizontalAlignment="Center"
+                                      Margin="0,0,0,0" />
+
+                                </StackPanel>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
             </Grid>
         </Border>
     </Border>
