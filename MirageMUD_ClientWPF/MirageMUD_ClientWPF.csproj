@@ -25,7 +25,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Model\" />
     <Folder Include="ViewModel\" />
   </ItemGroup>
 
@@ -48,5 +47,7 @@
     <Resource Include="Images\user-new.png" />
     <Resource Include="Images\user-solid.png" />
   </ItemGroup>
+
+  <Import Project="..\Bindings\Bindings.projitems" Label="Shared" />
 
 </Project>
