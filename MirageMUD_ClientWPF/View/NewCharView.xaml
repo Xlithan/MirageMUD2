@@ -14,7 +14,7 @@
                 Stretch="None"/>
         </Border.Background>
         <Border Opacity="0.95"
-        CornerRadius="10">
+                CornerRadius="10">
             <Border.BorderBrush>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                     <GradientStop Color="#656565" Offset="0"/>
@@ -31,6 +31,7 @@
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30"/>
+                    <RowDefinition Height="100"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <Grid Background="#1F1F1F">
@@ -45,21 +46,21 @@
                     </Grid.ColumnDefinitions>
 
                     <TextBlock Text="MirageMUD - New Character"
-                       Foreground="White"
-                       FontSize="12"
-                       FontFamily="Verdana"
-                       Grid.Column="0"
-                       VerticalAlignment="Center"
-                       Margin="5,0,0,0"/>
+                               Foreground="White"
+                               FontSize="12"
+                               FontFamily="Verdana"
+                               Grid.Column="0"
+                               VerticalAlignment="Center"
+                               Margin="5,0,0,0"/>
                     <Button x:Name="btnMinimise"
-                    BorderThickness="0"
-                    Content="-"
-                    Foreground="White"
-                    FontFamily="Verdana"
-                    FontSize="16"
-                    Cursor="Hand"
-                    Grid.Column="1"
-                    Click="btnMinimise_Click">
+                            BorderThickness="0"
+                            Content="-"
+                            Foreground="White"
+                            FontFamily="Verdana"
+                            FontSize="16"
+                            Cursor="Hand"
+                            Grid.Column="1"
+                            Click="btnMinimise_Click">
                         <Button.Style>
                             <Style TargetType="Button">
                                 <Setter Property="Background" Value="Transparent"/>
@@ -73,23 +74,23 @@
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
                                 <Border Width="25" Height="25"
-                               Background="{TemplateBinding Background}">
+                                        Background="{TemplateBinding Background}">
                                     <ContentPresenter VerticalAlignment="Center"
-                                              HorizontalAlignment="Center"/>
+                                          HorizontalAlignment="Center"/>
                                 </Border>
                             </ControlTemplate>
                         </Button.Template>
 
                     </Button>
                     <Button x:Name="btnClose"
-                    BorderThickness="0"
-                    Content="X"
-                    Foreground="White"
-                    FontSize="12"
-                    FontFamily="Verdana"
-                    Cursor="Hand"
-                    Grid.Column="2"
-                    Click="btnClose_Click">
+                            BorderThickness="0"
+                            Content="X"
+                            Foreground="White"
+                            FontSize="12"
+                            FontFamily="Verdana"
+                            Cursor="Hand"
+                            Grid.Column="2"
+                            Click="btnClose_Click">
                         <Button.Style>
                             <Style TargetType="Button">
                                 <Setter Property="Background" Value="Transparent"/>
@@ -103,9 +104,9 @@
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
                                 <Border Width="25" Height="25"
-                                Background="{TemplateBinding Background}">
+                                    Background="{TemplateBinding Background}">
                                     <ContentPresenter VerticalAlignment="Center"
-                      HorizontalAlignment="Center"/>
+                                        HorizontalAlignment="Center"/>
                                 </Border>
                             </ControlTemplate>
                         </Button.Template>
@@ -113,85 +114,446 @@
                     </Button>
                 </Grid>
                 <StackPanel Width="250"
-                    Grid.Row="2"
-                    Orientation="Vertical"
-                    Margin="0,5,0,0">
+                            Grid.Row="1"
+                            Orientation="Vertical"
+                            Margin="0,5,0,0">
                     <Image Source="pack://application:,,,/MirageMUD_ClientWPF;component/Images/logo.png"
-                   Width="245" Height="100"/>
+                            Width="245" Height="100"/>
+                </StackPanel>
+                <Grid Grid.Row="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="350"/>
+                        <ColumnDefinition Width="50"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <!-- CONTENT-->
+                    <Grid Grid.Column="0" Margin="10,10,0,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Grid.Column="0" Grid.Row="0">
+                            <TextBlock Text="Character Name"
+                                           Foreground="LightGray"
+                                           FontSize="12"
+                                           FontWeight="Bold"
+                                           FontFamily="Verdana"
+                                           Margin="0,0,0,0"/>
+                            <TextBox x:Name="txtCharName"
+                                        Style="{StaticResource CustomTextBoxStyle}"
+                                        Width="320"
+                                        HorizontalAlignment="Left"
+                                     Margin="0,0,0,5">
+                                <TextBox.Background>
+                                    <ImageBrush 
+                                            ImageSource="pack://application:,,,/MirageMUD_ClientWPF;component/Images/user-solid.png"
+                                            Stretch="UniformToFill"
+                                            AlignmentX="Left"
+                                            AlignmentY="Center"
+                                            TileMode="None"
+                                            Viewport="2,4,12,12"
+                                            ViewportUnits="Absolute"/>
+                                </TextBox.Background>
+                            </TextBox>
+                        </StackPanel>
+                        <Border Grid.Column="0" Grid.Row="1"
+                                Background="#2B2B2B" 
+                                CornerRadius="10" 
+                                Padding="10"
+                                Margin="0,5,0,0">
+                            <StackPanel>
+                                <TextBlock Text="Race"
+                                   Foreground="LightGray"
+                                   FontSize="12"
+                                   FontWeight="Bold"
+                                   FontFamily="Verdana"
+                                   Margin="0,0,0,0"/>
+                                <WrapPanel Orientation="Horizontal"
+                                   Margin="0,5,0,0">
 
-                    <!-- Settings form-->
-                    <!--IP Config
-                IP, Host
-                -->
-                    <!--Game Settings
-                Music, Sound, Font, Language-->
-                    <TextBlock Text="Character Name"
-                           Foreground="LightGray"
-                           FontSize="12"
-                           FontWeight="Bold"
-                           FontFamily="Verdana"
-                           Margin="0,35,0,0"/>
-                    <TextBox x:Name="txtName"
-                        Style="{StaticResource CustomTextBoxStyle}">
-                        <TextBox.Background>
-                            <ImageBrush ImageSource="pack://application:,,,/MirageMUD_ClientWPF;component/Images/user-solid.png"
-                            Stretch="UniformToFill"
-                            AlignmentX="Left"
-                            AlignmentY="Center"
-                            TileMode="None"
-                            Viewport="2,5,14,11"
-                            ViewportUnits="Absolute"/>
-                        </TextBox.Background>
-                    </TextBox>
-                    <!--<StackPanel Orientation="Horizontal">
-                        <CheckBox x:Name="chkMusic"
-                                Content="Music"
-                                Foreground="LightGray"
-                                FontSize="12"
-                                FontWeight="Medium"
-                                FontFamily="Verdana"
-                                Margin="0,20,0,0"/>
-                        <CheckBox x:Name="chkSound"
-                                Content="Sound"
-                                Foreground="LightGray"
-                                FontSize="12"
-                                FontWeight="Medium"
-                                FontFamily="Verdana"
-                                Margin="15,20,0,0"/>
-                    </StackPanel>
-                    <TextBlock Text="Language"
-                           Foreground="LightGray"
-                           FontSize="12"
-                           FontWeight="Bold"
-                           FontFamily="Verdana"
-                           Margin="0,20,0,0"/>
+                                    <RadioButton Content="Dwarf"
+                                    Foreground="#8997ad"
+                                    FontSize="12"
+                                    FontWeight="Bold"
+                                    FontFamily="Verdana"
+                                    Margin="5,10,0,0"/>
+                                    <RadioButton Content="Elf"
+                                    Foreground="#8997ad"
+                                    FontSize="12"
+                                    FontWeight="Bold"
+                                    FontFamily="Verdana"
+                                    Margin="5,10,0,0"/>
+                                    <RadioButton Content="Human"
+                                    Foreground="#8997ad"
+                                    FontSize="12"
+                                    FontWeight="Bold"
+                                    FontFamily="Verdana"
+                                    Margin="5,10,0,0"/>
+                                    <RadioButton Content="Gnome"
+                                    Foreground="#8997ad"
+                                    FontSize="12"
+                                    FontWeight="Bold"
+                                    FontFamily="Verdana"
+                                    Margin="5,10,0,0"/>
+                                    <RadioButton Content="Halfling"
+                                    Foreground="#8997ad"
+                                    FontSize="12"
+                                    FontWeight="Bold"
+                                    FontFamily="Verdana"
+                                    Margin="5,10,0,0"/>
+                                    <RadioButton Content="Half-Elf"
+                                    Foreground="#8997ad"
+                                    FontSize="12"
+                                    FontWeight="Bold"
+                                    FontFamily="Verdana"
+                                    Margin="5,10,0,0"/>
+                                    <RadioButton Content="Half-Orc"
+                                    Foreground="#8997ad"
+                                    FontSize="12"
+                                    FontWeight="Bold"
+                                    FontFamily="Verdana"
+                                    Margin="5,10,0,0"/>
+                                </WrapPanel>
+                            </StackPanel>
+                        </Border>
+                        <Border Grid.Column="0" Grid.Row="2"
+                                Background="#2B2B2B" 
+                                CornerRadius="10" 
+                                Padding="10"
+                                Margin="0,10,0,0">
+                            <StackPanel Grid.Column="0" Grid.Row="2">
+                                <TextBlock Text="Class"
+                                   Foreground="LightGray"
+                                   FontSize="12"
+                                   FontWeight="Bold"
+                                   FontFamily="Verdana"
+                                   Margin="0,0,0,0"/>
+                                <WrapPanel Orientation="Horizontal"
+                                        Margin="0,5,0,0">
 
-                    <ComboBox x:Name="cmbLanguage" HorizontalAlignment="Left" VerticalAlignment="Center" Width="250">
-                        <ComboBoxItem Content="Welsh (Cymraeg)" />
-                        <ComboBoxItem Content="German (Deutsch)" />
-                        <ComboBoxItem Content="British English (English)" />
-                        <ComboBoxItem Content="American English (English)" />
-                        <ComboBoxItem Content="Spanish (Español)" />
-                        <ComboBoxItem Content="French (Français)" />
-                        <ComboBoxItem Content="Italian (Italiano)" />
-                        <ComboBoxItem Content="Portuguese (Português)" />
-                        <ComboBoxItem Content="Romanized Japanese (Romaji)" />
-                        <ComboBoxItem Content="Polish (Polski)" />
-                        <ComboBoxItem Content="Swedish (Svenska)" />
-                    </ComboBox>-->
-                    <Button x:Name="btnCreate"
-                        BorderThickness="0"
-                        Content="SAVE"
-                        Foreground="White"
-                        FontFamily="Verdana"
-                        FontSize="12"
-                        FontWeight="Bold"
-                        Cursor="Hand"
-                        Margin="0,20,0,0"
-                        Click="btnCreate_Click">
+                                    <RadioButton Content="Berserker"
+                                    Foreground="#8997ad"
+                                    FontSize="12"
+                                    FontWeight="Bold"
+                                    FontFamily="Verdana"
+                                    Margin="5,10,0,0"/>
+                                    <RadioButton Content="Pacifist"
+                                    Foreground="#8997ad"
+                                    FontSize="12"
+                                    FontWeight="Bold"
+                                    FontFamily="Verdana"
+                                    Margin="5,10,0,0"/>
+                                    <RadioButton Content="Paladin"
+                                    Foreground="#636a75"
+                                    FontSize="12"
+                                    FontWeight="Bold"
+                                    FontFamily="Verdana"
+                                    Margin="5,10,0,0"/>
+                                    <RadioButton Content="Fighter"
+                                    Foreground="#8997ad"
+                                    FontSize="12"
+                                    FontWeight="Bold"
+                                    FontFamily="Verdana"
+                                    Margin="5,10,0,0"/>
+                                    <RadioButton Content="Mage"
+                                    Foreground="#636a75"
+                                    FontSize="12"
+                                    FontWeight="Bold"
+                                    FontFamily="Verdana"
+                                    Margin="5,10,0,0"/>
+                                    <RadioButton Content="Cleric"
+                                    Foreground="#8997ad"
+                                    FontSize="12"
+                                    FontWeight="Bold"
+                                    FontFamily="Verdana"
+                                    Margin="5,10,0,0"/>
+                                    <RadioButton Content="Druid"
+                                    Foreground="#636a75"
+                                    FontSize="12"
+                                    FontWeight="Bold"
+                                    FontFamily="Verdana"
+                                    Margin="5,10,0,0"/>
+                                    <RadioButton Content="Ranger"
+                                    Foreground="#636a75"
+                                    FontSize="12"
+                                    FontWeight="Bold"
+                                    FontFamily="Verdana"
+                                    Margin="5,10,0,0"/>
+                                    <RadioButton Content="Thief"
+                                    Foreground="#8997ad"
+                                    FontSize="12"
+                                    FontWeight="Bold"
+                                    FontFamily="Verdana"
+                                    Margin="5,10,0,0"/>
+                                </WrapPanel>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                    <Grid Grid.Column="2" Margin="0,10,0,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="20"/>
+                            <RowDefinition Height="160"/>
+                            <RowDefinition Height="80"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Row="0">
+                            <TextBlock Text="Character Stats"
+                                       Foreground="LightGray"
+                                       FontSize="12"
+                                       FontWeight="Bold"
+                                       FontFamily="Verdana"
+                                       Margin="0,0,0,0"/>
+                        </StackPanel>
+                        <Grid Grid.Row="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="50"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0" Orientation="Vertical">
+                                <TextBlock Text="Strength:"
+                                           Foreground="SlateGray"
+                                           FontSize="12"
+                                           FontWeight="Bold"
+                                           FontFamily="Verdana"
+                                           Margin="0,0,5,0"
+                                           HorizontalAlignment="Right"/>
+                                <TextBlock Text="Intelligence:"
+                                           Foreground="SlateGray"
+                                           FontSize="12"
+                                           FontWeight="Bold"
+                                           FontFamily="Verdana"
+                                           Margin="0,5,5,0"
+                                           HorizontalAlignment="Right"/>
+                                <TextBlock Text="Dexterity:"
+                                           Foreground="SlateGray"
+                                           FontSize="12"
+                                           FontWeight="Bold"
+                                           FontFamily="Verdana"
+                                           Margin="0,5,5,0"
+                                           HorizontalAlignment="Right"/>
+                                <TextBlock Text="Constitution:"
+                                           Foreground="SlateGray"
+                                           FontSize="12"
+                                           FontWeight="Bold"
+                                           FontFamily="Verdana"
+                                           Margin="0,5,5,0"
+                                           HorizontalAlignment="Right"/>
+                                <TextBlock Text="Wisdom:"
+                                           Foreground="SlateGray"
+                                           FontSize="12"
+                                           FontWeight="Bold"
+                                           FontFamily="Verdana"
+                                           Margin="0,5,5,0"
+                                           HorizontalAlignment="Right"/>
+                                <TextBlock Text="Charisma:"
+                                           Foreground="SlateGray"
+                                           FontSize="12"
+                                           FontWeight="Bold"
+                                           FontFamily="Verdana"
+                                           Margin="0,5,5,0"
+                                           HorizontalAlignment="Right"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="1" Orientation="Vertical">
+                                <TextBlock Text="0"
+                                           Foreground="Goldenrod"
+                                           FontSize="12"
+                                           FontWeight="Bold"
+                                           FontFamily="Verdana"
+                                           Margin="5,0,0,0"
+                                           HorizontalAlignment="Left"/>
+                                <TextBlock Text="0"
+                                           Foreground="Goldenrod"
+                                           FontSize="12"
+                                           FontWeight="Bold"
+                                           FontFamily="Verdana"
+                                           Margin="5,5,0,0"
+                                           HorizontalAlignment="Left"/>
+                                <TextBlock Text="0"
+                                           Foreground="Goldenrod"
+                                           FontSize="12"
+                                           FontWeight="Bold"
+                                           FontFamily="Verdana"
+                                           Margin="5,5,0,0"
+                                           HorizontalAlignment="Left"/>
+                                <TextBlock Text="0"
+                                           Foreground="Goldenrod"
+                                           FontSize="12"
+                                           FontWeight="Bold"
+                                           FontFamily="Verdana"
+                                           Margin="5,5,0,0"
+                                           HorizontalAlignment="Left"/>
+                                <TextBlock Text="0"
+                                           Foreground="Goldenrod"
+                                           FontSize="12"
+                                           FontWeight="Bold"
+                                           FontFamily="Verdana"
+                                           Margin="5,5,0,0"
+                                           HorizontalAlignment="Left"/>
+                                <TextBlock Text="0"
+                                           Foreground="Goldenrod"
+                                           FontSize="12"
+                                           FontWeight="Bold"
+                                           FontFamily="Verdana"
+                                           Margin="5,5,0,0"
+                                           HorizontalAlignment="Left"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="2" Orientation="Vertical">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="80"/>
+                                        <RowDefinition Height="80"/>
+                                    </Grid.RowDefinitions>
+
+                                    <Image x:Name="picAvatar"
+                                           Source="pack://application:,,,/MirageMUD_ClientWPF;component/Images/player.bmp"
+                                           Stretch="Uniform"
+                                           Width="80"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Top"
+                                               Grid.Row="0"/>
+                                    <StackPanel Grid.Row="1" Orientation="Vertical">
+                                        <TextBlock Text="Click to select an avatar for your new character."
+                                           Foreground="LightGray"
+                                           FontSize="12"
+                                           FontWeight="Bold"
+                                           FontFamily="Verdana"
+                                           Margin="0,0,0,0"
+                                                   TextAlignment="Center"
+                                           TextWrapping="Wrap"
+                                                   HorizontalAlignment="Center"/>
+                                        <Button x:Name="btnAvatar"
+                                                BorderThickness="0"
+                                                Content="SELECT"
+                                                Foreground="White"
+                                                FontFamily="Verdana"
+                                                FontSize="12"
+                                                FontWeight="Bold"
+                                                Cursor="Hand"
+                                                Margin="0,15,0,0"
+                                                HorizontalAlignment="Center"
+                                                Click="btnAvatar_Click">
+                                            <Button.Style>
+                                                <Style TargetType="Button">
+                                                    <Setter Property="Background" Value="#181818"/>
+                                                    <Style.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter Property="Background" Value="Goldenrod"/>
+                                                        </Trigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Button.Style>
+                                            <Button.Template>
+                                                <ControlTemplate TargetType="Button">
+                                                    <Border Width="150" Height="25"
+                                                        CornerRadius="5"
+                                                        Background="{TemplateBinding Background}">
+                                                        <ContentPresenter VerticalAlignment="Center"
+                                                        HorizontalAlignment="Center"/>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Button.Template>
+                                        </Button>
+                                    </StackPanel>
+                                </Grid>
+                            </StackPanel>
+                        </Grid>
+                        <StackPanel Grid.Row="3" Orientation="Vertical">
+                            <Separator HorizontalAlignment="Center"
+                                       Margin="0,0,0,0"
+                                       VerticalAlignment="Top"
+                                       Width="350" Height="1.5"
+                                       Background="Gray"/>
+                            <Button x:Name="btnReroll"
+                                    BorderThickness="0"
+                                    Content="ROLL STATS"
+                                    Foreground="White"
+                                    FontFamily="Verdana"
+                                    FontSize="12"
+                                    FontWeight="Bold"
+                                    Cursor="Hand"
+                                    Margin="0,15,0,0"
+                                    HorizontalAlignment="Center"
+                                    Click="btnReroll_Click">
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Background" Value="#181818"/>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="Goldenrod"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Width="150" Height="25"
+                                                CornerRadius="5"
+                                                Background="{TemplateBinding Background}">
+                                            <ContentPresenter VerticalAlignment="Center"
+                                                    HorizontalAlignment="Center"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                            <Button x:Name="btnFinish"
+                                BorderThickness="0"
+                                Content="FINISH"
+                                Foreground="White"
+                                FontFamily="Verdana"
+                                FontSize="12"
+                                FontWeight="Bold"
+                                Cursor="Hand"
+                                Margin="0,5,0,0"
+                                Click="btnFinish_Click">
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Background" Value="#181818"/>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="Goldenrod"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Width="150" Height="25"
+                                            CornerRadius="5"
+                                            Background="{TemplateBinding Background}">
+                                            <ContentPresenter VerticalAlignment="Center"
+                                            HorizontalAlignment="Center"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+                <Button x:Name="btnBack"
+                            Grid.Row="2"
+                            BorderThickness="0"
+                            FontFamily="Verdana"
+                            FontSize="12"
+                            FontWeight="Bold"
+                            Cursor="Hand"
+                            Margin="0,0,12,12"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Bottom"
+                            Click="btnBack_Click">
                         <Button.Style>
                             <Style TargetType="Button">
-                                <Setter Property="Background" Value="#181818"/>
+                                <Setter Property="Background" Value="#151515"/>
                                 <Style.Triggers>
                                     <Trigger Property="IsMouseOver" Value="True">
                                         <Setter Property="Background" Value="Goldenrod"/>
@@ -201,63 +563,31 @@
                         </Button.Style>
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
-                                <Border Width="150" Height="25"
-                CornerRadius="5"
-                Background="{TemplateBinding Background}">
-                                    <ContentPresenter VerticalAlignment="Center"
-                        HorizontalAlignment="Center"/>
+                                <Border Width="25" Height="25"
+                                        CornerRadius="12"
+                                        Background="{TemplateBinding Background}">
+                                    <!-- StackPanel to hold the image and text together -->
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+
+                                        <!-- Image inside the button -->
+                                        <Image Source="pack://application:,,,/MirageMUD_ClientWPF;component/Images/right-to-bracket-solid.png"
+                                               Width="16" Height="16"
+                                               VerticalAlignment="Center"
+                                               HorizontalAlignment="Center"
+                                               Margin="2"/>
+
+                                        <!-- Text inside the button -->
+                                        <ContentPresenter VerticalAlignment="Center"
+                                              HorizontalAlignment="Center"
+                                              Margin="0,0,0,0" />
+
+                                    </StackPanel>
                                 </Border>
                             </ControlTemplate>
                         </Button.Template>
                     </Button>
-
+                <StackPanel Orientation="Horizontal">
                 </StackPanel>
-                <Button x:Name="btnBack"
-                    Grid.Row="1"
-                    BorderThickness="0"
-                    FontFamily="Verdana"
-                    FontSize="12"
-                    FontWeight="Bold"
-                    Cursor="Hand"
-                    Margin="0,0,12,12"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Bottom"
-                    Click="btnBack_Click">
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="Background" Value="#151515"/>
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="Goldenrod"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <Border Width="25" Height="25"
-                                CornerRadius="12"
-                                Background="{TemplateBinding Background}">
-                                <!-- StackPanel to hold the image and text together -->
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-
-                                    <!-- Image inside the button -->
-                                    <Image Source="pack://application:,,,/MirageMUD_ClientWPF;component/Images/right-to-bracket-solid.png"
-                                       Width="16" Height="16"
-                                       VerticalAlignment="Center"
-                                       HorizontalAlignment="Center"
-                                       Margin="2"/>
-
-                                    <!-- Text inside the button -->
-                                    <ContentPresenter VerticalAlignment="Center"
-                                                  HorizontalAlignment="Center"
-                                                  Margin="0,0,0,0" />
-
-                                </StackPanel>
-                            </Border>
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
             </Grid>
         </Border>
     </Border>

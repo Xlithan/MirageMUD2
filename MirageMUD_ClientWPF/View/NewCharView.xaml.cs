@@ -39,5 +39,20 @@ namespace MirageMUD_ClientWPF.View
         {
 
         }
+
+        private void btnFinish_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnAvatar_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnReroll_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

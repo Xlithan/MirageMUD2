@@ -183,7 +183,7 @@
                                FontWeight="Bold"
                                FontFamily="Verdana"
                                Margin="0,20,0,0"/>
-                    
+
                     <ComboBox x:Name="cmbLanguage" HorizontalAlignment="Left" VerticalAlignment="Center" Width="250">
                         <ComboBoxItem Content="Welsh (Cymraeg)" />
                         <ComboBoxItem Content="German (Deutsch)" />
