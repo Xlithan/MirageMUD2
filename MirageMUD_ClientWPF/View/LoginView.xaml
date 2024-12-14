@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:MirageMUD_ClientWPF.View"
         mc:Ignorable="d"
         Title="LoginView" Height="450" Width="800" MouseDown="Window_MouseDown"
-        WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
+        WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="Manual"
         Background="Transparent" AllowsTransparency="True">
     <Border CornerRadius="10">
         <Border.Background>
