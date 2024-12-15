@@ -3,86 +3,45 @@
         "Id": 0,
         "Name": "Berserker",
         "Description": "A frenzied warrior who excels in melee combat.",
-        "Bonuses": {
-            "Strength": 3,
-            "Constitution": 2,
-            "Intelligence": -2
-        }
     },
     {
         "Id": 1,
         "Name": "Pacifist",
         "Description": "A peaceful healer who avoids conflict whenever possible.",
-        "Bonuses": {
-            "Charisma": 3,
-            "Wisdom": 2,
-            "Strength": -3
-        }
     },
     {
         "Id": 2,
         "Name": "Paladin",
         "Description": "A holy knight dedicated to upholding justice and protecting the innocent.",
-        "Bonuses": {
-            "Strength": 2,
-            "Charisma": 2
-        }
     },
     {
         "Id": 3,
         "Name": "Fighter",
         "Description": "A versatile combatant skilled in a variety of weapons.",
-        "Bonuses": {
-            "Strength": 2,
-            "Constitution": 2
-        }
     },
     {
         "Id": 4,
         "Name": "Mage",
         "Description": "A master of arcane spells, relying on intellect and precision.",
-        "Bonuses": {
-            "Intelligence": 3,
-            "Dexterity": 1,
-            "Strength": -2
-        }
     },
     {
         "Id": 5,
         "Name": "Cleric",
         "Description": "A divine spellcaster who channels the power of the gods.",
-        "Bonuses": {
-            "Wisdom": 3,
-            "Constitution": 1
-        }
     },
     {
         "Id": 6,
         "Name": "Druid",
         "Description": "A protector of nature with the ability to shape-shift and command the elements.",
-        "Bonuses": {
-            "Wisdom": 2,
-            "Dexterity": 1,
-            "Strength": -1
-        }
     },
     {
         "Id": 7,
         "Name": "Ranger",
         "Description": "A skilled tracker and archer who excels in wilderness survival.",
-        "Bonuses": {
-            "Dexterity": 2,
-            "Constitution": 1
-        }
     },
     {
         "Id": 8,
         "Name": "Thief",
         "Description": "A cunning individual who specializes in stealth and subterfuge.",
-        "Bonuses": {
-            "Dexterity": 3,
-            "Charisma": 1,
-            "Strength": -1
-        }
     }
 ]

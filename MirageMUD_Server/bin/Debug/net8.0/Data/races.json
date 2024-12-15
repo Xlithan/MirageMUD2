@@ -3,67 +3,49 @@
         "Id": 0,
         "Name": "Dwarf",
         "Description": "A sturdy race known for their resilience and craftsmanship.",
-        "Bonuses": {
-            "Strength": 2,
-            "Constitution": 2,
-            "Charisma": -2
-        }
+        "EnabledClasses": ["Berserker", "Fighter", "Cleric", "Thief", "Pacifist"],
+        "DisabledClasses": ["Paladin", "Mage", "Druid", "Ranger"]
     },
     {
         "Id": 1,
         "Name": "Elf",
         "Description": "Graceful beings with an affinity for magic and the natural world.",
-        "Bonuses": {
-            "Dexterity": 2,
-            "Intelligence": 2,
-            "Constitution": -2
-        }
+        "EnabledClasses": ["Fighter", "Mage", "Cleric", "Druid", "Ranger", "Pacifist"],
+        "DisabledClasses": ["Berserker", "Paladin", "Thief"]
     },
     {
         "Id": 2,
         "Name": "Human",
         "Description": "Versatile and adaptable, humans excel in a variety of disciplines.",
-        "Bonuses": {
-            "Dexterity": 1
-        }
+        "EnabledClasses": ["Berserker", "Paladin", "Fighter", "Mage", "Cleric", "Druid", "Ranger", "Thief", "Pacifist"],
+        "DisabledClasses": []
     },
     {
         "Id": 3,
         "Name": "Gnome",
         "Description": "Small and inventive, gnomes are skilled in illusions and tinkering.",
-        "Bonuses": {
-            "Constitution": 2,
-            "Charisma": 2,
-            "Strength": -2
-        }
+        "EnabledClasses": ["Mage", "Cleric", "Thief", "Pacifist"],
+        "DisabledClasses": ["Berserker", "Paladin", "Fighter", "Druid", "Ranger"]
     },
     {
         "Id": 4,
         "Name": "Halfling",
         "Description": "A nimble race, known for their luck and adventurous spirit.",
-        "Bonuses": {
-            "Dexterity": 2,
-            "Charisma": 2,
-            "Strength": -2
-        }
+        "EnabledClasses": ["Paladin", "Fighter", "Cleric", "Druid", "Ranger", "Thief", "Pacifist"],
+        "DisabledClasses": ["Berserker", "Mage"]
     },
     {
         "Id": 5,
         "Name": "Half-Elf",
         "Description": "Born of two worlds, half-elves combine the best traits of their parents.",
-        "Bonuses": {
-            "Charisma": 2,
-            "Dexterity": 1
-        }
+        "EnabledClasses": ["Berserker", "Fighter", "Mage", "Cleric", "Druid", "Ranger", "Pacifist"],
+        "DisabledClasses": ["Paladin", "Thief"]
     },
     {
         "Id": 6,
         "Name": "Half-Orc",
         "Description": "Strong and determined, half-orcs are fierce warriors with a savage heritage.",
-        "Bonuses": {
-            "Strength": 2,
-            "Constitution": 2,
-            "Intelligence": -2
-        }
+        "EnabledClasses": ["Berserker", "Fighter"],
+        "DisabledClasses": ["Pacifist", "Paladin", "Mage", "Cleric", "Druid", "Ranger", "Thief"]
     }
 ]

@@ -9,6 +9,7 @@ namespace MirageMUD_ClientWPF.View
     /// </summary>
     public partial class NewCharView : Window
     {
+        public bool IsMaleSelected => optMale.IsChecked == true;
         public NewCharView()
         {
             InitializeComponent();
@@ -52,7 +53,8 @@ namespace MirageMUD_ClientWPF.View
 
         private void btnAvatar_Click(object sender, RoutedEventArgs e)
         {
-
+            var avatarView = new AvatarView(this); // Pass 'this' as the parent
+            avatarView.ShowDialog();
         }
 
         private void btnReroll_Click(object sender, RoutedEventArgs e)
