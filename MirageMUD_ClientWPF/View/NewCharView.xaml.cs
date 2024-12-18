@@ -9,16 +9,18 @@ namespace MirageMUD_ClientWPF.View
     /// </summary>
     public partial class NewCharView : Window
     {
-        public bool IsMaleSelected => optMale.IsChecked == true;
+        public bool IsMaleSelected = true;
         public NewCharView()
         {
             InitializeComponent();
             SetWindowPosition();
         }
-        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
+            {
                 DragMove();
+            }
         }
         private void btnMinimise_Click(object sender, RoutedEventArgs e)
         {
@@ -77,6 +79,22 @@ namespace MirageMUD_ClientWPF.View
             {
                 // Default to center screen if no position is saved
                 this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            }
+        }
+
+        private void optMale_Click(object sender, RoutedEventArgs e)
+        {
+            if(optMale.IsChecked == true)
+            {
+                IsMaleSelected = true;
+            }
+        }
+
+        private void optFemale_Click(object sender, RoutedEventArgs e)
+        {
+            if (optFemale.IsChecked == true)
+            {
+                IsMaleSelected = false;
             }
         }
     }

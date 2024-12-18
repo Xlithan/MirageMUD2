@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MirageMUD_ClientWPF.View"
         mc:Ignorable="d"
-        Title="NewCharView" Height="450" Width="800" MouseDown="Window_MouseDown"
+        Title="NewCharView" Height="450" Width="800"
         WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="Manual"
         Background="Transparent" AllowsTransparency="True">
     <Border CornerRadius="10">
@@ -34,7 +34,7 @@
                     <RowDefinition Height="100"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Grid Background="#1F1F1F">
+                <Grid Background="#1F1F1F" MouseDown="Grid_MouseDown">
                     <Grid.Clip>
                         <RectangleGeometry Rect="0,0,800,450" RadiusX="10" RadiusY="10"/>
                     </Grid.Clip>
@@ -182,14 +182,16 @@
                                         FontWeight="Bold"
                                         FontFamily="Verdana"
                                         Margin="5,0,0,0"
-                                        IsChecked="True"/>
+                                        IsChecked="True"
+                                        Click="optMale_Click"/>
                                         <RadioButton x:Name="optFemale"
                                         Content="Female"
                                         Foreground="#8997ad"
                                         FontSize="12"
                                         FontWeight="Bold"
                                         FontFamily="Verdana"
-                                        Margin="5,0,0,0"/>
+                                        Margin="5,0,0,0"
+                                        Click="optFemale_Click"/>
                                     </WrapPanel>
                                 </StackPanel>
                             </Border>
@@ -456,7 +458,8 @@
                                            Width="80"
                                            HorizontalAlignment="Center"
                                            VerticalAlignment="Top"
-                                               Grid.Row="0"/>
+                                           Grid.Row="0"
+                                           x:FieldModifier="public" />
                                     <StackPanel Grid.Row="1" Orientation="Vertical">
                                         <TextBlock Text="Click to select an avatar for your new character."
                                            Foreground="LightGray"

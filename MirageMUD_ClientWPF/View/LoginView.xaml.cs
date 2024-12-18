@@ -14,10 +14,12 @@ namespace MirageMUD_ClientWPF.View
             InitializeComponent();
             SetWindowPosition();
         }
-        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if(e.LeftButton==MouseButtonState.Pressed)
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
                 DragMove();
+            }
         }
         private void btnMinimise_Click(object sender, RoutedEventArgs e)
         {
