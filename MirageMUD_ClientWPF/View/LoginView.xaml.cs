@@ -43,7 +43,15 @@ namespace MirageMUD_ClientWPF.View
         }
         private void txtNewAccount_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            // Save window position
+            SaveWindowPosition();
 
+            // Create an instance of the new window
+            var newAccountView = new NewAccountView();
+            newAccountView.Show();
+
+            // Optionally close the current window
+            this.Close();
         }
         private void btnSettings_Click(object sender, RoutedEventArgs e)
         {

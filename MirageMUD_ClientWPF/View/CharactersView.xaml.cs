@@ -31,27 +31,27 @@ namespace MirageMUD_ClientWPF.View
         }
         private void btnPlay1_Click(object sender, RoutedEventArgs e)
         {
-
+            PlayGame();
         }
 
         private void btnPlay5_Click(object sender, RoutedEventArgs e)
         {
-
+            PlayGame();
         }
 
         private void btnPlay4_Click(object sender, RoutedEventArgs e)
         {
-
+            PlayGame();
         }
 
         private void btnPlay3_Click(object sender, RoutedEventArgs e)
         {
-
+            PlayGame();
         }
 
         private void btnPlay2_Click(object sender, RoutedEventArgs e)
         {
-
+            PlayGame();
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
@@ -62,6 +62,16 @@ namespace MirageMUD_ClientWPF.View
             // Create an instance of the new window
             var loginView = new LoginView();
             loginView.Show();
+
+            // Optionally close the current window
+            this.Close();
+        }
+
+        private void PlayGame()
+        {
+            // Create an instance of the new window
+            var gameView = new GameView();
+            gameView.Show();
 
             // Optionally close the current window
             this.Close();

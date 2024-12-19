@@ -11,6 +11,7 @@
   <ItemGroup>
     <None Remove="Images\avatarsback.png" />
     <None Remove="Images\charsback.png" />
+    <None Remove="Images\gameback.png" />
     <None Remove="Images\gear-solid.png" />
     <None Remove="Images\key-solid.png" />
     <None Remove="Images\logo.png" />
@@ -28,6 +29,7 @@
 
   <ItemGroup>
     <Resource Include="Images\avatarsback.png" />
+    <Resource Include="Images\gameback.png" />
     <Resource Include="Images\SplashImage.png" />
   </ItemGroup>
 

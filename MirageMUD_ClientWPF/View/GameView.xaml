@@ -1,0 +1,156 @@
+﻿<Window x:Class="MirageMUD_ClientWPF.View.GameView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MirageMUD_ClientWPF.View"
+        mc:Ignorable="d"
+        Title="GameView" Height="600" Width="1024" MinWidth="800" MinHeight="600"
+        WindowStyle="None" ResizeMode="CanResize" WindowStartupLocation="CenterScreen"
+        Background="Transparent" AllowsTransparency="True">
+    <Grid>
+        <Border BorderThickness="5" BorderBrush="Transparent" />
+        <Border CornerRadius="10">
+        <Border.Background>
+            <ImageBrush ImageSource="/Images/gameback.png"
+                    Stretch="UniformToFill"/>
+        </Border.Background>
+        <Border Opacity="0.95"
+            CornerRadius="10">
+            <Border.BorderBrush>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#656565" Offset="0"/>
+                    <GradientStop Color="#454545" Offset="0.75"/>
+                    <GradientStop Color="#252525" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.BorderBrush>
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#555555" Offset="0"/>
+                    <GradientStop Color="#303030" Offset="0.75"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid Background="#1F1F1F" MouseDown="Grid_MouseDown">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="25"/>
+                        <ColumnDefinition Width="25"/>
+                        <ColumnDefinition Width="25"/>
+                        <ColumnDefinition Width="5"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="MirageMUD 2"
+                           Foreground="White"
+                           FontSize="12"
+                           FontFamily="Verdana"
+                           Grid.Column="0"
+                           VerticalAlignment="Center"
+                           Margin="10,0,0,0"/>
+                    <Button x:Name="btnMinimise"
+                        BorderThickness="0"
+                        Content="🗕"
+                        Foreground="White"
+                        FontFamily="Verdana"
+                        FontSize="16"
+                        Cursor="Hand"
+                        Grid.Column="1"
+                        Click="btnMinimise_Click">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#454545"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Width="25" Height="25"
+                                   Background="{TemplateBinding Background}">
+                                        <ContentPresenter VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    
+                        <Button x:Name="btnMaximise"
+                                BorderThickness="0"
+                                Content="🗖"
+                                Foreground="White"
+                                FontFamily="Verdana"
+                                FontSize="16"
+                                Cursor="Hand"
+                                Grid.Column="2"
+                                Click="btnMaximise_Click">
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Setter Property="Background" Value="Transparent"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#454545"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Width="25" Height="25"
+                                            Background="{TemplateBinding Background}">
+                                        <ContentPresenter VerticalAlignment="Center"
+                                                HorizontalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    
+                        <Button x:Name="btnClose"
+                        BorderThickness="0"
+                        Content="×"
+                        Foreground="White"
+                        FontSize="18"
+                        FontFamily="Verdana"
+                        Cursor="Hand"
+                        Grid.Column="3"
+                        Click="btnClose_Click">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#454545"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Width="25" Height="25"
+                                    Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center"
+                                                HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+
+                    </Button>
+                </Grid>
+                
+                <!-- START GAME CONTENT-->
+                
+                
+                
+                <!-- END GAME CONTENT-->
+                
+            </Grid>
+        </Border>
+    </Border>
+    </Grid>
+</Window>
