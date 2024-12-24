@@ -105,5 +105,51 @@ namespace MirageMUD_ClientWPF.View
                 btnMaximise.Content = "🗖";
             }
         }
+
+        private void btnLook_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnAction1_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnAction2_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnAction3_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnAction4_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnAction5_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnAction6_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        // Code for status bars
+        /*private void SetHealth(double percentage)
+        {
+            // Ensure percentage is clamped between 0 and 100
+            percentage = Math.Max(0, Math.Min(100, percentage));
+
+            // Calculate the width based on the percentage
+            double fullWidth = 240; // Match the Width of the Border in XAML
+            HealthFill.Width = (fullWidth * percentage) / 100;
+        }*/
     }
 }

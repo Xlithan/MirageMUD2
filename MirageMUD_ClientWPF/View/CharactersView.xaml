@@ -268,264 +268,62 @@
                                        FontFamily="Verdana"/>
                         </StackPanel>
 
-                        <Button x:Name="btnPlay1"
-                                VerticalAlignment="Center"
-                                HorizontalAlignment="Center"
-                                Grid.Column="2"
-                                BorderThickness="0"
-                                Content="PLAY"
-                                Foreground="White"
-                                FontFamily="Verdana"
-                                FontSize="12"
-                                FontWeight="Bold"
-                                Cursor="Hand"
-                                Margin="0,0,0,0"
-                                Click="btnPlay1_Click">
-                            <Button.Style>
-                                <Style TargetType="Button">
-                                    <Setter Property="Background" Value="#181818"/>
-                                    <Style.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="Background" Value="Goldenrod"/>
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Button.Style>
-                            <Button.Template>
-                                <ControlTemplate TargetType="Button">
-                                    <Border Width="90" Height="25"
-                                            CornerRadius="5"
-                                            Background="{TemplateBinding Background}">
-                                        <ContentPresenter VerticalAlignment="Center"
-                                                HorizontalAlignment="Center"/>
-                                    </Border>
-                                </ControlTemplate>
-                            </Button.Template>
-                        </Button>
+                        <local:UIButton x:Name="btnPlay1"
+                                        Content="PLAY"
+                                        Width="90" Height="25"
+                                        Grid.Column="2"
+                                        Grid.Row="0"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        Click="btnPlay1_Click" />
 
-                        <Button x:Name="btnPlay2"
-        VerticalAlignment="Center"
-        HorizontalAlignment="Center"
-                                Grid.Row="2"
-        Grid.Column="2"
-        BorderThickness="0"
-        Content="PLAY"
-        Foreground="White"
-        FontFamily="Verdana"
-        FontSize="12"
-        FontWeight="Bold"
-        Cursor="Hand"
-        Margin="0,0,0,0"
-        Click="btnPlay2_Click">
-                            <Button.Style>
-                                <Style TargetType="Button">
-                                    <Setter Property="Background" Value="#181818"/>
-                                    <Style.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="Background" Value="Goldenrod"/>
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Button.Style>
-                            <Button.Template>
-                                <ControlTemplate TargetType="Button">
-                                    <Border Width="90" Height="25"
-                    CornerRadius="5"
-                    Background="{TemplateBinding Background}">
-                                        <ContentPresenter VerticalAlignment="Center"
-                        HorizontalAlignment="Center"/>
-                                    </Border>
-                                </ControlTemplate>
-                            </Button.Template>
-                        </Button>
+                        <local:UIButton x:Name="btnPlay2"
+                                        Content="PLAY"
+                                        Width="90" Height="25"
+                                        Grid.Column="2"
+                                        Grid.Row="2"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        Click="btnPlay2_Click" />
 
-                        <Button x:Name="btnPlay3"
-        VerticalAlignment="Center"
-        HorizontalAlignment="Center"
-        Grid.Column="2"
-                                Grid.Row="4"
-        BorderThickness="0"
-        Content="PLAY"
-        Foreground="White"
-        FontFamily="Verdana"
-        FontSize="12"
-        FontWeight="Bold"
-        Cursor="Hand"
-        Margin="0,0,0,0"
-        Click="btnPlay3_Click">
-                            <Button.Style>
-                                <Style TargetType="Button">
-                                    <Setter Property="Background" Value="#181818"/>
-                                    <Style.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="Background" Value="Goldenrod"/>
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Button.Style>
-                            <Button.Template>
-                                <ControlTemplate TargetType="Button">
-                                    <Border Width="90" Height="25"
-                    CornerRadius="5"
-                    Background="{TemplateBinding Background}">
-                                        <ContentPresenter VerticalAlignment="Center"
-                        HorizontalAlignment="Center"/>
-                                    </Border>
-                                </ControlTemplate>
-                            </Button.Template>
-                        </Button>
+                        <local:UIButton x:Name="btnPlay3"
+                                        Content="PLAY"
+                                        Width="90" Height="25"
+                                        Grid.Column="2"
+                                        Grid.Row="4"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        Click="btnPlay3_Click" />
 
-                        <Button x:Name="btnPlay4"
-        VerticalAlignment="Center"
-        HorizontalAlignment="Center"
-        Grid.Column="2"
-                                Grid.Row="6"
-        BorderThickness="0"
-        Content="PLAY"
-        Foreground="White"
-        FontFamily="Verdana"
-        FontSize="12"
-        FontWeight="Bold"
-        Cursor="Hand"
-        Margin="0,0,0,0"
-        Click="btnPlay4_Click">
-                            <Button.Style>
-                                <Style TargetType="Button">
-                                    <Setter Property="Background" Value="#181818"/>
-                                    <Style.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="Background" Value="Goldenrod"/>
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Button.Style>
-                            <Button.Template>
-                                <ControlTemplate TargetType="Button">
-                                    <Border Width="90" Height="25"
-                    CornerRadius="5"
-                    Background="{TemplateBinding Background}">
-                                        <ContentPresenter VerticalAlignment="Center"
-                        HorizontalAlignment="Center"/>
-                                    </Border>
-                                </ControlTemplate>
-                            </Button.Template>
-                        </Button>
+                        <local:UIButton x:Name="btnPlay4"
+                                        Content="PLAY"
+                                        Width="90" Height="25"
+                                        Grid.Column="2"
+                                        Grid.Row="6"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        Click="btnPlay4_Click" />
 
-                        <Button x:Name="btnPlay5"
-                                VerticalAlignment="Center"
-                                HorizontalAlignment="Center"
-                                Grid.Column="2"
-                                Grid.Row="8"
-                                BorderThickness="0"
-                                Content="PLAY"
-                                Foreground="White"
-                                FontFamily="Verdana"
-                                FontSize="12"
-                                FontWeight="Bold"
-                                Cursor="Hand"
-                                Margin="0,0,0,0"
-                                Click="btnPlay5_Click">
-                            <Button.Style>
-                                <Style TargetType="Button">
-                                    <Setter Property="Background" Value="#181818"/>
-                                    <Style.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="Background" Value="Goldenrod"/>
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Button.Style>
-                            <Button.Template>
-                                <ControlTemplate TargetType="Button">
-                                    <Border Width="90" Height="25"
-                    CornerRadius="5"
-                    Background="{TemplateBinding Background}">
-                                        <ContentPresenter VerticalAlignment="Center"
-                        HorizontalAlignment="Center"/>
-                                    </Border>
-                                </ControlTemplate>
-                            </Button.Template>
-                        </Button>
+                        <local:UIButton x:Name="btnPlay5"
+                                        Content="PLAY"
+                                        Width="90" Height="25"
+                                        Grid.Column="2"
+                                        Grid.Row="8"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        Click="btnPlay5_Click" />
                     </Grid>
-                    <Button x:Name="btnNewChar"
-                            BorderThickness="0"
-                            Content="CREATE"
-                            Foreground="White"
-                            FontFamily="Verdana"
-                            FontSize="12"
-                            FontWeight="Bold"
-                            Cursor="Hand"
-                            Margin="0,5,0,0"
-                            Click="btnNewChar_Click">
-                        <Button.Style>
-                            <Style TargetType="Button">
-                                <Setter Property="Background" Value="#181818"/>
-                                <Style.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Background" Value="Goldenrod"/>
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Button.Style>
-                        <Button.Template>
-                            <ControlTemplate TargetType="Button">
-                                <Border Width="150" Height="25"
-                    CornerRadius="5"
-                    Background="{TemplateBinding Background}">
-                                    <ContentPresenter VerticalAlignment="Center"
-                            HorizontalAlignment="Center"/>
-                                </Border>
-                            </ControlTemplate>
-                        </Button.Template>
-                    </Button>
+                    <local:UIButton x:Name="btnNewChar"
+                                    Content="CREATE"
+                                    Width="150" Height="25"
+                                    Click="btnNewChar_Click"
+                                    Margin="0,10,0,0"/>
 
                 </StackPanel>
                 <Button x:Name="btnBack"
-                    Grid.Row="1"
-                    BorderThickness="0"
-                    FontFamily="Verdana"
-                    FontSize="12"
-                    FontWeight="Bold"
-                    Cursor="Hand"
-                    Margin="0,0,12,12"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Bottom"
-                    Click="btnBack_Click">
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="Background" Value="#151515"/>
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="Goldenrod"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <Border Width="25" Height="25"
-                                CornerRadius="12"
-                                Background="{TemplateBinding Background}">
-                                <!-- StackPanel to hold the image and text together -->
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-
-                                    <!-- Image inside the button -->
-                                    <Image Source="pack://application:,,,/MirageMUD_ClientWPF;component/Images/right-to-bracket-solid.png"
-                                       Width="16" Height="16"
-                                       VerticalAlignment="Center"
-                                       HorizontalAlignment="Center"
-                                       Margin="2"/>
-
-                                    <!-- Text inside the button -->
-                                    <ContentPresenter VerticalAlignment="Center"
-                                                  HorizontalAlignment="Center"
-                                                  Margin="0,0,0,0" />
-
-                                </StackPanel>
-                            </Border>
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
+                        Style="{StaticResource BackButtonStyle}"
+                        Grid.Row="1"
+                        Click="btnBack_Click" />
             </Grid>
         </Border>
     </Border>

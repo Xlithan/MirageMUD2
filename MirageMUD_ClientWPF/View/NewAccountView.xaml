@@ -178,87 +178,20 @@
                         </PasswordBox.Background>
                     </PasswordBox>
 
-                    <Button x:Name="btnCreate"
-                        BorderThickness="0"
-                        Content="CREATE"
-                        Foreground="White"
-                        FontFamily="Verdana"
-                        FontSize="12"
-                        FontWeight="Bold"
-                        Cursor="Hand"
-                        Margin="0,50,0,0"
-                        Click="btnCreate_Click">
-                        <Button.Style>
-                            <Style TargetType="Button">
-                                <Setter Property="Background" Value="#181818"/>
-                                <Style.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Background" Value="Goldenrod"/>
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Button.Style>
-                        <Button.Template>
-                            <ControlTemplate TargetType="Button">
-                                <Border Width="150" Height="25"
-                                    CornerRadius="5"
-                                    Background="{TemplateBinding Background}">
-                                    <ContentPresenter VerticalAlignment="Center"
-                                            HorizontalAlignment="Center"/>
-                                </Border>
-                            </ControlTemplate>
-                        </Button.Template>
-                    </Button>
+                    <local:UIButton x:Name="btnCreate"
+                                    Content="CREATE"
+                                    Width="150" Height="25"
+                                    Click="btnCreate_Click"
+                                    Margin="0,50,0,0"/>
 
                 </StackPanel>
                 <Button x:Name="btnBack"
+                        Style="{StaticResource BackButtonStyle}"
                         Grid.Row="2"
                         Grid.Column="1"
-                        BorderThickness="0"
-                        FontFamily="Verdana"
-                        FontSize="12"
-                        FontWeight="Bold"
-                        Cursor="Hand"
                         Margin="0,0,12,12"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Bottom"
-                        Click="btnBack_Click">
-                        <Button.Style>
-                            <Style TargetType="Button">
-                                <Setter Property="Background" Value="#151515"/>
-                                <Style.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Background" Value="Goldenrod"/>
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Button.Style>
-                        <Button.Template>
-                            <ControlTemplate TargetType="Button">
-                                <Border Width="25" Height="25"
-                CornerRadius="12"
-                Background="{TemplateBinding Background}">
-                                    <!-- StackPanel to hold the image and text together -->
-                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-
-                                        <!-- Image inside the button -->
-                                        <Image Source="pack://application:,,,/MirageMUD_ClientWPF;component/Images/right-to-bracket-solid.png"
-                       Width="16" Height="16"
-                       VerticalAlignment="Center"
-                       HorizontalAlignment="Center"
-                       Margin="2"/>
-
-                                        <!-- Text inside the button -->
-                                        <ContentPresenter VerticalAlignment="Center"
-                  HorizontalAlignment="Center"
-                  Margin="0,0,0,0" />
-
-                                    </StackPanel>
-                                </Border>
-                            </ControlTemplate>
-                        </Button.Template>
-                    </Button>
-                </Grid>
+                        Click="btnBack_Click" />
+            </Grid>
         </Border>
     </Border>
 </Window>

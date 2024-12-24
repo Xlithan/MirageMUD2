@@ -144,8 +144,216 @@
                 </Grid>
                 
                 <!-- START GAME CONTENT-->
-                
-                
+
+                    <Grid Grid.Row="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="250"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <!-- Column 1 -->
+                        <Grid Grid.Column="0"
+                              Margin="5,0,0,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="55"/>
+                                <RowDefinition Height="120"/>
+                                <RowDefinition Height="245"/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <!-- Name/Avatar -->
+                            <Border Grid.Column="0" Grid.Row="0"
+                                    Background="#2B2B2B" 
+                                    CornerRadius="10" 
+                                    Padding="5"
+                                    Margin="0,5,0,5">
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="pack://application:,,,/MirageMUD_ClientWPF;component/Images/player.bmp"
+                                           Stretch="Uniform"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"/>
+                                    <TextBlock Text="Xlithan"
+                                       Foreground="LightGray"
+                                       FontSize="12"
+                                       FontWeight="Bold"
+                                       FontFamily="Verdana"
+                                       Margin="10,0,0,0"
+                                       VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Border>
+                            <!-- Level/Gold/Bank -->
+                            <Border Grid.Column="0" Grid.Row="1"
+                                    Background="#2B2B2B" 
+                                    CornerRadius="10" 
+                                    Padding="5"
+                                    Margin="0,0,0,0">
+                            </Border>
+                            <Grid Grid.Row="1"
+                                  Margin="0,5,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Column="0">
+                                    <TextBlock Text="Level"
+                                       Foreground="CornflowerBlue"
+                                       FontSize="12"
+                                       FontWeight="Bold"
+                                       FontFamily="Verdana"
+                                       Margin="10,0,0,0"
+                                       VerticalAlignment="Center"/>
+                                    <TextBlock Text="Gold"
+                                       Foreground="CornflowerBlue"
+                                       FontSize="12"
+                                       FontWeight="Bold"
+                                       FontFamily="Verdana"
+                                       Margin="10,0,0,0"
+                                       VerticalAlignment="Center"/>
+                                    <TextBlock Text="Bank"
+                                       Foreground="CornflowerBlue"
+                                       FontSize="12"
+                                       FontWeight="Bold"
+                                       FontFamily="Verdana"
+                                       Margin="10,0,0,0"
+                                       VerticalAlignment="Center"/>
+                                </StackPanel>
+                                <StackPanel Grid.Column="1">
+                                    <TextBlock Text="16"
+                                       Foreground="LightGoldenrodYellow"
+                                       FontSize="12"
+                                       FontWeight="Bold"
+                                       FontFamily="Verdana"
+                                       Margin="10,0,0,0"
+                                       VerticalAlignment="Center"/>
+                                    <TextBlock Text="6,837g"
+                                       Foreground="LightGoldenrodYellow"
+                                       FontSize="12"
+                                       FontWeight="Bold"
+                                       FontFamily="Verdana"
+                                       Margin="10,0,0,0"
+                                       VerticalAlignment="Center"/>
+                                    <TextBlock Text="13,220g"
+                                       Foreground="LightGoldenrodYellow"
+                                       FontSize="12"
+                                       FontWeight="Bold"
+                                       FontFamily="Verdana"
+                                       Margin="10,0,0,0"
+                                       VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Grid>
+                            <!--Vital Bars-->
+                            <StackPanel Grid.Row="2"
+                                        Margin="0,5,0,0">
+                                <TextBlock Text="Health: 180/180"
+                                   Foreground="LightGray"
+                                   FontSize="12"
+                                   FontWeight="Bold"
+                                   FontFamily="Verdana"
+                                   Margin="0,0,0,0"
+                                   VerticalAlignment="Center"/>
+                                <Border BorderBrush="DarkGray" BorderThickness="1" CornerRadius="2"
+                                        HorizontalAlignment="Left" VerticalAlignment="Center"
+                                        Width="240" Height="12">
+                                    <Grid>
+                                        <!-- Full bar background -->
+                                        <Rectangle Fill="Gray" />
+                                        <!-- Health fill -->
+                                        <Rectangle Name="HealthFill" Fill="IndianRed" HorizontalAlignment="Left"
+                                                   Width="240"/>
+                                    </Grid>
+                                </Border>
+                                <TextBlock Text="Mana: 0/0"
+                                           Foreground="LightGray"
+                                           FontSize="12"
+                                           FontWeight="Bold"
+                                           FontFamily="Verdana"
+                                           Margin="0,1,0,0"
+                                           VerticalAlignment="Center"/>
+                                <Border BorderBrush="DarkGray" BorderThickness="1" CornerRadius="2"
+                                        HorizontalAlignment="Left" VerticalAlignment="Center"
+                                        Width="240" Height="12">
+                                    <Grid>
+                                        <!-- Full bar background -->
+                                        <Rectangle Fill="Gray" />
+                                        <!-- Mana fill -->
+                                        <Rectangle Name="ManaFill" Fill="CornflowerBlue" HorizontalAlignment="Left"
+                                                    Width="0"/>
+                                    </Grid>
+                                </Border>
+                                <TextBlock Text="Stamina: 3/3"
+                                           Foreground="LightGray"
+                                           FontSize="12"
+                                           FontWeight="Bold"
+                                           FontFamily="Verdana"
+                                           Margin="0,1,0,0"
+                                           VerticalAlignment="Center"/>
+                                <Border BorderBrush="DarkGray" BorderThickness="1" CornerRadius="2"
+                                        HorizontalAlignment="Left" VerticalAlignment="Center"
+                                        Width="240" Height="12">
+                                    <Grid>
+                                        <!-- Full bar background -->
+                                        <Rectangle Fill="Gray" />
+                                        <!-- Stamina fill -->
+                                        <Rectangle Name="StamFill" Fill="PaleGreen" HorizontalAlignment="Left"
+                                                    Width="240"/>
+                                    </Grid>
+                                </Border>
+                                <TextBlock Text="Exp: 75.6%"
+                                           Foreground="LightGray"
+                                           FontSize="12"
+                                           FontWeight="Bold"
+                                           FontFamily="Verdana"
+                                           Margin="0,1,0,0"
+                                           VerticalAlignment="Center"/>
+                                <Border BorderBrush="DarkGray" BorderThickness="1" CornerRadius="2"
+                                        HorizontalAlignment="Left" VerticalAlignment="Center"
+                                        Width="240" Height="12">
+                                    <Grid>
+                                        <!-- Full bar background -->
+                                        <Rectangle Fill="Gray" />
+                                        <!-- Exp fill -->
+                                        <Rectangle Name="ExpFill" Fill="Gold" HorizontalAlignment="Left"
+                                                    Width="181.44"/>
+                                    </Grid>
+                                </Border>
+                            </StackPanel>
+                            <!--Inventory and Spells-->
+                            <StackPanel Grid.Row="3"
+                                        Margin="0,5,0,0">
+                                
+                            </StackPanel>
+                            <!--Action buttons-->
+                            <WrapPanel Grid.Row="4"
+                                       Margin="0,5,0,0">
+                                <local:ActionButton x:Name="btnAction1"
+                                    Content="LOOK AROUND"
+                                    Click="btnAction1_Click" />
+                                <local:ActionButton x:Name="btnAction2"
+                                    Content="GET DRUNK"
+                                    Click="btnAction2_Click"
+                                    Margin="5,0,0,0"/>
+                                <local:ActionButton x:Name="btnAction3"
+                                    Content="REST (100g)"
+                                    Click="btnAction3_Click" 
+                                    Margin="0,5,0,0"/>
+                                <local:ActionButton x:Name="btnAction4"
+                                    Content="SET AS LOCAL"
+                                    Click="btnAction4_Click"
+                                    Margin="5,5,0,0"/>
+                                <local:ActionButton x:Name="btnAction5"
+                                    Content="BUY TRAINING"
+                                    Click="btnAction5_Click" 
+                                    Margin="0,5,0,0"/>
+                                <local:ActionButton x:Name="btnAction6"
+                                    Content="BUY SPELLS"
+                                    Click="btnAction6_Click"
+                                    Margin="5,5,0,0"/>
+                            </WrapPanel>
+                        </Grid>
+                    </Grid>
                 
                 <!-- END GAME CONTENT-->
                 
