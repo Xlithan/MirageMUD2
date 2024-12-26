@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using MirageMUD_ClientWPF.Model.Network;
+using MirageMUD_ClientWPF.Model.Utilities;
+using System.Windows;
 using System.Windows.Input;
 using static MirageMUD_ClientWPF.App;
 
@@ -9,10 +11,27 @@ namespace MirageMUD_ClientWPF.View
     /// </summary>
     public partial class LoginView : Window
     {
+        ClientTCP clientTCP;  // Instance of ClientTCP for network communication
+
+        // Enum for different menu states
+        public enum MenuState : byte
+        {
+            NewAccount = 0,  // New account creation menu
+            DelAccount = 1,  // Account deletion menu
+            Login = 2,  // Login menu
+            GetChars = 3,  // Retrieve characters menu
+            NewChar = 4,  // New character creation menu
+            AddChar = 5,  // Add character to account
+            DelChar = 6,  // Delete character menu
+            UseChar = 7,  // Use existing character
+            Init = 8  // Initial state of the menu
+        }
         public LoginView()
         {
             InitializeComponent();
             SetWindowPosition();
+
+            
         }
         private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
         {

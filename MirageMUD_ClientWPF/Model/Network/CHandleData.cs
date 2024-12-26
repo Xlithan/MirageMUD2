@@ -114,7 +114,7 @@ namespace MirageMUD_ClientWPF.Model.Network
             else
             {
                 // Log error if no handler is found for the packet
-                Debug.WriteLine(string.Format(TranslationManager.Instance.GetTranslation("errors.no_handler"), packetNum));
+                Debug.WriteLine(string.Format("No packet handler found for packet number: {0}", packetNum));
             }
         }
 

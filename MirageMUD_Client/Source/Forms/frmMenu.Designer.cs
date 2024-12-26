@@ -949,13 +949,13 @@
             BackgroundImageLayout = ImageLayout.None;
             ClientSize = new Size(590, 384);
             ControlBox = false;
+            Controls.Add(pnlGameOptions);
             Controls.Add(panel1);
             Controls.Add(pnlNewAccount);
             Controls.Add(pnlLogin);
             Controls.Add(pnlExit);
             Controls.Add(pnlIPConfig);
             Controls.Add(pnlCredits);
-            Controls.Add(pnlGameOptions);
             Controls.Add(lblWelcomeDesc);
             Controls.Add(lblTWelcome);
             Controls.Add(picBackground);

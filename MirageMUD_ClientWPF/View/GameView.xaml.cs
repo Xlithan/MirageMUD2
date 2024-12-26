@@ -3,6 +3,8 @@ using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Input;
+using System.IO;
+using System.Windows.Media.Imaging;
 
 namespace MirageMUD_ClientWPF.View
 {

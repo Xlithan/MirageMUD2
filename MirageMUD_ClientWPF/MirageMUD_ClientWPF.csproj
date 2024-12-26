@@ -10,12 +10,15 @@
 
   <ItemGroup>
     <None Remove="Images\avatarsback.png" />
+    <None Remove="Images\Avatars\3.bmp" />
+    <None Remove="Images\Avatars\5.bmp" />
     <None Remove="Images\charsback.png" />
     <None Remove="Images\gameback.png" />
     <None Remove="Images\gear-solid.png" />
     <None Remove="Images\key-solid.png" />
     <None Remove="Images\logo.png" />
     <None Remove="Images\logo_63x63.png" />
+    <None Remove="Images\map1.png" />
     <None Remove="Images\menuback.png" />
     <None Remove="Images\ME_icon.ico" />
     <None Remove="Images\newcharback.png" />
@@ -29,12 +32,11 @@
 
   <ItemGroup>
     <Resource Include="Images\avatarsback.png" />
+    <Resource Include="Images\Avatars\3.bmp" />
+    <Resource Include="Images\Avatars\5.bmp" />
     <Resource Include="Images\gameback.png" />
+    <Resource Include="Images\map1.png" />
     <Resource Include="Images\SplashImage.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="ViewModel\" />
   </ItemGroup>
 
   <ItemGroup>

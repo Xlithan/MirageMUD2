@@ -1,4 +1,5 @@
-﻿using MirageMUD_ClientWPF.View;
+﻿using MirageMUD_ClientWPF.Model.Network;
+using MirageMUD_ClientWPF.View;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
@@ -11,10 +12,14 @@ namespace MirageMUD_ClientWPF
     /// </summary>
     public partial class MainWindow : Window
     {
+        private readonly CHandleData _cHandleData;
         public MainWindow()
         {
             InitializeComponent();
             Loaded += MainWindow_Loaded;
+
+            _cHandleData = new CHandleData();
+            _cHandleData.InitialiseMessages();
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)

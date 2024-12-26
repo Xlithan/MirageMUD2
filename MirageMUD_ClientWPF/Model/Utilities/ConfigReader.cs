@@ -1,64 +1,96 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;  // Needed for file handling
-using System.Text.Json;  // Needed for JSON serialization/deserialization
+﻿using MirageMUD_ClientWPF.Model.Core;
+using System.IO;
+using System.Text.Json;
 
 namespace MirageMUD_ClientWPF.Model.Utilities
 {
     internal class ConfigReader
     {
-        // Retrieves the language code from the configuration file
-        public static string GetLanguageCode(string configFilePath)
+        // Reads the configuration file and returns a Config object
+        private static Config ReadConfig(string configFilePath)
         {
-            // Check if the configuration file exists
             if (!File.Exists(configFilePath))
             {
                 throw new FileNotFoundException($"Configuration file not found: {configFilePath}");
             }
 
-            // Read all text from the file (assuming it's JSON)
             string jsonContent = File.ReadAllText(configFilePath);
-
-            // Deserialize the JSON content into a dictionary
-            var config = JsonSerializer.Deserialize<Dictionary<string, string>>(jsonContent);
-
-            // Check if the 'languageCode' key exists and return its value
-            if (config != null && config.TryGetValue("languageCode", out string languageCode))
+            try
             {
-                return languageCode;
+                return JsonSerializer.Deserialize<Config>(jsonContent)
+                       ?? throw new InvalidOperationException("Failed to deserialize configuration.");
             }
-
-            // Throw an exception if the 'languageCode' key is missing
-            throw new KeyNotFoundException("The 'languageCode' key was not found in the configuration file.");
+            catch (JsonException ex)
+            {
+                throw new InvalidOperationException("Failed to deserialize configuration due to invalid JSON.", ex);
+            }
         }
 
-        // Updates the language code in the config file
-        public static void UpdateLanguageCode(string configFilePath, string newLanguageCode)
+        // Retrieves the language code from the configuration file
+        public static string GetLanguageCode(string configFilePath)
         {
-            Dictionary<string, string> config;
+            var config = ReadConfig(configFilePath);
+            return config.LanguageCode ?? throw new InvalidOperationException("Language code is null.");
+        }
 
-            // If the configuration file exists, read its content
-            if (File.Exists(configFilePath))
+        // Retrieves the IP Address from the configuration file
+        public static string GetIpAddress(string configFilePath)
+        {
+            var config = ReadConfig(configFilePath);
+            return config.IpAddress ?? throw new InvalidOperationException("IP Address is null.");
+        }
+
+        // Retrieves the Port from the configuration file
+        public static string GetPort(string configFilePath)
+        {
+            var config = ReadConfig(configFilePath);
+            return config.Port ?? throw new InvalidOperationException("Port is null.");
+        }
+
+        // Retrieves the Music setting from the configuration file
+        public static bool GetMusicEnabled(string configFilePath)
+        {
+            var config = ReadConfig(configFilePath);
+            return config.Music;  // Directly return the bool value
+        }
+
+        // Retrieves the Sound setting from the configuration file
+        public static bool GetSoundEnabled(string configFilePath)
+        {
+            var config = ReadConfig(configFilePath);
+            return config.Sound;  // Directly return the bool value
+        }
+
+        // Update a specific setting in the configuration file
+        public static void UpdateSetting(string configFilePath, string key, object value)
+        {
+            // Load the existing config or create a new one
+            var config = File.Exists(configFilePath) ? ReadConfig(configFilePath) : new Config();
+
+            // Update the relevant property based on the key
+            switch (key.ToLower())
             {
-                // Read the existing content of the configuration file
-                string jsonContent = File.ReadAllText(configFilePath);
-
-                // Deserialize it into a dictionary, or create an empty dictionary if null
-                config = JsonSerializer.Deserialize<Dictionary<string, string>>(jsonContent) ?? new Dictionary<string, string>();
+                case "ipaddress":
+                    config.IpAddress = value.ToString();
+                    break;
+                case "port":
+                    config.Port = value.ToString();
+                    break;
+                case "music":
+                    config.Music = Convert.ToBoolean(value);  // Convert value to bool
+                    break;
+                case "sound":
+                    config.Sound = Convert.ToBoolean(value);  // Convert value to bool
+                    break;
+                case "languagecode":
+                    config.LanguageCode = value.ToString();
+                    break;
+                default:
+                    throw new ArgumentException($"Invalid setting key: {key}");
             }
-            else
-            {
-                // If the file does not exist, initialize an empty dictionary
-                config = new Dictionary<string, string>();
-            }
 
-            // Update the language code (or add it if not present)
-            config["languageCode"] = newLanguageCode;
-
-            // Serialize the dictionary back into a JSON string with indentation for readability
+            // Serialize the updated config back to JSON
             string updatedJson = JsonSerializer.Serialize(config, new JsonSerializerOptions { WriteIndented = true });
-
-            // Write the updated JSON content back to the configuration file
             File.WriteAllText(configFilePath, updatedJson);
         }
     }

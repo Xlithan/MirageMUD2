@@ -175,19 +175,7 @@
                                FontFamily="Verdana"
                                Margin="0,20,0,0"/>
 
-                    <ComboBox x:Name="cmbLanguage" HorizontalAlignment="Left" VerticalAlignment="Center" Width="250">
-                        <ComboBoxItem Content="Welsh (Cymraeg)" />
-                        <ComboBoxItem Content="German (Deutsch)" />
-                        <ComboBoxItem Content="British English (English)" />
-                        <ComboBoxItem Content="American English (English)" />
-                        <ComboBoxItem Content="Spanish (Español)" />
-                        <ComboBoxItem Content="French (Français)" />
-                        <ComboBoxItem Content="Italian (Italiano)" />
-                        <ComboBoxItem Content="Portuguese (Português)" />
-                        <ComboBoxItem Content="Romanized Japanese (Romaji)" />
-                        <ComboBoxItem Content="Polish (Polski)" />
-                        <ComboBoxItem Content="Swedish (Svenska)" />
-                    </ComboBox>
+                    <ComboBox x:Name="cmbLanguage" HorizontalAlignment="Left" VerticalAlignment="Center" Width="250"/>
                     <local:UIButton x:Name="btnSave"
                             Content="SAVE"
                             Width="150" Height="25"
