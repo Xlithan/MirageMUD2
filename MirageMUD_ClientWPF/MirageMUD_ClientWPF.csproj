@@ -12,6 +12,7 @@
     <None Remove="Images\avatarsback.png" />
     <None Remove="Images\Avatars\3.bmp" />
     <None Remove="Images\Avatars\5.bmp" />
+    <None Remove="Images\Avatars\blank.bmp" />
     <None Remove="Images\charsback.png" />
     <None Remove="Images\gameback.png" />
     <None Remove="Images\gear-solid.png" />
@@ -34,6 +35,7 @@
     <Resource Include="Images\avatarsback.png" />
     <Resource Include="Images\Avatars\3.bmp" />
     <Resource Include="Images\Avatars\5.bmp" />
+    <Resource Include="Images\Avatars\blank.bmp" />
     <Resource Include="Images\gameback.png" />
     <Resource Include="Images\map1.png" />
     <Resource Include="Images\SplashImage.png" />

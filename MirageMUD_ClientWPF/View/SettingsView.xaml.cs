@@ -88,8 +88,7 @@ namespace MirageMUD_ClientWPF.View
             SaveWindowPosition();
 
             // Create an instance of the new window
-            var loginView = new LoginView();
-            loginView.Show();
+            App.LoginViewInstance.Show();
 
             // Optionally close the current window
             this.Close();

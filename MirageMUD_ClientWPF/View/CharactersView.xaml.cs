@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using MirageMUD_ClientWPF.ViewModel;
+using System.Windows;
 using System.Windows.Input;
 using static MirageMUD_ClientWPF.App;
 
@@ -13,6 +14,7 @@ namespace MirageMUD_ClientWPF.View
         {
             InitializeComponent();
             SetWindowPosition();
+            DataContext = new CharacterViewModel();
         }
         private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -106,6 +108,11 @@ namespace MirageMUD_ClientWPF.View
                 // Default to center screen if no position is saved
                 this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             }
+        }
+
+        private void btnPlay_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

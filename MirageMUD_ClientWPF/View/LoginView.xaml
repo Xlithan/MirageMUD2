@@ -139,14 +139,13 @@
                                 ViewportUnits="Absolute"/>
                         </TextBox.Background>
                     </TextBox>
-                    <TextBlock x:Name="txtPassword"
-                                Text="Password"
+                    <TextBlock Text="Password"
                                Foreground="LightGray"
                                FontSize="12"
                                FontWeight="Bold"
                                FontFamily="Verdana"
                                Margin="0,10,0,0"/>
-                    <PasswordBox 
+                    <PasswordBox x:Name="txtPassword"
                         Style="{StaticResource CustomPasswordBoxStyle}">
                         <PasswordBox.Background>
                             <ImageBrush 
@@ -209,12 +208,13 @@
                                Grid.Column="0"
                                VerticalAlignment="Center"
                                Width="30" Source="/Images/ME_icon.ico"/>
-                        <TextBlock Text="Made with Mirage Engine"
-                                   Foreground="LightGray"
-                                   FontSize="12"
-                                   FontWeight="Bold"
-                                   FontFamily="Verdana"
-                                   Margin="10,17,0,0"/>
+                        <TextBlock x:Name="lblStatus"
+                               Text="Made with Mirage Engine"
+                               Foreground="LightGray"
+                               FontSize="12"
+                               FontWeight="Bold"
+                               FontFamily="Verdana"
+                               Margin="10,17,0,0"/>
                     </StackPanel>
                 </Grid>
             </Grid>

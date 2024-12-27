@@ -1,8 +1,6 @@
 ﻿using MirageMUD_ClientWPF.Model.Network;
-using MirageMUD_ClientWPF.Model.Utilities;
 using System.Windows;
 using System.Windows.Input;
-using static MirageMUD_ClientWPF.App;
 
 namespace MirageMUD_ClientWPF.View
 {
@@ -31,7 +29,9 @@ namespace MirageMUD_ClientWPF.View
             InitializeComponent();
             SetWindowPosition();
 
-            
+            // Create a new instance of ClientTCP for new account procedure
+            clientTCP = new ClientTCP();
+            clientTCP.ConnectToServer();  // Connect to the server
         }
         private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -53,12 +53,40 @@ namespace MirageMUD_ClientWPF.View
             // Save window position
             SaveWindowPosition();
 
+            string loginName = txtUsername.Text;  // Get the login name from the text box
+            string loginPass = txtPassword.Password;  // Get the login password from the text box
+
+            if (!string.IsNullOrWhiteSpace(loginName) && !string.IsNullOrWhiteSpace(loginPass))
+            {
+                // Run login procedure
+                MenuStateHandler(MenuState.Login);  // Change menu state to login
+            }
+            else
+            {
+                // Show error messages based on missing fields
+                if (string.IsNullOrWhiteSpace(loginName) && string.IsNullOrWhiteSpace(loginPass))
+                {
+                    string translatedMessage = TranslationManager.Instance.GetTranslation("messages.login_prompt");
+                    MessageBox.Show(translatedMessage, "Error", MessageBoxButton.OK);
+                }
+                else if (string.IsNullOrWhiteSpace(loginName))
+                {
+                    string translatedMessage = TranslationManager.Instance.GetTranslation("messages.login_name_prompt");
+                    MessageBox.Show(translatedMessage, "Error", MessageBoxButton.OK);
+                }
+                else if (string.IsNullOrWhiteSpace(loginPass))
+                {
+                    string translatedMessage = TranslationManager.Instance.GetTranslation("messages.password_prompt");
+                    MessageBox.Show(translatedMessage, "Error", MessageBoxButton.OK);
+                }
+            }
+
             // Create an instance of the new window
-            var charactersView = new CharactersView();
+            /*var charactersView = new CharactersView();
             charactersView.Show();
 
             // Optionally close the current window
-            this.Close();
+            this.Close();*/
         }
         private void txtNewAccount_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -70,7 +98,7 @@ namespace MirageMUD_ClientWPF.View
             newAccountView.Show();
 
             // Optionally close the current window
-            this.Close();
+            this.Hide();
         }
         private void btnSettings_Click(object sender, RoutedEventArgs e)
         {
@@ -82,7 +110,7 @@ namespace MirageMUD_ClientWPF.View
             settingsView.Show();
 
             // Optionally close the current window
-            this.Close();
+            this.Hide();
         }
         private void SaveWindowPosition()
         {
@@ -101,6 +129,98 @@ namespace MirageMUD_ClientWPF.View
                 // Default to center screen if no position is saved
                 this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             }
+        }
+        // Asynchronous method to handle menu state changes, like account creation or login
+        public async Task MenuStateHandler(MenuState state)
+        {
+            switch (state)
+            {
+                case MenuState.NewAccount:
+                    /*if (clientTCP.PlayerSocket.Connected)
+                    {
+                        btnNewAccConnect.Text = "Connecting...";  // Update button text to indicate connection
+                        clientTCP.SendNewAccount(txtNewAccName.Text, txtNewAccPass.Text);  // Send new account data to server
+                    }*/
+                    break;
+
+                case MenuState.DelAccount:
+                    // Add logic here if needed for deleting account
+                    break;
+
+                case MenuState.Login:
+                    if (clientTCP.PlayerSocket.Connected)
+                    {
+                        clientTCP.SendLogin(txtUsername.Text, txtPassword.Password);  // Send login data to server
+                    }
+                    break;
+
+                /*case MenuState.GetChars:
+                    SetStatus("Connected, retrieving character list...");
+                    SendGetClasses();
+                    break;
+
+                case MenuState.NewChar:
+                    SetStatus("Connected, getting available classes...");
+                    SendGetClasses();
+                    break;
+
+                case MenuState.AddChar:
+
+                    if (ConnectToServer())
+                    {
+                        SetStatus("Connected, sending character addition data...");
+                        int gender = optMale.Checked ? 0 : 1;
+
+                        SendAddChar(
+                            txtNewCharName.Text,
+                            gender,
+                            cmbClass.SelectedIndex,
+                            lstChars.SelectedIndex + 1,
+                            NewCharAvatar
+                        );
+                    }
+                    break;
+
+                case MenuState.DelChar:
+                    if (ConnectToServer())
+                    {
+                        SetStatus("Connected, sending character deletion request...");
+                        SendDelChar(lstChars.SelectedIndex + 1);
+                        mnuChars.Visible = false;
+                    }
+                    break;
+
+                case MenuState.UseChar:
+                    this.Visible = false;
+
+                    if (ConnectToServer())
+                    {
+                        SetStatus("Connected, sending character data...");
+                        SendUseChar(lstChars.SelectedIndex + 1);
+                        this.Dispose(); // Equivalent to Unload in VB6
+                    }
+                    break;
+                */
+                case MenuState.Init:
+                    // Add logic here for initialization, if required
+                    break;
+
+                default:
+                    MessageBox.Show("Unknown menu state!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    break;
+            }
+
+            // Handle the case when the server is not connected
+            /*if (!IsConnected())
+            {
+                this.Visible = true;
+                frmSendGetData.Visible = false;
+                MessageBox.Show(
+                    $"Sorry, the server seems to be down. Please try to reconnect in a few minutes or visit {GAME_WEBSITE}",
+                    GAME_NAME,
+                    MessageBoxButtons.OK
+                );
+            }*/
         }
     }
 }

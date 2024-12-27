@@ -9,7 +9,6 @@ namespace MirageMUD_Server.PlayerData
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public Dictionary<string, int> Bonuses { get; set; } // Optional stat bonuses
     }
 
     internal static class Classes

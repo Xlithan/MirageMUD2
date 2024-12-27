@@ -1,7 +1,9 @@
 ﻿using Bindings;
 using MirageMUD_ClientWPF.View;
+using MirageMUD_ClientWPF.ViewModel;
 using System.Diagnostics;
 using System.Windows;
+using System.Windows.Media.Imaging;
 
 namespace MirageMUD_ClientWPF.Model.Network
 {
@@ -140,28 +142,63 @@ namespace MirageMUD_ClientWPF.Model.Network
                 buffer.AddBytes(data);
                 buffer.GetInteger(); // Skip packet ID
 
-                CharactersView charactersView = new CharactersView();
-                LoginView loginView = new LoginView();
-                charactersView.Show();
-                loginView.Close();
-
-                string charName;
-
-                // UPDATE BELOW FOR WPF FORMS
-                /*for (int i = 0; i < Constants.MAX_CHARS; i++)
+                Application.Current.Dispatcher.Invoke(() =>
                 {
-                    charName = buffer.GetString();
-                    if (charName.Length == 0)
+                    App.LoginViewInstance.Hide();
+
+                    // Show the CharactersView
+                    App.CharsViewInstance.Show();
+
+                    // Access the DataContext (ViewModel)
+                    if (App.CharsViewInstance.DataContext is CharacterViewModel viewModel)
                     {
-                        frmAccount.Default.RunOnUIThread(() =>
-                            frmAccount.Default.lstCharacters.Items.Add("Empty Slot"));
+                        // Clear any existing characters
+                        viewModel.Characters.Clear();
+
+                        for (int i = 0; i < Constants.MAX_CHARS; i++)
+                        {
+                            string charName = buffer.GetString();
+                            if (string.IsNullOrEmpty(charName))
+                            {
+                                viewModel.Characters.Add(new CharacterViewModel
+                                {
+                                    Name = "Empty Slot",
+                                    Level = "10",
+                                    ClassInfo = "Fighter",
+                                    Avatar = "/Images/Avatars/blank.bmp"
+                                });
+                            }
+                            else
+                            {
+                                // Example: Populate with actual data (Level and ClassInfo from buffer)
+                                //int level = buffer.GetInteger();
+                                //string classInfo = buffer.GetString();
+
+                                viewModel.Characters.Add(new CharacterViewModel
+                                {
+                                    Name = charName,
+                                    Level = $"Level 10",
+                                    ClassInfo = "Fighter",
+                                    Avatar = "/Images/Avatars/3.bmp"
+                                });
+                            }
+                        }
+                        var image1 = new BitmapImage(new Uri(viewModel.Characters[0].Avatar, UriKind.Relative));
+                        App.CharsViewInstance.picChar1.Source = image1;
+
+                        var image2 = new BitmapImage(new Uri(viewModel.Characters[1].Avatar, UriKind.Relative));
+                        App.CharsViewInstance.picChar2.Source = image2;
+
+                        var image3 = new BitmapImage(new Uri(viewModel.Characters[2].Avatar, UriKind.Relative));
+                        App.CharsViewInstance.picChar3.Source = image3;
+
+                        var image4 = new BitmapImage(new Uri(viewModel.Characters[3].Avatar, UriKind.Relative));
+                        App.CharsViewInstance.picChar4.Source = image4;
+
+                        var image5 = new BitmapImage(new Uri(viewModel.Characters[4].Avatar, UriKind.Relative));
+                        App.CharsViewInstance.picChar5.Source = image5;
                     }
-                    else
-                    {
-                        frmAccount.Default.RunOnUIThread(() =>
-                            frmAccount.Default.lstCharacters.Items.Add(charName));
-                    }
-                }*/
+                });
             }
         }
         public void HandleLoginOk(byte[] data) { }

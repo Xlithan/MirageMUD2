@@ -112,212 +112,69 @@
 
                     </Button>
                 </Grid>
-                <StackPanel Width="350"
+                <StackPanel Width="450"
                     Grid.Row="2"
                     Orientation="Vertical"
                     Margin="0,5,0,0">
 
                     <!-- Character Selection -->
-                    <Grid Margin="0,10,0,0">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="50"/>
-                            <RowDefinition Height="5"/>
-                            <RowDefinition Height="50"/>
-                            <RowDefinition Height="5"/>
-                            <RowDefinition Height="50"/>
-                            <RowDefinition Height="5"/>
-                            <RowDefinition Height="50"/>
-                            <RowDefinition Height="5"/>
-                            <RowDefinition Height="50"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="50"/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition Width="100"/>
-                        </Grid.ColumnDefinitions>
-
-                        <Image Grid.Row="0"
-                               Grid.Column="0"
-                               Source="pack://application:,,,/MirageMUD_ClientWPF;component/Images/player.bmp"
-                               Stretch="Uniform"/>
-                        <Image Grid.Row="2"
-                               Grid.Column="0"
-                               Source="pack://application:,,,/MirageMUD_ClientWPF;component/Images/player.bmp"
-                               Stretch="Uniform"/>
-                        <Image Grid.Row="4"
-                               Grid.Column="0"
-                               Source="pack://application:,,,/MirageMUD_ClientWPF;component/Images/player.bmp"
-                               Stretch="Uniform"/>
-                        <Image Grid.Row="6"
-                               Grid.Column="0"
-                               Source="pack://application:,,,/MirageMUD_ClientWPF;component/Images/player.bmp"
-                               Stretch="Uniform"/>
-                        <Image Grid.Row="8"
-                               Grid.Column="0"
-                               Source="pack://application:,,,/MirageMUD_ClientWPF;component/Images/player.bmp"
-                               Stretch="Uniform"/>
-
-                        <StackPanel Width="250"
-                                    Grid.Row="0"
-                                    Grid.Column="1"
-                                    Orientation="Vertical"
-                                    Margin="10,0,40,0">
-
-                            <TextBlock Text="Xlithan"
-                                       Foreground="LightGray"
-                                       FontSize="11"
-                                       FontWeight="Bold"
-                                       FontFamily="Verdana"/>
-                            <TextBlock Text="Level 10"
-                                       Foreground="LightGray"
-                                       FontSize="11"
-                                       FontWeight="normal"
-                                       FontFamily="Verdana"/>
-                            <TextBlock Text="Dwarf Fighter"
-                                       Foreground="LightGray"
-                                       FontSize="11"
-                                       FontWeight="normal"
-                                       FontFamily="Verdana"/>
-                        </StackPanel>
-                        <StackPanel Width="250"
-                                    Grid.Row="2"
-                                    Grid.Column="1"
-                                    Orientation="Vertical"
-                                    Margin="10,0,40,0">
-
-                            <TextBlock Text="Xlithan"
-                                       Foreground="LightGray"
-                                       FontSize="11"
-                                       FontWeight="Bold"
-                                       FontFamily="Verdana"/>
-                            <TextBlock Text="Level 10"
-                                       Foreground="LightGray"
-                                       FontSize="11"
-                                       FontWeight="normal"
-                                       FontFamily="Verdana"/>
-                            <TextBlock Text="Dwarf Fighter"
-                                       Foreground="LightGray"
-                                       FontSize="11"
-                                       FontWeight="normal"
-                                       FontFamily="Verdana"/>
-                        </StackPanel>
-                        <StackPanel Width="250"
-                                    Grid.Row="4"
-                                    Grid.Column="1"
-                                    Orientation="Vertical"
-                                    Margin="10,0,40,0">
-
-                            <TextBlock Text="Xlithan"
-                                       Foreground="LightGray"
-                                       FontSize="11"
-                                       FontWeight="Bold"
-                                       FontFamily="Verdana"/>
-                            <TextBlock Text="Level 10"
-                                       Foreground="LightGray"
-                                       FontSize="11"
-                                       FontWeight="normal"
-                                       FontFamily="Verdana"/>
-                            <TextBlock Text="Dwarf Fighter"
-                                       Foreground="LightGray"
-                                       FontSize="11"
-                                       FontWeight="normal"
-                                       FontFamily="Verdana"/>
-                        </StackPanel>
-                        <StackPanel Width="250"
-                                    Grid.Row="6"
-                                    Grid.Column="1"
-                                    Orientation="Vertical"
-                                    Margin="10,0,40,0">
-
-                            <TextBlock Text="Xlithan"
-                                       Foreground="LightGray"
-                                       FontSize="11"
-                                       FontWeight="Bold"
-                                       FontFamily="Verdana"/>
-                            <TextBlock Text="Level 10"
-                                       Foreground="LightGray"
-                                       FontSize="11"
-                                       FontWeight="normal"
-                                       FontFamily="Verdana"/>
-                            <TextBlock Text="Dwarf Fighter"
-                                       Foreground="LightGray"
-                                       FontSize="11"
-                                       FontWeight="normal"
-                                       FontFamily="Verdana"/>
-                        </StackPanel>
-                        <StackPanel Width="250"
-                                    Grid.Row="8"
-                                    Grid.Column="1"
-                                    Orientation="Vertical"
-                                    Margin="10,0,40,0">
-
-                            <TextBlock Text="Xlithan"
-                                       Foreground="LightGray"
-                                       FontSize="11"
-                                       FontWeight="Bold"
-                                       FontFamily="Verdana"/>
-                            <TextBlock Text="Level 10"
-                                       Foreground="LightGray"
-                                       FontSize="11"
-                                       FontWeight="normal"
-                                       FontFamily="Verdana"/>
-                            <TextBlock Text="Dwarf Fighter"
-                                       Foreground="LightGray"
-                                       FontSize="11"
-                                       FontWeight="normal"
-                                       FontFamily="Verdana"/>
-                        </StackPanel>
-
-                        <local:UIButton x:Name="btnPlay1"
-                                        Content="PLAY"
-                                        Width="90" Height="25"
-                                        Grid.Column="2"
-                                        Grid.Row="0"
-                                        VerticalAlignment="Center"
-                                        HorizontalAlignment="Center"
-                                        Click="btnPlay1_Click" />
-
-                        <local:UIButton x:Name="btnPlay2"
-                                        Content="PLAY"
-                                        Width="90" Height="25"
-                                        Grid.Column="2"
-                                        Grid.Row="2"
-                                        VerticalAlignment="Center"
-                                        HorizontalAlignment="Center"
-                                        Click="btnPlay2_Click" />
-
-                        <local:UIButton x:Name="btnPlay3"
-                                        Content="PLAY"
-                                        Width="90" Height="25"
-                                        Grid.Column="2"
-                                        Grid.Row="4"
-                                        VerticalAlignment="Center"
-                                        HorizontalAlignment="Center"
-                                        Click="btnPlay3_Click" />
-
-                        <local:UIButton x:Name="btnPlay4"
-                                        Content="PLAY"
-                                        Width="90" Height="25"
-                                        Grid.Column="2"
-                                        Grid.Row="6"
-                                        VerticalAlignment="Center"
-                                        HorizontalAlignment="Center"
-                                        Click="btnPlay4_Click" />
-
-                        <local:UIButton x:Name="btnPlay5"
-                                        Content="PLAY"
-                                        Width="90" Height="25"
-                                        Grid.Column="2"
-                                        Grid.Row="8"
-                                        VerticalAlignment="Center"
-                                        HorizontalAlignment="Center"
-                                        Click="btnPlay5_Click" />
-                    </Grid>
-                    <local:UIButton x:Name="btnNewChar"
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Center"
+                                Margin="0,30,0,0">
+                        <Image x:Name="picChar1" Source="/Images/Avatars/blank.bmp"
+                               Width="70"
+                               Height="70"
+                               Margin="0,0,0,0"/>
+                        <Image x:Name="picChar2" Source="/Images/Avatars/blank.bmp"
+                               Width="70"
+                               Height="70"
+                               Margin="10,0,0,0"/>
+                        <Image x:Name="picChar3" Source="/Images/Avatars/blank.bmp"
+                               Width="70"
+                               Height="70"
+                               Margin="10,0,0,0"/>
+                        <Image x:Name="picChar4" Source="/Images/Avatars/blank.bmp"
+                               Width="70"
+                               Height="70"
+                               Margin="10,0,0,0"/>
+                        <Image x:Name="picChar5" Source="/Images/Avatars/blank.bmp"
+                               Width="70"
+                               Height="70"
+                               Margin="10,0,0,0"/>
+                    </StackPanel>
+                    <StackPanel Width="250"
+                                Orientation="Vertical"
+                                Margin="0,10,0,0">
+                        <TextBlock x:Name="lblName" Text="Name"
+                                   Foreground="LightGray"
+                                   FontSize="11"
+                                   FontWeight="Bold"
+                                   FontFamily="Verdana"
+                                   HorizontalAlignment="Center"/>
+                        <TextBlock x:Name="lblLevel" Text="Level"
+                                   Foreground="LightGray"
+                                   FontSize="11"
+                                   FontWeight="Normal"
+                                   FontFamily="Verdana"
+                                   HorizontalAlignment="Center"/>
+                        <TextBlock x:Name="lblClass" Text="Class"
+                                   Foreground="LightGray"
+                                   FontSize="11"
+                                   FontWeight="Normal"
+                                   FontFamily="Verdana"
+                                   HorizontalAlignment="Center"/>
+                    </StackPanel>
+                    <local:UIButton x:Name="btnPlay"
+                                    Content="PLAY"
+                                    Width="150" Height="25"
+                                    Click="btnPlay_Click"
+                                    Margin="0,10,0,0"/>
+                        <local:UIButton x:Name="btnNewChar"
                                     Content="CREATE"
                                     Width="150" Height="25"
                                     Click="btnNewChar_Click"
                                     Margin="0,10,0,0"/>
+                    
 
                 </StackPanel>
                 <Button x:Name="btnBack"

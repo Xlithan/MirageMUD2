@@ -85,8 +85,7 @@ namespace MirageMUD_ClientWPF
             timer.Tick += (s, args) =>
             {
                 timer.Stop();
-                var loginView = new LoginView();
-                loginView.Show();
+                App.LoginViewInstance.Show();
                 this.Close();  // Close the splash window
             };
 
