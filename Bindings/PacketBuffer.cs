@@ -246,7 +246,7 @@ namespace Bindings
         // Tracks whether the object has been disposed
         private bool disposedValue = false;
 
-        // Handles resource cleanup
+        // Handles resources cleanup
         protected virtual void Dispose(bool disposing)
         {
             if (!disposedValue)

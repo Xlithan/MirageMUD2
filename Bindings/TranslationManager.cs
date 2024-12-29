@@ -44,6 +44,7 @@ public class TranslationManager
                 string Lang = null;
                 switch (value)
                 {
+                    // Language packs
                     case "cy": Lang = "Welsh (Cymraeg)"; break;
                     case "de": Lang = "German (Deutsch)"; break;
                     case "en-gb": Lang = "British English (English)"; break;
