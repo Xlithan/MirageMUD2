@@ -1,4 +1,5 @@
-﻿using MirageMUD_ClientWPF.ViewModel;
+﻿using MirageMUD_ClientWPF.Model.Network;
+using MirageMUD_ClientWPF.ViewModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -13,11 +14,13 @@ namespace MirageMUD_ClientWPF.View
     public partial class CharactersView : Window
     {
         int selectedChar = 0;
+        ClientTCP clientTCP;  // Instance of ClientTCP for network communication
         public CharactersView()
         {
             InitializeComponent();
             SetWindowPosition();
             DataContext = new CharacterViewModel();
+            clientTCP = ClientTCP.Instance;
         }
         private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -40,7 +43,11 @@ namespace MirageMUD_ClientWPF.View
             // Save window position
             SaveWindowPosition();
 
-            // Create an instance of the new window
+            // Send logout
+            if (clientTCP.PlayerSocket.Connected)
+            {
+                clientTCP.SendLogout();  // Send login data to server
+            }
             App.LoginViewInstance.Show();
 
             // Optionally close the current window

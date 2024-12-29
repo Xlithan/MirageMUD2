@@ -107,6 +107,13 @@ namespace MirageMUD_Server.Storage
             }
         }
 
+        // Unloads the player data
+        public void UnloadPlayer(int index)
+        {
+            Console.WriteLine($"{STypes.Player[index].Login} logged out.");
+            STypes.Player[index] = new STypes.AccountStruct();
+        }
+
         // Retrieves the hashed password for the specified user
         public string GetHashedPassword(string username)
         {

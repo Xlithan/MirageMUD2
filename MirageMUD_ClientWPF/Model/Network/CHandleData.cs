@@ -29,6 +29,7 @@ namespace MirageMUD_ClientWPF.Model.Network
             Packets.Add((int)ServerPackets.SAlertMsg, HandleAlertMsg);
             Packets.Add((int)ServerPackets.SAllChars, HandleAllChars);
             Packets.Add((int)ServerPackets.SLoginOk, HandleLoginOk);
+            Packets.Add((int)ServerPackets.SLogoutOk, HandleLogoutOk);
             Packets.Add((int)ServerPackets.SNewCharClasses, HandleNewCharClasses);
             Packets.Add((int)ServerPackets.SClassesData, HandleClassesData);
             Packets.Add((int)ServerPackets.SInGame, HandleInGame);
@@ -214,6 +215,7 @@ namespace MirageMUD_ClientWPF.Model.Network
             }
         }
         public void HandleLoginOk(byte[] data) { }
+        public void HandleLogoutOk(byte[] data) { }
         public void HandleNewCharClasses(byte[] data) { }
         public void HandleClassesData(byte[] data) { }
         public void HandleInGame(byte[] data) { }

@@ -23,6 +23,7 @@ namespace MirageMUD_Server.Network
             Packets.Add((int)ClientPackets.CNewAccount, HandleNewAccount);
             Packets.Add((int)ClientPackets.CDelAccount, HandleDelAccount);
             Packets.Add((int)ClientPackets.CLogin, HandleLogin);
+            Packets.Add((int)ClientPackets.CLogout, HandleLogout);
             Packets.Add((int)ClientPackets.CAddChar, HandleAddChar);
             Packets.Add((int)ClientPackets.CDelChar, HandleDelChar);
             Packets.Add((int)ClientPackets.CUseChar, HandleUseChar);
@@ -219,6 +220,17 @@ namespace MirageMUD_Server.Network
                     // Username does not exist, send the error
                     serverTCP.AlertMsg(Index, "Account does not exist.");
                 }
+            }
+        }
+        private void HandleLogout(int Index, byte[] data)
+        {
+            using (PacketBuffer buffer = new PacketBuffer())
+            {
+                buffer.AddBytes(data); // Add data to buffer
+                buffer.GetInteger(); // Skip packet ID
+
+                // Clear player data and log out
+                db.UnloadPlayer(Index);
             }
         }
         private void HandleAddChar(int Index, byte[] data) { }

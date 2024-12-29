@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Net.Sockets;
 using System.Windows;
+using System.Xml.Linq;
 using Bindings;
 
 namespace MirageMUD_ClientWPF.Model.Network
@@ -208,9 +209,25 @@ namespace MirageMUD_ClientWPF.Model.Network
             buffer.AddInteger((int)ClientPackets.CLogin);
             buffer.AddString(name);
             buffer.AddString(pass);
-            buffer.AddByte(1);  // Additional data specific to the login process (e.g., version info)
-            buffer.AddByte(0);  // Placeholder or additional data
-            buffer.AddByte(0);  // Placeholder or additional data
+            buffer.AddByte(1);  // Version Major
+            buffer.AddByte(0);  // Version Minor
+            buffer.AddByte(0);  // Version Revision
+
+            // Send the login data to the server
+            SendData(buffer.ToArray());
+
+            // Dispose of the buffer after sending
+            buffer.Dispose();
+        }
+
+        // Sends a logout request to the server
+        public void SendLogout()
+        {
+            // Create a new packet buffer for the login data
+            PacketBuffer buffer = new PacketBuffer();
+
+            // Add the login request packet identifier and the login details
+            buffer.AddInteger((int)ClientPackets.CLogout);
 
             // Send the login data to the server
             SendData(buffer.ToArray());
