@@ -949,9 +949,9 @@
             BackgroundImageLayout = ImageLayout.None;
             ClientSize = new Size(590, 384);
             ControlBox = false;
+            Controls.Add(panel1);
             Controls.Add(pnlLogin);
             Controls.Add(pnlGameOptions);
-            Controls.Add(panel1);
             Controls.Add(pnlNewAccount);
             Controls.Add(pnlExit);
             Controls.Add(pnlIPConfig);

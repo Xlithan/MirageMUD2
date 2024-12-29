@@ -44,9 +44,9 @@ namespace MirageMUD_Server.Types
         {
             // Basic character details.
             public string Name { get; set; }
-
             public byte Race { get; set; }
             public byte Class { get; set; }
+            public byte Gender { get; set; }
             public int Avatar { get; set; }
             public byte Level { get; set; }
             public int Exp { get; set; }

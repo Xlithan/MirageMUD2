@@ -1,7 +1,9 @@
 ﻿using MirageMUD_ClientWPF.ViewModel;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
-using static MirageMUD_ClientWPF.App;
+using System.Windows.Interop;
+using System.Windows.Media; // For Brush and Brushes
 
 namespace MirageMUD_ClientWPF.View
 {
@@ -10,6 +12,7 @@ namespace MirageMUD_ClientWPF.View
     /// </summary>
     public partial class CharactersView : Window
     {
+        int selectedChar = 0;
         public CharactersView()
         {
             InitializeComponent();
@@ -31,30 +34,6 @@ namespace MirageMUD_ClientWPF.View
         {
             Application.Current.Shutdown();
         }
-        private void btnPlay1_Click(object sender, RoutedEventArgs e)
-        {
-            PlayGame();
-        }
-
-        private void btnPlay5_Click(object sender, RoutedEventArgs e)
-        {
-            PlayGame();
-        }
-
-        private void btnPlay4_Click(object sender, RoutedEventArgs e)
-        {
-            PlayGame();
-        }
-
-        private void btnPlay3_Click(object sender, RoutedEventArgs e)
-        {
-            PlayGame();
-        }
-
-        private void btnPlay2_Click(object sender, RoutedEventArgs e)
-        {
-            PlayGame();
-        }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
@@ -74,19 +53,6 @@ namespace MirageMUD_ClientWPF.View
             // Create an instance of the new window
             var gameView = new GameView();
             gameView.Show();
-
-            // Optionally close the current window
-            this.Close();
-        }
-
-        private void btnNewChar_Click(object sender, RoutedEventArgs e)
-        {
-            // Save window position
-            SaveWindowPosition();
-
-            // Create an instance of the new window
-            var newCharView = new NewCharView();
-            newCharView.Show();
 
             // Optionally close the current window
             this.Close();
@@ -112,7 +78,76 @@ namespace MirageMUD_ClientWPF.View
 
         private void btnPlay_Click(object sender, RoutedEventArgs e)
         {
+            if(selectedChar > 0 && !lblName.Text.Equals("Empty Slot") && !lblName.Text.Equals(string.Empty))
+            {
+                PlayGame();
+            }
+            else
+            {
+                MessageBox.Show("You must select a character.", "Alert", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
+            
+        }
+        private void btnNewChar_Click(object sender, RoutedEventArgs e)
+        {
+            if (selectedChar > 0 && lblName.Text.Equals("Empty Slot") && !lblName.Text.Equals(string.Empty))
+            {
+                // Save window position
+                SaveWindowPosition();
 
+                // Create an instance of the new window
+                var newCharView = new NewCharView();
+                newCharView.Show();
+
+                // Optionally close the current window
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("You must select an empty slot.", "Alert", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
+        }
+        private void Avatar_Click(object sender, MouseButtonEventArgs e)
+        {
+            if (sender is Image clickedImage && clickedImage.Tag is string tagStr && int.TryParse(tagStr, out int index))
+            {
+                if (DataContext is CharacterViewModel viewModel && index < viewModel.Characters.Count)
+                {
+                    // Get the selected character
+                    var selectedCharacter = viewModel.Characters[index];
+                    selectedChar = index + 1;
+
+                    // Update borders
+                    ResetBorders();
+                    GetBorderForIndex(index).BorderBrush = Brushes.Goldenrod;
+
+                    // Update text blocks
+                    lblName.Text = selectedCharacter.Name;
+                    lblLevel.Text = selectedCharacter.Level;
+                    lblClass.Text = selectedCharacter.RaceInfo + " " + selectedCharacter.ClassInfo;
+                }
+            }
+        }
+        private void ResetBorders()
+        {
+            borderChar1.BorderBrush = Brushes.Transparent;
+            borderChar2.BorderBrush = Brushes.Transparent;
+            borderChar3.BorderBrush = Brushes.Transparent;
+            borderChar4.BorderBrush = Brushes.Transparent;
+            borderChar5.BorderBrush = Brushes.Transparent;
+        }
+
+        private Border? GetBorderForIndex(int index)
+        {
+            return index switch
+            {
+                0 => borderChar1,
+                1 => borderChar2,
+                2 => borderChar3,
+                3 => borderChar4,
+                4 => borderChar5,
+                _ => null
+            };
         }
     }
 }

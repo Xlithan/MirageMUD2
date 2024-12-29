@@ -11,6 +11,7 @@ namespace MirageMUD_ClientWPF
         public static double LastTop { get; set; } = double.NaN;
         public static LoginView LoginViewInstance { get; private set; }
         public static CharactersView CharsViewInstance { get; private set; }
+        public static NewCharView NewCharViewInstance { get; private set; }
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
@@ -18,6 +19,8 @@ namespace MirageMUD_ClientWPF
             // Initialize the shared instances
             LoginViewInstance = new LoginView();
             CharsViewInstance = new CharactersView();
+            NewCharViewInstance = new NewCharView();
+
         }
     }
 

@@ -103,6 +103,11 @@ namespace MirageMUD_Server.Network
             for (int i = 0; i < Constants.MAX_CHARS; i++)
             {
                 buffer.AddString(STypes.Player[Index].Character[i].Name);
+                buffer.AddByte(STypes.Player[Index].Character[i].Level);
+                buffer.AddString(Classes.GetClassName(STypes.Player[Index].Character[i].Class));
+                buffer.AddString(Races.GetRaceName(STypes.Player[Index].Character[i].Race));
+                buffer.AddInteger(STypes.Player[Index].Character[i].Avatar);
+                buffer.AddByte(STypes.Player[Index].Character[i].Gender);
             }
 
             SendDataTo(Index, buffer.ToArray());

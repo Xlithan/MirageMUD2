@@ -118,52 +118,51 @@
                     Margin="0,5,0,0">
 
                     <!-- Character Selection -->
-                    <StackPanel Orientation="Horizontal"
-                                HorizontalAlignment="Center"
-                                Margin="0,30,0,0">
-                        <Image x:Name="picChar1" Source="/Images/Avatars/blank.bmp"
-                               Width="70"
-                               Height="70"
-                               Margin="0,0,0,0"/>
-                        <Image x:Name="picChar2" Source="/Images/Avatars/blank.bmp"
-                               Width="70"
-                               Height="70"
-                               Margin="10,0,0,0"/>
-                        <Image x:Name="picChar3" Source="/Images/Avatars/blank.bmp"
-                               Width="70"
-                               Height="70"
-                               Margin="10,0,0,0"/>
-                        <Image x:Name="picChar4" Source="/Images/Avatars/blank.bmp"
-                               Width="70"
-                               Height="70"
-                               Margin="10,0,0,0"/>
-                        <Image x:Name="picChar5" Source="/Images/Avatars/blank.bmp"
-                               Width="70"
-                               Height="70"
-                               Margin="10,0,0,0"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,30,0,0">
+                        <Border x:Name="borderChar1" BorderBrush="Transparent" BorderThickness="4" Margin="0,0,0,0" CornerRadius="5">
+                            <Image x:Name="picChar1" Width="70" Height="70"
+                                    MouseLeftButtonDown="Avatar_Click" Tag="0"/>
+                        </Border>
+                        <Border x:Name="borderChar2" BorderBrush="Transparent" BorderThickness="4" Margin="10,0,0,0" CornerRadius="5">
+                            <Image x:Name="picChar2" Width="70" Height="70"
+                                    MouseLeftButtonDown="Avatar_Click" Tag="1"/>
+                        </Border>
+                        <Border x:Name="borderChar3" BorderBrush="Transparent" BorderThickness="4" Margin="10,0,0,0" CornerRadius="5">
+                            <Image x:Name="picChar3" Width="70" Height="70"
+                                    MouseLeftButtonDown="Avatar_Click" Tag="2"/>
+                        </Border>
+                        <Border x:Name="borderChar4" BorderBrush="Transparent" BorderThickness="4" Margin="10,0,0,0" CornerRadius="5">
+                            <Image x:Name="picChar4" Width="70" Height="70"
+                                    MouseLeftButtonDown="Avatar_Click" Tag="3"/>
+                        </Border>
+                        <Border x:Name="borderChar5" BorderBrush="Transparent" BorderThickness="4" Margin="10,0,0,0" CornerRadius="5">
+                            <Image x:Name="picChar5" Width="70" Height="70"
+                                    MouseLeftButtonDown="Avatar_Click" Tag="4"/>
+                        </Border>
                     </StackPanel>
-                    <StackPanel Width="250"
-                                Orientation="Vertical"
-                                Margin="0,10,0,0">
-                        <TextBlock x:Name="lblName" Text="Name"
-                                   Foreground="LightGray"
-                                   FontSize="11"
-                                   FontWeight="Bold"
-                                   FontFamily="Verdana"
-                                   HorizontalAlignment="Center"/>
-                        <TextBlock x:Name="lblLevel" Text="Level"
-                                   Foreground="LightGray"
-                                   FontSize="11"
-                                   FontWeight="Normal"
-                                   FontFamily="Verdana"
-                                   HorizontalAlignment="Center"/>
-                        <TextBlock x:Name="lblClass" Text="Class"
-                                   Foreground="LightGray"
-                                   FontSize="11"
-                                   FontWeight="Normal"
-                                   FontFamily="Verdana"
-                                   HorizontalAlignment="Center"/>
-                    </StackPanel>
+
+                    <Grid Width="250">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Vertical" Grid.Column="0" Margin="0,10,5,0" HorizontalAlignment="Right">
+                            <TextBlock Text="Name:" Foreground="Goldenrod" FontSize="11"
+                                        FontWeight="Bold" FontFamily="Verdana" HorizontalAlignment="Right"/>
+                            <TextBlock Text="Level:" Foreground="Goldenrod" FontSize="11"
+                                        FontWeight="Bold" FontFamily="Verdana" HorizontalAlignment="Right"/>
+                            <TextBlock Text="Class:" Foreground="Goldenrod" FontSize="11"
+                                        FontWeight="Bold" FontFamily="Verdana" HorizontalAlignment="Right"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical" Grid.Column="1" Margin="5,10,0,0" HorizontalAlignment="Left">
+                            <TextBlock x:Name="lblName" Text="" Foreground="LightGray" FontSize="11"
+                                        FontWeight="Normal" FontFamily="Verdana" HorizontalAlignment="Left"/>
+                            <TextBlock x:Name="lblLevel" Text="" Foreground="LightGray" FontSize="11"
+                                        FontWeight="Normal" FontFamily="Verdana" HorizontalAlignment="Left"/>
+                            <TextBlock x:Name="lblClass" Text="" Foreground="LightGray" FontSize="11"
+                                        FontWeight="Normal" FontFamily="Verdana" HorizontalAlignment="Left"/>
+                        </StackPanel>
+                    </Grid>
                     <local:UIButton x:Name="btnPlay"
                                     Content="PLAY"
                                     Width="150" Height="25"

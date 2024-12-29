@@ -394,42 +394,42 @@
                                            HorizontalAlignment="Right"/>
                             </StackPanel>
                             <StackPanel Grid.Column="1" Orientation="Vertical">
-                                <TextBlock Text="0"
+                                <TextBlock x:Name="lblStrength" Text="0"
                                            Foreground="Goldenrod"
                                            FontSize="12"
                                            FontWeight="Bold"
                                            FontFamily="Verdana"
                                            Margin="5,0,0,0"
                                            HorizontalAlignment="Left"/>
-                                <TextBlock Text="0"
+                                <TextBlock x:Name="lblIntelligence" Text="0"
                                            Foreground="Goldenrod"
                                            FontSize="12"
                                            FontWeight="Bold"
                                            FontFamily="Verdana"
                                            Margin="5,5,0,0"
                                            HorizontalAlignment="Left"/>
-                                <TextBlock Text="0"
+                                <TextBlock x:Name="lblDexterity" Text="0"
                                            Foreground="Goldenrod"
                                            FontSize="12"
                                            FontWeight="Bold"
                                            FontFamily="Verdana"
                                            Margin="5,5,0,0"
                                            HorizontalAlignment="Left"/>
-                                <TextBlock Text="0"
+                                <TextBlock x:Name="lblConstitution" Text="0"
                                            Foreground="Goldenrod"
                                            FontSize="12"
                                            FontWeight="Bold"
                                            FontFamily="Verdana"
                                            Margin="5,5,0,0"
                                            HorizontalAlignment="Left"/>
-                                <TextBlock Text="0"
+                                <TextBlock x:Name="lblWisdom" Text="0"
                                            Foreground="Goldenrod"
                                            FontSize="12"
                                            FontWeight="Bold"
                                            FontFamily="Verdana"
                                            Margin="5,5,0,0"
                                            HorizontalAlignment="Left"/>
-                                <TextBlock Text="0"
+                                <TextBlock x:Name="lblCharisma" Text="0"
                                            Foreground="Goldenrod"
                                            FontSize="12"
                                            FontWeight="Bold"

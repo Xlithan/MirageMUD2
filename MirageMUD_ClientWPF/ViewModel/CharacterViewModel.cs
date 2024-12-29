@@ -10,6 +10,7 @@ namespace MirageMUD_ClientWPF.ViewModel
         public string NameColor { get; set; } // Color of the name
         public string Level { get; set; } // Character level
         public string ClassInfo { get; set; } // Character class
+        public string RaceInfo { get; set; } // Character race
 
         public event PropertyChangedEventHandler PropertyChanged;
 

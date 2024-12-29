@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using MirageMUD_ClientWPF.Model.Network;
+using MirageMUD_ClientWPF.ViewModel;
+using System.Windows;
 using System.Windows.Input;
 using static MirageMUD_ClientWPF.App;
 
@@ -10,9 +12,11 @@ namespace MirageMUD_ClientWPF.View
     public partial class NewCharView : Window
     {
         public bool IsMaleSelected = true;
+        ClientTCP clientTCP;  // Instance of ClientTCP for network communication
         public NewCharView()
         {
             InitializeComponent();
+            clientTCP = ClientTCP.Instance;
             SetWindowPosition();
         }
         private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
@@ -61,7 +65,10 @@ namespace MirageMUD_ClientWPF.View
 
         private void btnReroll_Click(object sender, RoutedEventArgs e)
         {
-
+            if (clientTCP.PlayerSocket.Connected)
+            {
+                clientTCP.SendRerollRequest();  // Send login data to server
+            }
         }
         private void SaveWindowPosition()
         {

@@ -9,6 +9,9 @@ namespace MirageMUD_ClientWPF.Model.Network
 {
     internal class ClientTCP
     {
+        private static ClientTCP instance;
+        public static ClientTCP Instance => instance ??= new ClientTCP();
+
         // The player's TCP connection to the server
         public TcpClient PlayerSocket;
 

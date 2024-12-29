@@ -2,6 +2,7 @@
 using MirageMUD_ClientWPF.View;
 using MirageMUD_ClientWPF.ViewModel;
 using System.Diagnostics;
+using System.IO;
 using System.Windows;
 using System.Windows.Media.Imaging;
 
@@ -141,6 +142,7 @@ namespace MirageMUD_ClientWPF.Model.Network
             {
                 buffer.AddBytes(data);
                 buffer.GetInteger(); // Skip packet ID
+                buffer.GetString(); // Skip login string (We may need it later)
 
                 Application.Current.Dispatcher.Invoke(() =>
                 {
@@ -158,14 +160,22 @@ namespace MirageMUD_ClientWPF.Model.Network
                         for (int i = 0; i < Constants.MAX_CHARS; i++)
                         {
                             string charName = buffer.GetString();
+                            byte charLevel = buffer.GetByte();
+                            string charClass = buffer.GetString();
+                            string charRace = buffer.GetString();
+                            int charAvatar = buffer.GetInteger();
+                            byte charGender = buffer.GetByte();
+
+                            string avatarPath;
                             if (string.IsNullOrEmpty(charName))
                             {
                                 viewModel.Characters.Add(new CharacterViewModel
                                 {
                                     Name = "Empty Slot",
-                                    Level = "10",
-                                    ClassInfo = "Fighter",
-                                    Avatar = "/Images/Avatars/blank.bmp"
+                                    Level = string.Empty,
+                                    ClassInfo = string.Empty,
+                                    RaceInfo = string.Empty,
+                                    Avatar = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "gfx", "avatars", "blank.bmp")
                                 });
                             }
                             else
@@ -173,29 +183,31 @@ namespace MirageMUD_ClientWPF.Model.Network
                                 // Example: Populate with actual data (Level and ClassInfo from buffer)
                                 //int level = buffer.GetInteger();
                                 //string classInfo = buffer.GetString();
+                                avatarPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "gfx", "avatars", "Players", charGender == 0 ? "Male" : "Female", charAvatar + ".bmp");
 
                                 viewModel.Characters.Add(new CharacterViewModel
                                 {
                                     Name = charName,
-                                    Level = $"Level 10",
-                                    ClassInfo = "Fighter",
-                                    Avatar = "/Images/Avatars/3.bmp"
+                                    Level = charLevel.ToString(),
+                                    ClassInfo = charClass,
+                                    RaceInfo = charRace,
+                                    Avatar = avatarPath
                                 });
                             }
                         }
-                        var image1 = new BitmapImage(new Uri(viewModel.Characters[0].Avatar, UriKind.Relative));
+                        var image1 = new BitmapImage(new Uri(viewModel.Characters[0].Avatar, UriKind.Absolute));
                         App.CharsViewInstance.picChar1.Source = image1;
 
-                        var image2 = new BitmapImage(new Uri(viewModel.Characters[1].Avatar, UriKind.Relative));
+                        var image2 = new BitmapImage(new Uri(viewModel.Characters[1].Avatar, UriKind.Absolute));
                         App.CharsViewInstance.picChar2.Source = image2;
 
-                        var image3 = new BitmapImage(new Uri(viewModel.Characters[2].Avatar, UriKind.Relative));
+                        var image3 = new BitmapImage(new Uri(viewModel.Characters[2].Avatar, UriKind.Absolute));
                         App.CharsViewInstance.picChar3.Source = image3;
 
-                        var image4 = new BitmapImage(new Uri(viewModel.Characters[3].Avatar, UriKind.Relative));
+                        var image4 = new BitmapImage(new Uri(viewModel.Characters[3].Avatar, UriKind.Absolute));
                         App.CharsViewInstance.picChar4.Source = image4;
 
-                        var image5 = new BitmapImage(new Uri(viewModel.Characters[4].Avatar, UriKind.Relative));
+                        var image5 = new BitmapImage(new Uri(viewModel.Characters[4].Avatar, UriKind.Absolute));
                         App.CharsViewInstance.picChar5.Source = image5;
                     }
                 });
@@ -259,19 +271,16 @@ namespace MirageMUD_ClientWPF.Model.Network
                 buffer.AddBytes(data); // Add data to buffer
                 buffer.GetInteger(); // Skip packet ID
 
-                // UPDATE FOR WPF FORM
-                /*frmAccount.Default.RunOnUIThread(() => // Strength
-                    frmAccount.Default.lblstat_Str.Text = buffer.GetInteger().ToString());
-                frmAccount.Default.RunOnUIThread(() => // Intelligence
-                    frmAccount.Default.lblstat_Int.Text = buffer.GetInteger().ToString());
-                frmAccount.Default.RunOnUIThread(() => // Dexterity
-                    frmAccount.Default.lblstat_Dex.Text = buffer.GetInteger().ToString());
-                frmAccount.Default.RunOnUIThread(() => // Constitution
-                    frmAccount.Default.lblstat_Con.Text = buffer.GetInteger().ToString());
-                frmAccount.Default.RunOnUIThread(() => // Wisdom
-                    frmAccount.Default.lblstat_Wis.Text = buffer.GetInteger().ToString());
-                frmAccount.Default.RunOnUIThread(() => // Charisma
-                    frmAccount.Default.lblstat_Cha.Text = buffer.GetInteger().ToString());*/
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    // Set the text values
+                    App.NewCharViewInstance.lblStrength.Text = buffer.GetInteger().ToString();
+                    App.NewCharViewInstance.lblIntelligence.Text = buffer.GetInteger().ToString();
+                    App.NewCharViewInstance.lblDexterity.Text = buffer.GetInteger().ToString();
+                    App.NewCharViewInstance.lblConstitution.Text = buffer.GetInteger().ToString();
+                    App.NewCharViewInstance.lblWisdom.Text = buffer.GetInteger().ToString();
+                    App.NewCharViewInstance.lblCharisma.Text = buffer.GetInteger().ToString();
+                });
             }
         }
         public void HandleRaces(byte[] data) { }

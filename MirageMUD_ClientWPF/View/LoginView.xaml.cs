@@ -30,7 +30,7 @@ namespace MirageMUD_ClientWPF.View
             SetWindowPosition();
 
             // Create a new instance of ClientTCP for new account procedure
-            clientTCP = new ClientTCP();
+            clientTCP = ClientTCP.Instance;
             clientTCP.ConnectToServer();  // Connect to the server
         }
         private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
