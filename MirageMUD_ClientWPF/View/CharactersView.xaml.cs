@@ -41,18 +41,16 @@ namespace MirageMUD_ClientWPF.View
             SaveWindowPosition();
 
             // Create an instance of the new window
-            var loginView = new LoginView();
-            loginView.Show();
+            App.LoginViewInstance.Show();
 
             // Optionally close the current window
-            this.Close();
+            this.Hide();
         }
 
         private void PlayGame()
         {
             // Create an instance of the new window
-            var gameView = new GameView();
-            gameView.Show();
+            App.GameViewInstance.Show();
 
             // Optionally close the current window
             this.Close();
@@ -96,11 +94,10 @@ namespace MirageMUD_ClientWPF.View
                 SaveWindowPosition();
 
                 // Create an instance of the new window
-                var newCharView = new NewCharView();
-                newCharView.Show();
+                App.NewCharViewInstance.Show();
 
                 // Optionally close the current window
-                this.Close();
+                this.Hide();
             }
             else
             {

@@ -19,7 +19,7 @@ namespace MirageMUD_ClientWPF
             Loaded += MainWindow_Loaded;
 
             _cHandleData = new CHandleData();
-            _cHandleData.InitialiseMessages();
+            //_cHandleData.InitialiseMessages();
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)

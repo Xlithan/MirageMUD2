@@ -94,8 +94,7 @@ namespace MirageMUD_ClientWPF.View
             SaveWindowPosition();
 
             // Create an instance of the new window
-            var newAccountView = new NewAccountView();
-            newAccountView.Show();
+            App.NewAccViewInstance.Show();
 
             // Optionally close the current window
             this.Hide();
@@ -106,8 +105,7 @@ namespace MirageMUD_ClientWPF.View
             SaveWindowPosition();
 
             // Create an instance of the new window
-            var settingsView = new SettingsView();
-            settingsView.Show();
+            App.SettingsViewInstance.Show();
 
             // Optionally close the current window
             this.Hide();

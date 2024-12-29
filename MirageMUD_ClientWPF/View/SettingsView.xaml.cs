@@ -91,7 +91,7 @@ namespace MirageMUD_ClientWPF.View
             App.LoginViewInstance.Show();
 
             // Optionally close the current window
-            this.Close();
+            this.Hide();
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)

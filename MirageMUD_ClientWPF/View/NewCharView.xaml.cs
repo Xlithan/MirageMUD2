@@ -1,5 +1,6 @@
 ﻿using MirageMUD_ClientWPF.Model.Network;
 using MirageMUD_ClientWPF.ViewModel;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Input;
 using static MirageMUD_ClientWPF.App;
@@ -40,11 +41,10 @@ namespace MirageMUD_ClientWPF.View
             SaveWindowPosition();
 
             // Create an instance of the new window
-            var charactersView = new CharactersView();
-            charactersView.Show();
+            App.CharsViewInstance.Show();
 
             // Optionally close the current window
-            this.Close();
+            this.Hide();
         }
 
         private void btnCreate_Click(object sender, RoutedEventArgs e)
