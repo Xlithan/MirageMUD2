@@ -65,9 +65,9 @@ namespace MirageMUD_ClientWPF.View
             if (sender is RadioButton selected && selected.IsChecked == true)
             {
                 var selectedRace = selected.Content.ToString();
-                Console.WriteLine($"Selected Race: {selectedRace}");
+                Debug.WriteLine($"Selected Race: {selectedRace}");
 
-                // Example logic: Enable or disable class options
+                // Example logic: Enable or disable class options (Will use server data later)
                 if (selectedRace == "Dwarf")
                 {
                     SetClassEnabled(new[] { "Berserker", "Fighter", "Cleric", "Thief", "Pacifist" }, true); // Enable certain classes
