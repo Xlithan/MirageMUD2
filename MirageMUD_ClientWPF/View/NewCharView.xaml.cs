@@ -1,10 +1,8 @@
 ﻿using MirageMUD_ClientWPF.Model.Network;
-using MirageMUD_ClientWPF.ViewModel;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using static MirageMUD_ClientWPF.App;
 
 namespace MirageMUD_ClientWPF.View
 {
@@ -32,6 +30,9 @@ namespace MirageMUD_ClientWPF.View
             SelectFirstEnabledRadioButton(RaceWrapPanel);
 
             // The RaceRadioButton_Checked event will automatically update the class buttons
+
+            // Pre-roll the stats so they're not all zero
+            Reroll();
         }
         private void PopulateRadioButtons(WrapPanel panel, IEnumerable<string> items, RoutedEventHandler eventHandler)
         {
@@ -105,6 +106,9 @@ namespace MirageMUD_ClientWPF.View
 
                 // Automatically select the first enabled class
                 SelectFirstEnabledClass();
+
+                // Reroll the stats
+                Reroll();
             }
         }
         private void SelectFirstEnabledClass()
@@ -122,7 +126,7 @@ namespace MirageMUD_ClientWPF.View
         {
             if (sender is RadioButton selected && selected.IsChecked == true)
             {
-                Console.WriteLine($"Selected Class: {selected.Content}");
+                Debug.WriteLine($"Selected Class: {selected.Content}");
             }
         }
 
@@ -181,9 +185,17 @@ namespace MirageMUD_ClientWPF.View
 
         private void btnReroll_Click(object sender, RoutedEventArgs e)
         {
+            Reroll();
+        }
+        private void Reroll()
+        {
             if (clientTCP.PlayerSocket.Connected)
             {
                 clientTCP.SendRerollRequest();  // Send login data to server
+            }
+            else
+            {
+                // Not connected so send alert message
             }
         }
         private void SaveWindowPosition()
