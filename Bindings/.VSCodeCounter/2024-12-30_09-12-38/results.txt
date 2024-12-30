@@ -1,0 +1,40 @@
+Date : 2024-12-30 09:12:38
+Directory : d:\Coding Projects\C#\MirageMUD2\Bindings
+Total : 10 files,  503 codes, 83 comments, 98 blanks, all 684 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| C#       |          4 |        439 |         83 |         71 |        593 |
+| Markdown |          4 |         50 |          0 |         26 |         76 |
+| XML      |          1 |         13 |          0 |          1 |         14 |
+| JSON     |          1 |          1 |          0 |          0 |          1 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++----------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                         | files      | code       | comment    | blank      | total      |
++----------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                            |         10 |        503 |         83 |         98 |        684 |
+| . (Files)                                                                                    |          5 |        452 |         83 |         72 |        607 |
+| .VSCodeCounter                                                                               |          5 |         51 |          0 |         26 |         77 |
+| .VSCodeCounter\2024-12-30_09-08-33                                                           |          5 |         51 |          0 |         26 |         77 |
++----------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++----------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                                                                     | language | code       | comment    | blank      | total      |
++----------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| d:\Coding Projects\C#\MirageMUD2\Bindings\.VSCodeCounter\2024-12-30_09-08-33\details.md      | Markdown |         14 |          0 |          6 |         20 |
+| d:\Coding Projects\C#\MirageMUD2\Bindings\.VSCodeCounter\2024-12-30_09-08-33\diff-details.md | Markdown |          9 |          0 |          6 |         15 |
+| d:\Coding Projects\C#\MirageMUD2\Bindings\.VSCodeCounter\2024-12-30_09-08-33\diff.md         | Markdown |         12 |          0 |          7 |         19 |
+| d:\Coding Projects\C#\MirageMUD2\Bindings\.VSCodeCounter\2024-12-30_09-08-33\results.json    | JSON     |          1 |          0 |          0 |          1 |
+| d:\Coding Projects\C#\MirageMUD2\Bindings\.VSCodeCounter\2024-12-30_09-08-33\results.md      | Markdown |         15 |          0 |          7 |         22 |
+| d:\Coding Projects\C#\MirageMUD2\Bindings\Bindings.shproj                                    | XML      |         13 |          0 |          1 |         14 |
+| d:\Coding Projects\C#\MirageMUD2\Bindings\Constants.cs                                       | C#       |         18 |          4 |          4 |         26 |
+| d:\Coding Projects\C#\MirageMUD2\Bindings\NetworkPackets.cs                                  | C#       |        145 |          4 |          1 |        150 |
+| d:\Coding Projects\C#\MirageMUD2\Bindings\PacketBuffer.cs                                    | C#       |        171 |         53 |         48 |        272 |
+| d:\Coding Projects\C#\MirageMUD2\Bindings\TranslationManager.cs                              | C#       |        105 |         22 |         18 |        145 |
+| Total                                                                                        |          |        503 |         83 |         98 |        684 |
++----------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+

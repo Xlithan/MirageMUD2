@@ -8,6 +8,22 @@
         Title="NewCharView" Height="450" Width="800"
         WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="Manual"
         Background="Transparent" AllowsTransparency="True">
+    <Window.Resources>
+        <Style x:Key="CustomRadioButtonStyle" TargetType="RadioButton">
+            <Setter Property="Foreground" Value="#8997ad" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="FontFamily" Value="Verdana" />
+            <Setter Property="Margin" Value="5,10,0,0" />
+            <Setter Property="IsChecked" Value="False" />
+            <Style.Triggers>
+                <!-- Change Foreground to Dark Gray when the RadioButton is Disabled -->
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Foreground" Value="#505050" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
     <Border CornerRadius="10">
         <Border.Background>
             <ImageBrush ImageSource="/Images/newcharback.png"
@@ -200,53 +216,9 @@
                                    FontWeight="Bold"
                                    FontFamily="Verdana"
                                    Margin="0,0,0,0"/>
-                                <WrapPanel Orientation="Horizontal"
-                                   Margin="0,5,0,0">
-
-                                    <RadioButton Content="Dwarf"
-                                    Foreground="#8997ad"
-                                    FontSize="12"
-                                    FontWeight="Bold"
-                                    FontFamily="Verdana"
-                                    Margin="5,10,0,0"
-                                    IsChecked="True"/>
-                                    <RadioButton Content="Elf"
-                                    Foreground="#8997ad"
-                                    FontSize="12"
-                                    FontWeight="Bold"
-                                    FontFamily="Verdana"
-                                    Margin="5,10,0,0"/>
-                                    <RadioButton Content="Human"
-                                    Foreground="#8997ad"
-                                    FontSize="12"
-                                    FontWeight="Bold"
-                                    FontFamily="Verdana"
-                                    Margin="5,10,0,0"/>
-                                    <RadioButton Content="Gnome"
-                                    Foreground="#8997ad"
-                                    FontSize="12"
-                                    FontWeight="Bold"
-                                    FontFamily="Verdana"
-                                    Margin="5,10,0,0"/>
-                                    <RadioButton Content="Halfling"
-                                    Foreground="#8997ad"
-                                    FontSize="12"
-                                    FontWeight="Bold"
-                                    FontFamily="Verdana"
-                                    Margin="5,10,0,0"/>
-                                    <RadioButton Content="Half-Elf"
-                                    Foreground="#8997ad"
-                                    FontSize="12"
-                                    FontWeight="Bold"
-                                    FontFamily="Verdana"
-                                    Margin="5,10,0,0"/>
-                                    <RadioButton Content="Half-Orc"
-                                    Foreground="#8997ad"
-                                    FontSize="12"
-                                    FontWeight="Bold"
-                                    FontFamily="Verdana"
-                                    Margin="5,10,0,0"/>
-                                </WrapPanel>
+                                <WrapPanel x:Name="RaceWrapPanel"
+                                            Orientation="Horizontal"
+                                            Margin="0,5,0,0"/>
                             </StackPanel>
                         </Border>
                         <Border Grid.Column="0" Grid.Row="2"
@@ -261,65 +233,9 @@
                                    FontWeight="Bold"
                                    FontFamily="Verdana"
                                    Margin="0,0,0,0"/>
-                                <WrapPanel Orientation="Horizontal"
-                                        Margin="0,5,0,0">
-
-                                    <RadioButton Content="Berserker"
-                                    Foreground="#8997ad"
-                                    FontSize="12"
-                                    FontWeight="Bold"
-                                    FontFamily="Verdana"
-                                    Margin="5,10,0,0"
-                                    IsChecked="True"/>
-                                    <RadioButton Content="Pacifist"
-                                    Foreground="#8997ad"
-                                    FontSize="12"
-                                    FontWeight="Bold"
-                                    FontFamily="Verdana"
-                                    Margin="5,10,0,0"/>
-                                    <RadioButton Content="Paladin"
-                                    Foreground="#636a75"
-                                    FontSize="12"
-                                    FontWeight="Bold"
-                                    FontFamily="Verdana"
-                                    Margin="5,10,0,0"/>
-                                    <RadioButton Content="Fighter"
-                                    Foreground="#8997ad"
-                                    FontSize="12"
-                                    FontWeight="Bold"
-                                    FontFamily="Verdana"
-                                    Margin="5,10,0,0"/>
-                                    <RadioButton Content="Mage"
-                                    Foreground="#636a75"
-                                    FontSize="12"
-                                    FontWeight="Bold"
-                                    FontFamily="Verdana"
-                                    Margin="5,10,0,0"/>
-                                    <RadioButton Content="Cleric"
-                                    Foreground="#8997ad"
-                                    FontSize="12"
-                                    FontWeight="Bold"
-                                    FontFamily="Verdana"
-                                    Margin="5,10,0,0"/>
-                                    <RadioButton Content="Druid"
-                                    Foreground="#636a75"
-                                    FontSize="12"
-                                    FontWeight="Bold"
-                                    FontFamily="Verdana"
-                                    Margin="5,10,0,0"/>
-                                    <RadioButton Content="Ranger"
-                                    Foreground="#636a75"
-                                    FontSize="12"
-                                    FontWeight="Bold"
-                                    FontFamily="Verdana"
-                                    Margin="5,10,0,0"/>
-                                    <RadioButton Content="Thief"
-                                    Foreground="#8997ad"
-                                    FontSize="12"
-                                    FontWeight="Bold"
-                                    FontFamily="Verdana"
-                                    Margin="5,10,0,0"/>
-                                </WrapPanel>
+                                <WrapPanel x:Name="ClassWrapPanel"
+                                            Orientation="Horizontal"
+                                            Margin="0,5,0,0"/>
                             </StackPanel>
                         </Border>
                     </Grid>

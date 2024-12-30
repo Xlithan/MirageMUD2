@@ -2,6 +2,7 @@
 using MirageMUD_ClientWPF.ViewModel;
 using System.Diagnostics;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using static MirageMUD_ClientWPF.App;
 
@@ -19,6 +20,121 @@ namespace MirageMUD_ClientWPF.View
             InitializeComponent();
             clientTCP = ClientTCP.Instance;
             SetWindowPosition();
+
+            // Example data (replace with server-loaded data)
+            var races = new List<string> { "Dwarf", "Elf", "Human", "Gnome", "Halfling", "Half-Elf", "Half-Orc" };
+            var classes = new List<string> { "Berserker", "Fighter", "Mage", "Cleric", "Druid", "Ranger", "Thief", "Paladin", "Pacifist" };
+
+            PopulateRadioButtons(RaceWrapPanel, races, RaceRadioButton_Checked);
+            PopulateRadioButtons(ClassWrapPanel, classes, ClassRadioButton_Checked);
+
+            // Select the first race radio button programmatically
+            SelectFirstEnabledRadioButton(RaceWrapPanel);
+
+            // The RaceRadioButton_Checked event will automatically update the class buttons
+        }
+        private void PopulateRadioButtons(WrapPanel panel, IEnumerable<string> items, RoutedEventHandler eventHandler)
+        {
+            foreach (var item in items)
+            {
+                var radioButton = new RadioButton
+                {
+                    Content = item, // Set the text of the radio button
+                    IsChecked = false, // Initially unchecked
+                    Style = (Style)FindResource("CustomRadioButtonStyle") // Apply the custom style
+                };
+                radioButton.Checked += eventHandler;
+                panel.Children.Add(radioButton);
+            }
+        }
+        private void SelectFirstEnabledRadioButton(WrapPanel panel)
+        {
+            foreach (var child in panel.Children)
+            {
+                if (child is RadioButton radioButton && radioButton.IsEnabled)
+                {
+                    // Programmatically check the first enabled radio button
+                    radioButton.IsChecked = true;
+                    return;
+                }
+            }
+        }
+        private void RaceRadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            if (sender is RadioButton selected && selected.IsChecked == true)
+            {
+                var selectedRace = selected.Content.ToString();
+                Console.WriteLine($"Selected Race: {selectedRace}");
+
+                // Example logic: Enable or disable class options
+                if (selectedRace == "Dwarf")
+                {
+                    SetClassEnabled(new[] { "Berserker", "Fighter", "Cleric", "Thief", "Pacifist" }, true); // Enable certain classes
+                    SetClassEnabled(new[] { "Paladin", "Mage", "Druid", "Ranger" }, false); // Disable others
+                }
+                else if (selectedRace == "Elf")
+                {
+                    SetClassEnabled(new[] { "Fighter", "Mage", "Cleric", "Druid", "Ranger", "Pacifist" }, true);
+                    SetClassEnabled(new[] { "Berserker", "Paladin", "Thief" }, false);
+                }
+                else if (selectedRace == "Human")
+                {
+                    SetClassEnabled(new[] { "Berserker", "Paladin", "Fighter", "Mage", "Cleric", "Druid", "Ranger", "Thief", "Pacifist" }, true);
+                    SetClassEnabled(new[] { "" }, false);
+                }
+                else if (selectedRace == "Gnome")
+                {
+                    SetClassEnabled(new[] { "Mage", "Cleric", "Thief", "Pacifist" }, true);
+                    SetClassEnabled(new[] { "Berserker", "Paladin", "Fighter", "Druid", "Ranger" }, false);
+                }
+                else if (selectedRace == "Halfling")
+                {
+                    SetClassEnabled(new[] { "Paladin", "Fighter", "Cleric", "Druid", "Ranger", "Thief", "Pacifist" }, true);
+                    SetClassEnabled(new[] { "Berserker", "Mage" }, false);
+                }
+                else if (selectedRace == "Half-Elf")
+                {
+                    SetClassEnabled(new[] { "Berserker", "Fighter", "Mage", "Cleric", "Druid", "Ranger", "Pacifist" }, true);
+                    SetClassEnabled(new[] { "Paladin", "Thief" }, false);
+                }
+                else if (selectedRace == "Half-Orc")
+                {
+                    SetClassEnabled(new[] { "Berserker", "Fighter" }, true);
+                    SetClassEnabled(new[] { "Pacifist", "Paladin", "Mage", "Cleric", "Druid", "Ranger", "Thief" }, false);
+                }
+
+                // Automatically select the first enabled class
+                SelectFirstEnabledClass();
+            }
+        }
+        private void SelectFirstEnabledClass()
+        {
+            foreach (var child in ClassWrapPanel.Children)
+            {
+                if (child is RadioButton radioButton && radioButton.IsEnabled)
+                {
+                    radioButton.IsChecked = true;
+                    return; // Stop after selecting the first enabled button
+                }
+            }
+        }
+        private void ClassRadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            if (sender is RadioButton selected && selected.IsChecked == true)
+            {
+                Console.WriteLine($"Selected Class: {selected.Content}");
+            }
+        }
+
+        private void SetClassEnabled(IEnumerable<string> classNames, bool enabled)
+        {
+            foreach (var child in ClassWrapPanel.Children)
+            {
+                if (child is RadioButton radioButton && classNames.Contains(radioButton.Content.ToString()))
+                {
+                    radioButton.IsEnabled = enabled;
+                }
+            }
         }
         private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
         {

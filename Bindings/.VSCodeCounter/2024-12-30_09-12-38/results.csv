@@ -1,0 +1,12 @@
+"filename", "language", "C#", "XML", "Markdown", "JSON", "comment", "blank", "total"
+"d:\Coding Projects\C#\MirageMUD2\Bindings\.VSCodeCounter\2024-12-30_09-08-33\details.md", "Markdown", 0, 0, 14, 0, 0, 6, 20
+"d:\Coding Projects\C#\MirageMUD2\Bindings\.VSCodeCounter\2024-12-30_09-08-33\diff-details.md", "Markdown", 0, 0, 9, 0, 0, 6, 15
+"d:\Coding Projects\C#\MirageMUD2\Bindings\.VSCodeCounter\2024-12-30_09-08-33\diff.md", "Markdown", 0, 0, 12, 0, 0, 7, 19
+"d:\Coding Projects\C#\MirageMUD2\Bindings\.VSCodeCounter\2024-12-30_09-08-33\results.json", "JSON", 0, 0, 0, 1, 0, 0, 1
+"d:\Coding Projects\C#\MirageMUD2\Bindings\.VSCodeCounter\2024-12-30_09-08-33\results.md", "Markdown", 0, 0, 15, 0, 0, 7, 22
+"d:\Coding Projects\C#\MirageMUD2\Bindings\Bindings.shproj", "XML", 0, 13, 0, 0, 0, 1, 14
+"d:\Coding Projects\C#\MirageMUD2\Bindings\Constants.cs", "C#", 18, 0, 0, 0, 4, 4, 26
+"d:\Coding Projects\C#\MirageMUD2\Bindings\NetworkPackets.cs", "C#", 145, 0, 0, 0, 4, 1, 150
+"d:\Coding Projects\C#\MirageMUD2\Bindings\PacketBuffer.cs", "C#", 171, 0, 0, 0, 53, 48, 272
+"d:\Coding Projects\C#\MirageMUD2\Bindings\TranslationManager.cs", "C#", 105, 0, 0, 0, 22, 18, 145
+"Total", "-", 439, 13, 50, 1, 83, 98, 684
