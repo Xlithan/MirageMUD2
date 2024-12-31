@@ -162,6 +162,7 @@ namespace MirageMUD_Server.Network
                         // Store the hashed password and salt
                         db.AddAccount(Index, username, Convert.ToBase64String(hashedPassword), Convert.ToBase64String(salt));
                         Console.WriteLine(TranslationManager.Instance.GetTranslation("user.account_created"), username);
+                        serverTCP.SendAccountCreated(Index);
                     }
                     else
                     {

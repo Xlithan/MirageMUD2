@@ -1,14 +1,18 @@
-﻿using System.Windows;
+﻿using MirageMUD_ClientWPF.Model.Network;
+using System.Windows;
 using System.Windows.Input;
 
 namespace MirageMUD_ClientWPF.View
 {
     public partial class NewAccountView : Window
     {
+        ClientTCP clientTCP;  // Instance of ClientTCP for network communication
         public NewAccountView()
         {
             InitializeComponent();
             SetWindowPosition();
+            // Create a new instance of ClientTCP for new account procedure
+            clientTCP = ClientTCP.Instance;
         }
         private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -40,7 +44,47 @@ namespace MirageMUD_ClientWPF.View
 
         private void btnCreate_Click(object sender, RoutedEventArgs e)
         {
+            string name = txtUsername.Text;  // Get the new account name from the text box
+            string pass = txtPassword.Password;  // Get the new account password from the text box
+            string confirmPass = txtPasswordConfirm.Password;  // Get the password confirmation from the text box
 
+            // Check if all fields are filled
+            if (!string.IsNullOrWhiteSpace(name) && !string.IsNullOrWhiteSpace(pass) && !string.IsNullOrWhiteSpace(confirmPass))
+            {
+                // Ensure passwords match
+                if (string.Equals(pass, confirmPass))
+                {
+                    if (clientTCP.PlayerSocket.Connected)
+                    {
+                        clientTCP.SendNewAccount(txtUsername.Text, txtPassword.Password);  // Send new account data to server
+                    }
+                }
+                else
+                {
+                    // Show error if passwords do not match
+                    MessageBox.Show("Passwords do not match!", "Error", MessageBoxButton.OK);
+                }
+            }
+            else
+            {
+                // Show specific error messages for missing fields
+                if (string.IsNullOrWhiteSpace(name))
+                {
+                    MessageBox.Show("Please enter a login name!", "Error", MessageBoxButton.OK);
+                }
+                else if (string.IsNullOrWhiteSpace(pass))
+                {
+                    MessageBox.Show("Please enter a password!", "Error", MessageBoxButton.OK);
+                }
+                else if (string.IsNullOrWhiteSpace(confirmPass))
+                {
+                    MessageBox.Show("Please confirm your password!", "Error", MessageBoxButton.OK);
+                }
+                else
+                {
+                    MessageBox.Show("Please enter a login name and password!", "Error", MessageBoxButton.OK);
+                }
+            }
         }
         private void SaveWindowPosition()
         {

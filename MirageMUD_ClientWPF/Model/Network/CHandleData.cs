@@ -4,6 +4,7 @@ using MirageMUD_ClientWPF.ViewModel;
 using System.Diagnostics;
 using System.IO;
 using System.Windows;
+using System.Windows.Interop;
 using System.Windows.Media.Imaging;
 
 namespace MirageMUD_ClientWPF.Model.Network
@@ -83,6 +84,7 @@ namespace MirageMUD_ClientWPF.Model.Network
             Packets.Add((int)ServerPackets.SReRoll, HandleReRoll);
             Packets.Add((int)ServerPackets.SRaces, HandleRaces);
             Packets.Add((int)ServerPackets.SClasses, HandleClasses);
+            Packets.Add((int)ServerPackets.SAccountCreated, HandleAccountCreated);
         }
 
         // Handles incoming messages by identifying the appropriate packet handler
@@ -216,6 +218,23 @@ namespace MirageMUD_ClientWPF.Model.Network
         }
         public void HandleLoginOk(byte[] data) { }
         public void HandleLogoutOk(byte[] data) { }
+        public void HandleAccountCreated(byte[] data)
+        {
+            using (PacketBuffer buffer = new PacketBuffer())
+            {
+                buffer.AddBytes(data); // Add data to buffer
+                buffer.GetInteger(); // Skip packet ID
+
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    App.NewAccViewInstance.txtUsername.Text = string.Empty;
+                    App.NewAccViewInstance.txtPassword.Password = string.Empty;
+                    App.NewAccViewInstance.txtPasswordConfirm.Password = string.Empty;
+                });
+
+                MessageBox.Show("Account was created!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
         public void HandleNewCharClasses(byte[] data) { }
         public void HandleClassesData(byte[] data) { }
         public void HandleInGame(byte[] data) { }

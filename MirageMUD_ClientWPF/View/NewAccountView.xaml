@@ -137,14 +137,14 @@
                             ViewportUnits="Absolute"/>
                         </TextBox.Background>
                     </TextBox>
-                    <TextBlock x:Name="txtPassword"
-                            Text="Password"
+                    <TextBlock
+                           Text="Password"
                            Foreground="LightGray"
                            FontSize="12"
                            FontWeight="Bold"
                            FontFamily="Verdana"
                            Margin="0,10,0,0"/>
-                    <PasswordBox 
+                    <PasswordBox x:Name="txtPassword"
                     Style="{StaticResource CustomPasswordBoxStyle}">
                         <PasswordBox.Background>
                             <ImageBrush 
@@ -157,14 +157,14 @@
                             ViewportUnits="Absolute"/>
                         </PasswordBox.Background>
                     </PasswordBox>
-                    <TextBlock x:Name="txtPasswordConfirm"
+                    <TextBlock
                                Text="Confirm Password"
                                Foreground="LightGray"
                                FontSize="12"
                                FontWeight="Bold"
                                FontFamily="Verdana"
                                Margin="0,10,0,0"/>
-                    <PasswordBox 
+                    <PasswordBox x:Name="txtPasswordConfirm"
                                Style="{StaticResource CustomPasswordBoxStyle}">
                         <PasswordBox.Background>
                             <ImageBrush 

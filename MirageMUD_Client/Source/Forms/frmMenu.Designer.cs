@@ -950,8 +950,6 @@
             ClientSize = new Size(590, 384);
             ControlBox = false;
             Controls.Add(panel1);
-            Controls.Add(pnlLogin);
-            Controls.Add(pnlGameOptions);
             Controls.Add(pnlNewAccount);
             Controls.Add(pnlExit);
             Controls.Add(pnlIPConfig);
@@ -959,6 +957,8 @@
             Controls.Add(lblWelcomeDesc);
             Controls.Add(lblTWelcome);
             Controls.Add(picBackground);
+            Controls.Add(pnlLogin);
+            Controls.Add(pnlGameOptions);
             DoubleBuffered = true;
             FormBorderStyle = FormBorderStyle.None;
             MaximizeBox = false;

@@ -114,6 +114,16 @@ namespace MirageMUD_Server.Network
 
             buffer.Dispose();
         }
+        public void SendAccountCreated(int Index)
+        {
+            PacketBuffer buffer = new PacketBuffer();
+
+            buffer.AddInteger((int)ServerPackets.SAccountCreated);
+
+            SendDataTo(Index, buffer.ToArray());
+
+            buffer.Dispose();
+        }
         public void SendReRoll(int Index)
         {
             StatRoller statRoller = new StatRoller();
