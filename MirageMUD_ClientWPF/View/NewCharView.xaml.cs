@@ -13,6 +13,8 @@ namespace MirageMUD_ClientWPF.View
     {
         public bool IsMaleSelected = true;
         ClientTCP clientTCP;  // Instance of ClientTCP for network communication
+        int raceID; // ID of selected race
+        int classID; // ID of selected class
         public NewCharView()
         {
             InitializeComponent();
@@ -23,8 +25,15 @@ namespace MirageMUD_ClientWPF.View
             var races = new List<string> { "Dwarf", "Elf", "Human", "Gnome", "Halfling", "Half-Elf", "Half-Orc" };
             var classes = new List<string> { "Berserker", "Fighter", "Mage", "Cleric", "Druid", "Ranger", "Thief", "Paladin", "Pacifist" };
 
-            PopulateRadioButtons(RaceWrapPanel, races, RaceRadioButton_Checked);
-            PopulateRadioButtons(ClassWrapPanel, classes, ClassRadioButton_Checked);
+            // Define counters for both race and class IDs
+            int raceIdCounter = 0;
+            int classIdCounter = 0;
+
+            // Populate the Race radio buttons
+            PopulateRadioButtons(RaceWrapPanel, races, RaceRadioButton_Checked, ref raceIdCounter);
+
+            // Populate the Class radio buttons
+            PopulateRadioButtons(ClassWrapPanel, classes, ClassRadioButton_Checked, ref classIdCounter);
 
             // Select the first race radio button programmatically
             SelectFirstEnabledRadioButton(RaceWrapPanel);
@@ -34,7 +43,7 @@ namespace MirageMUD_ClientWPF.View
             // Pre-roll the stats so they're not all zero
             Reroll();
         }
-        private void PopulateRadioButtons(WrapPanel panel, IEnumerable<string> items, RoutedEventHandler eventHandler)
+        private void PopulateRadioButtons(WrapPanel panel, IEnumerable<string> items, RoutedEventHandler eventHandler, ref int idCounter)
         {
             foreach (var item in items)
             {
@@ -42,8 +51,13 @@ namespace MirageMUD_ClientWPF.View
                 {
                     Content = item, // Set the text of the radio button
                     IsChecked = false, // Initially unchecked
-                    Style = (Style)FindResource("CustomRadioButtonStyle") // Apply the custom style
+                    Style = (Style)FindResource("CustomRadioButtonStyle"), // Apply the custom style
+                    Tag = idCounter // Assign the current counter value as the Tag
                 };
+
+                // Increment the counter after assigning the Tag
+                idCounter++;
+
                 radioButton.Checked += eventHandler;
                 panel.Children.Add(radioButton);
             }
@@ -60,48 +74,36 @@ namespace MirageMUD_ClientWPF.View
                 }
             }
         }
+        // Dictionary to hold the class options for each race
+        private readonly Dictionary<string, (string[] enabledClasses, string[] disabledClasses)> raceClassMapping = new()
+        {
+            { "Dwarf", (new[] { "Berserker", "Fighter", "Cleric", "Thief", "Pacifist" }, new[] { "Paladin", "Mage", "Druid", "Ranger" }) },
+            { "Elf", (new[] { "Fighter", "Mage", "Cleric", "Druid", "Ranger", "Pacifist" }, new[] { "Berserker", "Paladin", "Thief" }) },
+            { "Human", (new[] { "Berserker", "Paladin", "Fighter", "Mage", "Cleric", "Druid", "Ranger", "Thief", "Pacifist" }, new string[] { }) },
+            { "Gnome", (new[] { "Mage", "Cleric", "Thief", "Pacifist" }, new[] { "Berserker", "Paladin", "Fighter", "Druid", "Ranger" }) },
+            { "Halfling", (new[] { "Paladin", "Fighter", "Cleric", "Druid", "Ranger", "Thief", "Pacifist" }, new[] { "Berserker", "Mage" }) },
+            { "Half-Elf", (new[] { "Berserker", "Fighter", "Mage", "Cleric", "Druid", "Ranger", "Pacifist" }, new[] { "Paladin", "Thief" }) },
+            { "Half-Orc", (new[] { "Berserker", "Fighter" }, new[] { "Pacifist", "Paladin", "Mage", "Cleric", "Druid", "Ranger", "Thief" }) }
+        };
         private void RaceRadioButton_Checked(object sender, RoutedEventArgs e)
         {
             if (sender is RadioButton selected && selected.IsChecked == true)
             {
                 var selectedRace = selected.Content.ToString();
-                Debug.WriteLine($"Selected Race: {selectedRace}");
 
-                // Example logic: Enable or disable class options (Will use server data later)
-                if (selectedRace == "Dwarf")
+                // Set race ID based on the tag value (incremented ID)
+                raceID = (int)selected.Tag;
+
+                // Get the class options for the selected race from the dictionary
+                if (raceClassMapping.ContainsKey(selectedRace))
                 {
-                    SetClassEnabled(new[] { "Berserker", "Fighter", "Cleric", "Thief", "Pacifist" }, true); // Enable certain classes
-                    SetClassEnabled(new[] { "Paladin", "Mage", "Druid", "Ranger" }, false); // Disable others
-                }
-                else if (selectedRace == "Elf")
-                {
-                    SetClassEnabled(new[] { "Fighter", "Mage", "Cleric", "Druid", "Ranger", "Pacifist" }, true);
-                    SetClassEnabled(new[] { "Berserker", "Paladin", "Thief" }, false);
-                }
-                else if (selectedRace == "Human")
-                {
-                    SetClassEnabled(new[] { "Berserker", "Paladin", "Fighter", "Mage", "Cleric", "Druid", "Ranger", "Thief", "Pacifist" }, true);
-                    SetClassEnabled(new[] { "" }, false);
-                }
-                else if (selectedRace == "Gnome")
-                {
-                    SetClassEnabled(new[] { "Mage", "Cleric", "Thief", "Pacifist" }, true);
-                    SetClassEnabled(new[] { "Berserker", "Paladin", "Fighter", "Druid", "Ranger" }, false);
-                }
-                else if (selectedRace == "Halfling")
-                {
-                    SetClassEnabled(new[] { "Paladin", "Fighter", "Cleric", "Druid", "Ranger", "Thief", "Pacifist" }, true);
-                    SetClassEnabled(new[] { "Berserker", "Mage" }, false);
-                }
-                else if (selectedRace == "Half-Elf")
-                {
-                    SetClassEnabled(new[] { "Berserker", "Fighter", "Mage", "Cleric", "Druid", "Ranger", "Pacifist" }, true);
-                    SetClassEnabled(new[] { "Paladin", "Thief" }, false);
-                }
-                else if (selectedRace == "Half-Orc")
-                {
-                    SetClassEnabled(new[] { "Berserker", "Fighter" }, true);
-                    SetClassEnabled(new[] { "Pacifist", "Paladin", "Mage", "Cleric", "Druid", "Ranger", "Thief" }, false);
+                    var (enabledClasses, disabledClasses) = raceClassMapping[selectedRace];
+
+                    // Enable or disable the class options
+                    SetClassEnabled(enabledClasses, true);
+                    SetClassEnabled(disabledClasses, false);
+
+                    Debug.WriteLine($"Selected Race: {selectedRace} [{raceID}]");
                 }
 
                 // Automatically select the first enabled class
@@ -126,7 +128,10 @@ namespace MirageMUD_ClientWPF.View
         {
             if (sender is RadioButton selected && selected.IsChecked == true)
             {
-                Debug.WriteLine($"Selected Class: {selected.Content}");
+                // Set classID dynamically based on the Tag of the selected radio button
+                classID = (int)selected.Tag;
+
+                Debug.WriteLine($"Selected Class: {selected.Content} [{classID}]");
             }
         }
 

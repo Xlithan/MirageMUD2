@@ -18,6 +18,21 @@ namespace MirageMUD_Server.Storage
             string filename = $"Accounts/{username}.json";
             return File.Exists(filename);
         }
+        public bool CharacterExist(string characterName)
+        {
+            string filePath = $"Accounts/charnames.json";
+
+            if (!File.Exists(filePath))
+            {
+                return false; // No character names file exists yet, so the name isn't taken
+            }
+
+            // Read the existing character names from the file
+            var existingNames = JsonSerializer.Deserialize<List<string>>(File.ReadAllText(filePath));
+
+            // Check if the name already exists
+            return existingNames.Contains(characterName);
+        }
 
         // Verifies if the provided password is correct for the specified account
         public bool PasswordOK(int index, string username, string password)
@@ -59,6 +74,10 @@ namespace MirageMUD_Server.Storage
             }
 
             SavePlayer(index);
+        }
+        public void AddChar(int index, int charNum, string charName, byte charGender, byte charRace, byte charClass, int charAvatar)
+        {
+            // Save character slot
         }
 
         // Clears the player login and password

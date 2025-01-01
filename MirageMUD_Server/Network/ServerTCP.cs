@@ -20,6 +20,9 @@ namespace MirageMUD_Server.Network
         // TcpListener to listen for incoming TCP client connections
         public TcpListener ServerSocket;
 
+        // Dictionary to temporarily store stats for each player
+        public static Dictionary<int, int[]> TempStats = new Dictionary<int, int[]>();
+
         // Initializes the network listener and begins accepting client connections
         public void InitialiseNetwork()
         {
@@ -131,11 +134,14 @@ namespace MirageMUD_Server.Network
             // Generate a random distribution of stats.
             int[] stats = statRoller.GenerateRandomStats();
 
-            PacketBuffer buffer = new PacketBuffer();
+            // Store the stats temporarily for the player
+            TempStats[Index] = stats;
 
+            // Prepare the packet to send the stats to the client
+            PacketBuffer buffer = new PacketBuffer();
             buffer.AddInteger((int)ServerPackets.SReRoll);
 
-            // Add each stat value to the buffer.
+            // Add each stat value to the buffer
             buffer.AddInteger(stats[0]); // Strength
             buffer.AddInteger(stats[1]); // Intelligence
             buffer.AddInteger(stats[2]); // Dexterity
@@ -143,11 +149,11 @@ namespace MirageMUD_Server.Network
             buffer.AddInteger(stats[4]); // Wisdom
             buffer.AddInteger(stats[5]); // Charisma
 
+            // Send the data to the client
             SendDataTo(Index, buffer.ToArray());
 
             buffer.Dispose();
         }
-
         public void SendRaces(int Index)
         {
             PacketBuffer buffer = new PacketBuffer();

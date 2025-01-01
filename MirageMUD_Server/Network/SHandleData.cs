@@ -234,7 +234,43 @@ namespace MirageMUD_Server.Network
                 db.UnloadPlayer(Index);
             }
         }
-        private void HandleAddChar(int Index, byte[] data) { }
+        private void HandleAddChar(int Index, byte[] data)
+        {
+            using (PacketBuffer buffer = new PacketBuffer())
+            {
+                buffer.AddBytes(data); // Add data to buffer
+                buffer.GetInteger(); // Skip packet ID
+                string username = buffer.GetString(); // Extract username
+                string charName = buffer.GetString(); // Extract character name
+                byte charGender = buffer.GetByte(); // Extract gender
+                byte charRace = buffer.GetByte(); // Extract race
+                byte charClass = buffer.GetByte(); // Extract class
+                int charAvatar = buffer.GetInteger(); // Extract avatar ID
+                byte charNum = buffer.GetByte(); // Extract character ID
+
+                // Check if the username exists in the database
+                if (db.AccountExist(username))
+                {
+                    if (db.CharacterExist(charName))
+                    {
+                        // Character already exists
+                        serverTCP.AlertMsg(Index, "This character name already exists.");
+                    }
+                    else
+                    {
+                        // Can log in
+                        db.AddChar(Index, charNum, charName, charGender, charRace, charClass, charAvatar);
+                        //serverTCP.SendChars(Index);
+                        Console.WriteLine(TranslationManager.Instance.GetTranslation("user.logged_in"), username, ServerTCP.Clients[Index].IP);
+                    }
+                }
+                else
+                {
+                    // Username does not exist, send the error
+                    serverTCP.AlertMsg(Index, "Account does not exist.");
+                }
+            }
+        }
         private void HandleDelChar(int Index, byte[] data) { }
         private void HandleUseChar(int Index, byte[] data) { }
         private void HandleSayMsg(int Index, byte[] data) { }

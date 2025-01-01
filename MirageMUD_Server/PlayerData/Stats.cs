@@ -1,4 +1,6 @@
-﻿namespace MirageMUD_Server.PlayerData
+﻿using MirageMUD_Server.Network;
+
+namespace MirageMUD_Server.PlayerData
 {
     internal class Stats
     {
@@ -12,12 +14,12 @@
         // Optional: Add a method to reset stats to default values.
         public void ResetToDefaults()
         {
-            Strength = 10;
-            Intelligence = 10;
-            Dexterity = 10;
-            Constitution = 10;
-            Wisdom = 10;
-            Charisma = 10;
+            Strength = 2;
+            Intelligence = 2;
+            Dexterity = 2;
+            Constitution = 2;
+            Wisdom = 2;
+            Charisma = 2;
         }
     }
 }
