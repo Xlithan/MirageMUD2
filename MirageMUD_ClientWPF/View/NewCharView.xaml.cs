@@ -1,4 +1,5 @@
 ﻿using MirageMUD_ClientWPF.Model.Network;
+using MirageMUD_ClientWPF.Model.Types;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
@@ -20,6 +21,8 @@ namespace MirageMUD_ClientWPF.View
             InitializeComponent();
             clientTCP = ClientTCP.Instance;
             SetWindowPosition();
+
+            Debug.WriteLine("CharNum: " + App.CharsViewInstance.selectedChar);
 
             // Example data (replace with server-loaded data)
             var races = new List<string> { "Dwarf", "Elf", "Human", "Gnome", "Halfling", "Half-Elf", "Half-Orc" };
@@ -62,7 +65,7 @@ namespace MirageMUD_ClientWPF.View
                 panel.Children.Add(radioButton);
             }
         }
-        private void SelectFirstEnabledRadioButton(WrapPanel panel)
+        public void SelectFirstEnabledRadioButton(WrapPanel panel)
         {
             foreach (var child in panel.Children)
             {
@@ -172,14 +175,20 @@ namespace MirageMUD_ClientWPF.View
             this.Hide();
         }
 
-        private void btnCreate_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void btnFinish_Click(object sender, RoutedEventArgs e)
         {
+            string charName = txtCharName.Text;  // Get the new character name from the text box
+            int charGender = optMale.IsChecked == true ? 0 : 1;  // Set the gender variable
 
+            // Check if all fields are filled
+            if (!string.IsNullOrWhiteSpace(charName))
+            {
+                clientTCP.SendNewCharacter(Globals.Player.Login, charName, charGender, raceID, classID, Globals.Player.Avatar, App.CharsViewInstance.selectedChar);  // Send new account data to server
+            }
+            else
+            {
+                MessageBox.Show("Please enter a character name!", "Error", MessageBoxButton.OK);
+            }
         }
 
         private void btnAvatar_Click(object sender, RoutedEventArgs e)
@@ -192,7 +201,7 @@ namespace MirageMUD_ClientWPF.View
         {
             Reroll();
         }
-        private void Reroll()
+        public void Reroll()
         {
             if (clientTCP.PlayerSocket.Connected)
             {

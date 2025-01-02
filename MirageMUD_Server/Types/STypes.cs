@@ -15,7 +15,7 @@ namespace MirageMUD_Server.Types
             public string Login { get; set; }           // Username for login.
             public string Password { get; set; }       // Hashed password for security.
             public string Salt { get; set; }           // Salt value for hashing the password.
-            public byte Access { get; set; }           // Access level (e.g., admin, player).
+            public int Access { get; set; }           // Access level (e.g., admin, player).
             public CharacterStruct[] Character { get; set; } // Array of characters belonging to the account.
 
             // Initializes the account and its characters with default values.
@@ -34,7 +34,7 @@ namespace MirageMUD_Server.Types
                 for (int i = 0; i < maxChars; i++)
                 {
                     Character[i] = new CharacterStruct(); // Create a new character.
-                    Character[i].Initialise();            // Set default values for the character.
+                    Character[i].Initialise(i);            // Set default values for the character.
                 }
             }
         }
@@ -43,31 +43,32 @@ namespace MirageMUD_Server.Types
         public class CharacterStruct
         {
             // Basic character details.
+            public int ID { get; set; }
             public string Name { get; set; }
-            public byte Race { get; set; }
-            public byte Class { get; set; }
-            public byte Gender { get; set; }
+            public int Race { get; set; }
+            public int Class { get; set; }
+            public int Gender { get; set; }
             public int Avatar { get; set; }
-            public byte Level { get; set; }
+            public int Level { get; set; }
             public int Exp { get; set; }
-            public byte PK { get; set; }               // Tracks PvP status.
+            public int PK { get; set; }               // Tracks PvP status.
 
             // Guild-related properties.
             public string Guild { get; set; }
-            public byte GuildAccess { get; set; }
+            public int GuildAccess { get; set; }
 
             // Position and direction in the game world.
             public int Room { get; set; }
-            public byte Dir { get; set; }
+            public int Dir { get; set; }
 
             // Client-side properties for health, stamina, and combat.
             public int MaxHP { get; set; }
             public int MaxMP { get; set; }
             public int MaxStamina { get; set; }
-            public byte Attacking { get; set; }
+            public int Attacking { get; set; }
             public int AttackTimer { get; set; }
             public int RoomGetTimer { get; set; }
-            public byte CastedSpell { get; set; }
+            public int CastedSpell { get; set; }
             public List<Inventory> PlayerInv { get; set; } = new List<Inventory>();
             public List<Spells> PlayerSpells { get; set; } = new List<Spells>();
 
@@ -76,13 +77,14 @@ namespace MirageMUD_Server.Types
             public Equipment CharacterEquip { get; set; } = new Equipment();
 
             // Initializes the character's properties with default values.
-            public void Initialise()
+            public void Initialise(int id)
             {
                 // Set basic character details to defaults.
+                ID = id;
                 Name = string.Empty;   // No name assigned initially.
                 Race = 1;              // Default to class ID 1 (e.g., human).
                 Class = 1;             // Default to class ID 1 (e.g., warrior).
-                Avatar = 0;            // Default avatar ID.
+                Avatar = 1;            // Default avatar ID.
                 Level = 1;             // Start at level 1.
                 Exp = 0;               // No experience points at the start.
                 PK = 0;                // Not flagged as a player-killer.

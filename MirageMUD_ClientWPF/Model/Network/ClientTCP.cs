@@ -5,6 +5,7 @@ using System.Net.Sockets;
 using System.Windows;
 using System.Xml.Linq;
 using Bindings;
+using MirageMUD_ClientWPF.Model.Types;
 
 namespace MirageMUD_ClientWPF.Model.Network
 {
@@ -246,6 +247,28 @@ namespace MirageMUD_ClientWPF.Model.Network
             buffer.AddInteger((int)ClientPackets.CNewAccount);
             buffer.AddString(name);
             buffer.AddString(pass);
+
+            // Send the new account data to the server
+            SendData(buffer.ToArray());
+
+            // Dispose of the buffer after sending
+            buffer.Dispose();
+        }
+
+        public void SendNewCharacter(string loginName, string charName, int charGender, int raceID, int classID, int charAvatar, int charNum)
+        {
+            // Create a new packet buffer for the account creation data
+            PacketBuffer buffer = new PacketBuffer();
+
+            // Add the new account request packet identifier and the account details
+            buffer.AddInteger((int)ClientPackets.CAddChar);
+            buffer.AddString(loginName);
+            buffer.AddString(charName);
+            buffer.AddInteger(charGender);
+            buffer.AddInteger(raceID);
+            buffer.AddInteger(classID);
+            buffer.AddInteger(charAvatar);
+            buffer.AddInteger(charNum);
 
             // Send the new account data to the server
             SendData(buffer.ToArray());

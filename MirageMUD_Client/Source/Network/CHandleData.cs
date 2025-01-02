@@ -24,7 +24,6 @@ namespace MirageMUD_WFClient.Source.Network
             // Add each packet number and its corresponding handler method to the dictionary
             Packets.Add((int)ServerPackets.SAlertMsg, HandleAlertMsg);
             Packets.Add((int)ServerPackets.SAllChars, HandleAllChars);
-            Packets.Add((int)ServerPackets.SLoginOk, HandleLoginOk);
             Packets.Add((int)ServerPackets.SNewCharClasses, HandleNewCharClasses);
             Packets.Add((int)ServerPackets.SClassesData, HandleClassesData);
             Packets.Add((int)ServerPackets.SInGame, HandleInGame);
@@ -162,7 +161,6 @@ namespace MirageMUD_WFClient.Source.Network
                 }
             }
         }
-        public void HandleLoginOk(byte[] data) { }
         public void HandleNewCharClasses(byte[] data) { }
         public void HandleClassesData(byte[] data) { }
         public void HandleInGame(byte[] data) { }

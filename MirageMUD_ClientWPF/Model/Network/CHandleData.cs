@@ -1,4 +1,5 @@
 ﻿using Bindings;
+using MirageMUD_ClientWPF.Model.Types;
 using MirageMUD_ClientWPF.View;
 using MirageMUD_ClientWPF.ViewModel;
 using System.Diagnostics;
@@ -29,7 +30,7 @@ namespace MirageMUD_ClientWPF.Model.Network
             // Add each packet number and its corresponding handler method to the dictionary
             Packets.Add((int)ServerPackets.SAlertMsg, HandleAlertMsg);
             Packets.Add((int)ServerPackets.SAllChars, HandleAllChars);
-            Packets.Add((int)ServerPackets.SLoginOk, HandleLoginOk);
+            Packets.Add((int)ServerPackets.SNewCharOk, HandleNewCharOk);
             Packets.Add((int)ServerPackets.SLogoutOk, HandleLogoutOk);
             Packets.Add((int)ServerPackets.SNewCharClasses, HandleNewCharClasses);
             Packets.Add((int)ServerPackets.SClassesData, HandleClassesData);
@@ -145,7 +146,7 @@ namespace MirageMUD_ClientWPF.Model.Network
             {
                 buffer.AddBytes(data);
                 buffer.GetInteger(); // Skip packet ID
-                buffer.GetString(); // Skip login string (We may need it later)
+                Globals.Player.Login = buffer.GetString(); // Store the account name
 
                 Application.Current.Dispatcher.Invoke(() =>
                 {
@@ -163,11 +164,11 @@ namespace MirageMUD_ClientWPF.Model.Network
                         for (int i = 0; i < Constants.MAX_CHARS; i++)
                         {
                             string charName = buffer.GetString();
-                            byte charLevel = buffer.GetByte();
+                            int charLevel = buffer.GetInteger();
                             string charClass = buffer.GetString();
                             string charRace = buffer.GetString();
                             int charAvatar = buffer.GetInteger();
-                            byte charGender = buffer.GetByte();
+                            int charGender = buffer.GetInteger();
 
                             string avatarPath;
                             if (string.IsNullOrEmpty(charName))
@@ -178,7 +179,8 @@ namespace MirageMUD_ClientWPF.Model.Network
                                     Level = string.Empty,
                                     ClassInfo = string.Empty,
                                     RaceInfo = string.Empty,
-                                    Avatar = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "gfx", "avatars", "blank.bmp")
+                                    Avatar = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "gfx", "avatars", "blank.bmp"),
+                                    ID = i
                                 });
                             }
                             else
@@ -194,7 +196,8 @@ namespace MirageMUD_ClientWPF.Model.Network
                                     Level = charLevel.ToString(),
                                     ClassInfo = charClass,
                                     RaceInfo = charRace,
-                                    Avatar = avatarPath
+                                    Avatar = avatarPath,
+                                    ID = i
                                 });
                             }
                         }
@@ -216,7 +219,86 @@ namespace MirageMUD_ClientWPF.Model.Network
                 });
             }
         }
-        public void HandleLoginOk(byte[] data) { }
+        public void HandleNewCharOk(byte[] data)
+        {
+            using (PacketBuffer buffer = new PacketBuffer())
+            {
+                buffer.AddBytes(data); // Add data to buffer
+                buffer.GetInteger(); // Skip packet ID
+
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    App.NewCharViewInstance.Hide();
+
+                    // Show the CharactersView
+                    App.CharsViewInstance.Show();
+
+                    // Access the DataContext (ViewModel)
+                    if (App.CharsViewInstance.DataContext is CharacterViewModel viewModel)
+                    {
+                        // Clear any existing characters
+                        viewModel.Characters.Clear();
+
+                        for (int i = 0; i < Constants.MAX_CHARS; i++)
+                        {
+                            string charName = buffer.GetString();
+                            int charLevel = buffer.GetInteger();
+                            string charClass = buffer.GetString();
+                            string charRace = buffer.GetString();
+                            int charAvatar = buffer.GetInteger();
+                            int charGender = buffer.GetInteger();
+
+                            string avatarPath;
+                            if (string.IsNullOrEmpty(charName))
+                            {
+                                viewModel.Characters.Add(new CharacterViewModel
+                                {
+                                    Name = "Empty Slot",
+                                    Level = string.Empty,
+                                    ClassInfo = string.Empty,
+                                    RaceInfo = string.Empty,
+                                    Avatar = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "gfx", "avatars", "blank.bmp"),
+                                    ID = i
+                                });
+                            }
+                            else
+                            {
+                                // Example: Populate with actual data (Level and ClassInfo from buffer)
+                                //int level = buffer.GetInteger();
+                                //string classInfo = buffer.GetString();
+                                avatarPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "gfx", "avatars", "Players", charGender == 0 ? "Male" : "Female", charAvatar + ".bmp");
+
+                                viewModel.Characters.Add(new CharacterViewModel
+                                {
+                                    Name = charName,
+                                    Level = charLevel.ToString(),
+                                    ClassInfo = charClass,
+                                    RaceInfo = charRace,
+                                    Avatar = avatarPath,
+                                    ID = i
+                                });
+                            }
+                        }
+                        var image1 = new BitmapImage(new Uri(viewModel.Characters[0].Avatar, UriKind.Absolute));
+                        App.CharsViewInstance.picChar1.Source = image1;
+
+                        var image2 = new BitmapImage(new Uri(viewModel.Characters[1].Avatar, UriKind.Absolute));
+                        App.CharsViewInstance.picChar2.Source = image2;
+
+                        var image3 = new BitmapImage(new Uri(viewModel.Characters[2].Avatar, UriKind.Absolute));
+                        App.CharsViewInstance.picChar3.Source = image3;
+
+                        var image4 = new BitmapImage(new Uri(viewModel.Characters[3].Avatar, UriKind.Absolute));
+                        App.CharsViewInstance.picChar4.Source = image4;
+
+                        var image5 = new BitmapImage(new Uri(viewModel.Characters[4].Avatar, UriKind.Absolute));
+                        App.CharsViewInstance.picChar5.Source = image5;
+                    }
+                });
+
+                MessageBox.Show("Account was created!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
         public void HandleLogoutOk(byte[] data) { }
         public void HandleAccountCreated(byte[] data)
         {

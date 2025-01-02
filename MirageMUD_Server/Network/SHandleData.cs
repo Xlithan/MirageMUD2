@@ -11,8 +11,12 @@ namespace MirageMUD_Server.Network
         private delegate void Packet_(int Index, byte[] data); // Delegate to handle packet processing
         private Dictionary<int, Packet_> Packets; // Dictionary to store packet handlers
         private Database db = new Database(); // Database instance to interact with stored data
-        private ServerTCP serverTCP = new ServerTCP();
+        ServerTCP serverTCP;  // Instance of ClientTCP for network communication
 
+        public SHandleData()
+        {
+            serverTCP = ServerTCP.Instance;
+        }
         public void InitialiseMessages()
         {
             Console.WriteLine(TranslationManager.Instance.GetTranslation("server.initialising_network_packets")); // Log message for initializing network packets
@@ -242,11 +246,11 @@ namespace MirageMUD_Server.Network
                 buffer.GetInteger(); // Skip packet ID
                 string username = buffer.GetString(); // Extract username
                 string charName = buffer.GetString(); // Extract character name
-                byte charGender = buffer.GetByte(); // Extract gender
-                byte charRace = buffer.GetByte(); // Extract race
-                byte charClass = buffer.GetByte(); // Extract class
+                int charGender = buffer.GetInteger(); // Extract gender
+                int charRace = buffer.GetInteger(); // Extract race
+                int charClass = buffer.GetInteger(); // Extract class
                 int charAvatar = buffer.GetInteger(); // Extract avatar ID
-                byte charNum = buffer.GetByte(); // Extract character ID
+                int charNum = buffer.GetInteger(); // Extract character ID
 
                 // Check if the username exists in the database
                 if (db.AccountExist(username))
@@ -260,8 +264,8 @@ namespace MirageMUD_Server.Network
                     {
                         // Can log in
                         db.AddChar(Index, charNum, charName, charGender, charRace, charClass, charAvatar);
-                        //serverTCP.SendChars(Index);
-                        Console.WriteLine(TranslationManager.Instance.GetTranslation("user.logged_in"), username, ServerTCP.Clients[Index].IP);
+                        serverTCP.SendCharCreated(Index);
+                        Console.WriteLine(TranslationManager.Instance.GetTranslation("user.char_created"), charName, charNum);
                     }
                 }
                 else

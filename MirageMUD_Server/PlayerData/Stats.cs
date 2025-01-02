@@ -4,12 +4,12 @@ namespace MirageMUD_Server.PlayerData
 {
     internal class Stats
     {
-        public byte Strength { get; set; } = 2;
-        public byte Intelligence { get; set; } = 2;
-        public byte Dexterity { get; set; } = 2;
-        public byte Constitution { get; set; } = 2;
-        public byte Wisdom { get; set; } = 2;
-        public byte Charisma { get; set; } = 2;
+        public int Strength { get; set; } = 2;
+        public int Intelligence { get; set; } = 2;
+        public int Dexterity { get; set; } = 2;
+        public int Constitution { get; set; } = 2;
+        public int Wisdom { get; set; } = 2;
+        public int Charisma { get; set; } = 2;
 
         // Optional: Add a method to reset stats to default values.
         public void ResetToDefaults()

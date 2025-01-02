@@ -4,7 +4,7 @@
     {
         SAlertMsg = 1,
         SAllChars,
-        SLoginOk,
+        SNewCharOk,
         SLogoutOk,
         SNewCharClasses,
         SClassesData,

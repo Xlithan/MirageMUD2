@@ -1,10 +1,12 @@
 ﻿using MirageMUD_ClientWPF.Model.Network;
+using MirageMUD_ClientWPF.Model.Types;
 using MirageMUD_ClientWPF.ViewModel;
 using System.Windows;
+using System.IO;
+using System.Windows.Media.Imaging;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Input;
-using System.Windows.Interop;
-using System.Windows.Media; // For Brush and Brushes
 
 namespace MirageMUD_ClientWPF.View
 {
@@ -13,7 +15,7 @@ namespace MirageMUD_ClientWPF.View
     /// </summary>
     public partial class CharactersView : Window
     {
-        int selectedChar = 0;
+        public int selectedChar { get; set; }
         ClientTCP clientTCP;  // Instance of ClientTCP for network communication
         public CharactersView()
         {
@@ -83,7 +85,7 @@ namespace MirageMUD_ClientWPF.View
 
         private void btnPlay_Click(object sender, RoutedEventArgs e)
         {
-            if(selectedChar > 0 && !lblName.Text.Equals("Empty Slot") && !lblName.Text.Equals(string.Empty))
+            if(selectedChar >= 0 && !lblName.Text.Equals("Empty Slot") && !lblName.Text.Equals(string.Empty))
             {
                 PlayGame();
             }
@@ -95,13 +97,23 @@ namespace MirageMUD_ClientWPF.View
         }
         private void btnNewChar_Click(object sender, RoutedEventArgs e)
         {
-            if (selectedChar > 0 && lblName.Text.Equals("Empty Slot") && !lblName.Text.Equals(string.Empty))
+            if (selectedChar >= 0 && lblName.Text.Equals("Empty Slot") && !lblName.Text.Equals(string.Empty))
             {
                 // Save window position
                 SaveWindowPosition();
 
                 // Create an instance of the new window
                 App.NewCharViewInstance.Show();
+
+                // Reset the new char window
+                App.NewCharViewInstance.txtCharName.Text = string.Empty;
+                App.NewCharViewInstance.SelectFirstEnabledRadioButton(App.NewCharViewInstance.RaceWrapPanel);
+                App.NewCharViewInstance.optMale.IsChecked = true;
+                App.NewCharViewInstance.IsMaleSelected = true;
+                ResetAvatar();
+
+                // Pre-roll the stats so they're not all zero
+                App.NewCharViewInstance.Reroll();
 
                 // Optionally close the current window
                 this.Hide();
@@ -111,6 +123,29 @@ namespace MirageMUD_ClientWPF.View
                 MessageBox.Show("You must select an empty slot.", "Alert", MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
         }
+        private void ResetAvatar()
+        {
+            // Set the default avatar path based on gender
+            string defaultAvatarPath = @"gfx\avatars\Players\Male\1.bmp";
+
+            // Update the picAvatar Source in NewCharView
+            try
+            {
+                var bitmap = new BitmapImage();
+                bitmap.BeginInit();
+                bitmap.UriSource = new Uri(Path.GetFullPath(defaultAvatarPath), UriKind.Absolute);
+                bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                bitmap.EndInit();
+
+                App.NewCharViewInstance.picAvatar.Source = bitmap;
+                Globals.Player.Avatar = 1; // Assuming 1 corresponds to the default avatar
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error resetting avatar: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
         private void Avatar_Click(object sender, MouseButtonEventArgs e)
         {
             if (sender is Image clickedImage && clickedImage.Tag is string tagStr && int.TryParse(tagStr, out int index))
@@ -119,7 +154,7 @@ namespace MirageMUD_ClientWPF.View
                 {
                     // Get the selected character
                     var selectedCharacter = viewModel.Characters[index];
-                    selectedChar = index + 1;
+                    selectedChar = index;
 
                     // Update borders
                     ResetBorders();

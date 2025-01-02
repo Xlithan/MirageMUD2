@@ -7,12 +7,14 @@ using System.IO;
 using MirageMUD_Server.Types;
 using MirageMUD_Server.Utilities;
 using MirageMUD_Server.PlayerData;
+using System.Collections.Concurrent;
 
 namespace MirageMUD_Server.Network
 {
     internal class ServerTCP
     {
-        public static ServerTCP instance = new ServerTCP();
+        private static ServerTCP instance;
+        public static ServerTCP Instance => instance ??= new ServerTCP();
 
         // Array to hold client connections
         public static Client[] Clients = new Client[Constants.MAX_PLAYERS];
@@ -20,8 +22,8 @@ namespace MirageMUD_Server.Network
         // TcpListener to listen for incoming TCP client connections
         public TcpListener ServerSocket;
 
-        // Dictionary to temporarily store stats for each player
-        public static Dictionary<int, int[]> TempStats = new Dictionary<int, int[]>();
+        // Thread-safe dictionary for storing stats
+        public static ConcurrentDictionary<int, int[]> TempStats = new ConcurrentDictionary<int, int[]>();
 
         // Initializes the network listener and begins accepting client connections
         public void InitialiseNetwork()
@@ -106,11 +108,11 @@ namespace MirageMUD_Server.Network
             for (int i = 0; i < Constants.MAX_CHARS; i++)
             {
                 buffer.AddString(STypes.Player[Index].Character[i].Name);
-                buffer.AddByte(STypes.Player[Index].Character[i].Level);
+                buffer.AddInteger(STypes.Player[Index].Character[i].Level);
                 buffer.AddString(Classes.GetClassName(STypes.Player[Index].Character[i].Class));
                 buffer.AddString(Races.GetRaceName(STypes.Player[Index].Character[i].Race));
                 buffer.AddInteger(STypes.Player[Index].Character[i].Avatar);
-                buffer.AddByte(STypes.Player[Index].Character[i].Gender);
+                buffer.AddInteger(STypes.Player[Index].Character[i].Gender);
             }
 
             SendDataTo(Index, buffer.ToArray());
@@ -122,6 +124,29 @@ namespace MirageMUD_Server.Network
             PacketBuffer buffer = new PacketBuffer();
 
             buffer.AddInteger((int)ServerPackets.SAccountCreated);
+
+            SendDataTo(Index, buffer.ToArray());
+
+            buffer.Dispose();
+        }
+        public void SendCharCreated(int Index)
+        {
+            PacketBuffer buffer = new PacketBuffer();
+
+            buffer.AddInteger((int)ServerPackets.SNewCharOk);
+            for (int i = 0; i < Constants.MAX_CHARS; i++)
+            {
+                buffer.AddString(STypes.Player[Index].Character[i].Name);
+                buffer.AddInteger(STypes.Player[Index].Character[i].Level);
+                buffer.AddString(Classes.GetClassName(STypes.Player[Index].Character[i].Class));
+                buffer.AddString(Races.GetRaceName(STypes.Player[Index].Character[i].Race));
+                buffer.AddInteger(STypes.Player[Index].Character[i].Avatar);
+                buffer.AddInteger(STypes.Player[Index].Character[i].Gender);
+            }
+
+            SendDataTo(Index, buffer.ToArray());
+
+            buffer.Dispose();
 
             SendDataTo(Index, buffer.ToArray());
 

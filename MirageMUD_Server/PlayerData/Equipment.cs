@@ -2,20 +2,20 @@
 {
     internal class Equipment
     {
-        public byte Helmet { get; set; } = 10;
-        public byte Armor { get; set; } = 10;
-        public byte Weapon { get; set; } = 10;
-        public byte Shield { get; set; } = 10;
-        public byte Gloves { get; set; } = 10;
-        public byte Shoes { get; set; } = 10;
+        public int Helmet { get; set; } = 10;
+        public int Armor { get; set; } = 10;
+        public int Weapon { get; set; } = 10;
+        public int Shield { get; set; } = 10;
+        public int Gloves { get; set; } = 10;
+        public int Shoes { get; set; } = 10;
 
-        public byte Ring1 { get; set; } = 10;
-        public byte Ring2 { get; set; } = 10;
-        public byte Ring3 { get; set; } = 10;
-        public byte Ring4 { get; set; } = 10;
-        public byte Bracelet1 { get; set; } = 10;
-        public byte Bracelet2 { get; set; } = 10;
-        public byte Amulet { get; set; } = 10;
+        public int Ring1 { get; set; } = 10;
+        public int Ring2 { get; set; } = 10;
+        public int Ring3 { get; set; } = 10;
+        public int Ring4 { get; set; } = 10;
+        public int Bracelet1 { get; set; } = 10;
+        public int Bracelet2 { get; set; } = 10;
+        public int Amulet { get; set; } = 10;
 
         // Optional: Add a method to reset stats to default values.
         public void ResetToDefaults()

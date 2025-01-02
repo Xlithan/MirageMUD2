@@ -10,6 +10,7 @@
   },
   "user": {
     "account_created": "Account {0} created successfully.",
+	"char_created": "Character '{0}[{1}]' created successfully.",
     "logged_in": "{0} has logged in from {1}.",
 	"password_mismatch": "Incorrect password."
   },

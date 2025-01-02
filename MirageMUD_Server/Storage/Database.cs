@@ -1,4 +1,5 @@
 ﻿using Bindings;
+using MirageMUD_Server.Network;
 using MirageMUD_Server.Types;
 using System.Text.Json;
 
@@ -6,6 +7,12 @@ namespace MirageMUD_Server.Storage
 {
     internal class Database
     {
+        ServerTCP serverTCP;  // Instance of ClientTCP for network communication
+
+        public Database()
+        {
+            serverTCP = ServerTCP.Instance;
+        }
         // Checks if a file exists at the given path
         public bool FileExist(string file_path)
         {
@@ -75,9 +82,56 @@ namespace MirageMUD_Server.Storage
 
             SavePlayer(index);
         }
-        public void AddChar(int index, int charNum, string charName, byte charGender, byte charRace, byte charClass, int charAvatar)
+        public void AddChar(int index, int charNum, string charName, int charGender, int charRace, int charClass, int charAvatar)
         {
+            var player = STypes.Player[index];  // Get the player object
+
             // Save character slot
+            STypes.Player[index].Character[charNum].Name = charName;
+            STypes.Player[index].Character[charNum].Gender = charGender;
+            STypes.Player[index].Character[charNum].Race = charRace;
+            STypes.Player[index].Character[charNum].Class = charClass;
+            STypes.Player[index].Character[charNum].Avatar = charAvatar;
+
+            // Check if stats exist for this player in TempStats
+            if (ServerTCP.TempStats.ContainsKey(index))
+            {
+                // Get the stats for this player from TempStats
+                int[] stats = ServerTCP.TempStats[index];
+
+                // Assign stats to the character's CharacterStats property
+                var character = player.Character[charNum];
+
+                // Assign stats from TempStats to the CharacterStats object
+                character.CharacterStats.Strength = stats[0];
+                character.CharacterStats.Intelligence = stats[1];
+                character.CharacterStats.Dexterity = stats[2];
+                character.CharacterStats.Constitution = stats[3];
+                character.CharacterStats.Wisdom = stats[4];
+                character.CharacterStats.Charisma = stats[5];
+            }
+
+            SavePlayer(index);
+
+            // Add the new character name to the JSON list
+            string jsonFilePath = $"Accounts/charnames.json";
+            List<string> charNames = new List<string>();
+
+            // Check if the file exists, if it does, read it and parse the list
+            if (File.Exists(jsonFilePath))
+            {
+                string json = File.ReadAllText(jsonFilePath);
+                charNames = JsonSerializer.Deserialize<List<string>>(json) ?? new List<string>();
+            }
+
+            // Add the new character name to the list
+            charNames.Add(charName);
+
+            // Serialize the list back to JSON
+            string updatedJson = JsonSerializer.Serialize(charNames, new JsonSerializerOptions { WriteIndented = true });
+
+            // Save the updated list to the file
+            File.WriteAllText(jsonFilePath, updatedJson);
         }
 
         // Clears the player login and password

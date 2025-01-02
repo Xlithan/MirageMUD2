@@ -5,6 +5,7 @@ using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using System.Windows.Controls;
 using System.Windows.Media;
+using MirageMUD_ClientWPF.Model.Types;
 
 namespace MirageMUD_ClientWPF.View
 {
@@ -174,6 +175,7 @@ namespace MirageMUD_ClientWPF.View
                 bitmap.EndInit();
 
                 _parent.picAvatar.Source = bitmap;
+                Globals.Player.Avatar = Convert.ToInt32(Path.GetFileNameWithoutExtension(_selectedAvatarPath));
 
                 // Close the AvatarView window
                 this.Close();

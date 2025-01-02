@@ -11,6 +11,7 @@ namespace MirageMUD_ClientWPF.ViewModel
         public string Level { get; set; } // Character level
         public string ClassInfo { get; set; } // Character class
         public string RaceInfo { get; set; } // Character race
+        public int ID { get; set; } // CharNum ID
 
         public event PropertyChangedEventHandler PropertyChanged;
 
