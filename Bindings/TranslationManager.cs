@@ -1,6 +1,6 @@
-﻿using System.Text.Json;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.IO;
+using System.Text.Json;
 
 public class TranslationManager
 {
@@ -26,7 +26,7 @@ public class TranslationManager
         {
             if (_instance == null)
             {
-                _instance = new TranslationManager();
+                _instance = new TranslationManager(); // Create the singleton instance if not already created
             }
             return _instance;
         }
@@ -57,7 +57,7 @@ public class TranslationManager
                     case "pl": Lang = "Polish (Polski)"; break;
                     case "sv": Lang = "Swedish (Svenska)"; break;
                 }
-                Debug.WriteLine($"Language code set to: {Lang}");
+                Debug.WriteLine($"Language code set to: {Lang}"); // Log the language change
             }
         }
     }
@@ -92,18 +92,13 @@ public class TranslationManager
     // Get translation for a key in the current language
     public string GetTranslation(string key, string defaultLanguage = "en-gb")
     {
-        // Debugging output to trace the translation lookup process
-        //Debug.WriteLine($"Looking up key: {key} in language: {_languageCode}");
-
         // Check if translations exist for the current language code
         if (_translations.ContainsKey(_languageCode))
         {
             var langTranslations = _translations[_languageCode];
             if (langTranslations.ContainsKey(key))
             {
-                var translation = langTranslations[key];
-                //Debug.WriteLine($"Translation found: {translation}");
-                return translation;
+                return langTranslations[key]; // Return the translation if found
             }
         }
 
@@ -113,9 +108,7 @@ public class TranslationManager
             var defaultTranslations = _translations[defaultLanguage];
             if (defaultTranslations.ContainsKey(key))
             {
-                var defaultTranslation = defaultTranslations[key];
-                //Debug.WriteLine($"Translation found in default language: {defaultTranslation}");
-                return defaultTranslation;
+                return defaultTranslations[key]; // Return the default language translation if found
             }
         }
 
@@ -129,15 +122,18 @@ public class TranslationManager
     {
         foreach (var kvp in source)
         {
+            // Build the full key with the prefix for nested dictionaries
             string fullKey = string.IsNullOrEmpty(prefix) ? kvp.Key : $"{prefix}.{kvp.Key}";
 
             if (kvp.Value is JsonElement jsonElement && jsonElement.ValueKind == JsonValueKind.Object)
             {
+                // Recursively flatten nested dictionaries
                 var nestedDict = JsonSerializer.Deserialize<Dictionary<string, object>>(jsonElement.GetRawText());
                 FlattenDictionary(nestedDict, fullKey, result);
             }
             else
             {
+                // Add the translation to the result dictionary
                 result[fullKey] = kvp.Value?.ToString() ?? string.Empty;
             }
         }

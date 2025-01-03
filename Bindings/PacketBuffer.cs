@@ -1,271 +1,205 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Text;
 
 namespace Bindings
 {
     internal class PacketBuffer : IDisposable
     {
-        // Stores the buffer as a list of bytes
-        List<byte> Buff;
+        // Buffer for storing data
+        private List<byte> Buff;
 
-        // Temporary array for reading data
-        byte[] readBuff;
+        // Temporary buffer for reading
+        private byte[] readBuff;
 
-        // Tracks the current reading position in the buffer
-        int readpos;
+        // Current read position in the buffer
+        private int readpos;
 
-        // Indicates whether the buffer has been updated
-        bool buffUpdate = false;
+        // Tracks if the buffer has been updated
+        private bool buffUpdate = false;
 
-        // Constructor: Initialises the buffer and reading position
+        // Constructor to initialise the buffer and read position
         public PacketBuffer()
         {
-            Buff = new List<byte>(); // Initialise the buffer list
-            readpos = 0;             // Set initial reading position to 0
+            Buff = new List<byte>();
+            readpos = 0;
         }
 
-        // Returns the current reading position
+        // Returns the current read position
         public int GetReadPos()
         {
-            return readpos; // Return the index of the current read position
+            return readpos;
         }
 
         // Converts the buffer to a byte array
         public byte[] ToArray()
         {
-            return Buff.ToArray(); // Convert the list of bytes to an array
+            return Buff.ToArray();
         }
 
         // Returns the total number of bytes in the buffer
         public int Count()
         {
-            return Buff.Count; // Return the total count of bytes in the buffer
+            return Buff.Count;
         }
 
         // Returns the number of unread bytes in the buffer
         public int Length()
         {
-            return Count() - readpos; // Subtract read position from total count
+            return Count() - readpos;
         }
 
-        // Clears the buffer and resets the reading position
+        // Clears the buffer and resets the read position
         public void Clear()
         {
-            Buff.Clear();    // Clear all bytes in the buffer
-            readpos = 0;     // Reset the reading position to the start
+            Buff.Clear();
+            readpos = 0;
         }
 
-        // Add integer (4 bytes) to the buffer
+        // Adds an integer (4 bytes) to the buffer
         public void AddInteger(int Input)
         {
-            // Convert the integer to a byte array and add it to the buffer
             Buff.AddRange(BitConverter.GetBytes(Input));
-            buffUpdate = true; // Mark the buffer as updated
+            buffUpdate = true;
         }
 
-        // Add float (4 bytes) to the buffer
+        // Adds a float (4 bytes) to the buffer
         public void AddFloat(float Input)
         {
-            // Convert the float to a byte array and add it to the buffer
             Buff.AddRange(BitConverter.GetBytes(Input));
-            buffUpdate = true; // Mark the buffer as updated
+            buffUpdate = true;
         }
 
-        // Add string to the buffer (length-prefixed)
+        // Adds a string (length-prefixed) to the buffer
         public void AddString(string Input)
         {
-            // Add the string's length as a 4-byte integer
-            Buff.AddRange(BitConverter.GetBytes(Input.Length));
-
-            // Add the string's characters as bytes
-            Buff.AddRange(Encoding.ASCII.GetBytes(Input));
-
-            buffUpdate = true; // Mark the buffer as updated
+            Buff.AddRange(BitConverter.GetBytes(Input.Length)); // Add length prefix
+            Buff.AddRange(Encoding.ASCII.GetBytes(Input));      // Add string data
+            buffUpdate = true;
         }
 
-        // Add single byte to the buffer
+        // Adds a single byte to the buffer
         public void AddByte(byte Input)
         {
-            Buff.Add(Input);    // Add the byte to the buffer
-            buffUpdate = true;  // Mark the buffer as updated
+            Buff.Add(Input);
+            buffUpdate = true;
         }
 
-        // Add byte array to the buffer
+        // Adds a byte array to the buffer
         public void AddBytes(byte[] Input)
         {
-            Buff.AddRange(Input); // Add the array of bytes to the buffer
-            buffUpdate = true;    // Mark the buffer as updated
+            Buff.AddRange(Input);
+            buffUpdate = true;
         }
 
-        // Add short (2 bytes) to the buffer
+        // Adds a short (2 bytes) to the buffer
         public void AddShort(short Input)
         {
-            // Convert the short to a byte array and add it to the buffer
             Buff.AddRange(BitConverter.GetBytes(Input));
-            buffUpdate = true; // Mark the buffer as updated
+            buffUpdate = true;
         }
 
-        // Retrieve integer (4 bytes) from the buffer
+        // Retrieves an integer (4 bytes) from the buffer
         public int GetInteger(bool peek = true)
         {
-            // Check if there are enough bytes left to read an integer
             if (Buff.Count > readpos)
             {
-                // Update the read buffer if necessary
-                if (buffUpdate)
-                {
-                    readBuff = Buff.ToArray();
-                    buffUpdate = false;
-                }
-
-                // Read the integer from the current position
+                UpdateReadBufferIfNecessary();
                 int ret = BitConverter.ToInt32(readBuff, readpos);
-
-                // Move the read position forward by 4 bytes if peek is true
-                if (peek) readpos += 4;
-
-                return ret; // Return the read integer
+                if (peek) readpos += 4; // Advance position if peeking
+                return ret;
             }
             throw new Exception("Packet Buffer is past its limit.");
         }
 
-        // Retrieve float (4 bytes) from the buffer
+        // Retrieves a float (4 bytes) from the buffer
         public float GetFloat(bool peek = true)
         {
-            // Check if there are enough bytes left to read a float
             if (Buff.Count > readpos)
             {
-                // Update the read buffer if necessary
-                if (buffUpdate)
-                {
-                    readBuff = Buff.ToArray();
-                    buffUpdate = false;
-                }
-
-                // Read the float from the current position
+                UpdateReadBufferIfNecessary();
                 float ret = BitConverter.ToSingle(readBuff, readpos);
-
-                // Move the read position forward by 4 bytes if peek is true
                 if (peek) readpos += 4;
-
-                return ret; // Return the read float
+                return ret;
             }
             throw new Exception("Packet Buffer is past its limit.");
         }
 
-        // Retrieve string (length-prefixed) from the buffer
+        // Retrieves a string (length-prefixed) from the buffer
         public string GetString(bool peek = true)
         {
-            // Get the length of the string (stored as a 4-byte integer)
-            int length = GetInteger(true);
-
-            // Update the read buffer if necessary
-            if (buffUpdate)
-            {
-                readBuff = Buff.ToArray();
-                buffUpdate = false;
-            }
-
-            // Read the string using the length and current position
+            int length = GetInteger(true); // Get string length
+            UpdateReadBufferIfNecessary();
             string ret = Encoding.ASCII.GetString(readBuff, readpos, length);
-
-            // Move the read position forward by the string length if peek is true
-            if (peek) readpos += length;
-
-            return ret; // Return the read string
+            if (peek) readpos += length; // Advance position if peeking
+            return ret;
         }
 
-        // Retrieve single byte from the buffer
+        // Retrieves a single byte from the buffer
         public byte GetByte(bool peek = true)
         {
-            // Check if there are enough bytes left to read
             if (Buff.Count > readpos)
             {
-                // Update the read buffer if necessary
-                if (buffUpdate)
-                {
-                    readBuff = Buff.ToArray();
-                    buffUpdate = false;
-                }
-
-                // Read the byte at the current position
+                UpdateReadBufferIfNecessary();
                 byte ret = readBuff[readpos];
-
-                // Move the read position forward by 1 byte if peek is true
                 if (peek) readpos += 1;
-
-                return ret; // Return the read byte
+                return ret;
             }
             throw new Exception("Packet Buffer is past its limit.");
         }
 
-        // Retrieve byte array of specified length from the buffer
+        // Retrieves a byte array of specified length from the buffer
         public byte[] GetBytes(int length, bool peek = true)
         {
-            // Update the read buffer if necessary
+            UpdateReadBufferIfNecessary();
+            byte[] ret = Buff.GetRange(readpos, length).ToArray();
+            if (peek) readpos += length;
+            return ret;
+        }
+
+        // Retrieves a short (2 bytes) from the buffer
+        public short GetShort(bool peek = true)
+        {
+            if (Buff.Count > readpos)
+            {
+                UpdateReadBufferIfNecessary();
+                short ret = BitConverter.ToInt16(readBuff, readpos);
+                if (peek) readpos += 2;
+                return ret;
+            }
+            throw new Exception("Packet Buffer is past its limit.");
+        }
+
+        // Updates the read buffer if the buffer has been modified
+        private void UpdateReadBufferIfNecessary()
+        {
             if (buffUpdate)
             {
                 readBuff = Buff.ToArray();
                 buffUpdate = false;
             }
-
-            // Read the specified number of bytes
-            byte[] ret = Buff.GetRange(readpos, length).ToArray();
-
-            // Move the read position forward by the length if peek is true
-            if (peek) readpos += length;
-
-            return ret; // Return the byte array
-        }
-
-        // Retrieve short (2 bytes) from the buffer
-        public short GetShort(bool peek = true)
-        {
-            // Check if there are enough bytes left to read a short
-            if (Buff.Count > readpos)
-            {
-                // Update the read buffer if necessary
-                if (buffUpdate)
-                {
-                    readBuff = Buff.ToArray();
-                    buffUpdate = false;
-                }
-
-                // Read the short from the current position
-                short ret = BitConverter.ToInt16(readBuff, readpos);
-
-                // Move the read position forward by 2 bytes if peek is true
-                if (peek) readpos += 2;
-
-                return ret; // Return the read short
-            }
-            throw new Exception("Packet Buffer is past its limit.");
         }
 
         // Tracks whether the object has been disposed
         private bool disposedValue = false;
 
-        // Handles resources cleanup
+        // Handles cleanup of resources
         protected virtual void Dispose(bool disposing)
         {
             if (!disposedValue)
             {
                 if (disposing)
                 {
-                    Buff.Clear(); // Clear buffer resources
+                    Buff.Clear(); // Clear the buffer
                 }
-
-                readpos = 0; // Reset reading position
-                disposedValue = true; // Mark as disposed
+                readpos = 0;
+                disposedValue = true;
             }
         }
 
-        // Public Dispose method to clean up resources
+        // Public Dispose method
         public void Dispose()
         {
             Dispose(true);
-            GC.SuppressFinalize(this); // Suppress finalisation by garbage collector
+            GC.SuppressFinalize(this);
         }
     }
 }

@@ -11,38 +11,38 @@
     <Border CornerRadius="10">
         <Border.Background>
             <ImageBrush ImageSource="/Images/menuback.png"
-                    Stretch="None"/>
+                    Stretch="None" />
         </Border.Background>
         <Border Opacity="0.95"
             CornerRadius="10">
             <Border.BorderBrush>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                    <GradientStop Color="#656565" Offset="0"/>
-                    <GradientStop Color="#454545" Offset="0.75"/>
-                    <GradientStop Color="#252525" Offset="1"/>
+                    <GradientStop Color="#656565" Offset="0" />
+                    <GradientStop Color="#454545" Offset="0.75" />
+                    <GradientStop Color="#252525" Offset="1" />
                 </LinearGradientBrush>
             </Border.BorderBrush>
             <Border.Background>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                    <GradientStop Color="#555555" Offset="0"/>
-                    <GradientStop Color="#303030" Offset="0.75"/>
+                    <GradientStop Color="#555555" Offset="0" />
+                    <GradientStop Color="#303030" Offset="0.75" />
                 </LinearGradientBrush>
             </Border.Background>
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="30"/>
-                    <RowDefinition/>
-                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="30" />
+                    <RowDefinition />
+                    <RowDefinition Height="50" />
                 </Grid.RowDefinitions>
                 <Grid Background="#1F1F1F" MouseDown="Grid_MouseDown">
                     <Grid.Clip>
-                        <RectangleGeometry Rect="0,0,800,450" RadiusX="10" RadiusY="10"/>
+                        <RectangleGeometry Rect="0,0,800,450" RadiusX="10" RadiusY="10" />
                     </Grid.Clip>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition Width="25"/>
-                        <ColumnDefinition Width="25"/>
-                        <ColumnDefinition Width="5"/>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="25" />
+                        <ColumnDefinition Width="25" />
+                        <ColumnDefinition Width="5" />
                     </Grid.ColumnDefinitions>
 
                     <TextBlock Text="MirageMUD - Create Account"
@@ -51,7 +51,7 @@
                            FontFamily="Verdana"
                            Grid.Column="0"
                            VerticalAlignment="Center"
-                           Margin="10,0,0,0"/>
+                           Margin="10,0,0,0" />
                     <Button x:Name="btnMinimise"
                         BorderThickness="0"
                         Content="🗕"
@@ -63,10 +63,10 @@
                         Click="btnMinimise_Click">
                         <Button.Style>
                             <Style TargetType="Button">
-                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="Background" Value="Transparent" />
                                 <Style.Triggers>
                                     <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Background" Value="#454545"/>
+                                        <Setter Property="Background" Value="#454545" />
                                     </Trigger>
                                 </Style.Triggers>
                             </Style>
@@ -76,11 +76,10 @@
                                 <Border Width="25" Height="25"
                                    Background="{TemplateBinding Background}">
                                     <ContentPresenter VerticalAlignment="Center"
-                                                  HorizontalAlignment="Center"/>
+                                                  HorizontalAlignment="Center" />
                                 </Border>
                             </ControlTemplate>
                         </Button.Template>
-
                     </Button>
                     <Button x:Name="btnClose"
                         BorderThickness="0"
@@ -93,10 +92,10 @@
                         Click="btnClose_Click">
                         <Button.Style>
                             <Style TargetType="Button">
-                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="Background" Value="Transparent" />
                                 <Style.Triggers>
                                     <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Background" Value="#454545"/>
+                                        <Setter Property="Background" Value="#454545" />
                                     </Trigger>
                                 </Style.Triggers>
                             </Style>
@@ -106,11 +105,10 @@
                                 <Border Width="25" Height="25"
                                     Background="{TemplateBinding Background}">
                                     <ContentPresenter VerticalAlignment="Center"
-                          HorizontalAlignment="Center"/>
+                          HorizontalAlignment="Center" />
                                 </Border>
                             </ControlTemplate>
                         </Button.Template>
-
                     </Button>
                 </Grid>
                 <StackPanel Width="250"
@@ -123,18 +121,18 @@
                            FontSize="12"
                            FontWeight="Bold"
                            FontFamily="Verdana"
-                           Margin="0,35,0,0"/>
+                           Margin="0,35,0,0" />
                     <TextBox x:Name="txtUsername"
                     Style="{StaticResource CustomTextBoxStyle}">
                         <TextBox.Background>
-                            <ImageBrush 
+                            <ImageBrush
                             ImageSource="pack://application:,,,/MirageMUD_ClientWPF;component/Images/user-solid.png"
                             Stretch="UniformToFill"
                             AlignmentX="Left"
                             AlignmentY="Center"
                             TileMode="None"
                             Viewport="2,4,12,12"
-                            ViewportUnits="Absolute"/>
+                            ViewportUnits="Absolute" />
                         </TextBox.Background>
                     </TextBox>
                     <TextBlock
@@ -143,18 +141,18 @@
                            FontSize="12"
                            FontWeight="Bold"
                            FontFamily="Verdana"
-                           Margin="0,10,0,0"/>
+                           Margin="0,10,0,0" />
                     <PasswordBox x:Name="txtPassword"
                     Style="{StaticResource CustomPasswordBoxStyle}">
                         <PasswordBox.Background>
-                            <ImageBrush 
+                            <ImageBrush
                             ImageSource="pack://application:,,,/MirageMUD_ClientWPF;component/Images/key-solid.png"
                             Stretch="UniformToFill"
                             AlignmentX="Left"
                             AlignmentY="Center"
                             TileMode="None"
                             Viewport="2,4,12,12"
-                            ViewportUnits="Absolute"/>
+                            ViewportUnits="Absolute" />
                         </PasswordBox.Background>
                     </PasswordBox>
                     <TextBlock
@@ -163,18 +161,18 @@
                                FontSize="12"
                                FontWeight="Bold"
                                FontFamily="Verdana"
-                               Margin="0,10,0,0"/>
+                               Margin="0,10,0,0" />
                     <PasswordBox x:Name="txtPasswordConfirm"
                                Style="{StaticResource CustomPasswordBoxStyle}">
                         <PasswordBox.Background>
-                            <ImageBrush 
+                            <ImageBrush
                                 ImageSource="pack://application:,,,/MirageMUD_ClientWPF;component/Images/key-solid.png"
                                 Stretch="UniformToFill"
                                 AlignmentX="Left"
                                 AlignmentY="Center"
                                 TileMode="None"
                                 Viewport="2,4,12,12"
-                                ViewportUnits="Absolute"/>
+                                ViewportUnits="Absolute" />
                         </PasswordBox.Background>
                     </PasswordBox>
 
@@ -182,8 +180,7 @@
                                     Content="CREATE"
                                     Width="150" Height="25"
                                     Click="btnCreate_Click"
-                                    Margin="0,50,0,0"/>
-
+                                    Margin="0,50,0,0" />
                 </StackPanel>
                 <Button x:Name="btnBack"
                         Style="{StaticResource BackButtonStyle}"

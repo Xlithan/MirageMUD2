@@ -1,7 +1,6 @@
 ﻿using MirageMUD_ClientWPF.Model.Utilities;
 using System.Windows;
 using System.Windows.Input;
-using static MirageMUD_ClientWPF.App;
 
 namespace MirageMUD_ClientWPF.View
 {
@@ -13,17 +12,18 @@ namespace MirageMUD_ClientWPF.View
         public SettingsView()
         {
             InitializeComponent();
-            SetWindowPosition();
+            SetWindowPosition();  // Set window position based on saved coordinates
 
-            string configFilePath = "Data/config.json";
-            // Read settings
+            string configFilePath = "Data/config.json";  // Path to configuration file
+
+            // Read settings from the configuration file using ConfigReader
             string languageCode = ConfigReader.GetLanguageCode(configFilePath);
             string ipAddress = ConfigReader.GetIpAddress(configFilePath);
             string port = ConfigReader.GetPort(configFilePath);
             bool musicEnabled = ConfigReader.GetMusicEnabled(configFilePath);
             bool soundEnabled = ConfigReader.GetSoundEnabled(configFilePath);
 
-            // Define the language options with their corresponding codes
+            // Define a dictionary for language options with their respective codes
             var languageOptions = new Dictionary<string, string>
             {
                 { "cy", "Welsh (Cymraeg)" },
@@ -39,64 +39,69 @@ namespace MirageMUD_ClientWPF.View
                 { "sv", "Swedish (Svenska)" }
             };
 
-            // Populate the combo box with language names
-            cmbLanguage.Items.Clear();  // Clear any existing items
-            foreach (var option in languageOptions.Values)  // Loop through and add languages
+            // Populate the language selection combo box with options
+            cmbLanguage.Items.Clear();  // Clear any previous items
+            foreach (var option in languageOptions.Values)  // Add language options to combo box
             {
                 cmbLanguage.Items.Add(option);
             }
 
-            // Match the current language code to the combo box item and select it
+            // Select the current language based on the configuration file setting
             if (languageOptions.TryGetValue(languageCode, out string selectedLanguage))
             {
                 cmbLanguage.SelectedItem = selectedLanguage;
             }
             else
             {
-                // If no match is found, set a default (optional)
-                cmbLanguage.SelectedIndex = 0;  // Default to the first item
+                // Default to first language if no match is found
+                cmbLanguage.SelectedIndex = 0;
             }
 
-            // Update the control text to the specified language.
+            // Update control text to match the current language (optional feature, can be added as needed)
             //General.UpdateControlText(this);
 
+            // Set other settings values (IP, port, music, sound)
             txtIP.Text = ipAddress;
             txtPort.Text = port;
             chkMusic.IsChecked = musicEnabled;
             chkSound.IsChecked = soundEnabled;
         }
 
+        // Allow the user to drag the window by clicking and holding the left mouse button
         private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
             {
-                DragMove();
+                DragMove();  // Move the window as the user drags it
             }
         }
+
+        // Minimize the window when the minimize button is clicked
         private void btnMinimise_Click(object sender, RoutedEventArgs e)
         {
-            WindowState = WindowState.Minimized;
+            WindowState = WindowState.Minimized;  // Minimize the window to taskbar
         }
+
+        // Close the application when the close button is clicked
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
-            Application.Current.Shutdown();
+            Application.Current.Shutdown();  // Shut down the application
         }
 
+        // Navigate back to the login view when the back button is clicked
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
-            // Save window position
-            SaveWindowPosition();
+            SaveWindowPosition();  // Save the current window position
 
-            // Create an instance of the new window
+            // Show the login screen and hide the settings window
             App.LoginViewInstance.Show();
-
-            // Optionally close the current window
             this.Hide();
         }
 
+        // Save the user's settings (language, IP, port, music, sound) when the save button is clicked
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            // Define a dictionary mapping combo box items to their respective language codes
+            // Define a dictionary mapping language names to language codes
             var languageMap = new Dictionary<string, string>
             {
                 { "Welsh (Cymraeg)", "cy" },
@@ -115,57 +120,53 @@ namespace MirageMUD_ClientWPF.View
             // Get the selected language from the combo box
             string selectedItem = cmbLanguage.SelectedItem.ToString();
 
-            // Check if the selected item exists in the dictionary
+            // Find the corresponding language code for the selected language
             if (languageMap.TryGetValue(selectedItem, out string newLanguageCode))
             {
-                string configFilePath = "Data/config.json"; // Path to the configuration file
+                string configFilePath = "Data/config.json";  // Path to the configuration file
 
-                // Access the singleton instance of the TranslationManager
+                // Access the TranslationManager instance for dynamic language updates
                 TranslationManager translator = TranslationManager.Instance;
 
-                // Set the language code in the TranslationManager
+                // Set the language code and load the corresponding translations
                 TranslationManager.LanguageCode = newLanguageCode;
-
-                // Dynamically load the corresponding language file
                 translator.LoadTranslations(newLanguageCode);
 
-                // Update the control text to reflect the new language
-                //General.UpdateControlText(this);
-
+                // Update settings in the configuration file
                 ConfigReader.UpdateSetting(configFilePath, "IpAddress", txtIP.Text);
                 ConfigReader.UpdateSetting(configFilePath, "Port", txtPort.Text);
                 ConfigReader.UpdateSetting(configFilePath, "Music", chkMusic.IsChecked ?? false);
                 ConfigReader.UpdateSetting(configFilePath, "Sound", chkSound.IsChecked ?? false);
                 ConfigReader.UpdateSetting(configFilePath, "LanguageCode", newLanguageCode);
 
-                // Get the translated message for language update
+                // Show a message box with the translated message indicating settings were saved
                 string messageKey = "messages.settings_updated";
                 string translatedMessage = TranslationManager.Instance.GetTranslation(messageKey);
-
-                // Show a message box with the translated confirmation
                 MessageBox.Show(translatedMessage);
             }
             else
             {
-                // If the selected language is not found in the dictionary, show an error message
+                // If the selected language is not found, show an error message
                 string messageKey = "messages.invalid_language";
                 string translatedMessage = TranslationManager.Instance.GetTranslation(messageKey);
-
-                // Show the error message in a message box
                 MessageBox.Show(translatedMessage);
             }
         }
+
+        // Save the current position of the window to the application settings
         private void SaveWindowPosition()
         {
-            App.LastLeft = this.Left;
-            App.LastTop = this.Top;
+            App.LastLeft = this.Left;  // Save the X position
+            App.LastTop = this.Top;    // Save the Y position
         }
+
+        // Set the window's position to the saved coordinates, or center it if no saved position exists
         private void SetWindowPosition()
         {
             if (!double.IsNaN(App.LastLeft) && !double.IsNaN(App.LastTop))
             {
-                this.Left = App.LastLeft;
-                this.Top = App.LastTop;
+                this.Left = App.LastLeft;  // Set the X position
+                this.Top = App.LastTop;    // Set the Y position
             }
             else
             {

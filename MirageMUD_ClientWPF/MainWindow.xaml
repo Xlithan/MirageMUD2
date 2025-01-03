@@ -13,21 +13,21 @@
         CornerRadius="10">
             <Border.BorderBrush>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                    <GradientStop Color="#303030" Offset="0"/>
-                    <GradientStop Color="#252525" Offset="0.75"/>
-                    <GradientStop Color="#202020" Offset="1"/>
+                    <GradientStop Color="#303030" Offset="0" />
+                    <GradientStop Color="#252525" Offset="0.75" />
+                    <GradientStop Color="#202020" Offset="1" />
                 </LinearGradientBrush>
             </Border.BorderBrush>
             <Border.Background>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                    <GradientStop Color="#303030" Offset="0"/>
-                    <GradientStop Color="#202020" Offset="0.75"/>
+                    <GradientStop Color="#303030" Offset="0" />
+                    <GradientStop Color="#202020" Offset="0.75" />
                 </LinearGradientBrush>
             </Border.Background>
             <StackPanel Orientation="Vertical" VerticalAlignment="Center">
                 <Image x:Name="SplashImage"
                    Source="pack://application:,,,/MirageMUD_ClientWPF;component/Images/SplashImage.png"
-                   Stretch="None"/>
+                   Stretch="None" />
                 <TextBlock x:Name="txtMadeWith"
                        Text="Made with Mirage Engine"
                        Foreground="LightGray"

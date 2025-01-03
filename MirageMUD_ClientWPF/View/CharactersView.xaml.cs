@@ -1,12 +1,12 @@
 ﻿using MirageMUD_ClientWPF.Model.Network;
 using MirageMUD_ClientWPF.Model.Types;
 using MirageMUD_ClientWPF.ViewModel;
-using System.Windows;
 using System.IO;
-using System.Windows.Media.Imaging;
+using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace MirageMUD_ClientWPF.View
 {
@@ -15,62 +15,70 @@ namespace MirageMUD_ClientWPF.View
     /// </summary>
     public partial class CharactersView : Window
     {
-        public int selectedChar { get; set; }
-        ClientTCP clientTCP;  // Instance of ClientTCP for network communication
+        public int selectedChar { get; set; } // Stores the index of the selected character
+        private ClientTCP clientTCP;  // Instance of ClientTCP for network communication
+
         public CharactersView()
         {
-            InitializeComponent();
-            SetWindowPosition();
-            DataContext = new CharacterViewModel();
-            clientTCP = ClientTCP.Instance;
+            InitializeComponent();  // Initializes the components (UI elements) of the window
+            SetWindowPosition();  // Sets the window position based on saved location
+            DataContext = new CharacterViewModel();  // Binds the DataContext to the ViewModel
+            clientTCP = ClientTCP.Instance;  // Gets the singleton instance of ClientTCP
         }
+
         private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
             {
-                DragMove();
+                DragMove();  // Allows dragging of the window by clicking on the grid
             }
         }
+
         private void btnMinimise_Click(object sender, RoutedEventArgs e)
         {
-            WindowState = WindowState.Minimized;
+            WindowState = WindowState.Minimized;  // Minimizes the window
         }
+
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
-            Application.Current.Shutdown();
+            Application.Current.Shutdown();  // Closes the application
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
-            // Save window position
+            // Save window position before navigating away
             SaveWindowPosition();
 
-            // Send logout
+            // Send logout message to the server if connected
             if (clientTCP.PlayerSocket.Connected)
             {
-                clientTCP.SendLogout();  // Send login data to server
+                clientTCP.SendLogout();  // Send logout data to server
             }
-            App.LoginViewInstance.Show();
+            App.LoginViewInstance.Show();  // Show the login view
 
-            // Optionally close the current window
+            // Optionally hide the current window (keeps the app running)
             this.Hide();
         }
 
         private void PlayGame()
         {
-            // Create an instance of the new window
+            // Show the game window
             App.GameViewInstance.Show();
 
-            // Optionally close the current window
+            // Close the current characters window
             this.Close();
         }
+
         private void SaveWindowPosition()
         {
+            // Save the current window position to be restored later
             App.LastLeft = this.Left;
             App.LastTop = this.Top;
         }
+
         private void SetWindowPosition()
         {
+            // Restore the window position if saved, otherwise center the window on the screen
             if (!double.IsNaN(App.LastLeft) && !double.IsNaN(App.LastTop))
             {
                 this.Left = App.LastLeft;
@@ -85,90 +93,100 @@ namespace MirageMUD_ClientWPF.View
 
         private void btnPlay_Click(object sender, RoutedEventArgs e)
         {
-            if(selectedChar >= 0 && !lblName.Text.Equals("Empty Slot") && !lblName.Text.Equals(string.Empty))
+            // If a valid character is selected, start the game
+            if (selectedChar >= 0 && !lblName.Text.Equals("Empty Slot") && !lblName.Text.Equals(string.Empty))
             {
                 PlayGame();
             }
             else
             {
+                // Show an error message if no character is selected
                 MessageBox.Show("You must select a character.", "Alert", MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
-            
         }
+
         private void btnNewChar_Click(object sender, RoutedEventArgs e)
         {
+            // Check if an empty slot is selected for creating a new character
             if (selectedChar >= 0 && lblName.Text.Equals("Empty Slot") && !lblName.Text.Equals(string.Empty))
             {
-                // Save window position
+                // Save window position before opening the character creation window
                 SaveWindowPosition();
 
-                // Create an instance of the new window
+                // Show the character creation window
                 App.NewCharViewInstance.Show();
 
-                // Reset the new char window
+                // Reset the new character creation window elements
                 App.NewCharViewInstance.txtCharName.Text = string.Empty;
-                App.NewCharViewInstance.SelectFirstEnabledRadioButton(App.NewCharViewInstance.RaceWrapPanel);
-                App.NewCharViewInstance.optMale.IsChecked = true;
-                App.NewCharViewInstance.IsMaleSelected = true;
-                ResetAvatar();
+                App.NewCharViewInstance.SelectFirstEnabledRadioButton(App.NewCharViewInstance.RaceWrapPanel);  // Select the first enabled race option
+                App.NewCharViewInstance.optMale.IsChecked = true;  // Default to male character
+                App.NewCharViewInstance.IsMaleSelected = true;  // Mark male as selected
+                ResetAvatar();  // Reset the avatar to default
 
-                // Pre-roll the stats so they're not all zero
+                // Pre-roll stats so they are not all zero
                 App.NewCharViewInstance.Reroll();
 
-                // Optionally close the current window
+                // Optionally hide the current window
                 this.Hide();
             }
             else
             {
+                // Show an error message if an empty slot is not selected
                 MessageBox.Show("You must select an empty slot.", "Alert", MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
         }
+
         private void ResetAvatar()
         {
             // Set the default avatar path based on gender
             string defaultAvatarPath = @"gfx\avatars\Players\Male\1.bmp";
 
-            // Update the picAvatar Source in NewCharView
             try
             {
+                // Create a new BitmapImage to set the avatar
                 var bitmap = new BitmapImage();
                 bitmap.BeginInit();
                 bitmap.UriSource = new Uri(Path.GetFullPath(defaultAvatarPath), UriKind.Absolute);
                 bitmap.CacheOption = BitmapCacheOption.OnLoad;
                 bitmap.EndInit();
 
+                // Update the avatar image in the NewCharView
                 App.NewCharViewInstance.picAvatar.Source = bitmap;
-                Globals.Player.Avatar = 1; // Assuming 1 corresponds to the default avatar
+                Globals.Player.Avatar = 1; // Set the avatar to default value
             }
             catch (Exception ex)
             {
+                // Show an error message if there is an issue with resetting the avatar
                 MessageBox.Show($"Error resetting avatar: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
         private void Avatar_Click(object sender, MouseButtonEventArgs e)
         {
+            // When an avatar is clicked, update the selected character
             if (sender is Image clickedImage && clickedImage.Tag is string tagStr && int.TryParse(tagStr, out int index))
             {
                 if (DataContext is CharacterViewModel viewModel && index < viewModel.Characters.Count)
                 {
-                    // Get the selected character
+                    // Get the selected character based on the clicked avatar index
                     var selectedCharacter = viewModel.Characters[index];
                     selectedChar = index;
 
-                    // Update borders
+                    // Update the visual border to highlight the selected character
                     ResetBorders();
                     GetBorderForIndex(index).BorderBrush = Brushes.Goldenrod;
 
-                    // Update text blocks
+                    // Update the character information displayed on the screen
                     lblName.Text = selectedCharacter.Name;
                     lblLevel.Text = selectedCharacter.Level;
                     lblClass.Text = selectedCharacter.RaceInfo + " " + selectedCharacter.ClassInfo;
                 }
             }
         }
+
         private void ResetBorders()
         {
+            // Reset the border brush for all character slots to transparent
             borderChar1.BorderBrush = Brushes.Transparent;
             borderChar2.BorderBrush = Brushes.Transparent;
             borderChar3.BorderBrush = Brushes.Transparent;
@@ -178,6 +196,7 @@ namespace MirageMUD_ClientWPF.View
 
         private Border? GetBorderForIndex(int index)
         {
+            // Return the correct border element based on the character index
             return index switch
             {
                 0 => borderChar1,

@@ -1,10 +1,7 @@
-﻿using System;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 using System.Windows;
-using System.Windows.Interop;
 using System.Windows.Input;
-using System.IO;
-using System.Windows.Media.Imaging;
+using System.Windows.Interop;
 
 namespace MirageMUD_ClientWPF.View
 {
@@ -74,10 +71,12 @@ namespace MirageMUD_ClientWPF.View
 
             return 0; // Default: no resize
         }
+
         public GameView()
         {
             InitializeComponent();
         }
+
         private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
@@ -85,10 +84,12 @@ namespace MirageMUD_ClientWPF.View
                 DragMove();
             }
         }
+
         private void btnMinimise_Click(object sender, RoutedEventArgs e)
         {
             WindowState = WindowState.Minimized;
         }
+
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
@@ -96,7 +97,7 @@ namespace MirageMUD_ClientWPF.View
 
         private void btnMaximise_Click(object sender, RoutedEventArgs e)
         {
-            if(WindowState == WindowState.Normal)
+            if (WindowState == WindowState.Normal)
             {
                 WindowState = WindowState.Maximized;
                 btnMaximise.Content = "⧉";
@@ -110,37 +111,30 @@ namespace MirageMUD_ClientWPF.View
 
         private void btnLook_Click(object sender, RoutedEventArgs e)
         {
-
         }
 
         private void btnAction1_Click(object sender, RoutedEventArgs e)
         {
-
         }
 
         private void btnAction2_Click(object sender, RoutedEventArgs e)
         {
-
         }
 
         private void btnAction3_Click(object sender, RoutedEventArgs e)
         {
-
         }
 
         private void btnAction4_Click(object sender, RoutedEventArgs e)
         {
-
         }
 
         private void btnAction5_Click(object sender, RoutedEventArgs e)
         {
-
         }
 
         private void btnAction6_Click(object sender, RoutedEventArgs e)
         {
-
         }
 
         // Code for status bars

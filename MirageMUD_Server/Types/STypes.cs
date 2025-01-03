@@ -1,5 +1,4 @@
-﻿using System;
-using Bindings;
+﻿using Bindings;
 using MirageMUD_Server.PlayerData;
 
 namespace MirageMUD_Server.Types
@@ -43,38 +42,46 @@ namespace MirageMUD_Server.Types
         public class CharacterStruct
         {
             // Basic character details.
-            public int ID { get; set; }
-            public string Name { get; set; }
-            public int Race { get; set; }
-            public int Class { get; set; }
-            public int Gender { get; set; }
-            public int Avatar { get; set; }
-            public int Level { get; set; }
-            public int Exp { get; set; }
-            public int PK { get; set; }               // Tracks PvP status.
+            public int ID { get; set; }                 // Unique character ID.
+
+            public string Name { get; set; }            // Character's name.
+            public int Race { get; set; }               // Race ID.
+            public int Class { get; set; }              // Class ID.
+            public int Gender { get; set; }             // Gender ID.
+            public int Avatar { get; set; }             // Avatar ID.
+            public int Level { get; set; }              // Character's level.
+            public int Exp { get; set; }                // Experience points.
+            public int PK { get; set; }                 // Tracks PvP status (Player-Killer).
 
             // Guild-related properties.
-            public string Guild { get; set; }
-            public int GuildAccess { get; set; }
+            public string Guild { get; set; }           // Guild name.
+
+            public int GuildAccess { get; set; }        // Guild access level.
 
             // Position and direction in the game world.
-            public int Room { get; set; }
-            public int Dir { get; set; }
+            public int Room { get; set; }               // Current room in the game world.
+
+            public int Dir { get; set; }                // Current direction.
 
             // Client-side properties for health, stamina, and combat.
-            public int MaxHP { get; set; }
-            public int MaxMP { get; set; }
-            public int MaxStamina { get; set; }
-            public int Attacking { get; set; }
-            public int AttackTimer { get; set; }
-            public int RoomGetTimer { get; set; }
-            public int CastedSpell { get; set; }
-            public List<Inventory> PlayerInv { get; set; } = new List<Inventory>();
-            public List<Spells> PlayerSpells { get; set; } = new List<Spells>();
+            public int MaxHP { get; set; }              // Maximum health points.
 
-            // Encapsulated data.
-            public Stats CharacterStats { get; set; } = new Stats();
-            public Equipment CharacterEquip { get; set; } = new Equipment();
+            public int MaxMP { get; set; }              // Maximum mana points.
+            public int MaxStamina { get; set; }         // Maximum stamina.
+            public int Attacking { get; set; }          // Indicates if the character is attacking.
+            public int AttackTimer { get; set; }        // Timer for attack actions.
+            public int RoomGetTimer { get; set; }       // Timer for room-specific actions.
+            public int CastedSpell { get; set; }        // ID of the spell that was cast.
+
+            // Inventory and spells.
+            public List<Inventory> PlayerInv { get; set; } = new List<Inventory>();  // Player's inventory items.
+
+            public List<Spells> PlayerSpells { get; set; } = new List<Spells>();    // List of spells the player can cast.
+
+            // Encapsulated data for character stats and equipment.
+            public Stats CharacterStats { get; set; } = new Stats(); // Character's base stats (Strength, etc.).
+
+            public Equipment CharacterEquip { get; set; } = new Equipment(); // Character's equipment (weapons, armor, etc.).
 
             // Initializes the character's properties with default values.
             public void Initialise(int id)
@@ -82,8 +89,8 @@ namespace MirageMUD_Server.Types
                 // Set basic character details to defaults.
                 ID = id;
                 Name = string.Empty;   // No name assigned initially.
-                Race = 1;              // Default to class ID 1 (e.g., human).
-                Class = 1;             // Default to class ID 1 (e.g., warrior).
+                Race = 1;              // Default to race ID 1.
+                Class = 1;             // Default to class ID 1.
                 Avatar = 1;            // Default avatar ID.
                 Level = 1;             // Start at level 1.
                 Exp = 0;               // No experience points at the start.
@@ -106,20 +113,20 @@ namespace MirageMUD_Server.Types
                 RoomGetTimer = 0;      // No room-specific action timer.
                 CastedSpell = 0;       // No spell cast initially.
 
-                // Initialize Inventory/Spells with max empty slots
+                // Initialize Inventory/Spells with max empty slots.
                 PlayerInv.Clear();
                 while (PlayerInv.Count < Constants.MAX_PLAYERINV)
                 {
-                    PlayerInv.Add(new Inventory(0, 0));  // Empty inventory slots with 0 quantity
+                    PlayerInv.Add(new Inventory(0, 0));  // Empty inventory slots with 0 quantity.
                 }
 
                 PlayerSpells.Clear();
                 while (PlayerSpells.Count < Constants.MAX_PLAYERSPELLS)
                 {
-                    PlayerSpells.Add(new Spells(0));  // Empty spell slots with 0 quantity
+                    PlayerSpells.Add(new Spells(0));  // Empty spell slots with 0 quantity.
                 }
 
-                // Reset data to defaults.
+                // Reset data to defaults for stats and equipment.
                 CharacterStats.ResetToDefaults();
                 CharacterEquip.ResetToDefaults();
             }

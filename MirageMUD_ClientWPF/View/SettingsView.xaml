@@ -11,37 +11,37 @@
     <Border CornerRadius="10">
         <Border.Background>
             <ImageBrush ImageSource="/Images/settingsback.png"
-                    Stretch="None"/>
+                    Stretch="None" />
         </Border.Background>
         <Border Opacity="0.95"
             CornerRadius="10">
             <Border.BorderBrush>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                    <GradientStop Color="#656565" Offset="0"/>
-                    <GradientStop Color="#454545" Offset="0.75"/>
-                    <GradientStop Color="#252525" Offset="1"/>
+                    <GradientStop Color="#656565" Offset="0" />
+                    <GradientStop Color="#454545" Offset="0.75" />
+                    <GradientStop Color="#252525" Offset="1" />
                 </LinearGradientBrush>
             </Border.BorderBrush>
             <Border.Background>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                    <GradientStop Color="#555555" Offset="0"/>
-                    <GradientStop Color="#303030" Offset="0.75"/>
+                    <GradientStop Color="#555555" Offset="0" />
+                    <GradientStop Color="#303030" Offset="0.75" />
                 </LinearGradientBrush>
             </Border.Background>
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="30"/>
-                    <RowDefinition/>
+                    <RowDefinition Height="30" />
+                    <RowDefinition />
                 </Grid.RowDefinitions>
                 <Grid Background="#1F1F1F" MouseDown="Grid_MouseDown">
                     <Grid.Clip>
-                        <RectangleGeometry Rect="0,0,800,450" RadiusX="10" RadiusY="10"/>
+                        <RectangleGeometry Rect="0,0,800,450" RadiusX="10" RadiusY="10" />
                     </Grid.Clip>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition Width="25"/>
-                        <ColumnDefinition Width="25"/>
-                        <ColumnDefinition Width="5"/>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="25" />
+                        <ColumnDefinition Width="25" />
+                        <ColumnDefinition Width="5" />
                     </Grid.ColumnDefinitions>
 
                     <TextBlock Text="MirageMUD - Settings"
@@ -50,7 +50,7 @@
                            FontFamily="Verdana"
                            Grid.Column="0"
                            VerticalAlignment="Center"
-                           Margin="10,0,0,0"/>
+                           Margin="10,0,0,0" />
                     <Button x:Name="btnMinimise"
                         BorderThickness="0"
                         Content="🗕"
@@ -62,10 +62,10 @@
                         Click="btnMinimise_Click">
                         <Button.Style>
                             <Style TargetType="Button">
-                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="Background" Value="Transparent" />
                                 <Style.Triggers>
                                     <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Background" Value="#454545"/>
+                                        <Setter Property="Background" Value="#454545" />
                                     </Trigger>
                                 </Style.Triggers>
                             </Style>
@@ -75,11 +75,10 @@
                                 <Border Width="25" Height="25"
                                    Background="{TemplateBinding Background}">
                                     <ContentPresenter VerticalAlignment="Center"
-                                                  HorizontalAlignment="Center"/>
+                                                  HorizontalAlignment="Center" />
                                 </Border>
                             </ControlTemplate>
                         </Button.Template>
-
                     </Button>
                     <Button x:Name="btnClose"
                         BorderThickness="0"
@@ -92,10 +91,10 @@
                         Click="btnClose_Click">
                         <Button.Style>
                             <Style TargetType="Button">
-                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="Background" Value="Transparent" />
                                 <Style.Triggers>
                                     <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Background" Value="#454545"/>
+                                        <Setter Property="Background" Value="#454545" />
                                     </Trigger>
                                 </Style.Triggers>
                             </Style>
@@ -105,11 +104,10 @@
                                 <Border Width="25" Height="25"
                                     Background="{TemplateBinding Background}">
                                     <ContentPresenter VerticalAlignment="Center"
-                          HorizontalAlignment="Center"/>
+                          HorizontalAlignment="Center" />
                                 </Border>
                             </ControlTemplate>
                         </Button.Template>
-
                     </Button>
                 </Grid>
                 <StackPanel Width="250"
@@ -121,7 +119,7 @@
                                FontSize="12"
                                FontWeight="Bold"
                                FontFamily="Verdana"
-                               Margin="0,35,0,0"/>
+                               Margin="0,35,0,0" />
                     <TextBox x:Name="txtIP"
                             Style="{StaticResource CustomTextBoxStyle}">
                         <TextBox.Background>
@@ -131,7 +129,7 @@
                                 AlignmentY="Center"
                                 TileMode="None"
                                 Viewport="2,5,14,11"
-                                ViewportUnits="Absolute"/>
+                                ViewportUnits="Absolute" />
                         </TextBox.Background>
                     </TextBox>
                     <TextBlock Text="Port"
@@ -139,7 +137,7 @@
                                FontSize="12"
                                FontWeight="Bold"
                                FontFamily="Verdana"
-                               Margin="0,10,0,0"/>
+                               Margin="0,10,0,0" />
                     <TextBox x:Name="txtPort"
                             Style="{StaticResource CustomTextBoxStyle}">
                         <TextBox.Background>
@@ -149,7 +147,7 @@
                                 AlignmentY="Center"
                                 TileMode="None"
                                 Viewport="2,5,14,11"
-                                ViewportUnits="Absolute"/>
+                                ViewportUnits="Absolute" />
                         </TextBox.Background>
                     </TextBox>
                     <StackPanel Orientation="Horizontal">
@@ -159,29 +157,28 @@
                                     FontSize="12"
                                     FontWeight="Medium"
                                     FontFamily="Verdana"
-                                    Margin="0,20,0,0"/>
+                                    Margin="0,20,0,0" />
                         <CheckBox x:Name="chkSound"
                                     Content="Sound"
                                     Foreground="LightGray"
                                     FontSize="12"
                                     FontWeight="Medium"
                                     FontFamily="Verdana"
-                                    Margin="15,20,0,0"/>
+                                    Margin="15,20,0,0" />
                     </StackPanel>
                     <TextBlock Text="Language"
                                Foreground="LightGray"
                                FontSize="12"
                                FontWeight="Bold"
                                FontFamily="Verdana"
-                               Margin="0,20,0,0"/>
+                               Margin="0,20,0,0" />
 
-                    <ComboBox x:Name="cmbLanguage" HorizontalAlignment="Left" VerticalAlignment="Center" Width="250"/>
+                    <ComboBox x:Name="cmbLanguage" HorizontalAlignment="Left" VerticalAlignment="Center" Width="250" />
                     <local:UIButton x:Name="btnSave"
                             Content="SAVE"
                             Width="150" Height="25"
                             Click="btnSave_Click"
-                            Margin="0,20,0,0"/>
-
+                            Margin="0,20,0,0" />
                 </StackPanel>
                 <Button x:Name="btnBack"
                         Style="{StaticResource BackButtonStyle}"

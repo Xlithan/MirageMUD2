@@ -1,7 +1,7 @@
 {
   "Login": "Xlithan",
-  "Password": "VmzXoIyvCa\u002BRtWpnJdWOgpa8PLS2XeWR7wg5P2UqLH8=",
-  "Salt": "b4ddLqWdWueDWwMbKjCrjg==",
+  "Password": "0a7UjBQceM/VGHW1hRa4u3c418YItiUX3xqsAJVKZrU=",
+  "Salt": "oWM0o50h1OTnLVqqcItiKA==",
   "Access": 0,
   "Character": [
     {
@@ -116,10 +116,10 @@
         }
       ],
       "CharacterStats": {
-        "Strength": 1,
+        "Strength": 4,
         "Intelligence": 3,
-        "Dexterity": 2,
-        "Constitution": 2,
+        "Dexterity": 0,
+        "Constitution": 1,
         "Wisdom": 4,
         "Charisma": 0
       },

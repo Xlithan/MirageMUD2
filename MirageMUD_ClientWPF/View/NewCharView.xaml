@@ -1,7 +1,7 @@
 ﻿<Window x:Class="MirageMUD_ClientWPF.View.NewCharView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MirageMUD_ClientWPF.View"
         mc:Ignorable="d"
@@ -27,37 +27,37 @@
     <Border CornerRadius="10">
         <Border.Background>
             <ImageBrush ImageSource="/Images/newcharback.png"
-                Stretch="None"/>
+                Stretch="None" />
         </Border.Background>
         <Border Opacity="0.95"
                 CornerRadius="10">
             <Border.BorderBrush>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                    <GradientStop Color="#656565" Offset="0"/>
-                    <GradientStop Color="#454545" Offset="0.75"/>
-                    <GradientStop Color="#252525" Offset="1"/>
+                    <GradientStop Color="#656565" Offset="0" />
+                    <GradientStop Color="#454545" Offset="0.75" />
+                    <GradientStop Color="#252525" Offset="1" />
                 </LinearGradientBrush>
             </Border.BorderBrush>
             <Border.Background>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                    <GradientStop Color="#555555" Offset="0"/>
-                    <GradientStop Color="#303030" Offset="0.75"/>
+                    <GradientStop Color="#555555" Offset="0" />
+                    <GradientStop Color="#303030" Offset="0.75" />
                 </LinearGradientBrush>
             </Border.Background>
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="30"/>
-                    <RowDefinition/>
+                    <RowDefinition Height="30" />
+                    <RowDefinition />
                 </Grid.RowDefinitions>
                 <Grid Background="#1F1F1F" MouseDown="Grid_MouseDown">
                     <Grid.Clip>
-                        <RectangleGeometry Rect="0,0,800,450" RadiusX="10" RadiusY="10"/>
+                        <RectangleGeometry Rect="0,0,800,450" RadiusX="10" RadiusY="10" />
                     </Grid.Clip>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition Width="25"/>
-                        <ColumnDefinition Width="25"/>
-                        <ColumnDefinition Width="5"/>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="25" />
+                        <ColumnDefinition Width="25" />
+                        <ColumnDefinition Width="5" />
                     </Grid.ColumnDefinitions>
 
                     <TextBlock Text="MirageMUD - New Character"
@@ -66,7 +66,7 @@
                                FontFamily="Verdana"
                                Grid.Column="0"
                                VerticalAlignment="Center"
-                               Margin="10,0,0,0"/>
+                               Margin="10,0,0,0" />
                     <Button x:Name="btnMinimise"
                             BorderThickness="0"
                             Content="🗕"
@@ -78,10 +78,10 @@
                             Click="btnMinimise_Click">
                         <Button.Style>
                             <Style TargetType="Button">
-                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="Background" Value="Transparent" />
                                 <Style.Triggers>
                                     <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Background" Value="#454545"/>
+                                        <Setter Property="Background" Value="#454545" />
                                     </Trigger>
                                 </Style.Triggers>
                             </Style>
@@ -91,11 +91,10 @@
                                 <Border Width="25" Height="25"
                                         Background="{TemplateBinding Background}">
                                     <ContentPresenter VerticalAlignment="Center"
-                                          HorizontalAlignment="Center"/>
+                                          HorizontalAlignment="Center" />
                                 </Border>
                             </ControlTemplate>
                         </Button.Template>
-
                     </Button>
                     <Button x:Name="btnClose"
                             BorderThickness="0"
@@ -108,10 +107,10 @@
                             Click="btnClose_Click">
                         <Button.Style>
                             <Style TargetType="Button">
-                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="Background" Value="Transparent" />
                                 <Style.Triggers>
                                     <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Background" Value="#454545"/>
+                                        <Setter Property="Background" Value="#454545" />
                                     </Trigger>
                                 </Style.Triggers>
                             </Style>
@@ -121,29 +120,28 @@
                                 <Border Width="25" Height="25"
                                     Background="{TemplateBinding Background}">
                                     <ContentPresenter VerticalAlignment="Center"
-                                        HorizontalAlignment="Center"/>
+                                        HorizontalAlignment="Center" />
                                 </Border>
                             </ControlTemplate>
                         </Button.Template>
-
                     </Button>
                 </Grid>
                 <Grid Grid.Row="2" Margin="0,10,0,0">
                     <Grid.RowDefinitions>
-                        <RowDefinition/>
+                        <RowDefinition />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="350"/>
-                        <ColumnDefinition Width="50"/>
-                        <ColumnDefinition/>
+                        <ColumnDefinition Width="350" />
+                        <ColumnDefinition Width="50" />
+                        <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <!-- CONTENT-->
                     <Grid Grid.Column="0" Margin="10,10,0,0">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
                         <StackPanel Grid.Column="0" Grid.Row="0">
                             <TextBlock Text="Character Name"
@@ -151,26 +149,26 @@
                                            FontSize="12"
                                            FontWeight="Bold"
                                            FontFamily="Verdana"
-                                           Margin="0,0,0,0"/>
+                                           Margin="0,0,0,0" />
                             <TextBox x:Name="txtCharName"
                                         Style="{StaticResource CustomTextBoxStyle}"
                                         Width="335"
                                         HorizontalAlignment="Left"
                                      Margin="0,0,0,5">
                                 <TextBox.Background>
-                                    <ImageBrush 
+                                    <ImageBrush
                                             ImageSource="pack://application:,,,/MirageMUD_ClientWPF;component/Images/user-solid.png"
                                             Stretch="UniformToFill"
                                             AlignmentX="Left"
                                             AlignmentY="Center"
                                             TileMode="None"
                                             Viewport="2,4,12,12"
-                                            ViewportUnits="Absolute"/>
+                                            ViewportUnits="Absolute" />
                                 </TextBox.Background>
                             </TextBox>
                             <Border Grid.Column="0" Grid.Row="0"
-                                    Background="#2B2B2B" 
-                                    CornerRadius="10" 
+                                    Background="#2B2B2B"
+                                    CornerRadius="10"
                                     Padding="10"
                                     Margin="0,0,5,0">
                                 <StackPanel>
@@ -179,7 +177,7 @@
                                        FontSize="12"
                                        FontWeight="Bold"
                                        FontFamily="Verdana"
-                                       Margin="0,0,0,0"/>
+                                       Margin="0,0,0,0" />
                                     <WrapPanel Orientation="Horizontal"
                                                 Margin="0,5,0,0">
 
@@ -191,7 +189,7 @@
                                         FontFamily="Verdana"
                                         Margin="5,0,0,0"
                                         IsChecked="True"
-                                        Click="optMale_Click"/>
+                                        Click="optMale_Click" />
                                         <RadioButton x:Name="optFemale"
                                         Content="Female"
                                         Foreground="#8997ad"
@@ -199,14 +197,14 @@
                                         FontWeight="Bold"
                                         FontFamily="Verdana"
                                         Margin="5,0,0,0"
-                                        Click="optFemale_Click"/>
+                                        Click="optFemale_Click" />
                                     </WrapPanel>
                                 </StackPanel>
                             </Border>
                         </StackPanel>
                         <Border Grid.Column="0" Grid.Row="1"
-                                Background="#2B2B2B" 
-                                CornerRadius="10" 
+                                Background="#2B2B2B"
+                                CornerRadius="10"
                                 Padding="10"
                                 Margin="0,5,5,0">
                             <StackPanel>
@@ -215,15 +213,15 @@
                                    FontSize="12"
                                    FontWeight="Bold"
                                    FontFamily="Verdana"
-                                   Margin="0,0,0,0"/>
+                                   Margin="0,0,0,0" />
                                 <WrapPanel x:Name="RaceWrapPanel"
                                             Orientation="Horizontal"
-                                            Margin="0,5,0,0"/>
+                                            Margin="0,5,0,0" />
                             </StackPanel>
                         </Border>
                         <Border Grid.Column="0" Grid.Row="2"
-                                Background="#2B2B2B" 
-                                CornerRadius="10" 
+                                Background="#2B2B2B"
+                                CornerRadius="10"
                                 Padding="10"
                                 Margin="0,5,5,0">
                             <StackPanel Grid.Column="0" Grid.Row="2">
@@ -232,21 +230,21 @@
                                    FontSize="12"
                                    FontWeight="Bold"
                                    FontFamily="Verdana"
-                                   Margin="0,0,0,0"/>
+                                   Margin="0,0,0,0" />
                                 <WrapPanel x:Name="ClassWrapPanel"
                                             Orientation="Horizontal"
-                                            Margin="0,5,0,0"/>
+                                            Margin="0,5,0,0" />
                             </StackPanel>
                         </Border>
                     </Grid>
                     <Grid Grid.Column="2" Margin="0,10,0,0">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="20"/>
-                            <RowDefinition/>
-                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="20" />
+                            <RowDefinition />
+                            <RowDefinition Height="40" />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
+                            <ColumnDefinition />
                         </Grid.ColumnDefinitions>
                         <StackPanel Grid.Row="0">
                             <TextBlock Text="Character Stats"
@@ -254,16 +252,16 @@
                                        FontSize="12"
                                        FontWeight="Bold"
                                        FontFamily="Verdana"
-                                       Margin="0,0,0,0"/>
+                                       Margin="0,0,0,0" />
                         </StackPanel>
                         <Grid Grid.Row="1">
                             <Grid.RowDefinitions>
-                                <RowDefinition/>
+                                <RowDefinition />
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="100"/>
-                                <ColumnDefinition Width="50"/>
-                                <ColumnDefinition/>
+                                <ColumnDefinition Width="100" />
+                                <ColumnDefinition Width="50" />
+                                <ColumnDefinition />
                             </Grid.ColumnDefinitions>
                             <StackPanel Grid.Column="0" Orientation="Vertical">
                                 <TextBlock Text="Strength:"
@@ -272,42 +270,42 @@
                                            FontWeight="Bold"
                                            FontFamily="Verdana"
                                            Margin="0,0,5,0"
-                                           HorizontalAlignment="Right"/>
+                                           HorizontalAlignment="Right" />
                                 <TextBlock Text="Intelligence:"
                                            Foreground="SlateGray"
                                            FontSize="12"
                                            FontWeight="Bold"
                                            FontFamily="Verdana"
                                            Margin="0,5,5,0"
-                                           HorizontalAlignment="Right"/>
+                                           HorizontalAlignment="Right" />
                                 <TextBlock Text="Dexterity:"
                                            Foreground="SlateGray"
                                            FontSize="12"
                                            FontWeight="Bold"
                                            FontFamily="Verdana"
                                            Margin="0,5,5,0"
-                                           HorizontalAlignment="Right"/>
+                                           HorizontalAlignment="Right" />
                                 <TextBlock Text="Constitution:"
                                            Foreground="SlateGray"
                                            FontSize="12"
                                            FontWeight="Bold"
                                            FontFamily="Verdana"
                                            Margin="0,5,5,0"
-                                           HorizontalAlignment="Right"/>
+                                           HorizontalAlignment="Right" />
                                 <TextBlock Text="Wisdom:"
                                            Foreground="SlateGray"
                                            FontSize="12"
                                            FontWeight="Bold"
                                            FontFamily="Verdana"
                                            Margin="0,5,5,0"
-                                           HorizontalAlignment="Right"/>
+                                           HorizontalAlignment="Right" />
                                 <TextBlock Text="Charisma:"
                                            Foreground="SlateGray"
                                            FontSize="12"
                                            FontWeight="Bold"
                                            FontFamily="Verdana"
                                            Margin="0,5,5,0"
-                                           HorizontalAlignment="Right"/>
+                                           HorizontalAlignment="Right" />
                             </StackPanel>
                             <StackPanel Grid.Column="1" Orientation="Vertical">
                                 <TextBlock x:Name="lblStrength" Text="0"
@@ -316,48 +314,48 @@
                                            FontWeight="Bold"
                                            FontFamily="Verdana"
                                            Margin="5,0,0,0"
-                                           HorizontalAlignment="Left"/>
+                                           HorizontalAlignment="Left" />
                                 <TextBlock x:Name="lblIntelligence" Text="0"
                                            Foreground="Goldenrod"
                                            FontSize="12"
                                            FontWeight="Bold"
                                            FontFamily="Verdana"
                                            Margin="5,5,0,0"
-                                           HorizontalAlignment="Left"/>
+                                           HorizontalAlignment="Left" />
                                 <TextBlock x:Name="lblDexterity" Text="0"
                                            Foreground="Goldenrod"
                                            FontSize="12"
                                            FontWeight="Bold"
                                            FontFamily="Verdana"
                                            Margin="5,5,0,0"
-                                           HorizontalAlignment="Left"/>
+                                           HorizontalAlignment="Left" />
                                 <TextBlock x:Name="lblConstitution" Text="0"
                                            Foreground="Goldenrod"
                                            FontSize="12"
                                            FontWeight="Bold"
                                            FontFamily="Verdana"
                                            Margin="5,5,0,0"
-                                           HorizontalAlignment="Left"/>
+                                           HorizontalAlignment="Left" />
                                 <TextBlock x:Name="lblWisdom" Text="0"
                                            Foreground="Goldenrod"
                                            FontSize="12"
                                            FontWeight="Bold"
                                            FontFamily="Verdana"
                                            Margin="5,5,0,0"
-                                           HorizontalAlignment="Left"/>
+                                           HorizontalAlignment="Left" />
                                 <TextBlock x:Name="lblCharisma" Text="0"
                                            Foreground="Goldenrod"
                                            FontSize="12"
                                            FontWeight="Bold"
                                            FontFamily="Verdana"
                                            Margin="5,5,0,0"
-                                           HorizontalAlignment="Left"/>
+                                           HorizontalAlignment="Left" />
                             </StackPanel>
                             <StackPanel Grid.Column="2" Orientation="Vertical">
                                 <Grid>
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="80"/>
-                                        <RowDefinition Height="80"/>
+                                        <RowDefinition Height="80" />
+                                        <RowDefinition Height="80" />
                                     </Grid.RowDefinitions>
 
                                     <Image x:Name="picAvatar"
@@ -373,12 +371,12 @@
                                                 Content="SELECT AVATAR"
                                                 Width="150" Height="25"
                                                 Click="btnAvatar_Click"
-                                                Margin="0,10,0,0"/>
+                                                Margin="0,10,0,0" />
                                         <local:UIButton x:Name="btnReroll"
                                                 Content="ROLL STATS"
                                                 Width="150" Height="25"
                                                 Click="btnReroll_Click"
-                                                Margin="0,5,0,0"/>
+                                                Margin="0,5,0,0" />
                                     </StackPanel>
                                 </Grid>
                             </StackPanel>
@@ -388,7 +386,7 @@
                                     Content="FINISH"
                                     Width="150" Height="25"
                                     Click="btnFinish_Click"
-                                    Margin="0,5,0,0"/>
+                                    Margin="0,5,0,0" />
                         </StackPanel>
                     </Grid>
                 </Grid>

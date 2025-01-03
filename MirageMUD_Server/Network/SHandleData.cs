@@ -1,23 +1,23 @@
 ﻿using Bindings;
+using MirageMUD_Server.Storage;
 using System.Security.Cryptography;
 using System.Text;
-using MirageMUD_Server.Storage;
-using MirageMUD_Server.Utilities;
-using MirageMUD_Server.Types;
 
 namespace MirageMUD_Server.Network
 {
     internal class SHandleData
     {
         private delegate void Packet_(int Index, byte[] data); // Delegate to handle packet processing
+
         private Dictionary<int, Packet_> Packets; // Dictionary to store packet handlers
         private Database db = new Database(); // Database instance to interact with stored data
-        ServerTCP serverTCP;  // Instance of ClientTCP for network communication
+        private ServerTCP serverTCP;  // Instance of ClientTCP for network communication
 
         public SHandleData()
         {
             serverTCP = ServerTCP.Instance;
         }
+
         public void InitialiseMessages()
         {
             Console.WriteLine(TranslationManager.Instance.GetTranslation("server.initialising_network_packets")); // Log message for initializing network packets
@@ -105,14 +105,14 @@ namespace MirageMUD_Server.Network
             if (data == null || data.Length == 0)
             {
                 Console.WriteLine(TranslationManager.Instance.GetTranslation("errors.null_or_empty_data"));
-                return;
+                return; // Return if data is invalid
             }
 
             // Check if packets dictionary is uninitialized
             if (Packets == null)
             {
                 Console.WriteLine(TranslationManager.Instance.GetTranslation("errors.uninitialized_packets"));
-                return;
+                return; // Return if packets dictionary is not initialized
             }
 
             int packetNum;
@@ -134,15 +134,15 @@ namespace MirageMUD_Server.Network
             }
         }
 
-        // Method to handle account creation
-        private void HandleGetClasses(int Index, byte[] data) { }
+        private void HandleGetClasses(int Index, byte[] data)
+        { }
 
         private void HandleNewAccount(int Index, byte[] data)
         {
             using (PacketBuffer buffer = new PacketBuffer())
             {
                 buffer.AddBytes(data); // Add data to buffer
-                buffer.GetInteger(); // Skip packet ID
+                buffer.GetInteger(); // Skip packet ID as it's not needed here
                 string username = buffer.GetString(); // Extract username from buffer
                 string password = buffer.GetString(); // Extract password from buffer
 
@@ -150,35 +150,36 @@ namespace MirageMUD_Server.Network
                 byte[] salt = new byte[16];
                 using (var rng = new RNGCryptoServiceProvider())
                 {
-                    rng.GetBytes(salt); // Generate random salt
+                    rng.GetBytes(salt); // Generate random salt for password hashing
                 }
 
-                // Combine password and salt
+                // Combine password and salt to prepare for hashing
                 string passwordWithSalt = password + Convert.ToBase64String(salt);
 
-                // Hash the password + salt using SHA256
+                // Hash the password + salt using SHA256 for security
                 using (SHA256 sha256 = SHA256.Create())
                 {
                     byte[] hashedPassword = sha256.ComputeHash(Encoding.UTF8.GetBytes(passwordWithSalt));
 
-                    // Check if the account already exists
+                    // Check if the account already exists in the database
                     if (!db.AccountExist(username))
                     {
-                        // Store the hashed password and salt
+                        // Store the hashed password and salt in the database
                         db.AddAccount(Index, username, Convert.ToBase64String(hashedPassword), Convert.ToBase64String(salt));
                         Console.WriteLine(TranslationManager.Instance.GetTranslation("user.account_created"), username);
-                        serverTCP.SendAccountCreated(Index);
+                        serverTCP.SendAccountCreated(Index); // Notify the client that the account is created
                     }
                     else
                     {
-                        // Account already exists, send error
+                        // If account already exists, send an error message
                         serverTCP.AlertMsg(Index, "Username already exists.");
                     }
                 }
             }
         }
 
-        private void HandleDelAccount(int Index, byte[] data) { }
+        private void HandleDelAccount(int Index, byte[] data)
+        { }
 
         // Method to handle login
         private void HandleLogin(int Index, byte[] data)
@@ -186,17 +187,17 @@ namespace MirageMUD_Server.Network
             using (PacketBuffer buffer = new PacketBuffer())
             {
                 buffer.AddBytes(data); // Add data to buffer
-                buffer.GetInteger(); // Skip packet ID
-                string username = buffer.GetString(); // Extract username
-                string password = buffer.GetString(); // Extract password
+                buffer.GetInteger(); // Skip packet ID as it's not needed here
+                string username = buffer.GetString(); // Extract username from buffer
+                string password = buffer.GetString(); // Extract password from buffer
 
                 // Check if the username exists in the database
                 if (db.AccountExist(username))
                 {
-                    // If the client slot has a null socket
+                    // If the client slot already has a non-null socket (i.e., user is already logged in)
                     if (serverTCP.IsLoggedIn(username))
                     {
-                        // Prevent duplicate account logins
+                        // Prevent duplicate account logins and notify the client
                         serverTCP.AlertMsg(Index, "This account is already logged in.");
                     }
                     else
@@ -216,15 +217,15 @@ namespace MirageMUD_Server.Network
                             // Compare the hashed password with the stored hashed password
                             if (Convert.ToBase64String(inputHashedPassword) == storedHashedPassword)
                             {
-                                // Can log in
+                                // If the password matches, load player data and send characters to the client
                                 db.LoadPlayer(Index, username);
                                 serverTCP.SendChars(Index);
-                                // SendMaxes();
+                                // SendMaxes(); // (commented-out line for sending maxes, not currently used)
                                 Console.WriteLine(TranslationManager.Instance.GetTranslation("user.logged_in"), username, ServerTCP.Clients[Index].IP);
                             }
                             else
                             {
-                                // Incorrect password, send the error
+                                // Incorrect password, send an error message
                                 serverTCP.AlertMsg(Index, "Incorrect password for this account.");
                             }
                         }
@@ -232,128 +233,265 @@ namespace MirageMUD_Server.Network
                 }
                 else
                 {
-                    // Username does not exist, send the error
+                    // Username does not exist in the database, send an error message
                     serverTCP.AlertMsg(Index, "Account does not exist.");
                 }
             }
         }
+
         private void HandleLogout(int Index, byte[] data)
         {
             using (PacketBuffer buffer = new PacketBuffer())
             {
                 buffer.AddBytes(data); // Add data to buffer
-                buffer.GetInteger(); // Skip packet ID
+                buffer.GetInteger(); // Skip packet ID as it's not needed here
 
-                // Clear player data and log out
+                // Clear player data from the database and log the player out
                 db.UnloadPlayer(Index);
             }
         }
+
         private void HandleAddChar(int Index, byte[] data)
         {
             using (PacketBuffer buffer = new PacketBuffer())
             {
-                buffer.AddBytes(data); // Add data to buffer
-                buffer.GetInteger(); // Skip packet ID
-                string username = buffer.GetString(); // Extract username
-                string charName = buffer.GetString(); // Extract character name
-                int charGender = buffer.GetInteger(); // Extract gender
-                int charRace = buffer.GetInteger(); // Extract race
-                int charClass = buffer.GetInteger(); // Extract class
-                int charAvatar = buffer.GetInteger(); // Extract avatar ID
-                int charNum = buffer.GetInteger(); // Extract character ID
+                buffer.AddBytes(data); // Add incoming data to buffer
+                buffer.GetInteger(); // Skip the packet ID as it's not necessary for this operation
+                string username = buffer.GetString(); // Extract the username from the buffer
+                string charName = buffer.GetString(); // Extract the character name from the buffer
+                int charGender = buffer.GetInteger(); // Extract the gender of the character
+                int charRace = buffer.GetInteger(); // Extract the race of the character
+                int charClass = buffer.GetInteger(); // Extract the class of the character
+                int charAvatar = buffer.GetInteger(); // Extract the avatar ID for the character
+                int charNum = buffer.GetInteger(); // Extract the unique character ID
 
                 // Check if the username exists in the database
                 if (db.AccountExist(username))
                 {
+                    // Check if the character already exists
                     if (db.CharacterExist(charName))
                     {
-                        // Character already exists
+                        // If the character name already exists, send an error message
                         serverTCP.AlertMsg(Index, "This character name already exists.");
                     }
                     else
                     {
-                        // Can log in
+                        // If the character name doesn't exist, add the new character to the database
                         db.AddChar(Index, charNum, charName, charGender, charRace, charClass, charAvatar);
+                        // Notify the client that the character has been created
                         serverTCP.SendCharCreated(Index);
                         Console.WriteLine(TranslationManager.Instance.GetTranslation("user.char_created"), charName, charNum);
                     }
                 }
                 else
                 {
-                    // Username does not exist, send the error
+                    // If the account doesn't exist, send an error message
                     serverTCP.AlertMsg(Index, "Account does not exist.");
                 }
             }
         }
-        private void HandleDelChar(int Index, byte[] data) { }
-        private void HandleUseChar(int Index, byte[] data) { }
-        private void HandleSayMsg(int Index, byte[] data) { }
-        private void HandleEmoteMsg(int Index, byte[] data) { }
-        private void HandleBroadcastMsg(int Index, byte[] data) { }
-        private void HandleGlobalMsg(int Index, byte[] data) { }
-        private void HandleAdminMsg(int Index, byte[] data) { }
-        private void HandlePlayerMsg(int Index, byte[] data) { }
-        private void HandlePlayerMove(int Index, byte[] data) { }
-        private void HandlePlayerDir(int Index, byte[] data) { }
-        private void HandleUseItem(int Index, byte[] data) { }
-        private void HandleAttack(int Index, byte[] data) { }
-        private void HandleUseStatPoint(int Index, byte[] data) { }
-        private void HandlePlayerInfoRequest(int Index, byte[] data) { }
-        private void HandleWarpMeTo(int Index, byte[] data) { }
-        private void HandleWarpToMe(int Index, byte[] data) { }
-        private void HandleWarpTo(int Index, byte[] data) { }
-        private void HandleSetAvatar(int Index, byte[] data) { }
-        private void HandleGetStats(int Index, byte[] data) { }
-        private void HandleRequestNewRoom(int Index, byte[] data) { }
-        private void HandleRoomData(int Index, byte[] data) { }
-        private void HandleNeedRoom(int Index, byte[] data) { }
-        private void HandleRoomGetItem(int Index, byte[] data) { }
-        private void HandleRoomDropItem(int Index, byte[] data) { }
-        private void HandleRoomRespawn(int Index, byte[] data) { }
-        private void HandleRoomReport(int Index, byte[] data) { }
-        private void HandleKickPlayer(int Index, byte[] data) { }
-        private void HandleBanList(int Index, byte[] data) { }
-        private void HandleBanDestroy(int Index, byte[] data) { }
-        private void HandleBanPlayer(int Index, byte[] data) { }
-        private void HandleRequestEditRoom(int Index, byte[] data) { }
-        private void HandleRequestEditItem(int Index, byte[] data) { }
-        private void HandleEditItem(int Index, byte[] data) { }
-        private void HandleSaveItem(int Index, byte[] data) { }
-        private void HandleRequestEditNpc(int Index, byte[] data) { }
-        private void HandleEditNpc(int Index, byte[] data) { }
-        private void HandleSaveNpc(int Index, byte[] data) { }
-        private void HandleRequestEditShop(int Index, byte[] data) { }
-        private void HandleEditShop(int Index, byte[] data) { }
-        private void HandleSaveShop(int Index, byte[] data) { }
-        private void HandleRequestEditSpell(int Index, byte[] data) { }
-        private void HandleEditSpell(int Index, byte[] data) { }
-        private void HandleSaveSpell(int Index, byte[] data) { }
-        private void HandleDelete(int Index, byte[] data) { }
-        private void HandleSetAccess(int Index, byte[] data) { }
-        private void HandleWhosOnline(int Index, byte[] data) { }
-        private void HandleSetMotd(int Index, byte[] data) { }
-        private void HandleTrade(int Index, byte[] data) { }
-        private void HandleTradeRequest(int Index, byte[] data) { }
-        private void HandleFixItem(int Index, byte[] data) { }
-        private void HandleSearch(int Index, byte[] data) { }
-        private void HandleParty(int Index, byte[] data) { }
-        private void HandleJoinParty(int Index, byte[] data) { }
-        private void HandleLeaveParty(int Index, byte[] data) { }
-        private void HandleSpells(int Index, byte[] data) { }
-        private void HandleCast(int Index, byte[] data) { }
-        private void HandleQuit(int Index, byte[] data) { }
-        private void HandleSync(int Index, byte[] data) { }
-        private void HandleRoomReqs(int Index, byte[] data) { }
-        private void HandleSleepInn(int Index, byte[] data) { }
-        private void HandleRemoveFromGuild(int Index, byte[] data) { }
-        private void HandleCreateGuild(int Index, byte[] data) { }
-        private void HandleInviteGuild(int Index, byte[] data) { }
-        private void HandleKickGuild(int Index, byte[] data) { }
-        private void HandleGuildPromote(int Index, byte[] data) { }
-        private void HandleLeaveGuild(int Index, byte[] data) { }
+
+        private void HandleDelChar(int Index, byte[] data)
+        { }
+
+        private void HandleUseChar(int Index, byte[] data)
+        { }
+
+        private void HandleSayMsg(int Index, byte[] data)
+        { }
+
+        private void HandleEmoteMsg(int Index, byte[] data)
+        { }
+
+        private void HandleBroadcastMsg(int Index, byte[] data)
+        { }
+
+        private void HandleGlobalMsg(int Index, byte[] data)
+        { }
+
+        private void HandleAdminMsg(int Index, byte[] data)
+        { }
+
+        private void HandlePlayerMsg(int Index, byte[] data)
+        { }
+
+        private void HandlePlayerMove(int Index, byte[] data)
+        { }
+
+        private void HandlePlayerDir(int Index, byte[] data)
+        { }
+
+        private void HandleUseItem(int Index, byte[] data)
+        { }
+
+        private void HandleAttack(int Index, byte[] data)
+        { }
+
+        private void HandleUseStatPoint(int Index, byte[] data)
+        { }
+
+        private void HandlePlayerInfoRequest(int Index, byte[] data)
+        { }
+
+        private void HandleWarpMeTo(int Index, byte[] data)
+        { }
+
+        private void HandleWarpToMe(int Index, byte[] data)
+        { }
+
+        private void HandleWarpTo(int Index, byte[] data)
+        { }
+
+        private void HandleSetAvatar(int Index, byte[] data)
+        { }
+
+        private void HandleGetStats(int Index, byte[] data)
+        { }
+
+        private void HandleRequestNewRoom(int Index, byte[] data)
+        { }
+
+        private void HandleRoomData(int Index, byte[] data)
+        { }
+
+        private void HandleNeedRoom(int Index, byte[] data)
+        { }
+
+        private void HandleRoomGetItem(int Index, byte[] data)
+        { }
+
+        private void HandleRoomDropItem(int Index, byte[] data)
+        { }
+
+        private void HandleRoomRespawn(int Index, byte[] data)
+        { }
+
+        private void HandleRoomReport(int Index, byte[] data)
+        { }
+
+        private void HandleKickPlayer(int Index, byte[] data)
+        { }
+
+        private void HandleBanList(int Index, byte[] data)
+        { }
+
+        private void HandleBanDestroy(int Index, byte[] data)
+        { }
+
+        private void HandleBanPlayer(int Index, byte[] data)
+        { }
+
+        private void HandleRequestEditRoom(int Index, byte[] data)
+        { }
+
+        private void HandleRequestEditItem(int Index, byte[] data)
+        { }
+
+        private void HandleEditItem(int Index, byte[] data)
+        { }
+
+        private void HandleSaveItem(int Index, byte[] data)
+        { }
+
+        private void HandleRequestEditNpc(int Index, byte[] data)
+        { }
+
+        private void HandleEditNpc(int Index, byte[] data)
+        { }
+
+        private void HandleSaveNpc(int Index, byte[] data)
+        { }
+
+        private void HandleRequestEditShop(int Index, byte[] data)
+        { }
+
+        private void HandleEditShop(int Index, byte[] data)
+        { }
+
+        private void HandleSaveShop(int Index, byte[] data)
+        { }
+
+        private void HandleRequestEditSpell(int Index, byte[] data)
+        { }
+
+        private void HandleEditSpell(int Index, byte[] data)
+        { }
+
+        private void HandleSaveSpell(int Index, byte[] data)
+        { }
+
+        private void HandleDelete(int Index, byte[] data)
+        { }
+
+        private void HandleSetAccess(int Index, byte[] data)
+        { }
+
+        private void HandleWhosOnline(int Index, byte[] data)
+        { }
+
+        private void HandleSetMotd(int Index, byte[] data)
+        { }
+
+        private void HandleTrade(int Index, byte[] data)
+        { }
+
+        private void HandleTradeRequest(int Index, byte[] data)
+        { }
+
+        private void HandleFixItem(int Index, byte[] data)
+        { }
+
+        private void HandleSearch(int Index, byte[] data)
+        { }
+
+        private void HandleParty(int Index, byte[] data)
+        { }
+
+        private void HandleJoinParty(int Index, byte[] data)
+        { }
+
+        private void HandleLeaveParty(int Index, byte[] data)
+        { }
+
+        private void HandleSpells(int Index, byte[] data)
+        { }
+
+        private void HandleCast(int Index, byte[] data)
+        { }
+
+        private void HandleQuit(int Index, byte[] data)
+        { }
+
+        private void HandleSync(int Index, byte[] data)
+        { }
+
+        private void HandleRoomReqs(int Index, byte[] data)
+        { }
+
+        private void HandleSleepInn(int Index, byte[] data)
+        { }
+
+        private void HandleRemoveFromGuild(int Index, byte[] data)
+        { }
+
+        private void HandleCreateGuild(int Index, byte[] data)
+        { }
+
+        private void HandleInviteGuild(int Index, byte[] data)
+        { }
+
+        private void HandleKickGuild(int Index, byte[] data)
+        { }
+
+        private void HandleGuildPromote(int Index, byte[] data)
+        { }
+
+        private void HandleLeaveGuild(int Index, byte[] data)
+        { }
+
         private void HandleReRoll(int Index, byte[] data)
         {
-            serverTCP.SendReRoll(Index);
+            serverTCP.SendReRoll(Index); // Sends the reroll request to the server for the specified player
         }
     }
 }

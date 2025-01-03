@@ -9,7 +9,7 @@ namespace MirageMUD_ClientWPF.View
     /// </summary>
     public partial class LoginView : Window
     {
-        ClientTCP clientTCP;  // Instance of ClientTCP for network communication
+        private ClientTCP clientTCP;  // Instance of ClientTCP for network communication
 
         // Enum for different menu states
         public enum MenuState : byte
@@ -24,33 +24,42 @@ namespace MirageMUD_ClientWPF.View
             UseChar = 7,  // Use existing character
             Init = 8  // Initial state of the menu
         }
+
         public LoginView()
         {
-            InitializeComponent();
-            SetWindowPosition();
+            InitializeComponent();  // Initializes the components (UI elements) of the window
+            SetWindowPosition();  // Restores the saved window position or centers the window
 
             // Create a new instance of ClientTCP for new account procedure
             clientTCP = ClientTCP.Instance;
             clientTCP.ConnectToServer();  // Connect to the server
         }
+
+        // Handles the mouse down event for dragging the window
         private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
             {
-                DragMove();
+                DragMove();  // Allows the window to be dragged by clicking on the grid
             }
         }
+
+        // Minimizes the window when the minimize button is clicked
         private void btnMinimise_Click(object sender, RoutedEventArgs e)
         {
             WindowState = WindowState.Minimized;
         }
+
+        // Closes the application when the close button is clicked
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
-            Application.Current.Shutdown();
+            Application.Current.Shutdown();  // Shuts down the application
         }
+
+        // Handles login button click, validates input, and sends login data to the server
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-            // Save window position
+            // Save window position before proceeding
             SaveWindowPosition();
 
             string loginName = txtUsername.Text;  // Get the login name from the text box
@@ -60,7 +69,7 @@ namespace MirageMUD_ClientWPF.View
             {
                 if (clientTCP.PlayerSocket.Connected)
                 {
-                    clientTCP.SendLogin(txtUsername.Text, txtPassword.Password);  // Send login data to server
+                    clientTCP.SendLogin(txtUsername.Text, txtPassword.Password);  // Send login data to the server
                 }
             }
             else
@@ -83,39 +92,47 @@ namespace MirageMUD_ClientWPF.View
                 }
             }
         }
+
+        // Opens the new account creation window when the "New Account" label is clicked
         private void txtNewAccount_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            // Save window position
+            // Save the window position before switching views
             SaveWindowPosition();
 
-            // Create an instance of the new window
+            // Create an instance of the new window and show it
             App.NewAccViewInstance.Show();
 
-            // Optionally close the current window
+            // Hide the current window
             this.Hide();
         }
+
+        // Opens the settings window when the settings button is clicked
         private void btnSettings_Click(object sender, RoutedEventArgs e)
         {
-            // Save window position
+            // Save window position before opening the settings view
             SaveWindowPosition();
 
-            // Create an instance of the new window
+            // Create an instance of the settings window and show it
             App.SettingsViewInstance.Show();
 
-            // Optionally close the current window
+            // Hide the current window
             this.Hide();
         }
+
+        // Saves the current window position for future restoration
         private void SaveWindowPosition()
         {
             App.LastLeft = this.Left;
             App.LastTop = this.Top;
         }
+
+        // Restores the saved window position, or centers the window if no saved position exists
         private void SetWindowPosition()
         {
             if (!double.IsNaN(App.LastLeft) && !double.IsNaN(App.LastTop))
             {
-                this.Left = App.LastLeft;
-                this.Top = App.LastTop;
+                this.Left = App.LastLeft;  // Restore the horizontal position
+                this.Top = App.LastTop;  // Restore the vertical position
             }
             else
             {

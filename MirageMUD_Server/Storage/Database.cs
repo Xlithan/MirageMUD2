@@ -5,104 +5,102 @@ using System.Text.Json;
 
 namespace MirageMUD_Server.Storage
 {
+    // This class handles database-related operations, including file checks, account and character management
     internal class Database
     {
-        ServerTCP serverTCP;  // Instance of ClientTCP for network communication
+        private ServerTCP serverTCP;  // Instance of ClientTCP for network communication
 
+        // Constructor initializes the serverTCP instance
         public Database()
         {
             serverTCP = ServerTCP.Instance;
         }
+
         // Checks if a file exists at the given path
         public bool FileExist(string file_path)
         {
-            return File.Exists(file_path);
+            return File.Exists(file_path); // Return true if the file exists, otherwise false
         }
 
         // Checks if an account exists for the given username
         public bool AccountExist(string username)
         {
-            string filename = $"Accounts/{username}.json";
-            return File.Exists(filename);
+            string filename = $"Accounts/{username}.json"; // Construct the file path
+            return File.Exists(filename); // Return true if the account file exists
         }
+
+        // Checks if a character exists by searching for its name in a JSON file
         public bool CharacterExist(string characterName)
         {
-            string filePath = $"Accounts/charnames.json";
+            string filePath = $"Accounts/charnames.json"; // Path to the character names file
 
             if (!File.Exists(filePath))
             {
-                return false; // No character names file exists yet, so the name isn't taken
+                return false; // If the file doesn't exist, return false as no characters are present
             }
 
-            // Read the existing character names from the file
+            // Read and deserialize the character names from the JSON file
             var existingNames = JsonSerializer.Deserialize<List<string>>(File.ReadAllText(filePath));
 
-            // Check if the name already exists
+            // Check if the character name is already in the list
             return existingNames.Contains(characterName);
         }
 
         // Verifies if the provided password is correct for the specified account
         public bool PasswordOK(int index, string username, string password)
         {
-            string filename = $"Accounts/{username}.json";
+            string filename = $"Accounts/{username}.json"; // Path to the account file
             if (File.Exists(filename))
             {
-                string json = File.ReadAllText(filename);
-                STypes.Player[index] = JsonSerializer.Deserialize<STypes.AccountStruct>(json);
+                string json = File.ReadAllText(filename); // Read the account JSON data
+                STypes.Player[index] = JsonSerializer.Deserialize<STypes.AccountStruct>(json); // Deserialize to AccountStruct
             }
             else
             {
-                throw new FileNotFoundException("Account file not found.");
+                throw new FileNotFoundException("Account file not found."); // Exception if account file doesn't exist
             }
 
-            // Return true if passwords match, otherwise false
-            if (STypes.Player[index].Password == password)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            // Return true if the password matches, otherwise return false
+            return STypes.Player[index].Password == password;
         }
 
         // Adds a new account with the provided username, hashed password, and salt
         public void AddAccount(int index, string name, string hashedPassword, string salt)
         {
-            ClearPlayer(index);
-            STypes.Player[index].Login = name;
+            ClearPlayer(index); // Clear any existing player data
+            STypes.Player[index].Login = name; // Set the login name
             STypes.Player[index].Password = hashedPassword; // Store the hashed password
             STypes.Player[index].Salt = salt; // Store the salt
 
-            // Clear character data for all characters
+            // Clear character data for all character slots
             for (int i = 0; i < Constants.MAX_CHARS; i++)
             {
                 ClearChar(index, i);
             }
 
-            SavePlayer(index);
+            SavePlayer(index); // Save the player data to a file
         }
+
+        // Adds a new character to the player's account
         public void AddChar(int index, int charNum, string charName, int charGender, int charRace, int charClass, int charAvatar)
         {
             var player = STypes.Player[index];  // Get the player object
 
-            // Save character slot
-            STypes.Player[index].Character[charNum].Name = charName;
-            STypes.Player[index].Character[charNum].Gender = charGender;
-            STypes.Player[index].Character[charNum].Race = charRace;
-            STypes.Player[index].Character[charNum].Class = charClass;
-            STypes.Player[index].Character[charNum].Avatar = charAvatar;
+            // Assign values to the character's properties
+            player.Character[charNum].Name = charName;
+            player.Character[charNum].Gender = charGender;
+            player.Character[charNum].Race = charRace;
+            player.Character[charNum].Class = charClass;
+            player.Character[charNum].Avatar = charAvatar;
 
-            // Check if stats exist for this player in TempStats
+            // If temporary stats exist for the player, assign them to the character
             if (ServerTCP.TempStats.ContainsKey(index))
             {
-                // Get the stats for this player from TempStats
-                int[] stats = ServerTCP.TempStats[index];
+                int[] stats = ServerTCP.TempStats[index]; // Get stats from TempStats
 
-                // Assign stats to the character's CharacterStats property
-                var character = player.Character[charNum];
+                var character = player.Character[charNum]; // Reference to the character
 
-                // Assign stats from TempStats to the CharacterStats object
+                // Assign stats to the character's stats properties
                 character.CharacterStats.Strength = stats[0];
                 character.CharacterStats.Intelligence = stats[1];
                 character.CharacterStats.Dexterity = stats[2];
@@ -111,13 +109,13 @@ namespace MirageMUD_Server.Storage
                 character.CharacterStats.Charisma = stats[5];
             }
 
-            SavePlayer(index);
+            SavePlayer(index); // Save the updated player data
 
-            // Add the new character name to the JSON list
+            // Update the list of character names in the charnames.json file
             string jsonFilePath = $"Accounts/charnames.json";
             List<string> charNames = new List<string>();
 
-            // Check if the file exists, if it does, read it and parse the list
+            // If the file exists, read and parse the list of character names
             if (File.Exists(jsonFilePath))
             {
                 string json = File.ReadAllText(jsonFilePath);
@@ -127,38 +125,37 @@ namespace MirageMUD_Server.Storage
             // Add the new character name to the list
             charNames.Add(charName);
 
-            // Serialize the list back to JSON
+            // Serialize the updated list and save it back to the file
             string updatedJson = JsonSerializer.Serialize(charNames, new JsonSerializerOptions { WriteIndented = true });
-
-            // Save the updated list to the file
             File.WriteAllText(jsonFilePath, updatedJson);
         }
 
         // Clears the player login and password
         public void ClearPlayer(int index)
         {
-            STypes.Player[index].Login = "";
-            STypes.Player[index].Password = "";
+            STypes.Player[index].Login = ""; // Clear the login
+            STypes.Player[index].Password = ""; // Clear the password
         }
 
-        // Clears the character data for a specified character
+        // Clears the character data for a specified character slot
         public void ClearChar(int index, int charnum)
         {
-            STypes.Player[index].Character[charnum].Name = string.Empty;
-            STypes.Player[index].Character[charnum].Class = 1;
+            STypes.Player[index].Character[charnum].Name = string.Empty; // Clear character name
+            STypes.Player[index].Character[charnum].Class = 1; // Set the class to default
         }
 
         // Saves the player data to a JSON file
         public void SavePlayer(int index)
         {
-            // Ensure the directory exists
+            // Ensure the "Accounts" directory exists
             Directory.CreateDirectory("Accounts");
 
-            string filename = $"Accounts/{STypes.Player[index].Login}.json";
+            string filename = $"Accounts/{STypes.Player[index].Login}.json"; // File path for player data
 
             // Serialize the AccountStruct to JSON
             string json = JsonSerializer.Serialize(STypes.Player[index], new JsonSerializerOptions { WriteIndented = true });
 
+            // Save the serialized data to the file
             File.WriteAllText(filename, json);
             Console.WriteLine($"Saved player {STypes.Player[index].Login} data to JSON.");
         }
@@ -166,17 +163,17 @@ namespace MirageMUD_Server.Storage
         // Loads the player data from a JSON file
         public void LoadPlayer(int index, string name)
         {
-            string filename = $"Accounts/{name}.json";
+            string filename = $"Accounts/{name}.json"; // File path for player data
             if (File.Exists(filename))
             {
-                string json = File.ReadAllText(filename);
-                STypes.Player[index] = JsonSerializer.Deserialize<STypes.AccountStruct>(json);
+                string json = File.ReadAllText(filename); // Read the player data from the file
+                STypes.Player[index] = JsonSerializer.Deserialize<STypes.AccountStruct>(json); // Deserialize to AccountStruct
 
                 Console.WriteLine($"Loaded player {STypes.Player[index].Login} data.");
             }
             else
             {
-                throw new FileNotFoundException("Account file not found.");
+                throw new FileNotFoundException("Account file not found."); // Exception if file is not found
             }
         }
 
@@ -184,21 +181,20 @@ namespace MirageMUD_Server.Storage
         public void UnloadPlayer(int index)
         {
             Console.WriteLine($"{STypes.Player[index].Login} logged out.");
-            STypes.Player[index] = new STypes.AccountStruct();
+            STypes.Player[index] = new STypes.AccountStruct(); // Reset the player's data
         }
 
-        // Retrieves the hashed password for the specified user
+        // Retrieves the hashed password for the specified user from the account file
         public string GetHashedPassword(string username)
         {
-            string jsonFilePath = Path.Combine("Accounts", $"{username}.json"); // Assumes Accounts folder contains the user JSON files
+            string jsonFilePath = Path.Combine("Accounts", $"{username}.json"); // File path for the user account
 
             if (!File.Exists(jsonFilePath))
             {
-                // If the file does not exist, return null
-                return null;
+                return null; // Return null if the account file doesn't exist
             }
 
-            // Read the JSON file
+            // Read the JSON content from the file
             string jsonContent = File.ReadAllText(jsonFilePath);
 
             // Parse the JSON content
@@ -206,29 +202,28 @@ namespace MirageMUD_Server.Storage
             {
                 JsonElement root = doc.RootElement;
 
-                // Return the password field (which should be the hashed password)
+                // Return the hashed password if it exists in the file
                 if (root.TryGetProperty("Password", out JsonElement passwordElement))
                 {
                     return passwordElement.GetString();
                 }
             }
 
-            // If the password is not found, return null
+            // Return null if the password was not found in the file
             return null;
         }
 
-        // Retrieves the salt for the specified user
+        // Retrieves the salt for the specified user from the account file
         public string GetSalt(string username)
         {
-            string jsonFilePath = Path.Combine("Accounts", $"{username}.json"); // Assumes Accounts folder contains the user JSON files
+            string jsonFilePath = Path.Combine("Accounts", $"{username}.json"); // File path for the user account
 
             if (!File.Exists(jsonFilePath))
             {
-                // If the file does not exist, return null
-                return null;
+                return null; // Return null if the account file doesn't exist
             }
 
-            // Read the JSON file
+            // Read the JSON content from the file
             string jsonContent = File.ReadAllText(jsonFilePath);
 
             // Parse the JSON content
@@ -236,14 +231,14 @@ namespace MirageMUD_Server.Storage
             {
                 JsonElement root = doc.RootElement;
 
-                // Return the salt field (if it exists)
+                // Return the salt if it exists in the file
                 if (root.TryGetProperty("Salt", out JsonElement saltElement))
                 {
                     return saltElement.GetString();
                 }
             }
 
-            // If the salt is not found, return null
+            // Return null if the salt was not found in the file
             return null;
         }
     }

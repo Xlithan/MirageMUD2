@@ -1,14 +1,12 @@
-﻿using System;
+﻿using Bindings;
 using System.Diagnostics;
 using System.IO;
 using System.Net.Sockets;
 using System.Windows;
-using System.Xml.Linq;
-using Bindings;
-using MirageMUD_ClientWPF.Model.Types;
 
 namespace MirageMUD_ClientWPF.Model.Network
 {
+    // Singleton class that manages the TCP client connection to the server
     internal class ClientTCP
     {
         private static ClientTCP instance;
@@ -28,6 +26,7 @@ namespace MirageMUD_ClientWPF.Model.Network
 
         // Flags to manage the connection state
         private bool connecting;
+
         private bool connected;
 
         // Connects to the server at the specified IP address and port
@@ -69,6 +68,7 @@ namespace MirageMUD_ClientWPF.Model.Network
             }
             catch
             {
+                // If the connection failed, show a message box and offer to retry
                 MessageBoxResult result = MessageBox.Show(
                     "No connection to server. Do you want to retry?",
                     "Connection Error",
@@ -83,15 +83,14 @@ namespace MirageMUD_ClientWPF.Model.Network
                 }
                 else
                 {
-                    // Do nothing
+                    // Do nothing if the user cancels
                 }
-
-                // Update connection status label
             }
 
             // Check if the connection was unsuccessful
             if (PlayerSocket.Connected == false)
             {
+                // Set flags to indicate no connection
                 connecting = false;
                 connected = false;
                 return;
@@ -111,9 +110,6 @@ namespace MirageMUD_ClientWPF.Model.Network
                 myStream.BeginRead(asyncBuff, 0, 8192, OnReceive, null);
                 connected = true;  // Set the connected flag
                 connecting = false;  // Set the connecting flag to false
-
-                //frmMenu.Default.RunOnUIThread(() =>
-                    //frmMenu.Default.lblStatus.Text = "Connected");
             }
         }
 
@@ -161,6 +157,7 @@ namespace MirageMUD_ClientWPF.Model.Network
             }
         }
 
+        // Disconnect from the server
         private void Disconnect()
         {
             // Close the network stream and the socket
@@ -182,8 +179,6 @@ namespace MirageMUD_ClientWPF.Model.Network
 
             // Optionally, notify the user about the disconnection (e.g., message box or logging)
             MessageBox.Show("Connection lost to the server.", "Disconnected", MessageBoxButton.OK, MessageBoxImage.Error);
-            //frmMenu.Default.RunOnUIThread(() =>
-                    //frmMenu.Default.lblStatus.Text = "Disconnected");
         }
 
         // Sends the specified byte array of data to the server
@@ -255,12 +250,13 @@ namespace MirageMUD_ClientWPF.Model.Network
             buffer.Dispose();
         }
 
+        // Sends a request to the server to add a new character
         public void SendNewCharacter(string loginName, string charName, int charGender, int raceID, int classID, int charAvatar, int charNum)
         {
-            // Create a new packet buffer for the account creation data
+            // Create a new packet buffer for the new character data
             PacketBuffer buffer = new PacketBuffer();
 
-            // Add the new account request packet identifier and the account details
+            // Add the new character request packet identifier and the character details
             buffer.AddInteger((int)ClientPackets.CAddChar);
             buffer.AddString(loginName);
             buffer.AddString(charName);
@@ -270,23 +266,23 @@ namespace MirageMUD_ClientWPF.Model.Network
             buffer.AddInteger(charAvatar);
             buffer.AddInteger(charNum);
 
-            // Send the new account data to the server
+            // Send the character data to the server
             SendData(buffer.ToArray());
 
             // Dispose of the buffer after sending
             buffer.Dispose();
         }
 
-        // Sends a request to the server to reroll the stats for a new character
+        // Sends a request to reroll the stats for a new character
         public void SendRerollRequest()
         {
-            // Create a new packet buffer for the account creation data
+            // Create a new packet buffer for the reroll request
             PacketBuffer buffer = new PacketBuffer();
 
-            // Add the new account request packet identifier and the account details
+            // Add the reroll request packet identifier
             buffer.AddInteger((int)ClientPackets.CReRoll);
 
-            // Send the new account data to the server
+            // Send the reroll request data to the server
             SendData(buffer.ToArray());
 
             // Dispose of the buffer after sending
