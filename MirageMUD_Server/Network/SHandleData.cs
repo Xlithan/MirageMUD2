@@ -3,6 +3,7 @@ using System.Security.Cryptography;
 using System.Text;
 using MirageMUD_Server.Storage;
 using MirageMUD_Server.Utilities;
+using MirageMUD_Server.Types;
 
 namespace MirageMUD_Server.Network
 {
@@ -192,31 +193,40 @@ namespace MirageMUD_Server.Network
                 // Check if the username exists in the database
                 if (db.AccountExist(username))
                 {
-                    // Retrieve the hashed password and salt from the database
-                    string storedHashedPassword = db.GetHashedPassword(username);
-                    string storedSalt = db.GetSalt(username);
-
-                    // Combine the input password with the stored salt
-                    string passwordWithSalt = password + storedSalt;
-
-                    // Hash the input password with salt
-                    using (SHA256 sha256 = SHA256.Create())
+                    // If the client slot has a null socket
+                    if (serverTCP.IsLoggedIn(username))
                     {
-                        byte[] inputHashedPassword = sha256.ComputeHash(Encoding.UTF8.GetBytes(passwordWithSalt));
+                        // Prevent duplicate account logins
+                        serverTCP.AlertMsg(Index, "This account is already logged in.");
+                    }
+                    else
+                    {
+                        // Retrieve the hashed password and salt from the database
+                        string storedHashedPassword = db.GetHashedPassword(username);
+                        string storedSalt = db.GetSalt(username);
 
-                        // Compare the hashed password with the stored hashed password
-                        if (Convert.ToBase64String(inputHashedPassword) == storedHashedPassword)
+                        // Combine the input password with the stored salt
+                        string passwordWithSalt = password + storedSalt;
+
+                        // Hash the input password with salt
+                        using (SHA256 sha256 = SHA256.Create())
                         {
-                            // Can log in
-                            db.LoadPlayer(Index, username);
-                            serverTCP.SendChars(Index);
-                            // SendMaxes();
-                            Console.WriteLine(TranslationManager.Instance.GetTranslation("user.logged_in"), username, ServerTCP.Clients[Index].IP);
-                        }
-                        else
-                        {
-                            // Incorrect password, send the error
-                            serverTCP.AlertMsg(Index, "Incorrect password for this account.");
+                            byte[] inputHashedPassword = sha256.ComputeHash(Encoding.UTF8.GetBytes(passwordWithSalt));
+
+                            // Compare the hashed password with the stored hashed password
+                            if (Convert.ToBase64String(inputHashedPassword) == storedHashedPassword)
+                            {
+                                // Can log in
+                                db.LoadPlayer(Index, username);
+                                serverTCP.SendChars(Index);
+                                // SendMaxes();
+                                Console.WriteLine(TranslationManager.Instance.GetTranslation("user.logged_in"), username, ServerTCP.Clients[Index].IP);
+                            }
+                            else
+                            {
+                                // Incorrect password, send the error
+                                serverTCP.AlertMsg(Index, "Incorrect password for this account.");
+                            }
                         }
                     }
                 }

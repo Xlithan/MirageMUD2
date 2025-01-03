@@ -215,6 +215,16 @@ namespace MirageMUD_Server.Network
 
             buffer.Dispose();
         }
-
+        public bool IsLoggedIn(string username)
+        {
+            for (int i = 0; i < Constants.MAX_PLAYERS; i++)
+            {
+                if (string.Equals(STypes.Player[i].Login, username, StringComparison.OrdinalIgnoreCase))
+                {
+                    return true; // Duplicate found, return true
+                }
+            }
+            return false; // No duplicate found, return false
+        }
     }
 }
