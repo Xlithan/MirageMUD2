@@ -168,6 +168,9 @@ namespace MirageMUD_Server.Network
                         db.AddAccount(Index, username, Convert.ToBase64String(hashedPassword), Convert.ToBase64String(salt));
                         Console.WriteLine(TranslationManager.Instance.GetTranslation("user.account_created"), username);
                         serverTCP.SendAccountCreated(Index); // Notify the client that the account is created
+
+                        // Clear player data from the database and log the player out so that we can log in with the new account.
+                        db.UnloadPlayer(Index);
                     }
                     else
                     {
