@@ -174,7 +174,7 @@ namespace MirageMUD_Server.Network
                     else
                     {
                         // If account already exists, send an error message
-                        serverTCP.AlertMsg(Index, "Username already exists.");
+                        serverTCP.AlertMsg(Index, "account_exists");
                     }
                 }
             }
@@ -200,7 +200,7 @@ namespace MirageMUD_Server.Network
                     if (serverTCP.IsLoggedIn(username))
                     {
                         // Prevent duplicate account logins and notify the client
-                        serverTCP.AlertMsg(Index, "This account is already logged in.");
+                        serverTCP.AlertMsg(Index, "account_loggedin");
                     }
                     else
                     {
@@ -228,7 +228,7 @@ namespace MirageMUD_Server.Network
                             else
                             {
                                 // Incorrect password, send an error message
-                                serverTCP.AlertMsg(Index, "Incorrect password for this account.");
+                                serverTCP.AlertMsg(Index, "incorrect_password");
                             }
                         }
                     }
@@ -236,7 +236,7 @@ namespace MirageMUD_Server.Network
                 else
                 {
                     // Username does not exist in the database, send an error message
-                    serverTCP.AlertMsg(Index, "Account does not exist.");
+                    serverTCP.AlertMsg(Index, "account_notexist");
                 }
             }
         }
@@ -274,7 +274,7 @@ namespace MirageMUD_Server.Network
                     if (db.CharacterExist(charName))
                     {
                         // If the character name already exists, send an error message
-                        serverTCP.AlertMsg(Index, "This character name already exists.");
+                        serverTCP.AlertMsg(Index, "character_exists");
                     }
                     else
                     {
@@ -288,7 +288,7 @@ namespace MirageMUD_Server.Network
                 else
                 {
                     // If the account doesn't exist, send an error message
-                    serverTCP.AlertMsg(Index, "Account does not exist.");
+                    serverTCP.AlertMsg(Index, "account_notexist");
                 }
             }
         }

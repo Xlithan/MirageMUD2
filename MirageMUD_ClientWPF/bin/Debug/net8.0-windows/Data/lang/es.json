@@ -1,119 +1,43 @@
 {
   "messages": {
-    "login_prompt": "¡Por favor, ingrese su nombre de usuario y contraseña!",
-    "login_name_prompt": "¡Por favor, ingrese su nombre de usuario!",
-    "password_prompt": "¡Por favor, ingrese su contraseña!",
-	"language_updated": "¡Idioma actualizado con éxito!",
-	"invalid_language": "Idioma seleccionado no válido."
+    "login_prompt": "¡Por favor ingrese su nombre de usuario y contraseña!",
+    "login_name_prompt": "¡Por favor ingrese su nombre de usuario!",
+    "password_prompt": "¡Por favor ingrese su contraseña!",
+    "settings_updated": "¡Configuraciones actualizadas exitosamente!",
+    "invalid_language": "Idioma seleccionado no válido.",
+    "no_connection": "No hay conexión con el servidor. ¿Desea reintentar?",
+    "connection_lost": "Conexión perdida con el servidor.",
+    "select_avatar": "Por favor seleccione un avatar antes de guardar.",
+    "char_notselected": "Debe seleccionar un personaje.",
+    "select_emptyslot": "Debe seleccionar un espacio vacío.",
+    "password_match": "¡Las contraseñas no coinciden!",
+    "no_loginname": "¡Por favor ingrese un nombre de usuario!",
+    "no_password": "¡Por favor ingrese una contraseña!",
+    "no_passwordconfirm": "¡Por favor confirme su contraseña!",
+    "no_nocharname": "¡Por favor ingrese un nombre de personaje!"
   },
-  "controls": {
-    "btnExit": {
-      "text": "Salir del Juego"
-    },
-    "btnHome": {
-      "text": "Inicio"
-    },
-    "btnNewAcc": {
-      "text": "Cuenta Nueva"
-    },
-    "btnLogin": {
-      "text": "Iniciar sesión"
-    },
-    "btnIPConfig": {
-      "text": "Configuración de IP"
-    },
-    "btnGameOptions": {
-      "text": "Opciones del Juego"
-    },
-    "btnCredits": {
-      "text": "Créditos"
-    },
-    "lblAccountName": {
-      "text": "No Conectado"
-    },
-    "lblTNewAcc": {
-      "text": "Cuenta Nueva"
-    },
-    "lblLoginDesc": {
-      "text": "Ingresa un nombre de cuenta y contraseña."
-    },
-    "lblNewAccDesc": {
-      "text": "Ingresa un nombre de cuenta y una contraseña. Puedes elegir el nombre que desees, no hay restricciones de nombres."
-    },
-    "lblNewAccName": {
-      "text": "Nombre:"
-    },
-    "lblNewAccPass": {
-      "text": "Contraseña:"
-    },
-    "lblNewAccConfirm": {
-      "text": "Confirmar Contraseña:"
-    },
-    "lblTLogin": {
-      "text": "Iniciar sesión"
-    },
-    "lblLoginName": {
-      "text": "Nombre:"
-    },
-    "lblLoginPassword": {
-      "text": "Contraseña:"
-    },
-    "chkRemember": {
-      "text": "Recordarme"
-    },
-    "lblTExitGame": {
-      "text": "Salir del Juego"
-    },
-    "lblExitDesc": {
-      "text": "Por favor, confirma que deseas salir del juego."
-    },
-    "btnExitConfirm": {
-      "text": "Confirmar"
-    },
-    "lblTIPConfig": {
-      "text": "Configuración de IP"
-    },
-    "lblIPHost": {
-      "text": "Host:"
-    },
-    "lblIPPort": {
-      "text": "Puerto:"
-    },
-    "btnIPConfSave": {
-      "text": "Guardar"
-    },
-    "lblTCredits": {
-      "text": "Créditos"
-    },
-    "lblCreditsDesc": {
-      "text": "MirageSource siempre ha sido y será un esfuerzo colectivo de la comunidad de MirageSource desde su concepción."
-    },
-    "lblCreditsThanks": {
-      "text": "Agradecimientos Especiales:"
-    },
-    "lblTGameOptions": {
-      "text": "Opciones del Juego"
-    },
-    "lblOptMusic": {
-      "text": "Música:"
-    },
-    "lblOptSound": {
-      "text": "Sonido:"
-    },
-    "lblOptFont": {
-      "text": "Fuente:"
-    },
-    "lblOptLang": {
-      "text": "Idioma:"
-    },
-    "btnOptionsSave": {
-      "text": "Guardar"
-    },
-    "lblTWelcome": {
-      "text": "Bienvenido"
-    },
-    "lblWelcomeDesc": {
-      "text": "Bienvenido a MirageMUD 2, el motor MUD gráfico más avanzado y autónomo del planeta.\n\nUsa la navegación izquierda para crear una cuenta nueva o iniciar sesión en el servidor."
-    }
+  "errors": {
+    "folder_notexist": "¡La carpeta no existe!",
+    "loading_avatars": "Error al cargar los avatares: {0}",
+    "saving_avatar": "Error al guardar el avatar: {0}",
+    "resetting_avatar": "Error al restablecer el avatar: {0}"
+  },
+  "titles": {
+    "connection_error": "Error de conexión",
+    "disconnected": "Desconectado",
+    "error": "Error",
+    "warning": "Advertencia",
+    "alert": "Alerta"
+  },
+  "alertmsg": {
+    "account_exists": "El nombre de usuario ya existe.",
+    "account_loggedin": "Esta cuenta ya está conectada.",
+    "incorrect_password": "Contraseña incorrecta para esta cuenta.",
+    "account_notexist": "La cuenta no existe.",
+    "character_exists": "Este nombre de personaje ya existe."
+  },
+  "user": {
+    "account_created": "¡La cuenta ha sido creada!",
+    "char_created": "¡El personaje ha sido creado!"
   }
 }

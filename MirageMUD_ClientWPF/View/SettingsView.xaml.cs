@@ -125,19 +125,19 @@ namespace MirageMUD_ClientWPF.View
             {
                 string configFilePath = "Data/config.json";  // Path to the configuration file
 
-                // Access the TranslationManager instance for dynamic language updates
-                TranslationManager translator = TranslationManager.Instance;
-
-                // Set the language code and load the corresponding translations
-                TranslationManager.LanguageCode = newLanguageCode;
-                translator.LoadTranslations(newLanguageCode);
-
                 // Update settings in the configuration file
                 ConfigReader.UpdateSetting(configFilePath, "IpAddress", txtIP.Text);
                 ConfigReader.UpdateSetting(configFilePath, "Port", txtPort.Text);
                 ConfigReader.UpdateSetting(configFilePath, "Music", chkMusic.IsChecked ?? false);
                 ConfigReader.UpdateSetting(configFilePath, "Sound", chkSound.IsChecked ?? false);
                 ConfigReader.UpdateSetting(configFilePath, "LanguageCode", newLanguageCode);
+
+                // Access the singleton instance of the TranslationManager
+                TranslationManager translator = TranslationManager.Instance;
+
+                // Set the language code and load the corresponding translations
+                TranslationManager.LanguageCode = newLanguageCode;
+                translator.LoadTranslations(newLanguageCode);
 
                 // Show a message box with the translated message indicating settings were saved
                 string messageKey = "messages.settings_updated";

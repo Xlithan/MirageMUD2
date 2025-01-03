@@ -65,7 +65,9 @@ namespace MirageMUD_ClientWPF.View
         {
             if (!Directory.Exists(folderPath))
             {
-                MessageBox.Show("Folder does not exist!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                string msg = TranslationManager.Instance.GetTranslation($"errors.folder_notexist");
+                string title = TranslationManager.Instance.GetTranslation($"titles.error");
+                MessageBox.Show(msg, title, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -142,7 +144,9 @@ namespace MirageMUD_ClientWPF.View
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error loading avatars: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                string msg = TranslationManager.Instance.GetTranslation($"errors.loading_avatars", ex.Message);
+                string title = TranslationManager.Instance.GetTranslation($"titles.error");
+                MessageBox.Show(msg, title, MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
             AvatarCollection.Children.Add(grid);  // Add the grid of avatars to the parent container
@@ -174,7 +178,9 @@ namespace MirageMUD_ClientWPF.View
         {
             if (string.IsNullOrEmpty(_selectedAvatarPath))
             {
-                MessageBox.Show("Please select an avatar before saving.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                string msg = TranslationManager.Instance.GetTranslation($"messages.select_avatar");
+                string title = TranslationManager.Instance.GetTranslation($"titles.warning");
+                MessageBox.Show(msg, title, MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
@@ -196,7 +202,9 @@ namespace MirageMUD_ClientWPF.View
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error saving avatar: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                string msg = TranslationManager.Instance.GetTranslation($"errors.saving_avatar", ex.Message);
+                string title = TranslationManager.Instance.GetTranslation($"titles.error");
+                MessageBox.Show(msg, title, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

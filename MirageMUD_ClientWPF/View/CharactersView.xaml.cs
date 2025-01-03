@@ -101,7 +101,9 @@ namespace MirageMUD_ClientWPF.View
             else
             {
                 // Show an error message if no character is selected
-                MessageBox.Show("You must select a character.", "Alert", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                string msg = TranslationManager.Instance.GetTranslation($"messages.char_notselected");
+                string title = TranslationManager.Instance.GetTranslation($"titles.alert");
+                MessageBox.Show(msg, title, MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
         }
 
@@ -132,7 +134,9 @@ namespace MirageMUD_ClientWPF.View
             else
             {
                 // Show an error message if an empty slot is not selected
-                MessageBox.Show("You must select an empty slot.", "Alert", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                string msg = TranslationManager.Instance.GetTranslation($"messages.select_emptyslot");
+                string title = TranslationManager.Instance.GetTranslation($"titles.alert");
+                MessageBox.Show(msg, title, MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
         }
 
@@ -157,7 +161,9 @@ namespace MirageMUD_ClientWPF.View
             catch (Exception ex)
             {
                 // Show an error message if there is an issue with resetting the avatar
-                MessageBox.Show($"Error resetting avatar: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                string msg = TranslationManager.Instance.GetTranslation($"error.resetting_avatar", ex.Message);
+                string title = TranslationManager.Instance.GetTranslation($"titles.error");
+                MessageBox.Show(msg, title, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

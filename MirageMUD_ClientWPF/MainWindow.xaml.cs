@@ -1,4 +1,5 @@
 ﻿using MirageMUD_ClientWPF.Model.Network;
+using MirageMUD_ClientWPF.Model.Utilities;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
@@ -20,6 +21,18 @@ namespace MirageMUD_ClientWPF
 
             _cHandleData = new CHandleData(); // Creates a new instance of CHandleData
             //_cHandleData.InitialiseMessages(); // (Commented out) Initializes messages if needed
+
+            // Load language code from the config file using the ConfigReader
+            string languageCode = ConfigReader.GetLanguageCode("Data/config.json");
+
+            // Access the singleton instance of TranslationManager
+            TranslationManager translator = TranslationManager.Instance;
+
+            // Set the language code in the TranslationManager
+            TranslationManager.LanguageCode = languageCode;  // Set the language code to ensure it's used
+
+            // Dynamically load the corresponding language file
+            translator.LoadTranslations(languageCode); // Pass language code to load the file
         }
 
         // Event handler for the window's Loaded event

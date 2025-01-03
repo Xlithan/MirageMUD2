@@ -70,7 +70,9 @@ namespace MirageMUD_ClientWPF.View
                 else
                 {
                     // Show error if passwords do not match
-                    MessageBox.Show("Passwords do not match!", "Error", MessageBoxButton.OK);
+                    string msg = TranslationManager.Instance.GetTranslation($"messages.password_match");
+                    string title = TranslationManager.Instance.GetTranslation($"titles.error");
+                    MessageBox.Show(msg, title, MessageBoxButton.OK);
                 }
             }
             else
@@ -78,15 +80,21 @@ namespace MirageMUD_ClientWPF.View
                 // Show specific error messages for missing fields
                 if (string.IsNullOrWhiteSpace(name))
                 {
-                    MessageBox.Show("Please enter a login name!", "Error", MessageBoxButton.OK);
+                    string msg = TranslationManager.Instance.GetTranslation($"messages.no_loginname");
+                    string title = TranslationManager.Instance.GetTranslation($"titles.error");
+                    MessageBox.Show(msg, title, MessageBoxButton.OK);
                 }
                 else if (string.IsNullOrWhiteSpace(pass))
                 {
-                    MessageBox.Show("Please enter a password!", "Error", MessageBoxButton.OK);
+                    string msg = TranslationManager.Instance.GetTranslation($"messages.no_password");
+                    string title = TranslationManager.Instance.GetTranslation($"titles.error");
+                    MessageBox.Show(msg, title, MessageBoxButton.OK);
                 }
                 else if (string.IsNullOrWhiteSpace(confirmPass))
                 {
-                    MessageBox.Show("Please confirm your password!", "Error", MessageBoxButton.OK);
+                    string msg = TranslationManager.Instance.GetTranslation($"messages.no_passwordconfirm");
+                    string title = TranslationManager.Instance.GetTranslation($"titles.error");
+                    MessageBox.Show(msg, title, MessageBoxButton.OK);
                 }
                 else
                 {

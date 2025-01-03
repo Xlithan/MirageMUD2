@@ -77,18 +77,21 @@ namespace MirageMUD_ClientWPF.View
                 // Show error messages based on missing fields
                 if (string.IsNullOrWhiteSpace(loginName) && string.IsNullOrWhiteSpace(loginPass))
                 {
-                    string translatedMessage = TranslationManager.Instance.GetTranslation("messages.login_prompt");
-                    MessageBox.Show(translatedMessage, "Error", MessageBoxButton.OK);
+                    string msg = TranslationManager.Instance.GetTranslation($"messages.login_prompt");
+                    string title = TranslationManager.Instance.GetTranslation($"titles.error");
+                    MessageBox.Show(msg, title, MessageBoxButton.OK);
                 }
                 else if (string.IsNullOrWhiteSpace(loginName))
                 {
-                    string translatedMessage = TranslationManager.Instance.GetTranslation("messages.login_name_prompt");
-                    MessageBox.Show(translatedMessage, "Error", MessageBoxButton.OK);
+                    string msg = TranslationManager.Instance.GetTranslation($"messages.login_name_prompt");
+                    string title = TranslationManager.Instance.GetTranslation($"titles.error");
+                    MessageBox.Show(msg, title, MessageBoxButton.OK);
                 }
                 else if (string.IsNullOrWhiteSpace(loginPass))
                 {
-                    string translatedMessage = TranslationManager.Instance.GetTranslation("messages.password_prompt");
-                    MessageBox.Show(translatedMessage, "Error", MessageBoxButton.OK);
+                    string msg = TranslationManager.Instance.GetTranslation($"messages.password_prompt");
+                    string title = TranslationManager.Instance.GetTranslation($"titles.error");
+                    MessageBox.Show(msg, title, MessageBoxButton.OK);
                 }
             }
         }

@@ -69,9 +69,11 @@ namespace MirageMUD_ClientWPF.Model.Network
             catch
             {
                 // If the connection failed, show a message box and offer to retry
+                string msg = TranslationManager.Instance.GetTranslation($"messages.no_connection");
+                string title = TranslationManager.Instance.GetTranslation($"titles.connection_error");
                 MessageBoxResult result = MessageBox.Show(
-                    "No connection to server. Do you want to retry?",
-                    "Connection Error",
+                    msg,
+                    title,
                     MessageBoxButton.OKCancel,   // Correct enum for WPF
                     MessageBoxImage.Error           // Correct enum for WPF
                 );
@@ -178,7 +180,9 @@ namespace MirageMUD_ClientWPF.Model.Network
             connecting = false;
 
             // Optionally, notify the user about the disconnection (e.g., message box or logging)
-            MessageBox.Show("Connection lost to the server.", "Disconnected", MessageBoxButton.OK, MessageBoxImage.Error);
+            string msg = TranslationManager.Instance.GetTranslation($"messages.connection_lost");
+            string title = TranslationManager.Instance.GetTranslation($"titles.disconnected");
+            MessageBox.Show(msg, title, MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         // Sends the specified byte array of data to the server

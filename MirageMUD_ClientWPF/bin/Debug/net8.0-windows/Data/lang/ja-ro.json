@@ -1,119 +1,43 @@
 {
   "messages": {
-    "login_prompt": "Rōguin'umei to pasuwādo o nyūryoku shite kudasai!",
-    "login_name_prompt": "Rōguin'umei o nyūryoku shite kudasai!",
+    "login_prompt": "Akaunto mēru to pasuwādo o nyūryoku shite kudasai!",
+    "login_name_prompt": "Akaunto mēru o nyūryoku shite kudasai!",
     "password_prompt": "Pasuwādo o nyūryoku shite kudasai!",
-	"language_updated": "Gengo ga seikou ni kōshin sa remashita!",
-	"invalid_language": "Mujun shita gengo ga sentaku sa remashita."
+    "settings_updated": "Settei ga seikō ni kōshin saremashita!",
+    "invalid_language": "Furēgo ga arimasen.",
+    "no_connection": "Sābā ni tsūshin ga dekimasen. Saisei shimasu ka?",
+    "connection_lost": "Sābā to no setsuzoku ga kieteshimatta.",
+    "select_avatar": "Hozon suru mae ni avatar o sentaku shite kudasai.",
+    "char_notselected": "Pāsōn o sentaku suru hitsuyō ga arimasu.",
+    "select_emptyslot": "Kara no suto no sentaku ga hitsuyō desu.",
+    "password_match": "Pasuwādo ga atatakai desu!",
+    "no_loginname": "Akaunto mēru o nyūryoku shite kudasai!",
+    "no_password": "Pasuwādo o nyūryoku shite kudasai!",
+    "no_passwordconfirm": "Pasuwādo o ninshiki shimasu!",
+    "no_nocharname": "Pāsōn o nyūryoku shite kudasai!"
   },
-  "controls": {
-    "btnExit": {
-      "text": "Gēmu o shōkō suru"
-    },
-    "btnHome": {
-      "text": "Hōmu"
-    },
-    "btnNewAcc": {
-      "text": "Atarashī akaundo"
-    },
-    "btnLogin": {
-      "text": "Roguin"
-    },
-    "btnIPConfig": {
-      "text": "IP kīgō"
-    },
-    "btnGameOptions": {
-      "text": "Gēmu no opushon"
-    },
-    "btnCredits": {
-      "text": "Kurejittsu"
-    },
-    "lblAccountName": {
-      "text": "Roguin shiteimasen"
-    },
-    "lblTNewAcc": {
-      "text": "Atarashī akaundo"
-    },
-    "lblLoginDesc": {
-      "text": "Akaundo meimei to pasuwādo o nyūryoku shite kudasai."
-    },
-    "lblNewAccDesc": {
-      "text": "Akaundo meimei to pasuwādo o nyūryoku shite kudasai. Namae wa jiyū ni erabu koto ga dekimasu."
-    },
-    "lblNewAccName": {
-      "text": "Namae:"
-    },
-    "lblNewAccPass": {
-      "text": "Pasuwādo:"
-    },
-    "lblNewAccConfirm": {
-      "text": "Pasuwādo no kakunin:"
-    },
-    "lblTLogin": {
-      "text": "Roguin"
-    },
-    "lblLoginName": {
-      "text": "Namae:"
-    },
-    "lblLoginPassword": {
-      "text": "Pasuwādo:"
-    },
-    "chkRemember": {
-      "text": "Watashi o oboemasu"
-    },
-    "lblTExitGame": {
-      "text": "Gēmu o shōkō suru"
-    },
-    "lblExitDesc": {
-      "text": "Gēmu o shōkō suru koto o kakunin shite kudasai."
-    },
-    "btnExitConfirm": {
-      "text": "Kakunin"
-    },
-    "lblTIPConfig": {
-      "text": "IP kīgō"
-    },
-    "lblIPHost": {
-      "text": "Hosto:"
-    },
-    "lblIPPort": {
-      "text": "Pōto:"
-    },
-    "btnIPConfSave": {
-      "text": "Hozon"
-    },
-    "lblTCredits": {
-      "text": "Kurejittsu"
-    },
-    "lblCreditsDesc": {
-      "text": "MirageSource wa, MirageSource community no dōryoku ni yotte tsukuriageta mono desu."
-    },
-    "lblCreditsThanks": {
-      "text": "Arigatō gozaimasu:"
-    },
-    "lblTGameOptions": {
-      "text": "Gēmu no opushon"
-    },
-    "lblOptMusic": {
-      "text": "Ongaku:"
-    },
-    "lblOptSound": {
-      "text": "Oto:"
-    },
-    "lblOptFont": {
-      "text": "Fonto:"
-    },
-    "lblOptLang": {
-      "text": "Gengo:"
-    },
-    "btnOptionsSave": {
-      "text": "Hozon"
-    },
-    "lblTWelcome": {
-      "text": "Yōkoso"
-    },
-    "lblWelcomeDesc": {
-      "text": "MirageMUD 2 ni yōkoso, sekai de mottomo kōdo na gurafikaru MUD enjini desu.\n\nHidarite no kantan na navi gēshon o shiyō shite, atarashī akaundo o tsukurimashita."
-    }
+  "errors": {
+    "folder_notexist": "Fōruda wa arimasen!",
+    "loading_avatars": "Avatar no rōdo chū: {0}",
+    "saving_avatar": "Avatar no hōzon ni shippai shimasu: {0}",
+    "resetting_avatar": "Avatar no risetto ni shippai shimasu: {0}"
+  },
+  "titles": {
+    "connection_error": "Tsūshin no shippai",
+    "disconnected": "Ketsuzoku ga nakatta",
+    "error": "Shippai",
+    "warning": "Keikoku",
+    "alert": "Arēto"
+  },
+  "alertmsg": {
+    "account_exists": "Akaunto mēru wa mō arimasu.",
+    "account_loggedin": "Kono akaunto wa sudeni dōnyū sareteimasu.",
+    "incorrect_password": "Kono akaunto ni taisuru pasuwādo wa machigatteimasu.",
+    "account_notexist": "Akaunto wa sonzai shimasen.",
+    "character_exists": "Kono pāsōn no namae wa sudeni sonzai shimasu."
+  },
+  "user": {
+    "account_created": "Akaunto ga sōzō saremashita!",
+    "char_created": "Pāsōn ga sōzō saremashita!"
   }
 }

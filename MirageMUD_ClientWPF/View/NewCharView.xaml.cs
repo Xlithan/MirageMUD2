@@ -206,7 +206,9 @@ namespace MirageMUD_ClientWPF.View
             }
             else
             {
-                MessageBox.Show("Please enter a character name!", "Error", MessageBoxButton.OK);
+                string msg = TranslationManager.Instance.GetTranslation($"messages.no_nocharname");
+                string title = TranslationManager.Instance.GetTranslation($"titles.error");
+                MessageBox.Show(msg, title, MessageBoxButton.OK);
             }
         }
 

@@ -3,117 +3,41 @@
     "login_prompt": "Vänligen ange ditt användarnamn och lösenord!",
     "login_name_prompt": "Vänligen ange ditt användarnamn!",
     "password_prompt": "Vänligen ange ditt lösenord!",
-	"language_updated": "Språket uppdaterades framgångsrikt!",
-	"invalid_language": "Ogiltigt språk valt."
+    "settings_updated": "Inställningarna uppdaterades framgångsrikt!",
+    "invalid_language": "Ogiltigt språk valt.",
+    "no_connection": "Ingen anslutning till servern. Vill du försöka igen?",
+    "connection_lost": "Anslutningen till servern förlorades.",
+    "select_avatar": "Vänligen välj en avatar innan du sparar.",
+    "char_notselected": "Du måste välja en karaktär.",
+    "select_emptyslot": "Du måste välja en tom slot.",
+    "password_match": "Lösenorden stämmer inte överens!",
+    "no_loginname": "Vänligen ange ett användarnamn!",
+    "no_password": "Vänligen ange ett lösenord!",
+    "no_passwordconfirm": "Vänligen bekräfta ditt lösenord!",
+    "no_nocharname": "Vänligen ange ett karaktärsnamn!"
   },
-  "controls": {
-    "btnExit": {
-      "text": "Avsluta Spelet"
-    },
-    "btnHome": {
-      "text": "Hem"
-    },
-    "btnNewAcc": {
-      "text": "Nytt Konto"
-    },
-    "btnLogin": {
-      "text": "Logga in"
-    },
-    "btnIPConfig": {
-      "text": "IP-Konfiguration"
-    },
-    "btnGameOptions": {
-      "text": "Spelinställningar"
-    },
-    "btnCredits": {
-      "text": "Krediter"
-    },
-    "lblAccountName": {
-      "text": "Ej inloggad"
-    },
-    "lblTNewAcc": {
-      "text": "Nytt Konto"
-    },
-    "lblLoginDesc": {
-      "text": "Ange kontonamn och lösenord."
-    },
-    "lblNewAccDesc": {
-      "text": "Ange kontonamn och lösenord. Du kan välja valfritt namn, vi har inga begränsningar."
-    },
-    "lblNewAccName": {
-      "text": "Namn:"
-    },
-    "lblNewAccPass": {
-      "text": "Lösenord:"
-    },
-    "lblNewAccConfirm": {
-      "text": "Bekräfta Lösenord:"
-    },
-    "lblTLogin": {
-      "text": "Logga in"
-    },
-    "lblLoginName": {
-      "text": "Namn:"
-    },
-    "lblLoginPassword": {
-      "text": "Lösenord:"
-    },
-    "chkRemember": {
-      "text": "Kom ihåg mig"
-    },
-    "lblTExitGame": {
-      "text": "Avsluta Spelet"
-    },
-    "lblExitDesc": {
-      "text": "Bekräfta att du vill avsluta spelet."
-    },
-    "btnExitConfirm": {
-      "text": "Bekräfta"
-    },
-    "lblTIPConfig": {
-      "text": "IP-Konfiguration"
-    },
-    "lblIPHost": {
-      "text": "Värd:"
-    },
-    "lblIPPort": {
-      "text": "Port:"
-    },
-    "btnIPConfSave": {
-      "text": "Spara"
-    },
-    "lblTCredits": {
-      "text": "Krediter"
-    },
-    "lblCreditsDesc": {
-      "text": "MirageSource har och kommer alltid att vara ett kollektivt arbete av MirageSource-communityt sedan dess skapelse."
-    },
-    "lblCreditsThanks": {
-      "text": "Speciella Tack:"
-    },
-    "lblTGameOptions": {
-      "text": "Spelinställningar"
-    },
-    "lblOptMusic": {
-      "text": "Musik:"
-    },
-    "lblOptSound": {
-      "text": "Ljud:"
-    },
-    "lblOptFont": {
-      "text": "Teckensnitt:"
-    },
-    "lblOptLang": {
-      "text": "Språk:"
-    },
-    "btnOptionsSave": {
-      "text": "Spara"
-    },
-    "lblTWelcome": {
-      "text": "Välkommen"
-    },
-    "lblWelcomeDesc": {
-      "text": "Välkommen till MirageMUD 2, den mest avancerade grafiska MUD-motorn på planeten.\n\nAnvänd vänstermenyn för att skapa ett nytt konto eller logga in på servern."
-    }
+  "errors": {
+    "folder_notexist": "Mappen finns inte!",
+    "loading_avatars": "Fel vid laddning av avatarer: {0}",
+    "saving_avatar": "Fel vid sparande av avatar: {0}",
+    "resetting_avatar": "Fel vid återställning av avatar: {0}"
+  },
+  "titles": {
+    "connection_error": "Anslutningsfel",
+    "disconnected": "Frånkopplad",
+    "error": "Fel",
+    "warning": "Varning",
+    "alert": "Varning"
+  },
+  "alertmsg": {
+    "account_exists": "Användarnamn finns redan.",
+    "account_loggedin": "Detta konto är redan inloggat.",
+    "incorrect_password": "Felaktigt lösenord för detta konto.",
+    "account_notexist": "Kontot finns inte.",
+    "character_exists": "Detta karaktärsnamn finns redan."
+  },
+  "user": {
+    "account_created": "Kontot skapades!",
+    "char_created": "Karaktären skapades!"
   }
 }

@@ -4,6 +4,7 @@ using MirageMUD_ClientWPF.ViewModel;
 using System.Diagnostics;
 using System.IO;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Media.Imaging;
 
 namespace MirageMUD_ClientWPF.Model.Network
@@ -135,10 +136,13 @@ namespace MirageMUD_ClientWPF.Model.Network
             {
                 buffer.AddBytes(data); // Add the incoming data to the buffer
                 buffer.GetInteger(); // Skip over the packet ID (not used here)
-                string msg = buffer.GetString(); // Extract the alert message from the buffer
+                string key = buffer.GetString(); // Extract the alert message from the buffer
 
-                // Display the alert message in a MessageBox
-                MessageBox.Show(msg, "Alert", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                // Retrieve the translated message using the key
+                string translatedMsg = TranslationManager.Instance.GetTranslation($"alertmsg.{key}");
+
+                // Display the translated alert message in a MessageBox
+                MessageBox.Show(translatedMsg, "Alert", MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
         }
 
@@ -312,8 +316,9 @@ namespace MirageMUD_ClientWPF.Model.Network
                     }
                 });
 
-                // Display a success message indicating that the account was created
-                MessageBox.Show("Account was created!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                // Display a success message indicating that the character was created
+                string msg = TranslationManager.Instance.GetTranslation($"user.char_created");
+                MessageBox.Show(msg, "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 
@@ -518,7 +523,8 @@ namespace MirageMUD_ClientWPF.Model.Network
                 });
 
                 // Show a message box indicating the account was successfully created
-                MessageBox.Show("Account was created!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                string msg = TranslationManager.Instance.GetTranslation($"user.account_created");
+                MessageBox.Show(msg, "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
     }
