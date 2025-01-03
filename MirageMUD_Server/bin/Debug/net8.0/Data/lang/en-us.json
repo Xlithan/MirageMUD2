@@ -2,24 +2,25 @@
   "connection": {
     "terminated": "Connection terminated."
   },
-  "errors": {
-    "null_or_empty_data": "Data cannot be null or empty.",
-    "uninitialized_packets": "Packets dictionary is not initialized.",
-    "no_handler": "No packet handler found for packet number: {0}",
-    "account_not_found": "{0}'s account does not exist.",
-    "password_mismatch": "Password does not match for {0}."
-  },
   "user": {
-    "account_created": "Account created successfully.",
-    "logged_in": "{0} has logged in from {1}."
+    "account_created": "Account {0} created successfully.",
+    "char_created": "Character '{0}[{1}]' created successfully.",
+    "logged_in": "{0} has logged in from {1}.",
+    "password_mismatch": "Incorrect password.",
+    "saved_player": "Saved player {0} data to JSON.",
+    "loaded_player": "Loaded player {0} data.",
+    "logged_out": "{0} logged out."
   },
   "server": {
-    "initialising_network_packets": "Initialising network packets...",
+    "initialising_network_packets": "Initializing network packets...",
     "connection_received": "Connection received from {0}",
-    "initialising_server_network": "Initialising server network...",
+    "initialising_server_network": "Initializing server network...",
     "server_started": "Server has started."
   },
   "errors": {
-    "file_not_found": "Account file not found."
+    "file_not_found": "Account file not found.",
+    "null_or_empty_data": "Null or empty packet data.",
+    "uninitialized_packets": "Packets dictionary is not initialized",
+    "no_handler": "No handler found for received packet."
   }
 }

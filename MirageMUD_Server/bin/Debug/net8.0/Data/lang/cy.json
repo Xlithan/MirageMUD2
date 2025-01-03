@@ -1,25 +1,26 @@
 {
   "connection": {
-    "terminated": "Cysylltiad wedi'i derfynu."
-  },
-  "errors": {
-    "null_or_empty_data": "Ni all data fod yn wag neu'n null.",
-    "uninitialized_packets": "Dictionary y pecynnau heb ei gychwyn.",
-    "no_handler": "Dim handledwr pecyn wedi'i ddod o hyd i gyfer nifer y pecyn: {0}",
-    "account_not_found": "Does dim cyfrif {0}.",
-    "password_mismatch": "Ni chydymffurfir â'r cyfrinair ar gyfer {0}."
+    "terminated": "Cysylltiad wedi'i derfynnu."
   },
   "user": {
-    "account_created": "Cyfrif wedi'i greu'n llwyddiannus.",
-    "logged_in": "{0} wedi mewngofnodi o {1}."
+    "account_created": "Cafodd cyfrif {0} ei greu'n llwyddiannus.",
+    "char_created": "Cafodd cymeriad '{0}[{1}]' ei greu'n llwyddiannus.",
+    "logged_in": "Mae {0} wedi mewngofnodi o {1}.",
+    "password_mismatch": "Cyfrinair anghywir.",
+    "saved_player": "Wedi cadw data chwaraewr {0} i JSON.",
+    "loaded_player": "Wedi llwytho data chwaraewr {0}.",
+    "logged_out": "Mae {0} wedi allgofnodi."
   },
   "server": {
-    "initialising_network_packets": "Yn cychwyn pecynnau rhwydwaith...",
-    "connection_received": "Cysylltiad wedi'i dderbyn o {0}",
+    "initialising_network_packets": "Yn cychwyn pacedi rhwydwaith...",
+    "connection_received": "Cysylltiad derbyniedig oddi wrth {0}",
     "initialising_server_network": "Yn cychwyn rhwydwaith y gweinydd...",
-    "server_started": "Mae'r gweinydd wedi dechrau."
+    "server_started": "Mae'r gweinydd wedi cychwyn."
   },
   "errors": {
-    "file_not_found": "Ffeil cyfrif heb ei chanfod."
+    "file_not_found": "Ffeil cyfrif heb ei chanfod.",
+    "null_or_empty_data": "Data pecyn yn wag neu'n nwl.",
+    "uninitialized_packets": "Dictionaries pecyn ddim wedi'u cychwyn.",
+    "no_handler": "Dim handler wedi'i ganfod ar gyfer y pecyn derbyniedig."
   }
 }

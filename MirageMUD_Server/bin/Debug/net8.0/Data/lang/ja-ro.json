@@ -1,25 +1,26 @@
 {
   "connection": {
-    "terminated": "Setsuzoku ga shūryō shimashita."
-  },
-  "errors": {
-    "null_or_empty_data": "Dēta wa null matawa kara de wa ikemasen.",
-    "uninitialized_packets": "Paketto no jisho ga shokika sareteimasen.",
-    "no_handler": "Paketto bangō {0} ni taiō suru handora ga mitsukarimasen.",
-    "account_not_found": "{0} no akāunto wa sonzai shimasen.",
-    "password_mismatch": "{0} no pasuwādo ga icchi shimasen."
+    "terminated": "Kōsatsu shūryō."
   },
   "user": {
-    "account_created": "Akāunto ga seijō ni sakusei saremashita.",
-    "logged_in": "{0} wa {1} kara roguin shimashita."
+    "account_created": "{0} no akaundo ga seikō ni sakusei saremashita.",
+    "char_created": "'{0}[{1}]' no kyakutā ga seikō ni sakusei saremashita.",
+    "logged_in": "{0} wa {1} kara rōguin shimashita.",
+    "password_mismatch": "Pasuwādo ga machigatte imasu.",
+    "saved_player": "{0 no pāso no dēta o JSON ni hozon shimashita.",
+    "loaded_player": "{0} no pāso no dēta o rūdo shimashita.",
+    "logged_out": "{0} wa rōguauto shimashita."
   },
   "server": {
-    "initialising_network_packets": "Nettowāku paketto o shokika shiteimasu...",
-    "connection_received": "{0} kara setsuzoku ga jushin saremashita.",
-    "initialising_server_network": "Sāvā nettowāku o shokika shiteimasu...",
-    "server_started": "Sāvā ga kaishi saremashita."
+    "initialising_network_packets": "Nettowāku paketto no shokai...",
+    "connection_received": "{0} kara no setsuzoku o ukemashita.",
+    "initialising_server_network": "Sābā nettowāku no shokai...",
+    "server_started": "Sābā ga kaishi shimashita."
   },
   "errors": {
-    "file_not_found": "Akāunto fairu ga mitsukarimasen."
+    "file_not_found": "Akaundo fāiru ga mitsukarimasen.",
+    "null_or_empty_data": "Paketto no dēta ga null ka kū desu.",
+    "uninitialized_packets": "Paketto no dīkutonari ga shokai sareteimasen.",
+    "no_handler": "Ukematta paketto no hendō-ā ga mitsukarimasen."
   }
 }

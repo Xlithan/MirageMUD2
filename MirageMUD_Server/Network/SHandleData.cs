@@ -20,7 +20,6 @@ namespace MirageMUD_Server.Network
 
         public void InitialiseMessages()
         {
-            Console.WriteLine(TranslationManager.Instance.GetTranslation("server.initialising_network_packets")); // Log message for initializing network packets
             Packets = new Dictionary<int, Packet_>(); // Initialize the dictionary for packet handlers
 
             // Map each packet ID to its respective handler method

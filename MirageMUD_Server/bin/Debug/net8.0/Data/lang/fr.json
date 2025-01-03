@@ -2,24 +2,25 @@
   "connection": {
     "terminated": "Connexion terminée."
   },
-  "errors": {
-    "null_or_empty_data": "Les données ne peuvent pas être nulles ou vides.",
-    "uninitialized_packets": "Le dictionnaire des paquets n'est pas initialisé.",
-    "no_handler": "Aucun gestionnaire de paquets trouvé pour le numéro de paquet : {0}",
-    "account_not_found": "Le compte de {0} n'existe pas.",
-    "password_mismatch": "Le mot de passe ne correspond pas pour {0}."
-  },
   "user": {
-    "account_created": "Compte créé avec succès.",
-    "logged_in": "{0} s'est connecté depuis {1}."
+    "account_created": "Compte {0} créé avec succès.",
+    "char_created": "Personnage '{0}[{1}]' créé avec succès.",
+    "logged_in": "{0} s'est connecté depuis {1}.",
+    "password_mismatch": "Mot de passe incorrect.",
+    "saved_player": "Données du joueur {0} sauvegardées en JSON.",
+    "loaded_player": "Données du joueur {0} chargées.",
+    "logged_out": "{0} s'est déconnecté."
   },
   "server": {
     "initialising_network_packets": "Initialisation des paquets réseau...",
-    "connection_received": "Connexion reçue depuis {0}",
-    "initialising_server_network": "Initialisation du réseau serveur...",
+    "connection_received": "Connexion reçue de {0}",
+    "initialising_server_network": "Initialisation du réseau du serveur...",
     "server_started": "Le serveur a démarré."
   },
   "errors": {
-    "file_not_found": "Fichier de compte introuvable."
+    "file_not_found": "Fichier de compte non trouvé.",
+    "null_or_empty_data": "Données de paquet nulles ou vides.",
+    "uninitialized_packets": "Le dictionnaire des paquets n'est pas initialisé.",
+    "no_handler": "Aucun gestionnaire trouvé pour le paquet reçu."
   }
 }

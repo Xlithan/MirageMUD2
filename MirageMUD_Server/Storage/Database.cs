@@ -157,7 +157,7 @@ namespace MirageMUD_Server.Storage
 
             // Save the serialized data to the file
             File.WriteAllText(filename, json);
-            Console.WriteLine($"Saved player {STypes.Player[index].Login} data to JSON.");
+            Console.WriteLine(TranslationManager.Instance.GetTranslation("user.saved_player"), STypes.Player[index].Login);
         }
 
         // Loads the player data from a JSON file
@@ -169,7 +169,7 @@ namespace MirageMUD_Server.Storage
                 string json = File.ReadAllText(filename); // Read the player data from the file
                 STypes.Player[index] = JsonSerializer.Deserialize<STypes.AccountStruct>(json); // Deserialize to AccountStruct
 
-                Console.WriteLine($"Loaded player {STypes.Player[index].Login} data.");
+                Console.WriteLine(TranslationManager.Instance.GetTranslation("user.loaded_player"), STypes.Player[index].Login);
             }
             else
             {
@@ -180,7 +180,7 @@ namespace MirageMUD_Server.Storage
         // Unloads the player data
         public void UnloadPlayer(int index)
         {
-            Console.WriteLine($"{STypes.Player[index].Login} logged out.");
+            Console.WriteLine(TranslationManager.Instance.GetTranslation("user.logged_out"), STypes.Player[index].Login);
             STypes.Player[index] = new STypes.AccountStruct(); // Reset the player's data
         }
 

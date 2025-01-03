@@ -1,17 +1,15 @@
 {
   "connection": {
-    "terminated": "Conexão terminada."
-  },
-  "errors": {
-    "null_or_empty_data": "Os dados não podem ser nulos ou vazios.",
-    "uninitialized_packets": "O dicionário de pacotes não está inicializado.",
-    "no_handler": "Nenhum manipulador de pacotes encontrado para o número de pacote: {0}",
-    "account_not_found": "A conta de {0} não existe.",
-    "password_mismatch": "A senha não corresponde para {0}."
+    "terminated": "Conexão encerrada."
   },
   "user": {
-    "account_created": "Conta criada com sucesso.",
-    "logged_in": "{0} fez login de {1}."
+    "account_created": "Conta {0} criada com sucesso.",
+    "char_created": "Personagem '{0}[{1}]' criado com sucesso.",
+    "logged_in": "{0} fez login de {1}.",
+    "password_mismatch": "Senha incorreta.",
+    "saved_player": "Dados do jogador {0} salvos em JSON.",
+    "loaded_player": "Dados do jogador {0} carregados.",
+    "logged_out": "{0} fez logout."
   },
   "server": {
     "initialising_network_packets": "Inicializando pacotes de rede...",
@@ -20,6 +18,9 @@
     "server_started": "O servidor foi iniciado."
   },
   "errors": {
-    "file_not_found": "Arquivo de conta não encontrado."
+    "file_not_found": "Arquivo de conta não encontrado.",
+    "null_or_empty_data": "Dados do pacote nulos ou vazios.",
+    "uninitialized_packets": "Dicionário de pacotes não inicializado.",
+    "no_handler": "Nenhum manipulador encontrado para o pacote recebido."
   }
 }
