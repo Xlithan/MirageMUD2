@@ -141,11 +141,11 @@
     },
     {
       "ID": 1,
-      "Name": "",
-      "Race": 1,
+      "Name": "Zelimos",
+      "Race": 2,
       "Class": 1,
       "Gender": 0,
-      "Avatar": 1,
+      "Avatar": 3,
       "Level": 1,
       "Exp": 0,
       "PK": 0,
@@ -252,8 +252,8 @@
       ],
       "CharacterStats": {
         "Strength": 2,
-        "Intelligence": 2,
-        "Dexterity": 2,
+        "Intelligence": 4,
+        "Dexterity": 0,
         "Constitution": 2,
         "Wisdom": 2,
         "Charisma": 2
@@ -276,11 +276,11 @@
     },
     {
       "ID": 2,
-      "Name": "",
-      "Race": 1,
+      "Name": "Semantai",
+      "Race": 6,
       "Class": 1,
       "Gender": 0,
-      "Avatar": 1,
+      "Avatar": 5,
       "Level": 1,
       "Exp": 0,
       "PK": 0,
@@ -388,10 +388,10 @@
       "CharacterStats": {
         "Strength": 2,
         "Intelligence": 2,
-        "Dexterity": 2,
-        "Constitution": 2,
-        "Wisdom": 2,
-        "Charisma": 2
+        "Dexterity": 3,
+        "Constitution": 1,
+        "Wisdom": 4,
+        "Charisma": 0
       },
       "CharacterEquip": {
         "Helmet": 0,
