@@ -6,6 +6,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>Images\mud_icon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -22,11 +23,13 @@
     <None Remove="Images\map1.png" />
     <None Remove="Images\menuback.png" />
     <None Remove="Images\ME_icon.ico" />
+    <None Remove="Images\mud_icon.ico" />
     <None Remove="Images\newcharback.png" />
     <None Remove="Images\player.bmp" />
     <None Remove="Images\right-to-bracket-solid.png" />
     <None Remove="Images\server-solid.png" />
     <None Remove="Images\settingsback.png" />
+    <None Remove="Images\splashimage_mud.png" />
     <None Remove="Images\user-new.png" />
     <None Remove="Images\user-solid.png" />
   </ItemGroup>
@@ -38,6 +41,7 @@
     <Resource Include="Images\Avatars\blank.bmp" />
     <Resource Include="Images\gameback.png" />
     <Resource Include="Images\map1.png" />
+    <Resource Include="Images\mud_icon.ico" />
     <Resource Include="Images\SplashImage.png" />
   </ItemGroup>
 
@@ -62,6 +66,7 @@
     <Resource Include="Images\right-to-bracket-solid.png" />
     <Resource Include="Images\server-solid.png" />
     <Resource Include="Images\settingsback.png" />
+    <Resource Include="Images\SplashImage_mud.png" />
     <Resource Include="Images\user-new.png" />
     <Resource Include="Images\user-solid.png" />
   </ItemGroup>

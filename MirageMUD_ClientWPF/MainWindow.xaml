@@ -26,10 +26,10 @@
             </Border.Background>
             <StackPanel Orientation="Vertical" VerticalAlignment="Center">
                 <Image x:Name="SplashImage"
-                   Source="pack://application:,,,/MirageMUD_ClientWPF;component/Images/SplashImage.png"
-                   Stretch="None" />
+                   Source="pack://application:,,,/MirageMUD_ClientWPF;component/Images/SplashImage_mud.png"
+                   Stretch="UniformToFill" Width="250" Height="250" />
                 <TextBlock x:Name="txtMadeWith"
-                       Text="Made with Mirage Engine"
+                       Text="Made with MirageMUD 2"
                        Foreground="LightGray"
                        FontSize="18"
                        FontWeight="Bold"

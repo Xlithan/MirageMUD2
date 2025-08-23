@@ -1,6 +1,7 @@
 ﻿using Bindings;
 using MirageMUD_Server.Storage;
 using System.Security.Cryptography;
+using MirageMUD_Server.Security;
 using System.Text;
 
 namespace MirageMUD_Server.Network
@@ -12,6 +13,13 @@ namespace MirageMUD_Server.Network
         private Dictionary<int, Packet_> Packets; // Dictionary to store packet handlers
         private Database db = new Database(); // Database instance to interact with stored data
         private ServerTCP serverTCP;  // Instance of ClientTCP for network communication
+
+        private readonly RateLimiter _rateLimiter = new();
+        private string ClientKey(int index)
+        {
+            var ip = ServerTCP.Clients[index].IP;
+            return string.IsNullOrEmpty(ip) ? $"idx:{index}" : ip;
+        }
 
         public SHandleData()
         {
@@ -136,48 +144,53 @@ namespace MirageMUD_Server.Network
         private void HandleGetClasses(int Index, byte[] data)
         { }
 
-        private void HandleNewAccount(int Index, byte[] data)
+        private void HandleNewAccount(int index, byte[] data)
         {
-            using (PacketBuffer buffer = new PacketBuffer())
+            using var buffer = new PacketBuffer();
+            buffer.AddBytes(data);
+            buffer.GetInteger();
+            string username = buffer.GetString();
+            string password = buffer.GetString();
+
+            var key = ClientKey(index);
+            if (_rateLimiter.IsBlocked(key))
             {
-                buffer.AddBytes(data); // Add data to buffer
-                buffer.GetInteger(); // Skip packet ID as it's not needed here
-                string username = buffer.GetString(); // Extract username from buffer
-                string password = buffer.GetString(); // Extract password from buffer
-
-                // Generate a random salt (16 bytes)
-                byte[] salt = new byte[16];
-                using (var rng = new RNGCryptoServiceProvider())
-                {
-                    rng.GetBytes(salt); // Generate random salt for password hashing
-                }
-
-                // Combine password and salt to prepare for hashing
-                string passwordWithSalt = password + Convert.ToBase64String(salt);
-
-                // Hash the password + salt using SHA256 for security
-                using (SHA256 sha256 = SHA256.Create())
-                {
-                    byte[] hashedPassword = sha256.ComputeHash(Encoding.UTF8.GetBytes(passwordWithSalt));
-
-                    // Check if the account already exists in the database
-                    if (!db.AccountExist(username))
-                    {
-                        // Store the hashed password and salt in the database
-                        db.AddAccount(Index, username, Convert.ToBase64String(hashedPassword), Convert.ToBase64String(salt));
-                        Console.WriteLine(TranslationManager.Instance.GetTranslation("user.account_created"), username);
-                        serverTCP.SendAccountCreated(Index); // Notify the client that the account is created
-
-                        // Clear player data from the database and log the player out so that we can log in with the new account.
-                        db.UnloadPlayer(Index);
-                    }
-                    else
-                    {
-                        // If account already exists, send an error message
-                        serverTCP.AlertMsg(Index, "account_exists");
-                    }
-                }
+                serverTCP.AlertMsg(index, "account_create_failed");
+                return;
             }
+
+            if (!Username.IsValid(username))
+            {
+                serverTCP.AlertMsg(index, "account_create_failed");
+                _rateLimiter.Fail(key);
+                return;
+            }
+            username = Username.Normalize(username);
+
+            if (db.AccountExist(username))
+            {
+                serverTCP.AlertMsg(index, "account_create_failed");
+                _rateLimiter.Fail(key);
+                return;
+            }
+
+            // Generate random salt
+            string salt = Convert.ToBase64String(RandomNumberGenerator.GetBytes(16));
+
+            // Hash password+salt
+            string passwordWithSalt = password + salt;
+            byte[] hashBytes;
+            using (SHA256 sha256 = SHA256.Create())
+            {
+                hashBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(passwordWithSalt));
+            }
+            string hashedPassword = Convert.ToBase64String(hashBytes);
+
+            // Save account
+            db.AddAccount(index, username, hashedPassword, salt);
+
+            _rateLimiter.Success(key);
+            serverTCP.SendAccountCreated(index);
         }
 
         private void HandleDelAccount(int Index, byte[] data)
@@ -188,55 +201,76 @@ namespace MirageMUD_Server.Network
         {
             using (PacketBuffer buffer = new PacketBuffer())
             {
-                buffer.AddBytes(data); // Add data to buffer
-                buffer.GetInteger(); // Skip packet ID as it's not needed here
-                string username = buffer.GetString(); // Extract username from buffer
-                string password = buffer.GetString(); // Extract password from buffer
+                buffer.AddBytes(data);            // Add data to buffer
+                buffer.GetInteger();              // Skip packet ID
+                string username = buffer.GetString();
+                string password = buffer.GetString();
 
-                // Check if the username exists in the database
-                if (db.AccountExist(username))
+                // Normalize username (trim + case-insensitive handling if desired)
+                username = username.Trim();
+                // If you want case-insensitive accounts everywhere, uncomment:
+                // username = username.ToLowerInvariant();
+
+                // Check account exists
+                if (!db.AccountExist(username))
                 {
-                    // If the client slot already has a non-null socket (i.e., user is already logged in)
-                    if (serverTCP.IsLoggedIn(username))
+                    // Generic and existing key so UI stays the same
+                    serverTCP.AlertMsg(Index, "account_notexist");
+                    return;
+                }
+
+                // Prevent duplicate login
+                if (serverTCP.IsLoggedIn(username))
+                {
+                    serverTCP.AlertMsg(Index, "account_loggedin");
+                    return;
+                }
+
+                // Retrieve stored hash & salt (legacy format)
+                string storedHashedPassword = db.GetHashedPassword(username);
+                string storedSalt = db.GetSalt(username);
+
+                if (string.IsNullOrEmpty(storedHashedPassword) || string.IsNullOrEmpty(storedSalt))
+                {
+                    serverTCP.AlertMsg(Index, "incorrect_password");
+                    return;
+                }
+
+                // Compute SHA256(password + salt)
+                byte[] inputHashBytes;
+                using (SHA256 sha256 = SHA256.Create())
+                {
+                    string passwordWithSalt = password + storedSalt;
+                    inputHashBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(passwordWithSalt));
+                }
+
+                // Compare in constant time to avoid timing leaks
+                try
+                {
+                    byte[] storedHashBytes = Convert.FromBase64String(storedHashedPassword);
+                    bool match = CryptographicOperations.FixedTimeEquals(inputHashBytes, storedHashBytes);
+
+                    if (match)
                     {
-                        // Prevent duplicate account logins and notify the client
-                        serverTCP.AlertMsg(Index, "account_loggedin");
+                        // TODO: (Optional) On successful login, migrate this account to PBKDF2:
+                        // var envelope = PasswordHasher.Hash(password);
+                        // db.SetPasswordEnvelope(username, envelope);
+
+                        db.LoadPlayer(Index, username);
+                        serverTCP.SendChars(Index);
+                        // SendMaxes(); // if/when used
+                        Console.WriteLine(TranslationManager.Instance.GetTranslation("user.logged_in"),
+                            username, ServerTCP.Clients[Index].IP);
                     }
                     else
                     {
-                        // Retrieve the hashed password and salt from the database
-                        string storedHashedPassword = db.GetHashedPassword(username);
-                        string storedSalt = db.GetSalt(username);
-
-                        // Combine the input password with the stored salt
-                        string passwordWithSalt = password + storedSalt;
-
-                        // Hash the input password with salt
-                        using (SHA256 sha256 = SHA256.Create())
-                        {
-                            byte[] inputHashedPassword = sha256.ComputeHash(Encoding.UTF8.GetBytes(passwordWithSalt));
-
-                            // Compare the hashed password with the stored hashed password
-                            if (Convert.ToBase64String(inputHashedPassword) == storedHashedPassword)
-                            {
-                                // If the password matches, load player data and send characters to the client
-                                db.LoadPlayer(Index, username);
-                                serverTCP.SendChars(Index);
-                                // SendMaxes(); // (commented-out line for sending maxes, not currently used)
-                                Console.WriteLine(TranslationManager.Instance.GetTranslation("user.logged_in"), username, ServerTCP.Clients[Index].IP);
-                            }
-                            else
-                            {
-                                // Incorrect password, send an error message
-                                serverTCP.AlertMsg(Index, "incorrect_password");
-                            }
-                        }
+                        serverTCP.AlertMsg(Index, "incorrect_password");
                     }
                 }
-                else
+                catch (FormatException)
                 {
-                    // Username does not exist in the database, send an error message
-                    serverTCP.AlertMsg(Index, "account_notexist");
+                    // Stored hash not Base64? Treat as invalid.
+                    serverTCP.AlertMsg(Index, "incorrect_password");
                 }
             }
         }

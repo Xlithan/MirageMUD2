@@ -203,9 +203,9 @@
                                Margin="10,0,0,0"
                                Grid.Column="0"
                                VerticalAlignment="Center"
-                               Width="30" Source="/Images/ME_icon.ico" />
+                               Width="30" Source="/Images/mud_icon.ico" />
                         <TextBlock x:Name="lblStatus"
-                               Text="Made with Mirage Engine"
+                               Text="Made with MirageMUD 2"
                                Foreground="LightGray"
                                FontSize="12"
                                FontWeight="Bold"
