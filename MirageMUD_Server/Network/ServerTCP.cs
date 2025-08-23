@@ -1,5 +1,6 @@
 ﻿using Bindings;
 using MirageMUD_Server.PlayerData;
+using MirageMUD_Server.Security;
 using MirageMUD_Server.Types;
 using MirageMUD_Server.Utilities;
 using System.Collections.Concurrent;
@@ -42,8 +43,7 @@ namespace MirageMUD_Server.Network
 
             Console.WriteLine(string.Format(TranslationManager.Instance.GetTranslation("server.connection_received"), sourceIp));
 
-            // Disable Nagle's algorithm to improve performance for small messages
-            connectingTcpClient.NoDelay = false;
+            connectingTcpClient.NoDelay = true;
 
             // For every client slot
             for (int i = 0; i < Constants.MAX_PLAYERS; i++)
@@ -69,16 +69,10 @@ namespace MirageMUD_Server.Network
         }
 
         // Sends data to the specified client index
-        public void SendDataTo(int Index, byte[] data)
+        public void SendDataTo(int index, byte[] data)
         {
-            // Create a new packet buffer and add the data
-            PacketBuffer buffer = new PacketBuffer();
-            buffer.AddBytes(data);
-
-            // Write the data to the network stream
-            Clients[Index].myStream.Write(buffer.ToArray(), 0, buffer.ToArray().Length);
-
-            buffer.Dispose();  // Dispose of the buffer after sending
+            var stream = Clients[index].myStream;
+            stream.Write(data, 0, data.Length);
         }
 
         // Sends an alert message to the specified client
@@ -229,7 +223,8 @@ namespace MirageMUD_Server.Network
             for (int i = 0; i < Constants.MAX_PLAYERS; i++)
             {
                 // If the username matches any existing login, return true
-                if (string.Equals(STypes.Player[i].Login, username, StringComparison.OrdinalIgnoreCase))
+                username = Username.Normalize(username);
+                if (string.Equals(STypes.Player[i].Login, username, StringComparison.Ordinal))
                 {
                     return true;  // Duplicate found, return true
                 }

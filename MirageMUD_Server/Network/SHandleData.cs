@@ -301,6 +301,8 @@ namespace MirageMUD_Server.Network
                 int charAvatar = buffer.GetInteger(); // Extract the avatar ID for the character
                 int charNum = buffer.GetInteger(); // Extract the unique character ID
 
+                username = Username.Normalize(username);
+
                 // Check if the username exists in the database
                 if (db.AccountExist(username))
                 {

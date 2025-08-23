@@ -49,44 +49,6 @@ namespace MirageMUD_Server.Storage
             return existingNames.Contains(characterName);
         }
 
-        // Verifies if the provided password is correct for the specified account (SECURE)
-        public bool PasswordOK(int index, string username, string password)
-        {
-            string filename = AccountPath(username);
-            if (!File.Exists(filename))
-                throw new FileNotFoundException("Account file not found.");
-
-            // Load account into memory (keeps behavior consistent with rest of code)
-            string json = File.ReadAllText(filename);
-            STypes.Player[index] = JsonSerializer.Deserialize<STypes.AccountStruct>(json);
-
-            // Get stored hash and salt
-            string storedHashedPassword = GetHashedPassword(username);
-            string storedSalt = GetSalt(username);
-            if (string.IsNullOrEmpty(storedHashedPassword) || string.IsNullOrEmpty(storedSalt))
-                return false;
-
-            // Compute SHA256(password + salt)
-            byte[] inputHashBytes;
-            using (SHA256 sha256 = SHA256.Create())
-            {
-                string passwordWithSalt = password + storedSalt;
-                inputHashBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(passwordWithSalt));
-            }
-
-            // Constant-time comparison
-            try
-            {
-                byte[] storedHashBytes = Convert.FromBase64String(storedHashedPassword);
-                return CryptographicOperations.FixedTimeEquals(inputHashBytes, storedHashBytes);
-            }
-            catch
-            {
-                // Malformed stored hash
-                return false;
-            }
-        }
-
         // Adds a new account with the provided username, hashed password, and salt
         public void AddAccount(int index, string name, string hashedPassword, string salt)
         {

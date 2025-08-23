@@ -73,14 +73,15 @@ namespace MirageMUD_Server.Network
         // Closes the socket and handles the termination of the client connection.
         private void CloseSocket(int index)
         {
-            // Print a message indicating that the connection was terminated
-            Console.WriteLine(string.Format(
-                TranslationManager.Instance.GetTranslation("connection.terminated"),
-                IP));  // Log the termination message with the client's IP.
+            Console.WriteLine(string.Format(TranslationManager.Instance.GetTranslation("connection.terminated"), IP));
 
-            // Close the socket and set it to null
-            Socket.Close();
-            Socket = null;  // Nullify the socket to ensure it's no longer in use.
+            try { myStream?.Close(); } catch { }
+            myStream = null;
+
+            try { Socket?.Close(); } catch { }
+            Socket = null;
+
+            readBuff = null;
         }
     }
 }
