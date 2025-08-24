@@ -3,6 +3,7 @@ using MirageMUD_Server.PlayerData;
 using MirageMUD_Server.Security;
 using MirageMUD_Server.Types;
 using MirageMUD_Server.Utilities;
+using MirageMUD_Server.World;
 using System.Collections.Concurrent;
 using System.Net;
 using System.Net.Sockets;
@@ -27,6 +28,12 @@ namespace MirageMUD_Server.Network
         public void InitialiseNetwork()
         {
             Console.WriteLine(TranslationManager.Instance.GetTranslation("server.initialising_server_network"));
+
+            // Load (or seed) the map before accepting players
+            Rooms.Load(); // will create Data/rooms.json if missing
+            foreach (var issue in Rooms.ValidateBidirectional())
+                Console.WriteLine("[MAP] " + issue);
+
             ServerSocket = new TcpListener(IPAddress.Any, 7777);  // Listen on all IP addresses, port 7777
             ServerSocket.Start();  // Start the TCP listener
             ServerSocket.BeginAcceptTcpClient(OnClientConnect, null);  // Begin accepting incoming client connections asynchronously

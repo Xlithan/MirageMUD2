@@ -10,7 +10,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Constants.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Direction.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\RoomModels.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)NetworkPackets.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Net\Messages.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PacketBuffer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TranslationManager.cs" />
   </ItemGroup>
