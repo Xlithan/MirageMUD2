@@ -238,5 +238,29 @@ namespace MirageMUD_Server.Network
             }
             return false;  // No duplicate found, return false
         }
+
+        public void SendText(int Index, string msg)
+        {
+            using var buffer = new PacketBuffer();
+            buffer.AddInteger((int)ServerPackets.SText);
+            buffer.AddString(msg ?? "");
+            SendDataTo(Index, buffer.ToArray());
+        }
+
+        public void SendRoomView(int Index, Room r)
+        {
+            using var buffer = new PacketBuffer();
+            buffer.AddInteger((int)ServerPackets.SRoomView);
+            buffer.AddInteger(r.Id);
+            buffer.AddString(r.Alias ?? "");
+            buffer.AddString(r.LongDescription ?? "");
+            buffer.AddInteger(r.NorthId ?? 0);
+            buffer.AddInteger(r.EastId ?? 0);
+            buffer.AddInteger(r.SouthId ?? 0);
+            buffer.AddInteger(r.WestId ?? 0);
+            buffer.AddInteger(r.UpId ?? 0);
+            buffer.AddInteger(r.DownId ?? 0);
+            SendDataTo(Index, buffer.ToArray());
+        }
     }
 }

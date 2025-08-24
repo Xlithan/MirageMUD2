@@ -104,6 +104,7 @@ namespace MirageMUD_Server.Network
             Packets.Add((int)ClientPackets.CGuildPromote, HandleGuildPromote);
             Packets.Add((int)ClientPackets.CLeaveGuild, HandleLeaveGuild);
             Packets.Add((int)ClientPackets.CReRoll, HandleReRoll);
+            Packets.Add((int)ClientPackets.CCommand, HandleCommand);
         }
 
         public void HandleMessages(int Index, byte[] data)
@@ -531,5 +532,15 @@ namespace MirageMUD_Server.Network
         {
             serverTCP.SendReRoll(Index); // Sends the reroll request to the server for the specified player
         }
+        private void HandleCommand(int Index, byte[] data)
+        {
+            using var buffer = new PacketBuffer();
+            buffer.AddBytes(data);
+            buffer.GetInteger();          // skip packet id
+            string text = buffer.GetString();
+
+            World.WorldService.HandleCommand(Index, text);
+        }
+
     }
 }

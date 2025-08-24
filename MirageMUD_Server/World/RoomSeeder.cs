@@ -4,21 +4,26 @@
     {
         public static List<Room> GetStarterRooms()
         {
-            // A tiny 3-room map: Inn -> Square -> East Road
             return new List<Room>
             {
                 new Room
                 {
                     Id = 1,
                     Alias = "Starter Inn",
-                    LongDescription = "A cozy room with a sturdy bed and a lantern on the wall.",
+                    ShortDescription = "A modest common room warmed by a hearth.",
+                    LongDescription = "Rough-hewn beams frame the low ceiling, and the smell of stew lingers near the fire. A notice board hangs beside the door.",
+                    Terrain = "Indoor",
+                    Type = "SafeZone",
                     NorthId = 2
                 },
                 new Room
                 {
                     Id = 2,
                     Alias = "Town Square",
-                    LongDescription = "Bustling with life; merchants chat while a fountain gurgles at the center.",
+                    ShortDescription = "A lively square circling a stone fountain.",
+                    LongDescription = "Merchants barter beneath colorful awnings while a fountain gurgles at the center. Cobblestone streets branch in all directions.",
+                    Terrain = "Town",
+                    Type = "Town",
                     SouthId = 1,
                     EastId = 3
                 },
@@ -26,7 +31,10 @@
                 {
                     Id = 3,
                     Alias = "East Road",
-                    LongDescription = "A dusty road stretching toward the horizon. Town lies to the west.",
+                    ShortDescription = "A dusty road lined with hedgerows.",
+                    LongDescription = "Wagons rattle toward farms beyond the town palisade. The square lies back to the west.",
+                    Terrain = "Town",
+                    Type = "Road",
                     WestId = 2
                 }
             };
